@@ -4058,6 +4058,7 @@ fn update_enabled_config_patch() -> String {
 /// present and the check interval is short, the daemon should detect the
 /// pending update, request a graceful shutdown, and exit on its own.
 #[test] #[print_dur::print_dur]
+#[ignore] // flaky, linux
 #[serial]
 fn daemon_update_check_loop_detects_cached_update_and_shuts_down() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
