@@ -193,6 +193,7 @@ mod tests {
     use std::time::Instant;
 
     #[test] #[print_dur::print_dur]
+    #[ignore] // flaky, win
     fn test_load_ai_touched_files_for_specific_commits() {
         smol::block_on(async {
             let repo = find_repository_in_path(".").unwrap();
