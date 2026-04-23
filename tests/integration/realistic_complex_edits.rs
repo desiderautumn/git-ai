@@ -2,7 +2,7 @@ use crate::repos::test_file::ExpectedLineExt;
 use crate::repos::test_repo::TestRepo;
 use std::fs;
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_realistic_refactoring_sequence() {
     // Test a realistic code refactoring scenario with multiple human and AI edits
     let repo = TestRepo::new();
@@ -160,7 +160,7 @@ impl Calculator {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_realistic_api_endpoint_expansion() {
     // Test AI expanding an API with multiple endpoints, with human edits in between
     let repo = TestRepo::new();
@@ -325,7 +325,7 @@ pub async fn delete_user(Path(id): Path<u32>) -> Json<()> {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_realistic_test_file_evolution() {
     // Test evolution of a test file with AI adding tests and human refactoring
     let repo = TestRepo::new();
@@ -334,7 +334,7 @@ fn test_realistic_test_file_evolution() {
     // Human writes initial test
     fs::write(
         &file_path,
-        "#[test]
+        "#[test] #[print_dur::print_dur]
 fn test_addition() {
     assert_eq!(2 + 2, 4);
 }
@@ -348,17 +348,17 @@ fn test_addition() {
     // AI adds more test cases
     fs::write(
         &file_path,
-        "#[test]
+        "#[test] #[print_dur::print_dur]
 fn test_addition() {
     assert_eq!(2 + 2, 4);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_subtraction() {
     assert_eq!(5 - 3, 2);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_multiplication() {
     assert_eq!(3 * 4, 12);
 }
@@ -373,17 +373,17 @@ fn test_multiplication() {
     fs::write(
         &file_path,
         "mod arithmetic_tests {
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_addition() {
         assert_eq!(2 + 2, 4);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_subtraction() {
         assert_eq!(5 - 3, 2);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_multiplication() {
         assert_eq!(3 * 4, 12);
     }
@@ -399,22 +399,22 @@ fn test_multiplication() {
     fs::write(
         &file_path,
         "mod arithmetic_tests {
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_addition() {
         assert_eq!(2 + 2, 4);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_subtraction() {
         assert_eq!(5 - 3, 2);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_multiplication() {
         assert_eq!(3 * 4, 12);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_division() {
         assert_eq!(12 / 3, 4);
     }
@@ -429,27 +429,27 @@ fn test_multiplication() {
     fs::write(
         &file_path,
         "mod arithmetic_tests {
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_addition() {
         assert_eq!(2 + 2, 4);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_subtraction() {
         assert_eq!(5 - 3, 2);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_multiplication() {
         assert_eq!(3 * 4, 12);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_division() {
         assert_eq!(12 / 3, 4);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[should_panic]
     fn test_division_by_zero() {
         let _ = 1 / 0;
@@ -468,27 +468,27 @@ fn test_multiplication() {
     let mut file = repo.filename("tests.rs");
     file.assert_lines_and_blame(crate::lines![
         "mod arithmetic_tests {".human(),
-        "    #[test]".human(),
+        "    #[test] #[print_dur::print_dur]".human(),
         "    fn test_addition() {".human(),
         "        assert_eq!(2 + 2, 4);".human(),
         "    }".human(), // Line 5: attributed to human who added indentation
         "".ai(),         // Blank lines stay attributed to AI who originally added them
-        "    #[test]".human(),
+        "    #[test] #[print_dur::print_dur]".human(),
         "    fn test_subtraction() {".human(),
         "        assert_eq!(5 - 3, 2);".human(),
         "    }".human(),
         "".ai(), // Blank line stays with AI
-        "    #[test]".human(),
+        "    #[test] #[print_dur::print_dur]".human(),
         "    fn test_multiplication() {".human(),
         "        assert_eq!(3 * 4, 12);".human(),
         "    }".human(),
         "".ai(), // Blank line added by AI with division test
-        "    #[test]".ai(),
+        "    #[test] #[print_dur::print_dur]".ai(),
         "    fn test_division() {".ai(),
         "        assert_eq!(12 / 3, 4);".ai(),
         "    }".ai(),
         "".human(), // Blank line added by human with edge case test
-        "    #[test]".human(),
+        "    #[test] #[print_dur::print_dur]".human(),
         "    #[should_panic]".human(),
         "    fn test_division_by_zero() {".human(),
         "        let _ = 1 / 0;".human(),
@@ -497,7 +497,7 @@ fn test_multiplication() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_realistic_config_file_with_comments() {
     // Test AI and human editing a config file with comments
     let repo = TestRepo::new();
@@ -598,7 +598,7 @@ format = \"json\"
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_realistic_jsx_component_development() {
     // Test AI and human building a React component together
     let repo = TestRepo::new();
@@ -701,7 +701,7 @@ fn test_realistic_jsx_component_development() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_realistic_class_with_multiple_methods() {
     // Test complex class evolution with multiple method additions and modifications
     let repo = TestRepo::new();
@@ -911,7 +911,7 @@ fn test_realistic_class_with_multiple_methods() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_realistic_middleware_chain_development() {
     // Test building middleware with AI and human working together
     let repo = TestRepo::new();
@@ -1094,7 +1094,7 @@ export function errorHandlerMiddleware(err, req, res, next) {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_realistic_sql_migration_sequence() {
     // Test AI and human collaborating on database migrations
     let repo = TestRepo::new();
@@ -1213,7 +1213,7 @@ CREATE INDEX idx_posts_user_id ON posts(user_id);
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_realistic_refactoring_with_deletions() {
     // Test removing deprecated code - AI removes old API, human cleans up more
     let repo = TestRepo::new();
@@ -1346,7 +1346,7 @@ pub fn validate_input(data: &str) -> bool {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_realistic_formatting_and_whitespace_changes() {
     // Test code formatting changes - human writes compact, AI reformats, human adds features
     let repo = TestRepo::new();
@@ -1469,7 +1469,7 @@ fn test_realistic_formatting_and_whitespace_changes() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_realistic_multi_file_commit() {
     // Test editing multiple related files in a single commit
     let repo = TestRepo::new();

@@ -1,7 +1,7 @@
 use crate::repos::test_file::ExpectedLineExt;
 use crate::repos::test_repo::TestRepo;
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_after_merge_with_ai_contributions() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -47,7 +47,7 @@ fn test_blame_after_merge_with_ai_contributions() {
     ]);
 }
 
-// #[test]
+// #[test] #[print_dur::print_dur]
 // fn test_blame_after_rebase_with_ai_contributions() {
 //     let tmp_dir = tempdir().unwrap();
 //     let repo_path = tmp_dir.path().to_path_buf();
@@ -89,7 +89,7 @@ fn test_blame_after_merge_with_ai_contributions() {
 //     assert_debug_snapshot!(blame);
 // }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore] // TODO: Fix this when we bring move back. Our test rig isn't handling trailing empty lines
 fn test_blame_after_complex_merge_scenario() {
     let repo = TestRepo::new();
@@ -150,7 +150,7 @@ fn test_blame_after_complex_merge_scenario() {
     ]);
 }
 
-// #[test]
+// #[test] #[print_dur::print_dur]
 // fn test_blame_after_rebase_chain() {
 //     let tmp_dir = tempdir().unwrap();
 //     let repo_path = tmp_dir.path().to_path_buf();
@@ -197,7 +197,7 @@ fn test_blame_after_complex_merge_scenario() {
 //     assert_debug_snapshot!(blame);
 // }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_after_merge_conflict_resolution() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -277,7 +277,7 @@ fn test_blame_after_merge_conflict_resolution() {
 /// (mock_ai) resolves the conflict by rewriting the file and calling `git-ai checkpoint`.
 /// The human then stages and commits.  The commit should attribute the AI-written line
 /// to mock_ai and the unchanged human line to the human author.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_merge_conflict_ai_resolution_outside_session() {
     let repo = TestRepo::new();
 

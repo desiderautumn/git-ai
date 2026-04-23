@@ -1,7 +1,7 @@
 use crate::repos::test_file::ExpectedLineExt;
 use crate::repos::test_repo::TestRepo;
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_chinese_simple_additions() {
     let repo = TestRepo::new();
     let mut file = repo.filename("chinese.txt");
@@ -21,7 +21,7 @@ fn test_chinese_simple_additions() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_chinese_ai_then_human_edits() {
     let repo = TestRepo::new();
     let mut file = repo.filename("status.txt");
@@ -42,7 +42,7 @@ fn test_chinese_ai_then_human_edits() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_chinese_deletions_and_insertions() {
     let repo = TestRepo::new();
     let mut file = repo.filename("notes.txt");
@@ -72,7 +72,7 @@ fn test_chinese_deletions_and_insertions() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_chinese_partial_staging() {
     let repo = TestRepo::new();
     let mut file = repo.filename("partial.txt");
@@ -96,7 +96,7 @@ fn test_chinese_partial_staging() {
 }
 
 // TODO Reflow and move detection tests need a harness for setting the feature flags, but manually tested
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn test_chinese_move_detection_preserves_ai() {
     let repo = TestRepo::new();
@@ -130,7 +130,7 @@ fn test_chinese_move_detection_preserves_ai() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn test_chinese_reflow_preserves_ai() {
     use std::fs;

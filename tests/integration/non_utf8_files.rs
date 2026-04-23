@@ -61,7 +61,7 @@ fn mixed_valid_invalid_utf8() -> Vec<u8> {
 // Core: Commit flow with non-UTF-8 files
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_commit_gbk_encoded_file_succeeds() {
     let repo = TestRepo::new();
 
@@ -80,7 +80,7 @@ fn test_commit_gbk_encoded_file_succeeds() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_commit_latin1_encoded_file_succeeds() {
     let repo = TestRepo::new();
 
@@ -99,7 +99,7 @@ fn test_commit_latin1_encoded_file_succeeds() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_commit_shift_jis_encoded_file_succeeds() {
     let repo = TestRepo::new();
 
@@ -118,7 +118,7 @@ fn test_commit_shift_jis_encoded_file_succeeds() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_commit_mixed_valid_invalid_utf8_file_succeeds() {
     let repo = TestRepo::new();
 
@@ -141,7 +141,7 @@ fn test_commit_mixed_valid_invalid_utf8_file_succeeds() {
 // Stats: Ensure stats work with non-UTF-8 files present
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stats_with_non_utf8_file_only() {
     let repo = TestRepo::new();
 
@@ -164,7 +164,7 @@ fn test_stats_with_non_utf8_file_only() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stats_with_non_utf8_and_utf8_files_mixed() {
     let repo = TestRepo::new();
 
@@ -195,7 +195,7 @@ fn test_stats_with_non_utf8_and_utf8_files_mixed() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stats_json_output_valid_with_non_utf8_file() {
     let repo = TestRepo::new();
 
@@ -220,7 +220,7 @@ fn test_stats_json_output_valid_with_non_utf8_file() {
 // Blame: Ensure blame works (or gracefully degrades) with non-UTF-8 files
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_non_utf8_file_does_not_crash() {
     let repo = TestRepo::new();
 
@@ -240,7 +240,7 @@ fn test_blame_non_utf8_file_does_not_crash() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_utf8_file_unaffected_by_non_utf8_neighbor() {
     let repo = TestRepo::new();
 
@@ -271,7 +271,7 @@ fn test_blame_utf8_file_unaffected_by_non_utf8_neighbor() {
 // Edit flow: Modifying non-UTF-8 files across commits
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_edit_non_utf8_file_second_commit() {
     let repo = TestRepo::new();
 
@@ -292,7 +292,7 @@ fn test_edit_non_utf8_file_second_commit() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_delete_non_utf8_file() {
     let repo = TestRepo::new();
 
@@ -317,7 +317,7 @@ fn test_delete_non_utf8_file() {
 // AI attribution: UTF-8 files get correct attribution even with non-UTF-8 neighbors
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ai_attribution_preserved_with_non_utf8_in_same_commit() {
     let repo = TestRepo::new();
 
@@ -361,7 +361,7 @@ fn test_ai_attribution_preserved_with_non_utf8_in_same_commit() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_human_and_ai_edits_with_non_utf8_file_present() {
     let repo = TestRepo::new();
 
@@ -393,7 +393,7 @@ fn test_human_and_ai_edits_with_non_utf8_file_present() {
 // Multiple non-UTF-8 files in a single commit
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_multiple_non_utf8_encodings_in_one_commit() {
     let repo = TestRepo::new();
 
@@ -431,7 +431,7 @@ fn test_multiple_non_utf8_encodings_in_one_commit() {
 // Non-UTF-8 file in subdirectory
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_non_utf8_file_in_subdirectory() {
     let repo = TestRepo::new();
 
@@ -456,7 +456,7 @@ fn test_non_utf8_file_in_subdirectory() {
 // Checkpoint: Non-UTF-8 files during checkpoint
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_checkpoint_with_non_utf8_file() {
     let repo = TestRepo::new();
 
@@ -475,7 +475,7 @@ fn test_checkpoint_with_non_utf8_file() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_checkpoint_ai_with_non_utf8_file_present() {
     let repo = TestRepo::new();
 
@@ -510,7 +510,7 @@ fn test_checkpoint_ai_with_non_utf8_file_present() {
 // Binary files: Should be handled gracefully (related edge case)
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_binary_file_does_not_crash_commit() {
     let repo = TestRepo::new();
 
@@ -535,7 +535,7 @@ fn test_binary_file_does_not_crash_commit() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_binary_and_non_utf8_with_ai_file() {
     let repo = TestRepo::new();
 
@@ -586,7 +586,7 @@ fn test_binary_and_non_utf8_with_ai_file() {
 // with non-UTF-8 files present
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_line_attribution_ai_file_with_gbk_neighbor() {
     let repo = TestRepo::new();
     let mut ai_file = repo.filename("code.py");
@@ -610,7 +610,7 @@ fn test_line_attribution_ai_file_with_gbk_neighbor() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_line_attribution_multi_commit_with_non_utf8_neighbor() {
     let repo = TestRepo::new();
     let mut file = repo.filename("app.ts");
@@ -644,7 +644,7 @@ fn test_line_attribution_multi_commit_with_non_utf8_neighbor() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_line_attribution_interleaved_ai_human_with_non_utf8() {
     let repo = TestRepo::new();
     let mut file = repo.filename("mixed.rs");
@@ -675,7 +675,7 @@ fn test_line_attribution_interleaved_ai_human_with_non_utf8() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_line_attribution_ai_replaces_lines_with_non_utf8_present() {
     let repo = TestRepo::new();
     let mut file = repo.filename("config.js");
@@ -706,7 +706,7 @@ fn test_line_attribution_ai_replaces_lines_with_non_utf8_present() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_line_attribution_multiple_utf8_files_with_non_utf8_neighbors() {
     let repo = TestRepo::new();
     let mut file_a = repo.filename("module_a.py");
@@ -744,7 +744,7 @@ fn test_line_attribution_multiple_utf8_files_with_non_utf8_neighbors() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_line_attribution_ai_across_multiple_commits_with_non_utf8() {
     let repo = TestRepo::new();
     let mut file = repo.filename("evolving.ts");
@@ -785,7 +785,7 @@ fn test_line_attribution_ai_across_multiple_commits_with_non_utf8() {
 // Edge case: File that starts as UTF-8 and becomes non-UTF-8
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_file_changes_from_utf8_to_non_utf8() {
     let repo = TestRepo::new();
 
@@ -806,7 +806,7 @@ fn test_file_changes_from_utf8_to_non_utf8() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_file_changes_from_non_utf8_to_utf8() {
     let repo = TestRepo::new();
 
@@ -831,7 +831,7 @@ fn test_file_changes_from_non_utf8_to_utf8() {
 // Stats on non-UTF-8 file edits
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stats_after_editing_non_utf8_file() {
     let repo = TestRepo::new();
 
@@ -859,7 +859,7 @@ fn test_stats_after_editing_non_utf8_file() {
 // Large non-UTF-8 file
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_large_non_utf8_file() {
     let repo = TestRepo::new();
 
@@ -898,7 +898,7 @@ fn test_large_non_utf8_file() {
 // Non-UTF-8 content with null bytes (edge case between binary and text)
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_file_with_null_bytes_in_content() {
     let repo = TestRepo::new();
 

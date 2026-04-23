@@ -571,7 +571,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn commit_without_amend_emits_commit_created() {
         let analyzer = HistoryAnalyzer;
         let result = analyzer
@@ -590,7 +590,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn amend_prefers_pre_head_over_zero_old_reflog_change() {
         let analyzer = HistoryAnalyzer;
         let mut cmd = command("commit", &["git", "commit", "--amend", "-m", "x"]);
@@ -639,7 +639,7 @@ mod tests {
         )));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn reset_emits_reset_kind() {
         let analyzer = HistoryAnalyzer;
         let result = analyzer
@@ -659,7 +659,7 @@ mod tests {
         )));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn commit_uses_pre_post_head_when_reflog_delta_is_empty() {
         let analyzer = HistoryAnalyzer;
         let mut cmd = command("commit", &["git", "commit", "-m", "x"]);
@@ -697,7 +697,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn commit_fallback_prefers_pre_head_over_family_refs() {
         let analyzer = HistoryAnalyzer;
         let mut cmd = command("commit", &["git", "commit", "-m", "x"]);
@@ -734,7 +734,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn commit_emits_created_when_only_post_head_is_available() {
         let analyzer = HistoryAnalyzer;
         let mut cmd = command("commit", &["git", "commit", "-m", "x"]);
@@ -766,7 +766,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn commit_falls_back_to_head_reflog_when_pre_and_post_are_contaminated() {
         let analyzer = HistoryAnalyzer;
         let dir = tempdir().expect("tempdir");
@@ -821,7 +821,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn commit_prefers_post_head_when_family_ref_changes_are_contaminated() {
         let analyzer = HistoryAnalyzer;
         let mut cmd = command("commit", &["git", "-C", "/repo-b", "commit", "-m", "x"]);
@@ -874,7 +874,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn head_change_prefers_branch_hint_over_head_change() {
         let mut cmd = command("commit", &["git", "commit", "-m", "x"]);
         cmd.ref_changes = vec![
@@ -908,7 +908,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn rebase_continue_prefers_branch_ref_change_over_head_span() {
         let analyzer = HistoryAnalyzer;
         let mut cmd = command("rebase", &["git", "rebase", "--continue"]);
@@ -953,7 +953,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn cherry_pick_uses_full_head_ref_change_span() {
         let analyzer = HistoryAnalyzer;
         let mut cmd = command(
@@ -1000,7 +1000,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn cherry_pick_prefers_ref_state_when_pre_head_matches_post_head() {
         let analyzer = HistoryAnalyzer;
         let mut cmd = command("cherry-pick", &["git", "cherry-pick", "--continue"]);
@@ -1036,7 +1036,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn merge_squash_emits_resolved_source_ref_and_head() {
         let analyzer = HistoryAnalyzer;
         let mut cmd = command("merge", &["git", "merge", "--squash", "feature"]);

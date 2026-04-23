@@ -9,7 +9,7 @@ use serde_json::json;
 use std::fs;
 use std::io::Write;
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_parse_example_continue_cli_json() {
     let fixture = fixture_path("continue-cli-session-simple.json");
     let transcript = ContinueCliPreset::transcript_from_continue_json(fixture.to_str().unwrap())
@@ -33,7 +33,7 @@ fn test_parse_example_continue_cli_json() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_cli_parses_user_messages() {
     let fixture = fixture_path("continue-cli-session-simple.json");
     let transcript = ContinueCliPreset::transcript_from_continue_json(fixture.to_str().unwrap())
@@ -58,7 +58,7 @@ fn test_continue_cli_parses_user_messages() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_cli_parses_assistant_messages() {
     let fixture = fixture_path("continue-cli-session-simple.json");
     let transcript = ContinueCliPreset::transcript_from_continue_json(fixture.to_str().unwrap())
@@ -82,7 +82,7 @@ fn test_continue_cli_parses_assistant_messages() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_cli_parses_tool_calls() {
     let fixture = fixture_path("continue-cli-session-simple.json");
     let transcript = ContinueCliPreset::transcript_from_continue_json(fixture.to_str().unwrap())
@@ -125,7 +125,7 @@ fn test_continue_cli_parses_tool_calls() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_cli_parses_tool_call_args() {
     let fixture = fixture_path("continue-cli-session-simple.json");
     let transcript = ContinueCliPreset::transcript_from_continue_json(fixture.to_str().unwrap())
@@ -156,7 +156,7 @@ fn test_continue_cli_parses_tool_call_args() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_cli_handles_empty_content() {
     // Test that empty content strings are skipped
     let sample = r##"{
@@ -211,7 +211,7 @@ fn test_continue_cli_handles_empty_content() {
     assert_eq!(assistant_count, 1, "Should skip empty content");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_cli_preset_extracts_model_from_hook_input() {
     let hook_input = json!({
         "cwd": "/Users/svarlamov/projects/testing-git",
@@ -237,7 +237,7 @@ fn test_continue_cli_preset_extracts_model_from_hook_input() {
     assert_eq!(result.agent_id.id, "2dbfd673-096d-4773-b5f3-9023894a7355");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_cli_preset_defaults_to_unknown_model() {
     let hook_input = json!({
         "cwd": "/Users/svarlamov/projects/testing-git",
@@ -260,7 +260,7 @@ fn test_continue_cli_preset_defaults_to_unknown_model() {
     assert_eq!(result.agent_id.model, "unknown");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_cli_preset_extracts_edited_filepath() {
     let hook_input = json!({
         "cwd": "/Users/svarlamov/projects/testing-git",
@@ -290,7 +290,7 @@ fn test_continue_cli_preset_extracts_edited_filepath() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_cli_preset_no_filepath_when_tool_input_missing() {
     let hook_input = json!({
         "cwd": "/Users/svarlamov/projects/testing-git",
@@ -311,7 +311,7 @@ fn test_continue_cli_preset_no_filepath_when_tool_input_missing() {
     assert!(result.edited_filepaths.is_none());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_cli_preset_human_checkpoint() {
     use git_ai::authorship::working_log::CheckpointKind;
 
@@ -356,7 +356,7 @@ fn test_continue_cli_preset_human_checkpoint() {
     assert!(result.transcript.is_none());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_cli_preset_ai_checkpoint() {
     use git_ai::authorship::working_log::CheckpointKind;
 
@@ -395,7 +395,7 @@ fn test_continue_cli_preset_ai_checkpoint() {
     assert!(result.will_edit_filepaths.is_none());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_cli_preset_stores_transcript_path_in_metadata() {
     let hook_input = json!({
         "cwd": "/Users/svarlamov/projects/testing-git",
@@ -421,7 +421,7 @@ fn test_continue_cli_preset_stores_transcript_path_in_metadata() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_cli_preset_handles_missing_transcript_path() {
     let hook_input = json!({
         "cwd": "/Users/svarlamov/projects/testing-git",
@@ -447,7 +447,7 @@ fn test_continue_cli_preset_handles_missing_transcript_path() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_cli_preset_handles_invalid_json() {
     let hook_input = "{ invalid json }";
 
@@ -462,7 +462,7 @@ fn test_continue_cli_preset_handles_invalid_json() {
     assert!(result.is_err());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_cli_preset_handles_missing_session_id() {
     let hook_input = json!({
         "cwd": "/Users/svarlamov/projects/testing-git",
@@ -488,7 +488,7 @@ fn test_continue_cli_preset_handles_missing_session_id() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_cli_preset_handles_missing_file() {
     let hook_input = json!({
         "cwd": "/Users/svarlamov/projects/testing-git",
@@ -516,7 +516,7 @@ fn test_continue_cli_preset_handles_missing_file() {
 // End-to-end tests using TestRepo
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_cli_e2e_with_attribution() {
     let repo = TestRepo::new();
     let fixture_path_str = fixture_path("continue-cli-session-simple.json")
@@ -604,7 +604,7 @@ fn test_continue_cli_e2e_with_attribution() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_cli_e2e_human_checkpoint() {
     let repo = TestRepo::new();
     let fixture_path_str = fixture_path("continue-cli-session-simple.json")
@@ -663,7 +663,7 @@ fn test_continue_cli_e2e_human_checkpoint() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_cli_e2e_multiple_tool_calls() {
     let repo = TestRepo::new();
     let fixture_path_str = fixture_path("continue-cli-session-simple.json")
@@ -711,7 +711,7 @@ fn test_continue_cli_e2e_multiple_tool_calls() {
     assert!(!commit.authorship_log.attestations.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_cli_e2e_preserves_model_on_commit() {
     let repo = TestRepo::new();
     let fixture_path_str = fixture_path("continue-cli-session-simple.json")

@@ -1027,7 +1027,7 @@ mod tests {
         assert_debug_snapshot!(deletion_only_output);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_stats_for_simple_ai_commit() {
         let tmp_repo = TmpRepo::new().unwrap();
 
@@ -1075,7 +1075,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_stats_for_mixed_commit() {
         let tmp_repo = TmpRepo::new().unwrap();
 
@@ -1122,7 +1122,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_stats_for_initial_commit() {
         let tmp_repo = TmpRepo::new().unwrap();
 
@@ -1161,7 +1161,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_stats_ignores_single_lockfile() {
         let tmp_repo = TmpRepo::new().unwrap();
 
@@ -1201,7 +1201,7 @@ mod tests {
         assert_eq!(stats_without_lockfile.ai_additions, 1);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_stats_ignores_multiple_lockfiles() {
         let tmp_repo = TmpRepo::new().unwrap();
 
@@ -1252,7 +1252,7 @@ mod tests {
         assert_eq!(stats_filtered.unknown_additions, 0);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_stats_with_lockfile_only_commit() {
         let tmp_repo = TmpRepo::new().unwrap();
 
@@ -1289,7 +1289,7 @@ mod tests {
         assert_eq!(stats_without.human_additions, 0);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_stats_empty_ignore_patterns() {
         let tmp_repo = TmpRepo::new().unwrap();
 
@@ -1317,7 +1317,7 @@ mod tests {
         assert_eq!(stats.ai_additions, 2);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_stats_with_glob_patterns() {
         let tmp_repo = TmpRepo::new().unwrap();
 
@@ -1376,7 +1376,7 @@ mod tests {
         assert_eq!(stats_filtered.git_diff_added_lines, 1);
         assert_eq!(stats_filtered.ai_additions, 1);
     }
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_accepted_lines_no_authorship_log() {
         let added_lines: HashMap<String, Vec<u32>> = HashMap::new();
         let (accepted, known_human, per_tool) =
@@ -1386,7 +1386,7 @@ mod tests {
         assert!(per_tool.is_empty());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_accepted_lines_merge_commit() {
         // Even with a real authorship log, merge commits should short-circuit to (0, empty)
         let mut log = crate::authorship::authorship_log_serialization::AuthorshipLog::new();
@@ -1435,7 +1435,7 @@ mod tests {
         assert!(per_tool.is_empty());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_accepted_lines_no_matching_files() {
         let mut log = crate::authorship::authorship_log_serialization::AuthorshipLog::new();
         let agent_id = crate::authorship::working_log::AgentId {
@@ -1484,7 +1484,7 @@ mod tests {
         assert!(per_tool.is_empty());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_accepted_lines_basic_match() {
         let mut log = crate::authorship::authorship_log_serialization::AuthorshipLog::new();
         let agent_id = crate::authorship::working_log::AgentId {
@@ -1537,44 +1537,44 @@ mod tests {
 
     // --- line_range_overlap_len tests ---
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_overlap_single_hit() {
         let count = line_range_overlap_len(&LineRange::Single(5), &[3, 5, 7]);
         assert_eq!(count, 1);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_overlap_single_miss() {
         let count = line_range_overlap_len(&LineRange::Single(4), &[3, 5, 7]);
         assert_eq!(count, 0);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_overlap_range_full() {
         let count = line_range_overlap_len(&LineRange::Range(3, 7), &[3, 4, 5, 6, 7]);
         assert_eq!(count, 5);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_overlap_range_partial() {
         // Range [4, 8] intersected with [3, 5, 7, 9]: only 5 and 7 are in range
         let count = line_range_overlap_len(&LineRange::Range(4, 8), &[3, 5, 7, 9]);
         assert_eq!(count, 2);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_overlap_range_miss() {
         let count = line_range_overlap_len(&LineRange::Range(10, 20), &[1, 2, 3]);
         assert_eq!(count, 0);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_overlap_range_empty_added() {
         let count = line_range_overlap_len(&LineRange::Range(1, 10), &[]);
         assert_eq!(count, 0);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_stats_for_merge_commit_skips_ai_acceptance() {
         let tmp_repo = TmpRepo::new().unwrap();
 
@@ -1612,13 +1612,13 @@ mod tests {
         assert_eq!(stats.ai_additions, stats.mixed_additions);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_calculate_waiting_time_no_messages() {
         let transcript = crate::authorship::transcript::AiTranscript { messages: vec![] };
         assert_eq!(calculate_waiting_time(&transcript), 0);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_calculate_waiting_time_single_message() {
         use crate::authorship::transcript::Message;
         let transcript = crate::authorship::transcript::AiTranscript {
@@ -1630,7 +1630,7 @@ mod tests {
         assert_eq!(calculate_waiting_time(&transcript), 0);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_calculate_waiting_time_last_message_is_human() {
         use crate::authorship::transcript::Message;
         let transcript = crate::authorship::transcript::AiTranscript {
@@ -1653,7 +1653,7 @@ mod tests {
         assert_eq!(calculate_waiting_time(&transcript), 0);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_calculate_waiting_time_with_ai_response() {
         use crate::authorship::transcript::Message;
         let transcript = crate::authorship::transcript::AiTranscript {
@@ -1672,7 +1672,7 @@ mod tests {
         assert_eq!(calculate_waiting_time(&transcript), 5);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_calculate_waiting_time_multiple_rounds() {
         use crate::authorship::transcript::Message;
         let transcript = crate::authorship::transcript::AiTranscript {
@@ -1699,7 +1699,7 @@ mod tests {
         assert_eq!(calculate_waiting_time(&transcript), 10);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_calculate_waiting_time_with_thinking_message() {
         use crate::authorship::transcript::Message;
         let transcript = crate::authorship::transcript::AiTranscript {
@@ -1718,7 +1718,7 @@ mod tests {
         assert_eq!(calculate_waiting_time(&transcript), 2);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_calculate_waiting_time_with_plan_message() {
         use crate::authorship::transcript::Message;
         let transcript = crate::authorship::transcript::AiTranscript {
@@ -1737,7 +1737,7 @@ mod tests {
         assert_eq!(calculate_waiting_time(&transcript), 4);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_calculate_waiting_time_no_timestamps() {
         use crate::authorship::transcript::Message;
         let transcript = crate::authorship::transcript::AiTranscript {
@@ -1756,7 +1756,7 @@ mod tests {
         assert_eq!(calculate_waiting_time(&transcript), 0);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_stats_command_nonexistent_commit() {
         let tmp_repo = TmpRepo::new().unwrap();
 
@@ -1773,7 +1773,7 @@ mod tests {
         assert!(result.is_err());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_stats_command_with_json_output() {
         let tmp_repo = TmpRepo::new().unwrap();
 
@@ -1790,7 +1790,7 @@ mod tests {
         assert!(result.is_ok());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_stats_command_default_to_head() {
         let tmp_repo = TmpRepo::new().unwrap();
 
@@ -1805,7 +1805,7 @@ mod tests {
         assert!(result.is_ok());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_get_git_diff_stats_binary_files() {
         let tmp_repo = TmpRepo::new().unwrap();
 
@@ -1835,7 +1835,7 @@ mod tests {
         assert!(result.is_ok());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_stats_from_authorship_log_no_log() {
         let stats = stats_from_authorship_log(None, 10, 5, 3, 0, &BTreeMap::new());
 
@@ -1851,7 +1851,7 @@ mod tests {
         assert_eq!(stats.time_waiting_for_ai, 0);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[ignore] // Implementation-specific capping behavior differs from test expectations
     fn test_stats_from_authorship_log_mixed_cap() {
         // Test that mixed_additions is capped to remaining added lines
@@ -1891,7 +1891,7 @@ mod tests {
         assert_eq!(stats.human_additions, 0); // 10 - 5 accepted = 5, but mixed takes it
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_line_range_overlap_edge_cases() {
         use crate::authorship::authorship_log::LineRange;
 

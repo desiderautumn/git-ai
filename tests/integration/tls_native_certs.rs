@@ -1,7 +1,7 @@
 /// Test that build_agent creates a working agent using the platform's
 /// native TLS library (OpenSSL on Linux, Secure Transport on macOS,
 /// SChannel on Windows).
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_build_agent_default_config() {
     let agent = git_ai::http::build_agent(Some(5));
     // Agent should be created successfully - just verify it doesn't panic
@@ -10,7 +10,7 @@ fn test_build_agent_default_config() {
 
 /// Test that the agent can make a real HTTPS request, proving that the
 /// native TLS stack and system certificate store are working correctly.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_https_request_uses_system_certs() {
     let agent = git_ai::http::build_agent(Some(10));
     let result = git_ai::http::send(agent.get("https://example.com"));

@@ -12,7 +12,7 @@ fn ensure_clean_env() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn copilot_session_parsing_stub() {
     ensure_clean_env();
     // Minimal valid shape with empty requests
@@ -32,7 +32,7 @@ fn copilot_session_parsing_stub() {
     assert_eq!(edited_filepaths.unwrap().len(), 0);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn copilot_session_parsing_simple() {
     ensure_clean_env();
     // Load the test fixture path
@@ -128,7 +128,7 @@ fn copilot_session_parsing_simple() {
     assert_eq!(model, Some("copilot/claude-sonnet-4".to_string()));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_copilot_extracts_edited_filepaths() {
     ensure_clean_env();
     let fixture = fixture_path("copilot_session_simple.json");
@@ -145,7 +145,7 @@ fn test_copilot_extracts_edited_filepaths() {
     assert_eq!(paths[0], "/Users/svarlamov/projects/testing-git/index.ts");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_copilot_no_edited_filepaths_when_no_edits() {
     ensure_clean_env();
     let sample = r##"{
@@ -181,7 +181,7 @@ fn test_copilot_no_edited_filepaths_when_no_edits() {
     assert_eq!(paths.len(), 0);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_copilot_deduplicates_edited_filepaths() {
     ensure_clean_env();
     let sample = r##"{
@@ -233,7 +233,7 @@ fn test_copilot_deduplicates_edited_filepaths() {
     assert!(paths.contains(&"/Users/test/other.ts".to_string()));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial_test::serial] // Run serially to avoid env var conflicts with other tests
 fn test_copilot_returns_empty_transcript_in_codespaces() {
     // Save original values if present
@@ -268,7 +268,7 @@ fn test_copilot_returns_empty_transcript_in_codespaces() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial_test::serial] // Run serially to avoid env var conflicts with other tests
 fn test_copilot_returns_empty_transcript_in_remote_containers() {
     // Save original values if present
@@ -307,7 +307,7 @@ fn test_copilot_returns_empty_transcript_in_remote_containers() {
 // Tests for before_edit (human checkpoint) and after_edit (AI checkpoint) logic
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_copilot_preset_before_edit_human_checkpoint_snake_case() {
     use git_ai::commands::checkpoint_agent::agent_presets::{
         AgentCheckpointFlags, AgentCheckpointPreset,
@@ -369,7 +369,7 @@ fn test_copilot_preset_before_edit_human_checkpoint_snake_case() {
 
 // TODO: Remove this test when all users have updated to the latest VS Code extension
 // This test validates backward compatibility with camelCase field names
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_copilot_preset_before_edit_human_checkpoint_camel_case() {
     use git_ai::commands::checkpoint_agent::agent_presets::{
         AgentCheckpointFlags, AgentCheckpointPreset,
@@ -418,7 +418,7 @@ fn test_copilot_preset_before_edit_human_checkpoint_camel_case() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_copilot_preset_before_edit_requires_will_edit_filepaths() {
     use git_ai::commands::checkpoint_agent::agent_presets::{
         AgentCheckpointFlags, AgentCheckpointPreset,
@@ -448,7 +448,7 @@ fn test_copilot_preset_before_edit_requires_will_edit_filepaths() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_copilot_preset_before_edit_requires_non_empty_filepaths() {
     use git_ai::commands::checkpoint_agent::agent_presets::{
         AgentCheckpointFlags, AgentCheckpointPreset,
@@ -479,7 +479,7 @@ fn test_copilot_preset_before_edit_requires_non_empty_filepaths() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_copilot_preset_after_edit_requires_session_id() {
     use git_ai::commands::checkpoint_agent::agent_presets::{
         AgentCheckpointFlags, AgentCheckpointPreset,
@@ -511,7 +511,7 @@ fn test_copilot_preset_after_edit_requires_session_id() {
 
 // TODO: Remove this test when all users have updated to the latest VS Code extension
 // This test validates backward compatibility with camelCase field names
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_copilot_preset_after_edit_requires_session_id_camel_case() {
     use git_ai::commands::checkpoint_agent::agent_presets::{
         AgentCheckpointFlags, AgentCheckpointPreset,
@@ -541,7 +541,7 @@ fn test_copilot_preset_after_edit_requires_session_id_camel_case() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_copilot_preset_invalid_hook_event_name() {
     use git_ai::commands::checkpoint_agent::agent_presets::{
         AgentCheckpointFlags, AgentCheckpointPreset,
@@ -570,7 +570,7 @@ fn test_copilot_preset_invalid_hook_event_name() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_copilot_preset_before_edit_multiple_files_snake_case() {
     use git_ai::commands::checkpoint_agent::agent_presets::{
         AgentCheckpointFlags, AgentCheckpointPreset,
@@ -612,7 +612,7 @@ fn test_copilot_preset_before_edit_multiple_files_snake_case() {
 
 // TODO: Remove this test when all users have updated to the latest VS Code extension
 // This test validates backward compatibility with camelCase field names
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_copilot_preset_before_edit_multiple_files_camel_case() {
     use git_ai::commands::checkpoint_agent::agent_presets::{
         AgentCheckpointFlags, AgentCheckpointPreset,
@@ -654,7 +654,7 @@ fn test_copilot_preset_before_edit_multiple_files_camel_case() {
 
 // TODO: Remove this test when all users have updated to the latest VS Code extension
 // This test validates backward compatibility with camelCase field names for after_edit
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_copilot_preset_after_edit_camel_case() {
     use git_ai::commands::checkpoint_agent::agent_presets::{
         AgentCheckpointFlags, AgentCheckpointPreset,
@@ -717,7 +717,7 @@ fn test_copilot_preset_after_edit_camel_case() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_copilot_preset_after_edit_snake_case() {
     use git_ai::commands::checkpoint_agent::agent_presets::{
         AgentCheckpointFlags, AgentCheckpointPreset,
@@ -784,7 +784,7 @@ fn test_copilot_preset_after_edit_snake_case() {
 // Tests for JSONL format support (GitHub Copilot .jsonl session files)
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn copilot_session_parsing_jsonl_stub() {
     ensure_clean_env();
     // Minimal valid shape with empty requests, wrapped in JSONL envelope
@@ -803,7 +803,7 @@ fn copilot_session_parsing_jsonl_stub() {
     assert_eq!(edited_filepaths.unwrap().len(), 0);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn copilot_session_parsing_jsonl_simple() {
     ensure_clean_env();
     // Load the JSONL test fixture
@@ -896,7 +896,7 @@ fn copilot_session_parsing_jsonl_simple() {
     assert_eq!(model, Some("copilot/claude-sonnet-4".to_string()));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_copilot_extracts_edited_filepaths_jsonl() {
     ensure_clean_env();
     let fixture = fixture_path("copilot_session_simple.jsonl");
@@ -912,7 +912,7 @@ fn test_copilot_extracts_edited_filepaths_jsonl() {
     assert_eq!(paths[0], "/Users/svarlamov/projects/testing-git/index.ts");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_copilot_after_edit_with_jsonl_session() {
     use git_ai::commands::checkpoint_agent::agent_presets::{
         AgentCheckpointFlags, AgentCheckpointPreset,
@@ -976,7 +976,7 @@ fn test_copilot_after_edit_with_jsonl_session() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn copilot_session_parsing_multiline_jsonl() {
     ensure_clean_env();
     // Load a real-world multi-line JSONL fixture (line 1 = kind:0 snapshot,
@@ -1012,7 +1012,7 @@ fn copilot_session_parsing_multiline_jsonl() {
     assert_eq!(paths.len(), 0);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn copilot_session_jsonl_empty_snapshot_with_patch() {
     ensure_clean_env();
     // kind:0 has empty requests + inputState model, kind:2 patches in a request (no modelId)
@@ -1043,7 +1043,7 @@ fn copilot_session_jsonl_empty_snapshot_with_patch() {
     assert_eq!(edited_filepaths.unwrap().len(), 0);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn copilot_session_jsonl_model_from_input_state_no_requests() {
     ensure_clean_env();
     // kind:0 with empty requests and inputState model, no patches
@@ -1062,7 +1062,7 @@ fn copilot_session_jsonl_model_from_input_state_no_requests() {
     assert_eq!(model, Some("copilot/claude-sonnet-4".to_string()));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn copilot_session_jsonl_per_request_model_overrides_input_state() {
     ensure_clean_env();
     // kind:0 with a request that has modelId, plus inputState with a different model
@@ -1080,7 +1080,7 @@ fn copilot_session_jsonl_per_request_model_overrides_input_state() {
     assert_eq!(model, Some("copilot/gpt-4o".to_string()));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn copilot_session_jsonl_scalar_patch_applied() {
     ensure_clean_env();
     // kind:0 with inputState.selectedModel.identifier = "copilot/old-model"
@@ -1104,7 +1104,7 @@ fn copilot_session_jsonl_scalar_patch_applied() {
     assert_eq!(model, Some("copilot/new-model".to_string()));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn copilot_session_plain_json_unaffected() {
     ensure_clean_env();
     // Plain .json format (no JSONL envelope) should work identically
@@ -1122,7 +1122,7 @@ fn copilot_session_plain_json_unaffected() {
     assert_eq!(edited_filepaths.unwrap().len(), 1);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_copilot_preset_vscode_pretooluse_human_checkpoint() {
     use git_ai::commands::checkpoint_agent::agent_presets::{
         AgentCheckpointFlags, AgentCheckpointPreset,
@@ -1156,7 +1156,7 @@ fn test_copilot_preset_vscode_pretooluse_human_checkpoint() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_copilot_preset_vscode_create_file_tool_is_supported() {
     use git_ai::commands::checkpoint_agent::agent_presets::{
         AgentCheckpointFlags, AgentCheckpointPreset,
@@ -1191,7 +1191,7 @@ fn test_copilot_preset_vscode_create_file_tool_is_supported() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_copilot_preset_vscode_apply_patch_tool_is_supported() {
     use git_ai::commands::checkpoint_agent::agent_presets::{
         AgentCheckpointFlags, AgentCheckpointPreset,
@@ -1223,7 +1223,7 @@ fn test_copilot_preset_vscode_apply_patch_tool_is_supported() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_copilot_preset_vscode_editfiles_files_array_is_supported() {
     use git_ai::commands::checkpoint_agent::agent_presets::{
         AgentCheckpointFlags, AgentCheckpointPreset,
@@ -1260,7 +1260,7 @@ fn test_copilot_preset_vscode_editfiles_files_array_is_supported() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_copilot_preset_vscode_posttooluse_ai_checkpoint() {
     use git_ai::commands::checkpoint_agent::agent_presets::{
         AgentCheckpointFlags, AgentCheckpointPreset,
@@ -1308,7 +1308,7 @@ fn test_copilot_preset_vscode_posttooluse_ai_checkpoint() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_copilot_preset_vscode_apply_patch_posttooluse_ai_checkpoint() {
     use git_ai::commands::checkpoint_agent::agent_presets::{
         AgentCheckpointFlags, AgentCheckpointPreset,
@@ -1354,7 +1354,7 @@ fn test_copilot_preset_vscode_apply_patch_posttooluse_ai_checkpoint() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_copilot_preset_vscode_non_edit_tool_is_filtered() {
     use git_ai::commands::checkpoint_agent::agent_presets::{
         AgentCheckpointFlags, AgentCheckpointPreset,
@@ -1386,7 +1386,7 @@ fn test_copilot_preset_vscode_non_edit_tool_is_filtered() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_copilot_preset_vscode_claude_transcript_path_is_rejected() {
     use git_ai::commands::checkpoint_agent::agent_presets::{
         AgentCheckpointFlags, AgentCheckpointPreset,
@@ -1419,7 +1419,7 @@ fn test_copilot_preset_vscode_claude_transcript_path_is_rejected() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn copilot_session_parsing_event_stream_jsonl() {
     ensure_clean_env();
     let fixture = fixture_path("copilot_session_event_stream.jsonl");
@@ -1457,7 +1457,7 @@ fn copilot_session_parsing_event_stream_jsonl() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn copilot_session_event_stream_jsonl_model_hint_is_detected() {
     ensure_clean_env();
 
@@ -1522,7 +1522,7 @@ fn vscode_post_tool_use_hook_input(transcript_path: &str) -> serde_json::Value {
     })
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_copilot_preset_vscode_model_uses_auto_model_id_when_present() {
     ensure_clean_env();
     use git_ai::commands::checkpoint_agent::agent_presets::{
@@ -1540,7 +1540,7 @@ fn test_copilot_preset_vscode_model_uses_auto_model_id_when_present() {
     assert_eq!(result.agent_id.model, "copilot/auto");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_copilot_preset_vscode_model_prefers_non_auto_model_id_from_chat_sessions() {
     ensure_clean_env();
     use git_ai::commands::checkpoint_agent::agent_presets::{
@@ -1558,7 +1558,7 @@ fn test_copilot_preset_vscode_model_prefers_non_auto_model_id_from_chat_sessions
     assert_eq!(result.agent_id.model, "copilot/gpt-4o");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_copilot_preset_vscode_model_falls_back_to_selected_model_id() {
     ensure_clean_env();
     use git_ai::commands::checkpoint_agent::agent_presets::{
@@ -1576,7 +1576,7 @@ fn test_copilot_preset_vscode_model_falls_back_to_selected_model_id() {
     assert_eq!(result.agent_id.model, "copilot/claude-sonnet-4");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_copilot_preset_vscode_model_lookup_supports_json_chat_session_file() {
     ensure_clean_env();
     use git_ai::commands::checkpoint_agent::agent_presets::{
@@ -1594,7 +1594,7 @@ fn test_copilot_preset_vscode_model_lookup_supports_json_chat_session_file() {
     assert_eq!(result.agent_id.model, "copilot/gpt-4o-mini");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_copilot_preset_vscode_does_not_use_details_as_model_fallback() {
     ensure_clean_env();
     use git_ai::commands::checkpoint_agent::agent_presets::{

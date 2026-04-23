@@ -291,7 +291,7 @@ mod mock {
 mod tests {
     use super::*;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_mock_backend_store_load_clear() {
         let backend = MockBackend::new();
 
@@ -310,7 +310,7 @@ mod tests {
         assert_eq!(backend.load().unwrap(), None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_mock_backend_fail_store() {
         let backend = MockBackend::new().fail_store("Keyring locked");
 
@@ -319,7 +319,7 @@ mod tests {
         assert_eq!(result.unwrap_err(), "Keyring locked");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_mock_backend_fail_load() {
         let backend = MockBackend::new().fail_load("Access denied");
 
@@ -328,7 +328,7 @@ mod tests {
         assert_eq!(result.unwrap_err(), "Access denied");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_mock_backend_fail_clear() {
         let backend = MockBackend::new().fail_clear("Permission denied");
 
@@ -337,7 +337,7 @@ mod tests {
         assert_eq!(result.unwrap_err(), "Permission denied");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_mock_backend_overwrite() {
         let backend = MockBackend::new();
 
@@ -348,7 +348,7 @@ mod tests {
         assert_eq!(backend.get_value(), Some("second".to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_file_backend_roundtrip() {
         let temp_path = std::env::temp_dir()
             .join("git-ai-test-backend")
@@ -379,7 +379,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_file_backend_clear_nonexistent() {
         let temp_path = std::env::temp_dir()
             .join("git-ai-test-backend-nonexistent")

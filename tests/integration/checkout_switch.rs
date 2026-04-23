@@ -2,7 +2,7 @@ use crate::repos::test_file::ExpectedLineExt;
 use crate::repos::test_repo::{TestRepo, default_branchname};
 
 /// Test that checkout to a different branch migrates the working log to the new HEAD.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_checkout_branch_migrates_working_log() {
     let repo = TestRepo::new();
 
@@ -35,7 +35,7 @@ fn test_checkout_branch_migrates_working_log() {
 }
 
 /// Test that force checkout (-f) deletes the working log when changes are discarded.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_checkout_force_deletes_working_log() {
     let repo = TestRepo::new();
 
@@ -70,7 +70,7 @@ fn test_checkout_force_deletes_working_log() {
 }
 
 /// Test that pathspec checkout removes attributions only for the specified files.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_checkout_pathspec_removes_file_attributions() {
     let repo = TestRepo::new();
 
@@ -109,7 +109,7 @@ fn test_checkout_pathspec_removes_file_attributions() {
 }
 
 /// Test that git switch migrates the working log to the new HEAD.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_switch_branch_migrates_working_log() {
     let repo = TestRepo::new();
 
@@ -142,7 +142,7 @@ fn test_switch_branch_migrates_working_log() {
 }
 
 /// Test that switch --discard-changes deletes the working log.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_switch_discard_changes_deletes_working_log() {
     let repo = TestRepo::new();
 
@@ -187,7 +187,7 @@ fn test_switch_discard_changes_deletes_working_log() {
 }
 
 /// Test that switch -f (short form of --discard-changes) deletes the working log.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_switch_force_flag_deletes_working_log() {
     let repo = TestRepo::new();
 
@@ -228,7 +228,7 @@ fn test_switch_force_flag_deletes_working_log() {
 }
 
 /// Test that checkout with --merge migrates the working log when merging changes.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_checkout_merge_migrates_working_log() {
     let repo = TestRepo::new();
 
@@ -271,7 +271,7 @@ fn test_checkout_merge_migrates_working_log() {
 }
 
 /// Test that switch with --merge migrates the working log when merging changes.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_switch_merge_migrates_working_log() {
     let repo = TestRepo::new();
 
@@ -314,7 +314,7 @@ fn test_switch_merge_migrates_working_log() {
 }
 
 /// Test that checkout to the same branch is a no-op for working log.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_checkout_same_branch_no_op() {
     let repo = TestRepo::new();
 
@@ -343,7 +343,7 @@ fn test_checkout_same_branch_no_op() {
 }
 
 /// Test with mixed human and AI attribution during checkout.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_checkout_with_mixed_attribution() {
     let repo = TestRepo::new();
 
@@ -380,7 +380,7 @@ fn test_checkout_with_mixed_attribution() {
 }
 
 /// Test pathspec checkout removes attributions for multiple files.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_checkout_pathspec_multiple_files() {
     let repo = TestRepo::new();
 
@@ -424,7 +424,7 @@ fn test_checkout_pathspec_multiple_files() {
 /// when a file contains conflict markers the byte-level diff algorithm mismapped
 /// attribution onto the wrong content.  The fix strips conflict markers (keeping
 /// "ours") before the VA merge so byte offsets are computed on clean content.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_checkout_merge_conflict_preserves_ai_attribution() {
     let repo = TestRepo::new();
 

@@ -1128,7 +1128,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_initialize_schema() {
         let (db, _temp_dir) = create_test_db();
 
@@ -1155,7 +1155,7 @@ mod tests {
         assert_eq!(version, "3");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_initialize_schema_handles_preexisting_cas_cache_table() {
         let temp_dir = TempDir::new().unwrap();
         let db_path = temp_dir.path().join("concurrent-init.db");
@@ -1196,7 +1196,7 @@ mod tests {
         assert_eq!(version, "3");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_upsert_prompt() {
         let (mut db, _temp_dir) = create_test_db();
         let record = create_test_record();
@@ -1226,7 +1226,7 @@ mod tests {
         assert_eq!(retrieved.updated_at, 1234567900);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_batch_upsert_prompts() {
         let (mut db, _temp_dir) = create_test_db();
 
@@ -1252,14 +1252,14 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_get_prompt_not_found() {
         let (db, _temp_dir) = create_test_db();
         let result = db.get_prompt("nonexistent").unwrap();
         assert!(result.is_none());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_get_prompts_by_commit() {
         let (mut db, _temp_dir) = create_test_db();
 
@@ -1287,7 +1287,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_database_path() {
         let override_path = std::env::var("GIT_AI_TEST_DB_PATH").ok();
         let path = InternalDatabase::database_path().unwrap();
@@ -1300,7 +1300,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_stats_fields_populated() {
         use crate::authorship::working_log::{
             AgentId, Checkpoint, CheckpointKind, CheckpointLineStats,
@@ -1360,7 +1360,7 @@ mod tests {
 
     // CAS sync queue tests
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_cas_sync_queue_schema() {
         let (db, _temp_dir) = create_test_db();
 
@@ -1387,7 +1387,7 @@ mod tests {
         assert_eq!(status, "'pending'");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_enqueue_cas_object_with_metadata() {
         let (mut db, _temp_dir) = create_test_db();
 
@@ -1426,7 +1426,7 @@ mod tests {
         assert_eq!(batch[0].metadata.get("key2"), Some(&"value2".to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_enqueue_cas_object() {
         let (mut db, _temp_dir) = create_test_db();
 
@@ -1468,7 +1468,7 @@ mod tests {
         assert_eq!(metadata, "{}");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_enqueue_duplicate_hash() {
         let (mut db, _temp_dir) = create_test_db();
 
@@ -1494,7 +1494,7 @@ mod tests {
         assert_eq!(count, 1);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_dequeue_cas_batch() {
         let (mut db, _temp_dir) = create_test_db();
 
@@ -1533,7 +1533,7 @@ mod tests {
         assert_eq!(pending_count, 1);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_dequeue_respects_next_retry() {
         let (mut db, _temp_dir) = create_test_db();
 
@@ -1565,7 +1565,7 @@ mod tests {
         assert_eq!(batch[0].hash, hash1);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_dequeue_locks_records() {
         let (mut db, _temp_dir) = create_test_db();
 
@@ -1603,7 +1603,7 @@ mod tests {
         assert_eq!(batch2.len(), 0);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_stale_lock_recovery() {
         let (mut db, _temp_dir) = create_test_db();
 
@@ -1628,7 +1628,7 @@ mod tests {
         assert_eq!(batch[0].hash, hash);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_max_attempts_limit() {
         let (mut db, _temp_dir) = create_test_db();
 
@@ -1661,7 +1661,7 @@ mod tests {
         assert_eq!(batch[0].attempts, 5);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_cas_sync_failure() {
         let (mut db, _temp_dir) = create_test_db();
 
@@ -1718,7 +1718,7 @@ mod tests {
         assert_eq!(error, "test error");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_delete_cas_sync_record() {
         let (mut db, _temp_dir) = create_test_db();
 
@@ -1744,14 +1744,14 @@ mod tests {
 
     // CAS cache tests
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_cas_cache_get_miss() {
         let (db, _temp_dir) = create_test_db();
         let result = db.get_cas_cache("nonexistent_hash").unwrap();
         assert!(result.is_none());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_cas_cache_set_and_get() {
         let (mut db, _temp_dir) = create_test_db();
         let hash = "abc123def456";
@@ -1763,7 +1763,7 @@ mod tests {
         assert_eq!(result, Some(messages.to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_cas_cache_overwrite() {
         let (mut db, _temp_dir) = create_test_db();
         let hash = "abc123def456";
@@ -1777,7 +1777,7 @@ mod tests {
         assert_eq!(result, Some(messages2.to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_exponential_backoff() {
         let now = 1000000i64;
 

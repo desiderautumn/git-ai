@@ -1,7 +1,7 @@
 use crate::repos::test_file::ExpectedLineExt;
 use crate::repos::test_repo::TestRepo;
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ai_reflow_human_single_line_call_is_fully_ai() {
     let repo = TestRepo::new();
     let mut file = repo.filename("call.rs");
@@ -27,7 +27,7 @@ fn test_ai_reflow_human_single_line_call_is_fully_ai() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ai_indentation_only_change_on_human_block_attributes_touched_line_to_ai() {
     let repo = TestRepo::new();
     let mut file = repo.filename("indent.rs");
@@ -45,7 +45,7 @@ fn test_ai_indentation_only_change_on_human_block_attributes_touched_line_to_ai(
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ai_wraps_mixed_human_ai_human_block_all_reformatted_lines_become_ai() {
     let repo = TestRepo::new();
     let mut file = repo.filename("wrapped.rs");
@@ -72,7 +72,7 @@ fn test_ai_wraps_mixed_human_ai_human_block_all_reformatted_lines_become_ai() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ai_non_substantial_reflow_with_blank_lines_attributes_blank_and_reflowed_lines_to_ai() {
     let repo = TestRepo::new();
     let mut file = repo.filename("main.rs");
@@ -97,7 +97,7 @@ fn test_ai_non_substantial_reflow_with_blank_lines_attributes_blank_and_reflowed
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_human_on_ai_after_ai_formatting_reclaims_only_human_edited_line() {
     let repo = TestRepo::new();
     let mut file = repo.filename("pipeline.rs");
@@ -126,7 +126,7 @@ fn test_human_on_ai_after_ai_formatting_reclaims_only_human_edited_line() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ai_on_human_after_human_edit_reformats_and_takes_line_ownership() {
     let repo = TestRepo::new();
     let mut file = repo.filename("control.rs");
@@ -152,7 +152,7 @@ fn test_ai_on_human_after_human_edit_reformats_and_takes_line_ownership() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ai_on_ai_second_formatting_pass_keeps_reformatted_region_ai_and_preserves_untouched_human()
 {
     let repo = TestRepo::new();
@@ -188,7 +188,7 @@ fn test_ai_on_ai_second_formatting_pass_keeps_reformatted_region_ai_and_preserve
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_iterative_human_ai_human_ai_series_assert_each_commit_state() {
     let repo = TestRepo::new();
     let mut file = repo.filename("iterative.py");
@@ -235,7 +235,7 @@ fn test_iterative_human_ai_human_ai_series_assert_each_commit_state() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_multi_file_ai_formatting_commit_tracks_exact_line_blame_in_each_file() {
     let repo = TestRepo::new();
     let mut file_a = repo.filename("a.py");
@@ -265,7 +265,7 @@ fn test_multi_file_ai_formatting_commit_tracks_exact_line_blame_in_each_file() {
     file_b.assert_lines_and_blame(crate::lines!["[server]".human(), "port = 8080".ai()]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_complex_sectioned_file_ai_formats_only_selected_sections() {
     let repo = TestRepo::new();
     let mut file = repo.filename("settings.ini");
@@ -293,7 +293,7 @@ fn test_complex_sectioned_file_ai_formats_only_selected_sections() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ai_rewrites_markdown_table_byte_identical_separator_attributed_to_ai() {
     let repo = TestRepo::new();
     let mut file = repo.filename("table.md");
@@ -331,7 +331,7 @@ fn test_ai_rewrites_markdown_table_byte_identical_separator_attributed_to_ai() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ai_rewrites_table_reformatted_lines_all_attributed_to_ai() {
     let repo = TestRepo::new();
     let mut file = repo.filename("table2.md");
@@ -369,7 +369,7 @@ fn test_ai_rewrites_table_reformatted_lines_all_attributed_to_ai() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ai_rewrite_with_byte_identical_line_in_gap() {
     let repo = TestRepo::new();
     let mut file = repo.filename("config.yaml");
@@ -395,7 +395,7 @@ fn test_ai_rewrite_with_byte_identical_line_in_gap() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ai_edits_around_large_human_section_preserves_human_attribution() {
     let repo = TestRepo::new();
     let mut file = repo.filename("mixed.py");

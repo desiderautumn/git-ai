@@ -236,26 +236,26 @@ mod tests {
 
     // ============= URL Validation Tests =============
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_validate_https_url_valid() {
         let result = validate_https_url("https://example.com");
         assert!(result.is_ok());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_validate_https_url_with_path() {
         let result = validate_https_url("https://example.com/api/v1");
         assert!(result.is_ok());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_validate_https_url_with_port() {
         let result = validate_https_url("https://example.com:8443/api");
         assert!(result.is_ok());
     }
 
     #[cfg(debug_assertions)]
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_validate_https_url_http_allowed_in_debug() {
         // In debug mode, HTTP should be allowed for local development
         let result = validate_https_url("http://localhost:8080");
@@ -263,7 +263,7 @@ mod tests {
     }
 
     #[cfg(not(debug_assertions))]
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_validate_https_url_http_rejected_in_release() {
         // In release mode, HTTP should be rejected
         let result = validate_https_url("http://example.com");
@@ -271,19 +271,19 @@ mod tests {
         assert!(result.unwrap_err().contains("HTTPS"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_validate_https_url_invalid_scheme() {
         let result = validate_https_url("ftp://example.com");
         assert!(result.is_err());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_validate_https_url_no_scheme() {
         let result = validate_https_url("example.com");
         assert!(result.is_err());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_validate_https_url_empty() {
         let result = validate_https_url("");
         assert!(result.is_err());
@@ -291,7 +291,7 @@ mod tests {
 
     // ============= Token Response Parsing Tests =============
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_token_response_valid() {
         let json = r#"{
             "access_token": "test_access",
@@ -311,7 +311,7 @@ mod tests {
         assert_eq!(response.refresh_expires_in, 7776000);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_token_response_missing_field() {
         // Missing refresh_expires_in
         let json = r#"{
@@ -325,7 +325,7 @@ mod tests {
         assert!(result.is_err());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_token_response_wrong_types() {
         // expires_in as string instead of number
         let json = r#"{
@@ -342,7 +342,7 @@ mod tests {
 
     // ============= OAuth Error Parsing Tests =============
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_oauth_error_with_description() {
         let json = r#"{
             "error": "invalid_grant",
@@ -360,7 +360,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_oauth_error_without_description() {
         let json = r#"{"error": "access_denied"}"#;
 
@@ -374,7 +374,7 @@ mod tests {
 
     // ============= Device Auth Response Parsing Tests =============
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_device_auth_response_valid() {
         let json = r#"{
             "device_code": "abc123",
@@ -395,7 +395,7 @@ mod tests {
         assert_eq!(response.expires_in, 900);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_device_auth_response_without_optional_uri() {
         let json = r#"{
             "device_code": "abc123",
@@ -414,7 +414,7 @@ mod tests {
 
     // ============= Credentials Calculation Tests =============
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_credentials_expiry_calculation() {
         // Test that credentials are calculated correctly from token response
         let now = chrono::Utc::now().timestamp();

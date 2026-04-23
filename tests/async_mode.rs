@@ -225,7 +225,7 @@ fn wait_for_child_exit(child: &mut Child) {
     let _ = child.wait();
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn async_mode_wrapper_commit_passthrough_skips_git_ai_side_effects() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
 
@@ -246,7 +246,7 @@ fn async_mode_wrapper_commit_passthrough_skips_git_ai_side_effects() {
     .expect("git commit should succeed in async mode");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn install_hooks_async_mode_sets_daemon_trace2_global_config() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
 
@@ -268,7 +268,7 @@ fn install_hooks_async_mode_sets_daemon_trace2_global_config() {
     assert_eq!(nesting.as_deref(), Some("10"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn install_hooks_async_mode_dry_run_does_not_write_trace2_global_config() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
 
@@ -288,7 +288,7 @@ fn install_hooks_async_mode_dry_run_does_not_write_trace2_global_config() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn install_hooks_async_mode_trace2_target_routes_real_git_trace_to_daemon() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
 
@@ -326,7 +326,7 @@ fn install_hooks_async_mode_trace2_target_routes_real_git_trace_to_daemon() {
     shutdown_daemon(&repo);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn async_mode_checkpoint_starts_daemon_when_down() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
     write_async_mode_config(&repo);
@@ -357,7 +357,7 @@ fn async_mode_checkpoint_starts_daemon_when_down() {
     shutdown_daemon(&repo);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn daemon_status_does_not_self_emit_trace2_events() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
     fs::create_dir_all(repo.test_home_path()).expect("failed to create test HOME directory");
@@ -437,7 +437,7 @@ fn daemon_status_does_not_self_emit_trace2_events() {
     let _ = daemon.wait();
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn daemon_run_survives_deleted_launch_repo_cwd() {
     let launch_repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
     let target_repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -462,7 +462,7 @@ fn daemon_run_survives_deleted_launch_repo_cwd() {
     wait_for_child_exit(&mut daemon);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn daemon_start_survives_deleted_launch_repo_cwd() {
     let launch_repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
     let target_repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -510,7 +510,7 @@ fn send_on_persistent_conn<R: Read + Write>(
 /// deliver telemetry envelopes and CAS payloads to the daemon, and that the
 /// daemon acknowledges each request with `ok: true` without closing the
 /// connection between requests.
-#[test]
+#[test] #[print_dur::print_dur]
 fn daemon_telemetry_and_cas_over_persistent_connection() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
 
@@ -627,7 +627,7 @@ fn async_commit_with_ai_content(extra_envs: &[(&str, &str)]) -> (TestRepo, Strin
     (repo, output)
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn async_mode_post_commit_shows_stats_for_ai_commit() {
     let (_repo, output) = async_commit_with_ai_content(&[]);
     // The wrapper should have found the authorship note and printed the
@@ -639,7 +639,7 @@ fn async_mode_post_commit_shows_stats_for_ai_commit() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn async_mode_post_commit_quiet_flag_suppresses_stats() {
     let repo = TestRepo::new_with_mode(GitTestMode::WrapperDaemon);
 
@@ -666,7 +666,7 @@ fn async_mode_post_commit_quiet_flag_suppresses_stats() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn async_mode_post_commit_non_interactive_suppresses_stats() {
     let repo = TestRepo::new_with_mode(GitTestMode::WrapperDaemon);
 
@@ -689,7 +689,7 @@ fn async_mode_post_commit_non_interactive_suppresses_stats() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn async_mode_post_commit_still_processing_when_no_daemon() {
     // Use plain Wrapper mode (no daemon running) with async_mode forced via env.
     // The wrapper will poll but never find a note, and should print a message.
@@ -723,7 +723,7 @@ fn async_mode_post_commit_still_processing_when_no_daemon() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn async_mode_post_commit_skips_stats_for_large_commit() {
     let repo = TestRepo::new_with_mode(GitTestMode::WrapperDaemon);
 

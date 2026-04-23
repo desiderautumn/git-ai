@@ -531,7 +531,7 @@ mod tests {
     use super::*;
     use crate::git::test_utils::TmpRepo;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_save_stash_note_roundtrip() {
         let repo = TmpRepo::new().unwrap();
         // Need at least one commit to attach notes to
@@ -555,7 +555,7 @@ mod tests {
         assert_eq!(read_back.trim(), content, "roundtrip content should match");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_save_stash_note_large_content() {
         let repo = TmpRepo::new().unwrap();
         repo.write_file("dummy.txt", "content\n", true).unwrap();

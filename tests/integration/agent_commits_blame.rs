@@ -86,7 +86,7 @@ fn commit_as_human(repo: &TestRepo, filename: &str, contents: &str, message: &st
 // Basic agent detection: each known agent email
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_agent_blame_cursor_email() {
     let repo = TestRepo::new();
 
@@ -111,7 +111,7 @@ fn test_agent_blame_cursor_email() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_agent_blame_copilot_email() {
     let repo = TestRepo::new();
 
@@ -136,7 +136,7 @@ fn test_agent_blame_copilot_email() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_agent_blame_devin_email() {
     let repo = TestRepo::new();
 
@@ -160,7 +160,7 @@ fn test_agent_blame_devin_email() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_agent_blame_claude_email() {
     let repo = TestRepo::new();
 
@@ -184,7 +184,7 @@ fn test_agent_blame_claude_email() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_agent_blame_codex_email() {
     let repo = TestRepo::new();
 
@@ -212,7 +212,7 @@ fn test_agent_blame_codex_email() {
 // Mixed human + agent commits: line-level blame accuracy
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_agent_blame_mixed_human_then_agent() {
     // Human writes first 2 lines, then agent adds 2 more lines
     let repo = TestRepo::new();
@@ -265,7 +265,7 @@ fn test_agent_blame_mixed_human_then_agent() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_agent_blame_agent_then_human() {
     // Agent writes first, then human adds more
     let repo = TestRepo::new();
@@ -322,7 +322,7 @@ fn test_agent_blame_agent_then_human() {
 // Multiple agents in the same file
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_agent_blame_multiple_agents_same_file() {
     let repo = TestRepo::new();
 
@@ -382,7 +382,7 @@ fn test_agent_blame_multiple_agents_same_file() {
 // Using assert_lines_and_blame with the TestFile harness
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_agent_blame_assert_lines_cursor() {
     let repo = TestRepo::new();
 
@@ -404,7 +404,7 @@ fn test_agent_blame_assert_lines_cursor() {
     file.assert_lines_and_blame(vec!["line1".ai(), "line2".ai(), "line3".ai()]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_agent_blame_assert_lines_mixed_human_agent() {
     let repo = TestRepo::new();
 
@@ -438,7 +438,7 @@ fn test_agent_blame_assert_lines_mixed_human_agent() {
 // JSON output format: verify prompts are included for agent commits
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_agent_blame_json_output() {
     let repo = TestRepo::new();
 
@@ -493,7 +493,7 @@ fn test_agent_blame_json_output() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_agent_blame_json_mixed_human_agent() {
     let repo = TestRepo::new();
 
@@ -562,7 +562,7 @@ fn test_agent_blame_json_mixed_human_agent() {
 // Porcelain output format
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_agent_blame_porcelain_output() {
     let repo = TestRepo::new();
 
@@ -587,7 +587,7 @@ fn test_agent_blame_porcelain_output() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_agent_blame_line_porcelain_output() {
     let repo = TestRepo::new();
 
@@ -617,7 +617,7 @@ fn test_agent_blame_line_porcelain_output() {
 // Human commits should NOT be affected by agent detection
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_agent_blame_human_email_not_detected_as_agent() {
     let repo = TestRepo::new();
 
@@ -639,7 +639,7 @@ fn test_agent_blame_human_email_not_detected_as_agent() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_agent_blame_similar_email_not_detected() {
     // Emails that look similar to agent emails but aren't exact matches
     let repo = TestRepo::new();
@@ -669,7 +669,7 @@ fn test_agent_blame_similar_email_not_detected() {
 // Agent commit with existing authorship note: note should take precedence
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_agent_email_with_authorship_note_uses_note() {
     // When a commit has BOTH an agent email AND an authorship note,
     // the authorship note should take precedence (existing behavior).
@@ -693,7 +693,7 @@ fn test_agent_email_with_authorship_note_uses_note() {
 // Edge cases
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_agent_blame_single_line_file() {
     let repo = TestRepo::new();
 
@@ -717,7 +717,7 @@ fn test_agent_blame_single_line_file() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_agent_blame_large_agent_commit() {
     // Agent creates a file with many lines
     let repo = TestRepo::new();
@@ -752,7 +752,7 @@ fn test_agent_blame_large_agent_commit() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_agent_blame_agent_modifies_human_lines() {
     // Human creates file, agent replaces a line in the middle
     let repo = TestRepo::new();
@@ -799,7 +799,7 @@ fn test_agent_blame_agent_modifies_human_lines() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_agent_blame_with_line_range() {
     // Test -L flag with agent commits
     let repo = TestRepo::new();
@@ -827,7 +827,7 @@ fn test_agent_blame_with_line_range() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_agent_blame_interleaved_agents_and_humans() {
     // Complex scenario: human, agent1, human, agent2 all contributing to same file
     let repo = TestRepo::new();
@@ -898,7 +898,7 @@ fn test_agent_blame_interleaved_agents_and_humans() {
 // Verify stats in JSON output for simulated agent authorship
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_agent_blame_json_stats() {
     let repo = TestRepo::new();
 
@@ -946,7 +946,7 @@ fn test_agent_blame_json_stats() {
 // All agents: comprehensive coverage
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_agent_blame_all_agents_in_separate_files() {
     let repo = TestRepo::new();
 
@@ -1006,7 +1006,7 @@ fn test_agent_blame_all_agents_in_separate_files() {
 // Incremental output format
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_agent_blame_incremental_output() {
     let repo = TestRepo::new();
 

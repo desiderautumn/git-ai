@@ -125,7 +125,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn generic_ref_mutation_when_ref_changes_exist() {
         let analyzer = GenericAnalyzer;
         let mut cmd = command("whatever");
@@ -145,7 +145,7 @@ mod tests {
         assert!(matches!(result.class, CommandClass::RefMutation));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn generic_never_returns_empty_events() {
         let analyzer = GenericAnalyzer;
         let result = analyzer

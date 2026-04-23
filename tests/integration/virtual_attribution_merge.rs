@@ -4,7 +4,7 @@ use crate::repos::test_file::ExpectedLineExt;
 use crate::repos::test_repo::TestRepo;
 use git_ai::authorship::virtual_attribution::VirtualAttributions;
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_merge_prompts_picking_newest_sums_totals_on_collision() {
     let repo = TestRepo::new();
     let mut file = repo.filename("file.txt");

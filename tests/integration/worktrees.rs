@@ -598,7 +598,7 @@ fn simulate_claude_pre_tool_use(
     )
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn checkpoint_routes_to_linked_worktree_when_cwd_is_main_repo() {
     // Setup: main repo with an initial commit so we have a HEAD SHA.
     let repo = crate::repos::test_repo::TestRepo::new();
@@ -698,7 +698,7 @@ fn checkpoint_routes_to_linked_worktree_when_cwd_is_main_repo() {
 /// `.git` FILE detection (is_linked_worktree_git_file) distinguishes it from a regular
 /// subdirectory.  Without the fix this test fails silently — the checkpoint is skipped
 /// and `checkpoints.jsonl` remains empty.
-#[test]
+#[test] #[print_dur::print_dur]
 fn checkpoint_routes_to_nested_linked_worktree_when_cwd_is_main_repo() {
     let repo = crate::repos::test_repo::TestRepo::new();
     let mut seed = repo.filename("seed.txt");
@@ -794,7 +794,7 @@ fn checkpoint_routes_to_nested_linked_worktree_when_cwd_is_main_repo() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn human_checkpoint_routes_to_linked_worktree_when_cwd_is_main_repo() {
     // Same scenario as above, but for the PreToolUse (Human) hook.
     let repo = crate::repos::test_repo::TestRepo::new();
@@ -857,7 +857,7 @@ fn human_checkpoint_routes_to_linked_worktree_when_cwd_is_main_repo() {
 /// the worktree lives *inside* the main repo's working tree.  Without the
 /// is_linked_worktree_git_file fix, path_is_in_workdir returns true, the Human
 /// checkpoint is processed against the wrong repo, and this test fails.
-#[test]
+#[test] #[print_dur::print_dur]
 fn human_checkpoint_routes_to_nested_linked_worktree_when_cwd_is_main_repo() {
     let repo = crate::repos::test_repo::TestRepo::new();
     let mut seed = repo.filename("seed.txt");

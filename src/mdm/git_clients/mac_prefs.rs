@@ -182,7 +182,7 @@ impl Preferences {
 mod tests {
     use super::*;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_preferences_new() {
         let prefs = Preferences::new("com.example.test");
         assert_eq!(prefs.domain(), "com.example.test");

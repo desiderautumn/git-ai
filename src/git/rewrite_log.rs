@@ -573,7 +573,7 @@ pub fn append_event_to_file(
 mod tests {
     use super::*;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_merge_event_serialization() {
         let event = RewriteLogEvent::merge(
             "feature-branch".to_string(),
@@ -598,7 +598,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_events_jsonl_serialization() {
         let event1 = RewriteLogEvent::merge(
             "feature".to_string(),
@@ -640,7 +640,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_commit_amend_event_serialization() {
         let event =
             RewriteLogEvent::commit_amend("abc123def456".to_string(), "def456ghi789".to_string());
@@ -664,7 +664,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_append_event_to_jsonl() {
         let event1 = RewriteLogEvent::merge(
             "feature".to_string(),

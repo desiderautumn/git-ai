@@ -2,7 +2,7 @@ use crate::repos::test_file::ExpectedLineExt;
 use crate::repos::test_repo::TestRepo;
 use std::fs;
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_from_subdirectory_with_relative_path() {
     let repo = TestRepo::new();
 
@@ -28,7 +28,7 @@ fn test_blame_from_subdirectory_with_relative_path() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_from_nested_subdirectory_with_relative_path() {
     let repo = TestRepo::new();
 
@@ -54,7 +54,7 @@ fn test_blame_from_nested_subdirectory_with_relative_path() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_from_subdirectory_with_subpath() {
     let repo = TestRepo::new();
 
@@ -81,7 +81,7 @@ fn test_blame_from_subdirectory_with_subpath() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_from_repo_root_still_works() {
     let repo = TestRepo::new();
 
@@ -105,7 +105,7 @@ fn test_blame_from_repo_root_still_works() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_from_repo_root_with_subdir_path() {
     let repo = TestRepo::new();
 
@@ -131,7 +131,7 @@ fn test_blame_from_repo_root_with_subdir_path() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_from_subdirectory_preserves_ai_authorship() {
     let repo = TestRepo::new();
 
@@ -159,7 +159,7 @@ fn test_blame_from_subdirectory_preserves_ai_authorship() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_from_subdirectory_nonexistent_file_errors() {
     let repo = TestRepo::new();
 
@@ -174,7 +174,7 @@ fn test_blame_from_subdirectory_nonexistent_file_errors() {
     assert!(result.is_err(), "blame for nonexistent file should fail");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_from_subdirectory_with_line_range() {
     let repo = TestRepo::new();
 
@@ -215,7 +215,7 @@ fn test_blame_from_subdirectory_with_line_range() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_from_deep_subdir_dotdot_into_sibling_dir() {
     let repo = TestRepo::new();
 
@@ -243,7 +243,7 @@ fn test_blame_from_deep_subdir_dotdot_into_sibling_dir() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_from_deep_subdir_dotdot_up_one_level() {
     let repo = TestRepo::new();
 
@@ -270,7 +270,7 @@ fn test_blame_from_deep_subdir_dotdot_up_one_level() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_from_deep_subdir_dotdot_multiple_levels() {
     let repo = TestRepo::new();
 
@@ -296,7 +296,7 @@ fn test_blame_from_deep_subdir_dotdot_multiple_levels() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_from_deep_subdir_file_in_repo_root() {
     let repo = TestRepo::new();
 
@@ -318,7 +318,7 @@ fn test_blame_from_deep_subdir_file_in_repo_root() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_from_subdir_dotdot_into_different_subtree() {
     let repo = TestRepo::new();
 
@@ -347,7 +347,7 @@ fn test_blame_from_subdir_dotdot_into_different_subtree() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_from_deep_subdir_preserves_ai_authorship_with_dotdot() {
     let repo = TestRepo::new();
 

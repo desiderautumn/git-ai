@@ -4,7 +4,7 @@ use std::fs;
 use std::io::Write;
 use std::process::{Command, Stdio};
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_effective_ignore_patterns_internal_command_json() {
     let repo = TestRepo::new();
 
@@ -50,7 +50,7 @@ fn test_effective_ignore_patterns_internal_command_json() {
     assert_eq!(generated_count, 1);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_analysis_internal_command_json() {
     let repo = TestRepo::new();
 
@@ -101,7 +101,7 @@ fn test_blame_analysis_internal_command_json() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_internal_machine_commands_emit_json_errors() {
     let repo = TestRepo::new();
 
@@ -113,7 +113,7 @@ fn test_internal_machine_commands_emit_json_errors() {
     assert!(parsed["error"].as_str().is_some());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_fetch_and_push_authorship_notes_internal_commands_json() {
     let (mirror, _upstream) = TestRepo::new_with_remote();
 
@@ -200,7 +200,7 @@ fn git_plumbing(repo_path: &std::path::Path, args: &[&str], stdin_data: Option<&
 /// entry (e.g. `aabbccdd…`) AND a subtree entry (e.g. `aa/bbccdd…`) for the
 /// same annotated object. The fallback merge should handle this gracefully and
 /// the push should succeed.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_push_authorship_notes_survives_corrupted_remote_notes_tree() {
     let (mirror, upstream) = TestRepo::new_with_remote();
 
@@ -306,7 +306,7 @@ fn test_push_authorship_notes_survives_corrupted_remote_notes_tree() {
 /// pushes notes between our fetch-merge and push steps, causing a
 /// non-fast-forward rejection. The retry loop should re-fetch, re-merge,
 /// and push successfully.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_push_authorship_notes_retries_on_concurrent_push() {
     let (mirror, upstream) = TestRepo::new_with_remote();
 

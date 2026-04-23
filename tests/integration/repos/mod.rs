@@ -9,11 +9,11 @@ macro_rules! subdir_test_variants {
     ) => {
         paste::paste! {
             // Variant 1: Run from subdirectory (original behavior)
-            #[test]
+            #[test] #[print_dur::print_dur]
             fn [<test_ $test_name _from_subdir>]() $body
 
             // Variant 1b: Run from subdirectory with a worktree-backed repo
-            #[test]
+            #[test] #[print_dur::print_dur]
             fn [<test_ $test_name _from_subdir_in_worktree>]() {
                 $crate::repos::test_repo::with_worktree_mode(|| {
                     [<test_ $test_name _from_subdir>]();
@@ -21,7 +21,7 @@ macro_rules! subdir_test_variants {
             }
 
             // Variant 2: Run with -C flag from arbitrary directory
-            #[test]
+            #[test] #[print_dur::print_dur]
             fn [<test_ $test_name _with_c_flag>]() {
                 // Wrapper struct that intercepts git calls to use -C flag
                 struct TestRepoWithCFlag {
@@ -304,7 +304,7 @@ macro_rules! subdir_test_variants {
             }
 
             // Variant 2b: Run with -C flag from arbitrary directory in worktree mode
-            #[test]
+            #[test] #[print_dur::print_dur]
             fn [<test_ $test_name _with_c_flag_in_worktree>]() {
                 $crate::repos::test_repo::with_worktree_mode(|| {
                     [<test_ $test_name _with_c_flag>]();
@@ -320,7 +320,7 @@ macro_rules! worktree_test_wrappers {
         fn $test_name:ident() $body:block
     ) => {
         paste::paste! {
-            #[test]
+            #[test] #[print_dur::print_dur]
             fn [<test_ $test_name _in_worktree_wrapper_mode>]() {
                 struct WorktreeTestRepo {
                     inner: $crate::repos::test_repo::TestRepo,
@@ -363,7 +363,7 @@ macro_rules! worktree_test_wrappers {
                 $body
             }
 
-            #[test]
+            #[test] #[print_dur::print_dur]
             fn [<test_ $test_name _in_worktree_daemon_mode>]() {
                 struct WorktreeTestRepo {
                     inner: $crate::repos::test_repo::TestRepo,
@@ -406,7 +406,7 @@ macro_rules! worktree_test_wrappers {
                 $body
             }
 
-            #[test]
+            #[test] #[print_dur::print_dur]
             fn [<test_ $test_name _in_worktree_wrapper_daemon_mode>]() {
                 struct WorktreeTestRepo {
                     inner: $crate::repos::test_repo::TestRepo,
@@ -459,7 +459,7 @@ macro_rules! reuse_tests_in_worktree {
     ) => {
         paste::paste! {
             $(
-                #[test]
+                #[test] #[print_dur::print_dur]
                 fn [<$test_name _in_worktree>]() {
                     $crate::repos::test_repo::with_worktree_mode(|| {
                         $test_name();
@@ -487,7 +487,7 @@ macro_rules! reuse_tests_in_worktree_with_attrs {
     (@one ($($attrs:tt)*) $test_name:ident) => {
         paste::paste! {
             $($attrs)*
-            #[test]
+            #[test] #[print_dur::print_dur]
             fn [<$test_name _in_worktree>]() {
                 $crate::repos::test_repo::with_worktree_mode(|| {
                     $test_name();

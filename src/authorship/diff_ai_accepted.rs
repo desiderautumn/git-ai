@@ -107,14 +107,14 @@ fn lines_to_ranges(lines: &[u32]) -> Vec<(u32, u32)> {
 mod tests {
     use super::*;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_lines_to_ranges_empty() {
         let lines = vec![];
         let ranges = lines_to_ranges(&lines);
         assert_eq!(ranges.len(), 0);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_lines_to_ranges_single() {
         let lines = vec![5];
         let ranges = lines_to_ranges(&lines);
@@ -122,7 +122,7 @@ mod tests {
         assert_eq!(ranges[0], (5, 5));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_lines_to_ranges_consecutive() {
         let lines = vec![1, 2, 3, 4, 5];
         let ranges = lines_to_ranges(&lines);
@@ -130,7 +130,7 @@ mod tests {
         assert_eq!(ranges[0], (1, 5));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_lines_to_ranges_non_consecutive() {
         let lines = vec![1, 3, 5, 7];
         let ranges = lines_to_ranges(&lines);
@@ -141,7 +141,7 @@ mod tests {
         assert_eq!(ranges[3], (7, 7));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_lines_to_ranges_mixed() {
         let lines = vec![1, 2, 3, 5, 6, 10];
         let ranges = lines_to_ranges(&lines);
@@ -151,7 +151,7 @@ mod tests {
         assert_eq!(ranges[2], (10, 10));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_lines_to_ranges_two_groups() {
         let lines = vec![1, 2, 3, 10, 11, 12];
         let ranges = lines_to_ranges(&lines);
@@ -160,7 +160,7 @@ mod tests {
         assert_eq!(ranges[1], (10, 12));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_lines_to_ranges_large_numbers() {
         let lines = vec![100, 101, 102, 200, 201];
         let ranges = lines_to_ranges(&lines);
@@ -169,7 +169,7 @@ mod tests {
         assert_eq!(ranges[1], (200, 201));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_diff_ai_accepted_stats_default() {
         let stats = DiffAiAcceptedStats::default();
         assert_eq!(stats.total_ai_accepted, 0);
@@ -177,7 +177,7 @@ mod tests {
         assert_eq!(stats.per_prompt.len(), 0);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_diff_ai_accepted_stats_debug() {
         let stats = DiffAiAcceptedStats {
             total_ai_accepted: 10,

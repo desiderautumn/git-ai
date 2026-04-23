@@ -36,7 +36,7 @@ fn create_files(
 // Test Group A: status()
 // ============================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_status_post_filter_equivalence() {
     let repo = TestRepo::new();
 
@@ -76,7 +76,7 @@ fn test_status_post_filter_equivalence() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_status_post_filter_excludes_unmatched_files() {
     let repo = TestRepo::new();
 
@@ -105,7 +105,7 @@ fn test_status_post_filter_excludes_unmatched_files() {
     assert_eq!(result.len(), 2);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_status_post_filter_rename_matched_by_new_path() {
     let repo = TestRepo::new();
 
@@ -132,7 +132,7 @@ fn test_status_post_filter_rename_matched_by_new_path() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_status_post_filter_rename_matched_by_orig_path() {
     let repo = TestRepo::new();
 
@@ -160,7 +160,7 @@ fn test_status_post_filter_rename_matched_by_orig_path() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_status_post_filter_rename_excluded_when_neither_matches() {
     // Note: status() unions staged filenames into combined_pathspecs, so we test
     // the post-filter retain predicate via list_commit_files on a commit with a rename.
@@ -204,7 +204,7 @@ fn test_status_post_filter_rename_excluded_when_neither_matches() {
 // Test Group B: list_commit_files()
 // ============================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_list_commit_files_post_filter_equivalence() {
     let repo = TestRepo::new();
 
@@ -235,7 +235,7 @@ fn test_list_commit_files_post_filter_equivalence() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_list_commit_files_post_filter_exclusion() {
     let repo = TestRepo::new();
 
@@ -259,7 +259,7 @@ fn test_list_commit_files_post_filter_exclusion() {
     assert_eq!(result, expected, "should contain only file_0 and file_1");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_list_commit_files_post_filter_no_matches() {
     let repo = TestRepo::new();
 
@@ -291,7 +291,7 @@ fn test_list_commit_files_post_filter_no_matches() {
 // Test Group C: diff_added_lines()
 // ============================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_added_lines_post_filter_equivalence() {
     let repo = TestRepo::new();
 
@@ -330,7 +330,7 @@ fn test_diff_added_lines_post_filter_equivalence() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_added_lines_post_filter_exclusion() {
     let repo = TestRepo::new();
 
@@ -368,7 +368,7 @@ fn test_diff_added_lines_post_filter_exclusion() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_added_lines_post_filter_correct_line_numbers() {
     let repo = TestRepo::new();
 
@@ -404,7 +404,7 @@ fn test_diff_added_lines_post_filter_correct_line_numbers() {
 // Test Group D: diff_workdir_added_lines_with_insertions()
 // ============================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_workdir_insertions_post_filter_equivalence() {
     let repo = TestRepo::new();
 
@@ -437,7 +437,7 @@ fn test_diff_workdir_insertions_post_filter_equivalence() {
     assert_eq!(ins_small, ins_large, "pure_insertions should be identical");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_workdir_insertions_both_maps_filtered() {
     let repo = TestRepo::new();
 
@@ -478,7 +478,7 @@ fn test_diff_workdir_insertions_both_maps_filtered() {
 // Test Group E: diff_tree_to_tree()
 // ============================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_tree_to_tree_post_filter_equivalence() {
     let repo = TestRepo::new();
 
@@ -542,7 +542,7 @@ fn test_diff_tree_to_tree_post_filter_equivalence() {
     assert_eq!(paths_small, paths_large, "delta paths should be identical");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_tree_to_tree_post_filter_exclusion() {
     let repo = TestRepo::new();
 
@@ -590,7 +590,7 @@ fn test_diff_tree_to_tree_post_filter_exclusion() {
 // Test Group F: Boundary & edge cases
 // ============================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_threshold_boundary_1000_vs_1001() {
     let repo = TestRepo::new();
 
@@ -630,7 +630,7 @@ fn test_threshold_boundary_1000_vs_1001() {
     assert_eq!(result_1000, expected);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_empty_pathspec_early_return() {
     let repo = TestRepo::new();
 

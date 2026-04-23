@@ -3,7 +3,7 @@ use crate::repos::test_repo::TestRepo;
 use serde_json::json;
 
 /// Test human checkpoint via github-copilot preset with before_edit hook
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_github_copilot_human_checkpoint_before_edit() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.ts");
@@ -47,7 +47,7 @@ fn test_github_copilot_human_checkpoint_before_edit() {
 }
 
 /// Test that human checkpoint with will_edit_filepaths scopes the attribution correctly
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_github_copilot_human_checkpoint_scoped_to_files() {
     let repo = TestRepo::new();
     let mut file1 = repo.filename("file1.ts");
@@ -94,7 +94,7 @@ fn test_github_copilot_human_checkpoint_scoped_to_files() {
 }
 
 /// Test human checkpoint followed by AI checkpoint
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_github_copilot_human_then_ai_checkpoint() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.ts");
@@ -144,7 +144,7 @@ fn test_github_copilot_human_then_ai_checkpoint() {
 }
 
 /// Test multiple files with human checkpoint and dirty files
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_github_copilot_multiple_files_with_dirty_files() {
     let repo = TestRepo::new();
     let mut file1 = repo.filename("file1.ts");
@@ -200,7 +200,7 @@ fn test_github_copilot_multiple_files_with_dirty_files() {
 }
 
 /// Test that empty will_edit_filepaths fails validation
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_github_copilot_empty_will_edit_filepaths_fails() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.ts");
@@ -232,7 +232,7 @@ fn test_github_copilot_empty_will_edit_filepaths_fails() {
 }
 
 /// Test human checkpoint preserves file contents even when file isn't dirty
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_github_copilot_human_checkpoint_with_clean_file() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.ts");

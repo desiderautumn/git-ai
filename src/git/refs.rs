@@ -742,7 +742,7 @@ mod tests {
     use super::*;
     use crate::git::test_utils::TmpRepo;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_batch_check_blob_oid_accepts_sha1_and_sha256() {
         let sha1 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa blob 10";
         let sha256 = "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb blob 20";
@@ -759,7 +759,7 @@ mod tests {
         assert_eq!(parse_batch_check_blob_oid(invalid), None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_notes_add_and_show_authorship_note() {
         // Create a temporary repository
         let tmp_repo = TmpRepo::new().expect("Failed to create tmp repo");
@@ -796,7 +796,7 @@ mod tests {
         assert!(non_existent_content.is_none());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_notes_add_batch_writes_multiple_notes() {
         let tmp_repo = TmpRepo::new().expect("Failed to create tmp repo");
 
@@ -821,7 +821,7 @@ mod tests {
         assert!(note_b.contains("\"note\":\"b\""));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_notes_add_blob_batch_reuses_existing_note_blob() {
         let tmp_repo = TmpRepo::new().expect("Failed to create tmp repo");
 
@@ -858,7 +858,7 @@ mod tests {
         assert_eq!(parsed_note_b.metadata.base_commit_sha, commit_b);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_sanitize_remote_name() {
         assert_eq!(sanitize_remote_name("origin"), "origin");
         assert_eq!(sanitize_remote_name("my-remote"), "my-remote");
@@ -874,7 +874,7 @@ mod tests {
         assert_eq!(sanitize_remote_name("has spaces"), "has_spaces");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_tracking_ref_for_remote() {
         assert_eq!(
             tracking_ref_for_remote("origin"),
@@ -895,7 +895,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_ref_exists() {
         let tmp_repo = TmpRepo::new().expect("Failed to create tmp repo");
 
@@ -925,7 +925,7 @@ mod tests {
         assert!(!ref_exists(tmp_repo.gitai_repo(), "refs/notes/ai-test"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_merge_notes_from_ref() {
         let tmp_repo = TmpRepo::new().expect("Failed to create tmp repo");
 
@@ -982,7 +982,7 @@ mod tests {
         assert!(final_note_c.is_some() || initial_note_c.is_some());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_copy_ref() {
         let tmp_repo = TmpRepo::new().expect("Failed to create tmp repo");
 
@@ -1035,7 +1035,7 @@ mod tests {
         assert_eq!(note_from_ai, note_from_backup);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_grep_ai_notes_single_match() {
         let tmp_repo = TmpRepo::new().expect("Failed to create tmp repo");
 
@@ -1054,7 +1054,7 @@ mod tests {
         assert_eq!(results[0], commit_sha);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_grep_ai_notes_multiple_matches() {
         let tmp_repo = TmpRepo::new().expect("Failed to create tmp repo");
 
@@ -1101,7 +1101,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_grep_ai_notes_no_match() {
         let tmp_repo = TmpRepo::new().expect("Failed to create tmp repo");
 
@@ -1123,7 +1123,7 @@ mod tests {
         // Err is also acceptable - git grep returns non-zero when no matches
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_grep_ai_notes_no_notes() {
         let tmp_repo = TmpRepo::new().expect("Failed to create tmp repo");
 
@@ -1141,7 +1141,7 @@ mod tests {
         // Err is also acceptable - refs/notes/ai may not exist yet
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_get_commits_with_notes_from_list() {
         let tmp_repo = TmpRepo::new().expect("Failed to create tmp repo");
 
@@ -1185,7 +1185,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_notes_path_for_object() {
         // Short SHA (edge case)
         assert_eq!(notes_path_for_object("a"), "a");
@@ -1206,7 +1206,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_flat_note_pathspec_for_commit() {
         let sha = "abcdef1234567890abcdef1234567890abcdef12";
         let pathspec = flat_note_pathspec_for_commit(sha);
@@ -1216,7 +1216,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_fanout_note_pathspec_for_commit() {
         let sha = "abcdef1234567890abcdef1234567890abcdef12";
         let pathspec = fanout_note_pathspec_for_commit(sha);
@@ -1226,7 +1226,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_note_blob_oids_for_commits_empty() {
         let tmp_repo = TmpRepo::new().expect("Failed to create tmp repo");
 
@@ -1235,7 +1235,7 @@ mod tests {
         assert!(result.is_empty());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[ignore] // Checkpoint system auto-creates notes, making this assertion invalid
     fn test_note_blob_oids_for_commits_no_notes() {
         let tmp_repo = TmpRepo::new().expect("Failed to create tmp repo");
@@ -1252,7 +1252,7 @@ mod tests {
         assert!(result.is_empty());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_commits_with_authorship_notes() {
         let tmp_repo = TmpRepo::new().expect("Failed to create tmp repo");
 
@@ -1283,7 +1283,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_get_reference_as_working_log() {
         let tmp_repo = TmpRepo::new().expect("Failed to create tmp repo");
 
@@ -1302,7 +1302,7 @@ mod tests {
         assert_eq!(result.len(), 0); // Empty array
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_get_reference_as_authorship_log_v3_version_mismatch() {
         let tmp_repo = TmpRepo::new().expect("Failed to create tmp repo");
 

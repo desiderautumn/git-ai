@@ -1085,7 +1085,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn persist_install_api_base_updates_config_and_backfills_git_path() {
         let temp = tempdir().unwrap();
@@ -1118,7 +1118,7 @@ mod tests {
         assert_eq!(config.git_path.as_deref(), Some(expected_git_path));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn persist_install_api_base_preserves_existing_git_path() {
         let temp = tempdir().unwrap();
@@ -1160,7 +1160,7 @@ mod tests {
         assert_eq!(config.git_path.as_deref(), Some(existing_git_path));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn persist_install_api_base_skips_without_env_or_in_dry_run() {
         let temp = tempdir().unwrap();
@@ -1186,7 +1186,7 @@ mod tests {
     }
 
     #[cfg(windows)]
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn parse_git_og_cmd_path_extracts_wrapped_git_path() {
         assert_eq!(
             parse_git_og_cmd_path("@echo off\r\n\"C:\\Program Files\\Git\\bin\\git.exe\" %*\r\n"),

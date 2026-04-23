@@ -11,7 +11,7 @@ use serde_json::Value;
 // JSON Output Tests (complementing existing tests)
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_structure() {
     let repo = TestRepo::new();
 
@@ -65,7 +65,7 @@ fn test_diff_json_structure() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_file_structure() {
     let repo = TestRepo::new();
 
@@ -103,7 +103,7 @@ fn test_diff_json_file_structure() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_annotations_format() {
     let repo = TestRepo::new();
 
@@ -138,7 +138,7 @@ fn test_diff_json_annotations_format() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_base_content_accuracy() {
     let repo = TestRepo::new();
 
@@ -177,7 +177,7 @@ fn test_diff_json_base_content_accuracy() {
 // Error Handling Tests
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_invalid_commit_ref() {
     let repo = TestRepo::new();
 
@@ -193,7 +193,7 @@ fn test_diff_invalid_commit_ref() {
     assert!(result.is_err(), "diff with invalid ref should fail");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_invalid_range_format() {
     let repo = TestRepo::new();
 
@@ -210,7 +210,7 @@ fn test_diff_invalid_range_format() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_range_start_equals_end() {
     let repo = TestRepo::new();
 
@@ -236,7 +236,7 @@ fn test_diff_range_start_equals_end() {
 // Edge Cases for File Handling
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_new_file_from_empty() {
     let repo = TestRepo::new();
 
@@ -258,7 +258,7 @@ fn test_diff_new_file_from_empty() {
     assert!(output.contains("+"), "Should show additions for new file");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_deleted_file() {
     let repo = TestRepo::new();
 
@@ -283,7 +283,7 @@ fn test_diff_deleted_file() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_renamed_file() {
     let repo = TestRepo::new();
 
@@ -305,7 +305,7 @@ fn test_diff_renamed_file() {
     assert!(!output.is_empty(), "Diff should show file changes");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_empty_file() {
     let repo = TestRepo::new();
 
@@ -331,7 +331,7 @@ fn test_diff_empty_file() {
 // Special Content Tests
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_with_very_long_lines() {
     let repo = TestRepo::new();
 
@@ -358,7 +358,7 @@ fn test_diff_with_very_long_lines() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_with_special_regex_chars() {
     let repo = TestRepo::new();
 
@@ -387,7 +387,7 @@ fn test_diff_with_special_regex_chars() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_whitespace_only_changes() {
     let repo = TestRepo::new();
 
@@ -420,7 +420,7 @@ fn test_diff_whitespace_only_changes() {
 // Performance and Scalability Tests
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_large_file() {
     let repo = TestRepo::new();
 
@@ -448,7 +448,7 @@ fn test_diff_large_file() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_many_files() {
     let repo = TestRepo::new();
 
@@ -487,7 +487,7 @@ fn test_diff_many_files() {
 // Range Behavior Tests
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_range_multiple_commits() {
     let repo = TestRepo::new();
 
@@ -528,7 +528,7 @@ fn test_diff_range_multiple_commits() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_range_shows_intermediate_changes() {
     let repo = TestRepo::new();
 
@@ -561,7 +561,7 @@ fn test_diff_range_shows_intermediate_changes() {
 // Compatibility Tests
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_works_with_submodules() {
     let repo = TestRepo::new();
 
@@ -581,7 +581,7 @@ fn test_diff_works_with_submodules() {
     assert!(output.contains("helper"), "Should show the change");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_attribution_consistency() {
     let repo = TestRepo::new();
 

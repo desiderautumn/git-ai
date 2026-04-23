@@ -2,7 +2,7 @@
 // ShareConfig Logic Tests
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_share_config_defaults() {
     // Test default values
     let share_all_in_commit = false;
@@ -16,7 +16,7 @@ fn test_share_config_defaults() {
     assert_eq!(focused_checkbox, 0);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_share_config_can_share_commit() {
     // Test that can_share_commit depends on commit_sha presence
     let has_commit = true;
@@ -33,7 +33,7 @@ fn test_share_config_can_share_commit() {
 // Title Editing Tests
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_title_cursor_movement() {
     let title = "Hello World".to_string();
     let mut cursor = 0;
@@ -65,7 +65,7 @@ fn test_title_cursor_movement() {
     assert_eq!(cursor, 11);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_title_char_insertion() {
     let mut title = "Hello".to_string();
     let mut cursor = 5;
@@ -86,7 +86,7 @@ fn test_title_char_insertion() {
     assert_eq!(cursor, 1);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_title_backspace() {
     let mut title = "Hello".to_string();
     let mut cursor = 5;
@@ -110,7 +110,7 @@ fn test_title_backspace() {
     assert_eq!(title.len(), len_before);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_title_clear() {
     let mut title = "Some long title".to_string();
     let _cursor = 7;
@@ -127,7 +127,7 @@ fn test_title_clear() {
 // Checkbox Tests
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_checkbox_navigation() {
     let mut focused_checkbox = 0;
 
@@ -156,7 +156,7 @@ fn test_checkbox_navigation() {
     assert_eq!(focused_checkbox, 0);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_checkbox_toggle() {
     let mut share_all_in_commit = false;
     let mut include_diffs = true;
@@ -182,7 +182,7 @@ fn test_checkbox_toggle() {
     assert!(include_diffs);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_checkbox_toggle_disabled() {
     let mut share_all_in_commit = false;
     let can_share_commit = false;
@@ -196,7 +196,7 @@ fn test_checkbox_toggle_disabled() {
     assert!(!share_all_in_commit);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_checkbox_focus_indices() {
     // Checkbox 0: share_all_in_commit
     // Checkbox 1: include_diffs
@@ -212,7 +212,7 @@ fn test_checkbox_focus_indices() {
 // Field Focus Tests
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_field_focus_cycle() {
     let mut focused_field = 0;
 
@@ -225,7 +225,7 @@ fn test_field_focus_cycle() {
     assert_eq!(focused_field, 0);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_field_focus_backtab() {
     let mut focused_field = 0;
 
@@ -242,7 +242,7 @@ fn test_field_focus_backtab() {
 // Key Event Handling Tests
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_key_event_codes() {
     // Test key code constants
     use crossterm::event::KeyCode;
@@ -316,7 +316,7 @@ fn test_key_event_codes() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_key_modifiers() {
     use crossterm::event::KeyModifiers;
 
@@ -333,7 +333,7 @@ fn test_key_modifiers() {
 // UI Layout Tests
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_layout_constraints() {
     use ratatui::layout::{Constraint, Direction};
 
@@ -365,7 +365,7 @@ fn test_layout_constraints() {
 // Style Tests
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_style_colors() {
     use ratatui::style::Color;
 
@@ -395,7 +395,7 @@ fn test_style_colors() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_style_modifiers() {
     use ratatui::style::Modifier;
 
@@ -410,7 +410,7 @@ fn test_style_modifiers() {
 // Text Formatting Tests
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cursor_display() {
     let title = "Hello";
     let cursor = 3;
@@ -423,7 +423,7 @@ fn test_cursor_display() {
     assert_eq!(display, "Hel_lo");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cursor_at_start() {
     let title = "Hello";
     let cursor = 0;
@@ -435,7 +435,7 @@ fn test_cursor_at_start() {
     assert_eq!(display, "_Hello");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cursor_at_end() {
     let title = "Hello";
     let cursor = title.len();
@@ -451,7 +451,7 @@ fn test_cursor_at_end() {
 // Checkbox Marker Tests
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_checkbox_markers() {
     let checked = true;
     let unchecked = false;
@@ -463,7 +463,7 @@ fn test_checkbox_markers() {
     assert_eq!(unchecked_marker, "[ ]");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_checkbox_text_formatting() {
     let can_share_commit = true;
     let share_all_in_commit = true;
@@ -478,7 +478,7 @@ fn test_checkbox_text_formatting() {
     assert_eq!(text, "[x] Share all prompts in commit");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_checkbox_disabled_text() {
     let can_share_commit = false;
     let share_all_in_commit = false;
@@ -497,7 +497,7 @@ fn test_checkbox_disabled_text() {
 // Share Bundle Creation Tests
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_share_bundle_parameters() {
     let prompt_id = "abc123def456".to_string();
     let title = "Test Prompt".to_string();
@@ -515,7 +515,7 @@ fn test_share_bundle_parameters() {
 // Terminal Setup/Cleanup Tests
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_terminal_modes() {
     // Test that terminal mode functions exist
     use crossterm::terminal::{disable_raw_mode, enable_raw_mode};
@@ -526,7 +526,7 @@ fn test_terminal_modes() {
     let _ = disable_raw_mode;
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_terminal_screen_modes() {
     use crossterm::terminal::{EnterAlternateScreen, LeaveAlternateScreen};
 
@@ -535,7 +535,7 @@ fn test_terminal_screen_modes() {
     let _ = LeaveAlternateScreen;
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_terminal_mouse_capture() {
     use crossterm::event::{DisableMouseCapture, EnableMouseCapture};
 
@@ -548,7 +548,7 @@ fn test_terminal_mouse_capture() {
 // Config Key Result Tests
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_config_key_result_variants() {
     // Test ConfigKeyResult enum logic (simulated)
     enum TestResult {
@@ -581,7 +581,7 @@ fn test_config_key_result_variants() {
 // Integration with Prompt Picker Tests
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prompt_picker_integration_structure() {
     // Test that prompt picker is called before share config
     // This verifies the control flow structure
@@ -593,7 +593,7 @@ fn test_prompt_picker_integration_structure() {
     // Control flow structure verified
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_user_cancellation_flow() {
     // Test cancellation scenarios
 
@@ -610,7 +610,7 @@ fn test_user_cancellation_flow() {
 // Sync Prompts Tests
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_sync_prompts_called_before_picker() {
     // Verify that sync_recent_prompts_silent is called with correct limit
     let sync_limit = 20;
@@ -623,7 +623,7 @@ fn test_sync_prompts_called_before_picker() {
 // Key Event Kind Tests
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_key_event_kind_press() {
     use crossterm::event::KeyEventKind;
 
@@ -645,7 +645,7 @@ fn test_key_event_kind_press() {
 // BackTab Tests
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_backtab_key_code() {
     use crossterm::event::KeyCode;
 

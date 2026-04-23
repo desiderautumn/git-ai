@@ -264,7 +264,7 @@ mod tests {
         DeletedLine::new(content, line_number, deletion_idx)
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn detects_basic_move() {
         let mut inserted = vec![
             inserted_line(10, 0, "fn foo() {"),
@@ -289,7 +289,7 @@ mod tests {
         assert_eq!(inserted[0].normalized_content, "fn foo() {");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn matches_when_whitespace_differs() {
         let mut inserted = vec![
             inserted_line(20, 1, "    let value = 42; "),
@@ -316,7 +316,7 @@ mod tests {
         assert_eq!(mapping.deleted[1].line_number, 6);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn drops_whitespace_only_lines() {
         let mut inserted = vec![
             inserted_line(30, 3, "   "),
@@ -336,7 +336,7 @@ mod tests {
         assert_eq!(inserted[1].normalized_content, "let a = 1;");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn filters_groups_below_threshold() {
         let mut inserted = vec![inserted_line(1, 5, "alpha"), inserted_line(2, 5, "beta")];
         let mut deleted = vec![deleted_line(10, 6, "alpha"), deleted_line(11, 6, "beta")];
@@ -345,7 +345,7 @@ mod tests {
         assert!(moves.is_empty());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn detects_multiple_groups() {
         let mut inserted = vec![
             inserted_line(50, 7, "fn a() {"),
@@ -404,7 +404,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn handles_duplicate_candidates() {
         let mut inserted = vec![
             inserted_line(100, 11, "fn shared() {"),
@@ -433,7 +433,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn allows_single_line_moves_with_threshold_one() {
         let mut inserted = vec![inserted_line(200, 14, "single line")];
         let mut deleted = vec![deleted_line(40, 15, "single line")];
@@ -444,7 +444,7 @@ mod tests {
         assert_eq!(moves[0].deleted[0].deletion_idx, 15);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn works_with_unsorted_input() {
         let mut inserted = vec![
             inserted_line(12, 16, "}"),
@@ -478,7 +478,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn no_matches_when_normalized_content_differs() {
         let mut inserted = vec![
             inserted_line(10, 18, "let x = 1;"),

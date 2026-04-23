@@ -776,7 +776,7 @@ mod tests {
     };
     use crate::git::test_utils::TmpRepo;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_count_line_ranges_handles_scattered_and_contiguous_lines() {
         assert_eq!(count_line_ranges(&[]), 0);
         assert_eq!(count_line_ranges(&[1]), 1);
@@ -786,7 +786,7 @@ mod tests {
         assert_eq!(count_line_ranges(&[5, 3, 3, 4, 10]), 2);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_skip_expensive_post_commit_stats_thresholds() {
         let below_threshold = StatsCostEstimate {
             files_with_additions: STATS_SKIP_MAX_FILES_WITH_ADDITIONS - 1,
@@ -829,7 +829,7 @@ mod tests {
         assert!(should_skip_expensive_post_commit_stats(&by_deleted_lines));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_post_commit_empty_repo_with_checkpoint() {
         // Create an empty repo (no commits yet)
         let tmp_repo = TmpRepo::new().unwrap();
@@ -862,7 +862,7 @@ mod tests {
         let _authorship_log = result.unwrap();
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_post_commit_empty_repo_no_checkpoint() {
         // Create an empty repo (no commits yet)
         let tmp_repo = TmpRepo::new().unwrap();
@@ -891,38 +891,38 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_count_line_ranges_single_element() {
         assert_eq!(count_line_ranges(&[42]), 1);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_count_line_ranges_all_contiguous() {
         assert_eq!(count_line_ranges(&[1, 2, 3, 4, 5]), 1);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_count_line_ranges_all_scattered() {
         assert_eq!(count_line_ranges(&[1, 10, 20, 30]), 4);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_count_line_ranges_duplicates() {
         assert_eq!(count_line_ranges(&[5, 5, 5]), 1);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_count_line_ranges_unsorted() {
         // After sort+dedup: [1, 2, 5, 6, 10] -> ranges: [1,2], [5,6], [10]
         assert_eq!(count_line_ranges(&[10, 5, 6, 1, 2]), 3);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_count_line_ranges_two_ranges() {
         assert_eq!(count_line_ranges(&[1, 2, 3, 10, 11, 12]), 2);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_skip_stats_exactly_at_thresholds() {
         // Exactly at the hunks threshold alone should trigger skip.
         let at_hunks = StatsCostEstimate {
@@ -985,7 +985,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_post_commit_utf8_filename_with_ai_attribution() {
         // Create a repo with an initial commit
         let tmp_repo = TmpRepo::new().unwrap();

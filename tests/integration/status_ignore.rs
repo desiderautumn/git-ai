@@ -76,7 +76,7 @@ fn configure_hostile_diff_settings(repo: &TestRepo) {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_checkpoint_ignores_default_lockfiles_integration() {
     let repo = TestRepo::new();
 
@@ -104,7 +104,7 @@ fn test_checkpoint_ignores_default_lockfiles_integration() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_checkpoint_honors_uncommitted_root_gitattributes_linguist_generated_integration() {
     let repo = TestRepo::new();
 
@@ -150,7 +150,7 @@ fn test_checkpoint_honors_uncommitted_root_gitattributes_linguist_generated_inte
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_status_default_ignores_affect_git_diff_and_ai_accepted() {
     let repo = TestRepo::new();
 
@@ -173,7 +173,7 @@ fn test_status_default_ignores_affect_git_diff_and_ai_accepted() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_status_honors_uncommitted_root_gitattributes_linguist_generated() {
     let repo = TestRepo::new();
 
@@ -211,7 +211,7 @@ fn test_status_honors_uncommitted_root_gitattributes_linguist_generated() {
     assert_eq!(status.stats.ai_accepted, 1);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_status_with_only_ignored_changes_reports_zero_diff() {
     let repo = TestRepo::new();
 
@@ -227,7 +227,7 @@ fn test_status_with_only_ignored_changes_reports_zero_diff() {
     assert_eq!(status.stats.ai_accepted, 0);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_checkpoint_honors_git_ai_ignore_file() {
     let repo = TestRepo::new();
 
@@ -260,7 +260,7 @@ fn test_checkpoint_honors_git_ai_ignore_file() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_status_honors_git_ai_ignore_file() {
     let repo = TestRepo::new();
 
@@ -285,7 +285,7 @@ fn test_status_honors_git_ai_ignore_file() {
     assert_eq!(status.stats.ai_accepted, 1);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_status_git_ai_ignore_union_with_gitattributes() {
     let repo = TestRepo::new();
 
@@ -330,7 +330,7 @@ fn test_status_git_ai_ignore_union_with_gitattributes() {
     assert_eq!(status.stats.ai_accepted, 1);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_status_ignores_repo_external_diff_helper_for_internal_numstat() {
     let repo = TestRepo::new();
 
@@ -355,7 +355,7 @@ fn test_status_ignores_repo_external_diff_helper_for_internal_numstat() {
     assert_eq!(status.stats.ai_accepted, 1);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_status_numstat_is_stable_under_hostile_diff_config() {
     let repo = TestRepo::new();
 

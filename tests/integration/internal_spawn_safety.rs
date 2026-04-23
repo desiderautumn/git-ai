@@ -17,7 +17,7 @@ fn collect_rs_files(dir: &Path, out: &mut Vec<PathBuf>) {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn internal_background_subcommands_must_use_spawn_helper() {
     let src_root = Path::new(env!("CARGO_MANIFEST_DIR")).join("src");
     let mut files = Vec::new();
@@ -50,7 +50,7 @@ fn internal_background_subcommands_must_use_spawn_helper() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn critical_background_spawners_call_spawn_helper() {
     let root = Path::new(env!("CARGO_MANIFEST_DIR"));
     let files = [root.join("src/commands/upgrade.rs")];
@@ -65,7 +65,7 @@ fn critical_background_spawners_call_spawn_helper() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn internal_spawn_helper_calls_must_provide_guard_env() {
     let src_root = Path::new(env!("CARGO_MANIFEST_DIR")).join("src");
     let mut files = Vec::new();
@@ -88,7 +88,7 @@ fn internal_spawn_helper_calls_must_provide_guard_env() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn direct_git_command_spawns_are_centralized() {
     let src_root = Path::new(env!("CARGO_MANIFEST_DIR")).join("src");
     let mut files = Vec::new();

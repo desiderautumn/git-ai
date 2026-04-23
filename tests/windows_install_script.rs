@@ -323,7 +323,7 @@ fn wait_for_child_exit(repo: &TestRepo, child: &mut Child, timeout: Duration) {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn windows_install_script_reinstall_stops_running_daemon() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -367,7 +367,7 @@ fn windows_install_script_reinstall_stops_running_daemon() {
     kill_installed_processes(&repo);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn windows_daemon_creates_log_file() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -390,7 +390,7 @@ fn windows_daemon_creates_log_file() {
     let _ = daemon.wait();
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn windows_git_extension_upgrade_requires_direct_git_ai_binary() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);

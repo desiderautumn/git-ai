@@ -8,7 +8,7 @@ fn direct_test_repo() -> TestRepo {
 }
 
 /// Test basic squash merge via CI - AI code from feature branch squashed into main
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_squash_merge_basic() {
     let repo = direct_test_repo();
     let mut file = repo.filename("feature.js");
@@ -77,7 +77,7 @@ fn test_ci_squash_merge_basic() {
 }
 
 /// Test squash merge with multiple files containing AI code
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_squash_merge_multiple_files() {
     let repo = direct_test_repo();
 
@@ -157,7 +157,7 @@ fn test_ci_squash_merge_multiple_files() {
 }
 
 /// Test squash merge with mixed AI and human content
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_squash_merge_mixed_content() {
     let repo = direct_test_repo();
     let mut file = repo.filename("mixed.js");
@@ -246,7 +246,7 @@ fn test_ci_squash_merge_mixed_content() {
 }
 
 /// Test squash merge where source commits have notes but no AI attestations.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_squash_merge_empty_notes_preserved() {
     let repo = direct_test_repo();
     let mut file = repo.filename("feature.txt");
@@ -289,7 +289,7 @@ fn test_ci_squash_merge_empty_notes_preserved() {
 }
 
 /// Test squash merge where source commits have no notes at all.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_squash_merge_no_notes_no_authorship_created() {
     let repo = direct_test_repo();
 
@@ -345,7 +345,7 @@ fn test_ci_squash_merge_no_notes_no_authorship_created() {
 }
 
 /// Test squash merge where conflict resolution adds content
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_squash_merge_with_manual_changes() {
     let repo = direct_test_repo();
     let mut file = repo.filename("config.js");
@@ -428,7 +428,7 @@ fn test_ci_squash_merge_with_manual_changes() {
 }
 
 /// Test rebase-like merge (multiple commits squashed) with AI content
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_rebase_merge_multiple_commits() {
     let repo = direct_test_repo();
     let mut file = repo.filename("app.js");
@@ -530,7 +530,7 @@ fn test_ci_rebase_merge_multiple_commits() {
 /// `.reverse()` fix in `ci_context.rs`, the positional pairing in
 /// `pair_commits_for_rewrite` would be inverted: the first original commit's note
 /// would be written to the last rebased commit and vice versa.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_rebase_merge_commit_order_pairing() {
     use git_ai::authorship::authorship_log_serialization::AuthorshipLog;
     use git_ai::ci::ci_context::{CiContext, CiEvent, CiRunOptions};
@@ -674,7 +674,7 @@ fn test_ci_rebase_merge_commit_order_pairing() {
 /// Before the `.reverse()` fix in `ci_context.rs` the pairing was inverted:
 /// original_commits came back newest-first from `CommitRange::all_commits()`
 /// while new_commits were oldest-first, so each note landed on the wrong commit.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_local_rebase_merge_two_commits() {
     use git_ai::authorship::authorship_log_serialization::AuthorshipLog;
 
@@ -827,7 +827,7 @@ fn test_ci_local_rebase_merge_two_commits() {
 /// `git-ai ci local merge`, every rebased commit must carry the note for its
 /// own file and none of the others.  This catches both full inversions
 /// (first↔last) and off-by-one shifts in the positional pairing.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_local_rebase_merge_three_commits() {
     use git_ai::authorship::authorship_log_serialization::AuthorshipLog;
 
@@ -1012,7 +1012,7 @@ fn test_ci_local_rebase_merge_three_commits() {
 
 /// Standard-human variant of test_ci_squash_merge_basic.
 /// Uses unattributed (checkpoint --) human lines instead of known-human attribution.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_squash_merge_basic_standard_human() {
     let repo = direct_test_repo();
     let mut file = repo.filename("feature.js");
@@ -1085,7 +1085,7 @@ fn test_ci_squash_merge_basic_standard_human() {
 
 /// Standard-human variant of test_ci_squash_merge_mixed_content.
 /// Uses unattributed (checkpoint --) human lines instead of known-human attribution.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_squash_merge_mixed_content_standard_human() {
     let repo = direct_test_repo();
     let mut file = repo.filename("mixed.js");
@@ -1167,7 +1167,7 @@ fn test_ci_squash_merge_mixed_content_standard_human() {
 
 /// Standard-human variant of test_ci_squash_merge_with_manual_changes.
 /// Uses unattributed (checkpoint --) human lines instead of known-human attribution.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_squash_merge_with_manual_changes_standard_human() {
     let repo = direct_test_repo();
     let mut file = repo.filename("config.js");
@@ -1244,7 +1244,7 @@ fn test_ci_squash_merge_with_manual_changes_standard_human() {
 
 /// Standard-human variant of test_ci_rebase_merge_multiple_commits.
 /// Uses unattributed (checkpoint --) human lines instead of known-human attribution.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_rebase_merge_multiple_commits_standard_human() {
     let repo = direct_test_repo();
     let mut file = repo.filename("app.js");

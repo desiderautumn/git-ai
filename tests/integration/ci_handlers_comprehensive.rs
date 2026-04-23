@@ -4,7 +4,7 @@ use crate::repos::test_repo::TestRepo;
 // CI Handlers Tests - Module Structure and Types
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_handlers_module_exists() {
     // Basic smoke test to ensure the module compiles and links
     // Smoke test: module compiles and links successfully
@@ -14,7 +14,7 @@ fn test_ci_handlers_module_exists() {
 // CI Result Types Tests
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_result_types_coverage() {
     // Test that we understand all CiRunResult variants
     use git_ai::authorship::authorship_log_serialization::AuthorshipLog;
@@ -62,7 +62,7 @@ fn test_ci_result_types_coverage() {
 // CI Event Structure Tests
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_event_merge_structure() {
     use git_ai::ci::ci_context::CiEvent;
 
@@ -95,7 +95,7 @@ fn test_ci_event_merge_structure() {
 // Flag Parsing Tests
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_local_flag_parsing_structure() {
     // Test that flag parsing logic expectations are correct
     let args = [
@@ -110,7 +110,7 @@ fn test_ci_local_flag_parsing_structure() {
     assert!(args.contains(&"--base-ref".to_string()));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_local_flag_values() {
     // Test flag value extraction logic
     let args = [
@@ -141,7 +141,7 @@ fn test_ci_local_flag_values() {
     assert_eq!(head_sha, Some("def456".to_string()));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_no_cleanup_flag_detection() {
     let args1 = ["run".to_string(), "--no-cleanup".to_string()];
     let args2 = ["run".to_string()];
@@ -153,7 +153,7 @@ fn test_no_cleanup_flag_detection() {
     assert!(!has_no_cleanup_2);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_missing_flag_value_detection() {
     let args = ["--merge-commit-sha".to_string()];
 
@@ -174,7 +174,7 @@ fn test_ci_missing_flag_value_detection() {
     assert!(!found_value, "Should detect missing flag value");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_required_flags_for_merge() {
     let required_flags = [
         "--merge-commit-sha",
@@ -192,7 +192,7 @@ fn test_ci_required_flags_for_merge() {
     assert!(required_flags.contains(&"--base-sha"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_optional_skip_fetch_flags_for_merge() {
     let optional_flags = ["--skip-fetch-notes", "--skip-fetch-base", "--skip-fetch"];
 
@@ -206,7 +206,7 @@ fn test_ci_optional_skip_fetch_flags_for_merge() {
 // Subcommand Structure Tests
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_subcommand_classification() {
     let valid_platforms = vec!["github", "gitlab", "local"];
     let valid_actions = vec!["run", "install"];
@@ -222,7 +222,7 @@ fn test_ci_subcommand_classification() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_github_subcommands() {
     let subcommands = ["run", "install"];
 
@@ -231,7 +231,7 @@ fn test_ci_github_subcommands() {
     assert!(!subcommands.contains(&"unknown"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_gitlab_subcommands() {
     let subcommands = ["run", "install"];
 
@@ -240,7 +240,7 @@ fn test_ci_gitlab_subcommands() {
     assert!(!subcommands.contains(&"unknown"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_local_events() {
     let events = ["merge"];
 
@@ -252,7 +252,7 @@ fn test_ci_local_events() {
 // Environment Detection Tests
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_github_ci_env_detection() {
     // Test GitHub CI environment variable detection logic
     // In actual CI, GITHUB_ACTIONS=true would be set
@@ -267,7 +267,7 @@ fn test_github_ci_env_detection() {
     // Otherwise not in GitHub Actions - expected in test environment
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gitlab_ci_env_detection() {
     // Test GitLab CI environment variable detection logic
     // In actual CI, GITLAB_CI=true would be set
@@ -286,7 +286,7 @@ fn test_gitlab_ci_env_detection() {
 // Repository Context Tests
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_requires_valid_repository() {
     // CI commands require a valid git repository
     let repo = TestRepo::new();
@@ -307,7 +307,7 @@ fn test_ci_requires_valid_repository() {
 // CI Context Integration Tests
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_context_with_temp_dir() {
     use git_ai::ci::ci_context::{CiContext, CiEvent};
     use git_ai::git::repository::find_repository_in_path;
@@ -347,7 +347,7 @@ fn test_ci_context_with_temp_dir() {
 // Workflow File Tests
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_github_workflow_file_creation() {
     use std::fs;
     let repo = TestRepo::new();
@@ -364,7 +364,7 @@ fn test_github_workflow_file_creation() {
     assert!(workflow_file.exists());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_github_workflow_path_structure() {
     let repo = TestRepo::new();
     let expected_path = repo

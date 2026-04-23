@@ -163,7 +163,7 @@ mod tests {
     // match_email_to_agent tests
     // ========================================================================
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_match_email_cursor() {
         assert_eq!(
             match_email_to_agent("cursoragent@cursor.com"),
@@ -171,7 +171,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_match_email_copilot() {
         assert_eq!(
             match_email_to_agent("198982749+Copilot@users.noreply.github.com"),
@@ -184,7 +184,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_match_email_devin() {
         assert_eq!(
             match_email_to_agent("158243242+devin-ai-integration[bot]@users.noreply.github.com"),
@@ -197,7 +197,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_match_email_claude() {
         assert_eq!(
             match_email_to_agent("noreply@anthropic.com"),
@@ -205,7 +205,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_match_email_codex() {
         assert_eq!(
             match_email_to_agent("noreply@openai.com"),
@@ -213,7 +213,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_match_email_case_insensitive() {
         assert_eq!(
             match_email_to_agent("CursorAgent@Cursor.com"),
@@ -225,7 +225,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_match_email_no_match() {
         assert_eq!(match_email_to_agent("user@example.com"), None);
         assert_eq!(match_email_to_agent("john@github.com"), None);
@@ -236,7 +236,7 @@ mod tests {
     // match_username_to_platform tests
     // ========================================================================
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_match_username_copilot() {
         assert_eq!(
             match_username_to_platform("copilot-swe-agent[bot]"),
@@ -244,7 +244,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_match_username_devin() {
         assert_eq!(
             match_username_to_platform("devin-ai-integration[bot]"),
@@ -252,7 +252,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_match_username_cursor() {
         assert_eq!(
             match_username_to_platform("cursor[bot]"),
@@ -260,7 +260,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_match_username_case_insensitive() {
         assert_eq!(
             match_username_to_platform("Copilot-SWE-Agent[bot]"),
@@ -268,7 +268,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_match_username_no_match() {
         assert_eq!(match_username_to_platform("regular-user"), None);
         assert_eq!(match_username_to_platform("octocat"), None);
@@ -279,7 +279,7 @@ mod tests {
     // simulate_agent_authorship tests
     // ========================================================================
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_simulate_agent_authorship_basic() {
         let (log, prompt_hash) =
             simulate_agent_authorship("abc123def456", "cursor", "src/main.rs", 1, 10);
@@ -303,7 +303,7 @@ mod tests {
         assert!(prompt.messages.is_empty());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_simulate_agent_authorship_single_line() {
         let (log, prompt_hash) = simulate_agent_authorship("sha123", "devin", "test.ts", 5, 5);
 
@@ -312,7 +312,7 @@ mod tests {
         assert_eq!(prompt.total_additions, 1);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_simulate_agent_authorship_uses_commit_sha_as_id() {
         let commit_sha = "deadbeef12345678";
         let (log, _) = simulate_agent_authorship(commit_sha, "claude", "file.py", 1, 5);
@@ -322,7 +322,7 @@ mod tests {
         assert_eq!(prompt.agent_id.id, commit_sha);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_simulate_agent_authorship_deterministic_hash() {
         let (_, hash1) = simulate_agent_authorship("sha123", "cursor", "file.rs", 1, 10);
         let (_, hash2) = simulate_agent_authorship("sha123", "cursor", "other.rs", 1, 5);
@@ -331,7 +331,7 @@ mod tests {
         assert_eq!(hash1, hash2);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_simulate_agent_authorship_different_tools_different_hash() {
         let (_, hash1) = simulate_agent_authorship("sha123", "cursor", "file.rs", 1, 10);
         let (_, hash2) = simulate_agent_authorship("sha123", "devin", "file.rs", 1, 10);

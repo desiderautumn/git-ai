@@ -187,7 +187,7 @@ fn verify_checkpoint_hashes_are_16_chars(repo: &TestRepo, commit_sha: &str) {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prompt_hash_migration_ai_adds_lines_multiple_commits() {
     // Test AI adding lines across multiple commits
     let repo = TestRepo::new();
@@ -230,7 +230,7 @@ fn test_prompt_hash_migration_ai_adds_lines_multiple_commits() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prompt_hash_migration_ai_adds_then_commits_in_batches() {
     // AI adds lines in multiple batches, committing separately
     let repo = TestRepo::new();
@@ -283,7 +283,7 @@ fn test_prompt_hash_migration_ai_adds_then_commits_in_batches() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prompt_hash_migration_unstaged_ai_lines_saved_to_working_log() {
     // Test that unstaged AI-authored lines are saved to the working log for the next commit
     let repo = TestRepo::new();

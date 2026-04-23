@@ -101,7 +101,7 @@ fn create_ai_commit_with_file(
 // Search by Commit Tests (Subtask 11.1)
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_search_by_commit_returns_prompts() {
     let repo = TestRepo::new();
     let commit_sha = create_ai_commit(&repo, "continue-cli-session-simple.json");
@@ -121,7 +121,7 @@ fn test_search_by_commit_returns_prompts() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_search_by_commit_no_results() {
     let repo = TestRepo::new();
 
@@ -139,7 +139,7 @@ fn test_search_by_commit_no_results() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_search_by_commit_abbreviated_sha() {
     let repo = TestRepo::new();
     let commit_sha = create_ai_commit(&repo, "continue-cli-session-simple.json");
@@ -157,7 +157,7 @@ fn test_search_by_commit_abbreviated_sha() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_search_by_commit_symbolic_ref() {
     let repo = TestRepo::new();
     let _commit_sha = create_ai_commit(&repo, "continue-cli-session-simple.json");
@@ -177,7 +177,7 @@ fn test_search_by_commit_symbolic_ref() {
 // Search by Commit Range Tests (Subtask 11.2)
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_search_by_commit_range() {
     let repo = TestRepo::new();
 
@@ -225,7 +225,7 @@ fn test_search_by_commit_range() {
 // Search by File Tests (Subtask 11.3)
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_search_by_file_basic() {
     let repo = TestRepo::new();
     let _commit_sha = create_ai_commit(&repo, "continue-cli-session-simple.json");
@@ -240,7 +240,7 @@ fn test_search_by_file_basic() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_search_by_file_and_lines() {
     let repo = TestRepo::new();
 
@@ -264,7 +264,7 @@ fn test_search_by_file_and_lines() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_search_by_file_no_ai_lines() {
     let repo = TestRepo::new();
 
@@ -282,7 +282,7 @@ fn test_search_by_file_no_ai_lines() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_search_by_file_relative_path() {
     let repo = TestRepo::new();
 
@@ -310,7 +310,7 @@ fn test_search_by_file_relative_path() {
 // Search by Pattern Tests (Subtask 11.4)
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_search_by_pattern() {
     let repo = TestRepo::new();
     let _commit_sha = create_ai_commit(&repo, "continue-cli-session-simple.json");
@@ -323,7 +323,7 @@ fn test_search_by_pattern() {
     assert!(output.is_ok() || output.is_err());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_search_by_prompt_id() {
     let repo = TestRepo::new();
     let commit_sha = create_ai_commit(&repo, "continue-cli-session-simple.json");
@@ -353,7 +353,7 @@ fn test_search_by_prompt_id() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_search_by_prompt_id_not_found() {
     let repo = TestRepo::new();
 
@@ -375,7 +375,7 @@ fn test_search_by_prompt_id_not_found() {
 // Output Format Tests (Subtask 11.6)
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_search_output_json() {
     let repo = TestRepo::new();
     let commit_sha = create_ai_commit(&repo, "continue-cli-session-simple.json");
@@ -399,7 +399,7 @@ fn test_search_output_json() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_search_output_verbose() {
     let repo = TestRepo::new();
     let commit_sha = create_ai_commit(&repo, "continue-cli-session-simple.json");
@@ -415,7 +415,7 @@ fn test_search_output_verbose() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_search_output_porcelain() {
     let repo = TestRepo::new();
     let commit_sha = create_ai_commit(&repo, "continue-cli-session-simple.json");
@@ -444,7 +444,7 @@ fn test_search_output_porcelain() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_search_output_count() {
     let repo = TestRepo::new();
     let commit_sha = create_ai_commit(&repo, "continue-cli-session-simple.json");
@@ -466,7 +466,7 @@ fn test_search_output_count() {
 // Edge Case Tests
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_search_no_authorship_notes() {
     let repo = TestRepo::new();
 
@@ -484,7 +484,7 @@ fn test_search_no_authorship_notes() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_search_detached_head() {
     let repo = TestRepo::new();
     let commit_sha = create_ai_commit(&repo, "continue-cli-session-simple.json");
@@ -504,7 +504,7 @@ fn test_search_detached_head() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_search_help() {
     let repo = TestRepo::new();
 

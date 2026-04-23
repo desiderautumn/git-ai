@@ -350,7 +350,7 @@ mod tests {
     // LockFile Tests
     // =========================================================================
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_lockfile_acquire_succeeds() {
         let dir = tempfile::tempdir().unwrap();
         let lock_path = dir.path().join("test.lock");
@@ -358,7 +358,7 @@ mod tests {
         assert!(lock.is_some(), "should acquire lock on a fresh path");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_lockfile_second_acquire_blocked() {
         let dir = tempfile::tempdir().unwrap();
         let lock_path = dir.path().join("test.lock");
@@ -367,7 +367,7 @@ mod tests {
         assert!(second.is_none(), "second acquire should be blocked");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_lockfile_released_on_drop() {
         let dir = tempfile::tempdir().unwrap();
         let lock_path = dir.path().join("test.lock");
@@ -382,7 +382,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_lockfile_nonexistent_parent_returns_none() {
         let dir = tempfile::tempdir().unwrap();
         let lock_path = dir.path().join("no_such_dir").join("test.lock");
@@ -393,7 +393,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_resolve_git_ai_exe_from_git_sibling_prefers_git_ai() {
         let dir = tempfile::tempdir().unwrap();
         let git = dir
@@ -412,7 +412,7 @@ mod tests {
     }
 
     #[cfg(unix)]
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_resolve_git_ai_exe_from_hook_symlink_uses_canonical_git_ai() {
         use std::os::unix::fs::symlink;
 
@@ -429,7 +429,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_resolve_git_ai_exe_from_hook_without_target_falls_back_to_git_ai_name() {
         let dir = tempfile::tempdir().unwrap();
         let hook = dir.path().join(if cfg!(windows) {
@@ -449,7 +449,7 @@ mod tests {
     }
 
     #[cfg(windows)]
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_resolve_git_ai_exe_from_hook_exe_name_falls_back_to_git_ai_exe() {
         let dir = tempfile::tempdir().unwrap();
         let hook = dir.path().join("pre-push.exe");
@@ -459,7 +459,7 @@ mod tests {
         assert_eq!(resolved, PathBuf::from("git-ai.exe"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_internal_git_ai_command_sets_skip_all_hooks_env() {
         let exe = PathBuf::from("/tmp/git-ai-test");
         let cmd = internal_git_ai_command_with_exe(exe.clone(), "flush-cas");
@@ -478,7 +478,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_spawn_internal_git_ai_subcommand_respects_guard_env() {
         let key = "GIT_AI_TEST_WORKER_GUARD";
         unsafe {
@@ -494,7 +494,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_spawn_internal_git_ai_subcommand_requires_non_empty_guard_env() {
         let spawned = spawn_internal_git_ai_subcommand("flush-cas", &[], "", &[]);
         assert!(!spawned, "spawn should be skipped when guard env is empty");
@@ -504,14 +504,14 @@ mod tests {
     // unescape_git_path Tests
     // =========================================================================
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_git_path_simple() {
         // Unquoted path - no change
         assert_eq!(unescape_git_path("simple.txt"), "simple.txt");
         assert_eq!(unescape_git_path("path/to/file.rs"), "path/to/file.rs");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_git_path_quoted_with_spaces() {
         // Quoted path with spaces
         assert_eq!(
@@ -524,7 +524,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_git_path_chinese_characters() {
         // Chinese characters "中文" encoded as octal: \344\270\255\346\226\207
         assert_eq!(
@@ -542,7 +542,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_git_path_emoji() {
         // Emoji "🚀" (rocket) = U+1F680 = \360\237\232\200 in octal UTF-8
         assert_eq!(unescape_git_path("\"\\360\\237\\232\\200.txt\""), "🚀.txt");
@@ -557,7 +557,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_git_path_escaped_characters() {
         // Escaped backslash
         assert_eq!(
@@ -573,7 +573,7 @@ mod tests {
         assert_eq!(unescape_git_path("\"col1\\tcol2\""), "col1\tcol2");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_git_path_mixed_content() {
         // Mix of ASCII, Chinese, and escapes
         assert_eq!(
@@ -586,7 +586,7 @@ mod tests {
     // Phase 1: CJK Extended Coverage Tests
     // =========================================================================
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_japanese_hiragana() {
         // Japanese Hiragana "ひらがな" = \343\201\262\343\202\211\343\201\214\343\201\252
         assert_eq!(
@@ -597,7 +597,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_japanese_katakana() {
         // Japanese Katakana "カタカナ" = \343\202\253\343\202\277\343\202\253\343\203\212
         assert_eq!(
@@ -608,7 +608,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_korean_hangul() {
         // Korean Hangul "한글" = \355\225\234\352\270\200
         assert_eq!(
@@ -617,7 +617,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_traditional_chinese() {
         // Traditional Chinese "繁體" = \347\271\201\351\253\224
         assert_eq!(
@@ -626,7 +626,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_mixed_cjk() {
         // Mixed CJK: "日中韓" (Japanese, Chinese, Korean characters mixed)
         // 日 = \346\227\245, 中 = \344\270\255, 韓 = \351\237\223
@@ -640,7 +640,7 @@ mod tests {
     // Phase 2: RTL Scripts Tests (Arabic, Hebrew, Persian, Urdu)
     // =========================================================================
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_arabic() {
         // Arabic "مرحبا" (marhaba = hello)
         // م = \331\205, ر = \330\261, ح = \330\255, ب = \330\250, ا = \330\247
@@ -650,7 +650,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_hebrew() {
         // Hebrew "שלום" (shalom = hello/peace)
         // ש = \327\251, ל = \327\234, ו = \327\225, ם = \327\235
@@ -660,7 +660,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_persian() {
         // Persian "فارسی" (farsi)
         // ف = \331\201, ا = \330\247, ر = \330\261, س = \330\263, ی = \333\214
@@ -670,7 +670,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_urdu() {
         // Urdu "اردو" (urdu)
         // ا = \330\247, ر = \330\261, د = \330\257, و = \331\210
@@ -680,7 +680,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_mixed_rtl_ltr() {
         // Mixed RTL/LTR: "test_مرحبا_file" (ASCII + Arabic + ASCII)
         assert_eq!(
@@ -695,7 +695,7 @@ mod tests {
     // Phase 3: Indic Scripts Tests (Hindi, Tamil, Bengali, Telugu, Gujarati)
     // =========================================================================
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_hindi_devanagari() {
         // Hindi "हिंदी" (Hindi in Devanagari script)
         // ह = \340\244\271, ि = \340\244\277, ं = \340\244\202, द = \340\244\246, ी = \340\245\200
@@ -707,7 +707,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_tamil() {
         // Tamil "தமிழ்" (Tamil)
         // த = \340\256\244, ம = \340\256\256, ி = \340\256\277, ழ = \340\256\264, ் = \340\257\215
@@ -719,7 +719,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_bengali() {
         // Bengali "বাংলা" (Bangla)
         // ব = \340\246\254, া = \340\246\276, ং = \340\246\202, ল = \340\246\262, া = \340\246\276
@@ -731,7 +731,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_telugu() {
         // Telugu "తెలుగు" (Telugu)
         // త = \340\260\244, ె = \340\261\206, ల = \340\260\262, ు = \340\261\201, గ = \340\260\227, ు = \340\261\201
@@ -743,7 +743,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_gujarati() {
         // Gujarati "ગુજરાતી" (Gujarati)
         // ગ = \340\252\227, ુ = \340\253\201, જ = \340\252\234, ર = \340\252\260, ા = \340\252\276, ત = \340\252\244, ી = \340\253\200
@@ -759,7 +759,7 @@ mod tests {
     // Phase 4: Southeast Asian Scripts Tests (Thai, Vietnamese, Khmer, Lao)
     // =========================================================================
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_thai() {
         // Thai "ไทย" (Thai)
         // ไ = \340\271\204, ท = \340\270\227, ย = \340\270\242
@@ -769,7 +769,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_vietnamese() {
         // Vietnamese "tiếng" with tone marks
         // t = 't', i = 'i', ế = \341\272\277, n = 'n', g = 'g'
@@ -779,7 +779,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_khmer() {
         // Khmer "ខ្មែរ" (Khmer)
         // ខ = \341\236\201, ្ = \341\237\222, ម = \341\236\230, ែ = \341\237\202, រ = \341\236\232
@@ -791,7 +791,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_lao() {
         // Lao "ລາວ" (Lao)
         // ລ = \340\272\245, າ = \340\272\262, ວ = \340\272\247
@@ -805,7 +805,7 @@ mod tests {
     // Phase 5: Cyrillic and Greek Scripts Tests
     // =========================================================================
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_russian_cyrillic() {
         // Russian "Русский" (Russian)
         // Р = \320\240, у = \321\203, с = \321\201, к = \320\272, и = \320\270, й = \320\271
@@ -817,7 +817,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_ukrainian_cyrillic() {
         // Ukrainian "Україна" (Ukraine)
         // У = \320\243, к = \320\272, р = \321\200, а = \320\260, ї = \321\227, н = \320\275, а = \320\260
@@ -829,7 +829,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_greek() {
         // Greek "Ελλάδα" (Greece)
         // Ε = \316\225, λ = \316\273, λ = \316\273, ά = \316\254, δ = \316\264, α = \316\261
@@ -841,7 +841,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_greek_polytonic() {
         // Greek polytonic "Ἑλληνική" (Hellenic with diacritics)
         // Ἑ = \341\274\231, λ = \316\273, λ = \316\273, η = \316\267, ν = \316\275, ι = \316\271, κ = \316\272, ή = \316\256
@@ -857,7 +857,7 @@ mod tests {
     // Phase 6: Extended Emoji Tests (ZWJ, skin tones, flags)
     // =========================================================================
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_emoji_skin_tone() {
         // Emoji with skin tone modifier 👋🏽 = 👋 (U+1F44B) + 🏽 (U+1F3FD)
         // 👋 = \360\237\221\213, 🏽 = \360\237\217\275
@@ -867,7 +867,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_emoji_zwj_sequence() {
         // ZWJ emoji sequence: 👨‍💻 (man technologist) = man + ZWJ + laptop
         // 👨 = \360\237\221\250, ZWJ = \342\200\215, 💻 = \360\237\222\273
@@ -877,7 +877,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_emoji_flag() {
         // Flag emoji 🇯🇵 (Japan) = regional indicator J + regional indicator P
         // 🇯 = \360\237\207\257, 🇵 = \360\237\207\265
@@ -887,7 +887,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_multiple_emoji() {
         // Multiple emoji: 🚀🎉 (rocket + party)
         // 🚀 = \360\237\232\200, 🎉 = \360\237\216\211
@@ -901,25 +901,25 @@ mod tests {
     // Phase 7: Special Unicode Characters Tests (math, currency, symbols)
     // =========================================================================
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_math_symbols() {
         // Math symbols: ∑ (summation) = \342\210\221
         assert_eq!(unescape_git_path("\"\\342\\210\\221.txt\""), "∑.txt");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_currency_symbols() {
         // Currency: € (euro) = \342\202\254
         assert_eq!(unescape_git_path("\"\\342\\202\\254.txt\""), "€.txt");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_box_drawing() {
         // Box drawing: ┌ (box drawings light down and right) = \342\224\214
         assert_eq!(unescape_git_path("\"\\342\\224\\214.txt\""), "┌.txt");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_dingbats() {
         // Dingbats: ✓ (check mark) = \342\234\223
         assert_eq!(unescape_git_path("\"\\342\\234\\223.txt\""), "✓.txt");
@@ -929,13 +929,13 @@ mod tests {
     // Phase 8: Unicode Normalization Tests (NFC vs NFD)
     // =========================================================================
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_nfc_precomposed() {
         // NFC precomposed: é (U+00E9) = \303\251
         assert_eq!(unescape_git_path("\"caf\\303\\251.txt\""), "café.txt");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_nfd_decomposed() {
         // NFD decomposed: e + combining acute (U+0065 + U+0301) = e + \314\201
         assert_eq!(
@@ -944,7 +944,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_combining_diaeresis() {
         // Combining diaeresis: i + ̈ (U+0069 + U+0308) = i + \314\210
         assert_eq!(
@@ -953,7 +953,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_angstrom() {
         // Å (A with ring above, U+00C5) = \303\205
         assert_eq!(
@@ -966,14 +966,14 @@ mod tests {
     // Phase 9: Escape Sequence Edge Cases
     // =========================================================================
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_incomplete_octal() {
         // Incomplete octal at end of string
         assert_eq!(unescape_git_path("\"file\\34\""), "file\x1c");
         assert_eq!(unescape_git_path("\"file\\3\""), "file\x03");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_invalid_octal() {
         // Invalid octal digit (8 and 9 are not valid octal)
         assert_eq!(
@@ -982,13 +982,13 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_backslash_only() {
         // Backslash at end without following character
         assert_eq!(unescape_git_path("\"file\\\""), "file\\");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_mixed_escapes() {
         // Mix of different escape types
         assert_eq!(
@@ -997,13 +997,13 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_empty_quoted() {
         // Empty quoted string
         assert_eq!(unescape_git_path("\"\""), "");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_unescape_unmatched_quotes() {
         // Unmatched quotes - returned as-is
         assert_eq!(unescape_git_path("\"unmatched"), "\"unmatched");
@@ -1014,21 +1014,21 @@ mod tests {
     // normalize_to_posix Tests
     // =========================================================================
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_normalize_to_posix_no_change() {
         // Already POSIX paths
         assert_eq!(normalize_to_posix("path/to/file.txt"), "path/to/file.txt");
         assert_eq!(normalize_to_posix("src/main.rs"), "src/main.rs");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_normalize_to_posix_windows() {
         // Windows paths
         assert_eq!(normalize_to_posix("path\\to\\file.txt"), "path/to/file.txt");
         assert_eq!(normalize_to_posix("C:\\Users\\file"), "C:/Users/file");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_normalize_to_posix_mixed() {
         // Mixed separators
         assert_eq!(
@@ -1037,7 +1037,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_normalize_to_posix_empty() {
         assert_eq!(normalize_to_posix(""), "");
     }
@@ -1046,7 +1046,7 @@ mod tests {
     // current_git_ai_exe Tests
     // =========================================================================
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_current_git_ai_exe_returns_path() {
         // Should return a path (either current exe or git-ai)
         let result = current_git_ai_exe();
@@ -1059,7 +1059,7 @@ mod tests {
     // is_interactive_terminal Tests
     // =========================================================================
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_is_interactive_terminal() {
         // Just call it to ensure it doesn't panic
         let _ = is_interactive_terminal();
@@ -1070,20 +1070,20 @@ mod tests {
     // =========================================================================
 
     #[cfg(windows)]
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_create_no_window_constant() {
         // Verify the Windows constant is correct
         assert_eq!(CREATE_NO_WINDOW, 0x08000000);
     }
 
     #[cfg(windows)]
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_create_new_process_group_constant() {
         assert_eq!(CREATE_NEW_PROCESS_GROUP, 0x00000200);
     }
 
     #[cfg(windows)]
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_create_breakaway_from_job_constant() {
         assert_eq!(CREATE_BREAKAWAY_FROM_JOB, 0x01000000);
     }

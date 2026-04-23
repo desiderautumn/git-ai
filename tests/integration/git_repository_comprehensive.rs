@@ -23,7 +23,7 @@ use std::path::Path;
 // Repository Discovery and Initialization Tests
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_find_repository_in_valid_repo() {
     let repo = TestRepo::new();
 
@@ -39,7 +39,7 @@ fn test_find_repository_in_valid_repo() {
     assert!(found_repo.is_ok(), "Should find valid repository");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_find_repository_in_subdirectory() {
     let repo = TestRepo::new();
 
@@ -56,7 +56,7 @@ fn test_find_repository_in_subdirectory() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_find_repository_in_nested_subdirectory() {
     let repo = TestRepo::new();
 
@@ -73,7 +73,7 @@ fn test_find_repository_in_nested_subdirectory() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_find_repository_for_bare_repo() {
     let bare_repo = TestRepo::new_bare();
 
@@ -91,7 +91,7 @@ fn test_find_repository_for_bare_repo() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_repository_path_methods() {
     let test_repo = TestRepo::new();
     let repo = find_repository(&[
@@ -128,7 +128,7 @@ fn test_repository_path_methods() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_canonical_workdir() {
     let test_repo = TestRepo::new();
     let repo = find_repository(&[
@@ -144,7 +144,7 @@ fn test_canonical_workdir() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_path_is_in_workdir() {
     let test_repo = TestRepo::new();
     let repo = find_repository(&[
@@ -239,7 +239,7 @@ fn test_path_is_in_workdir() {
 // HEAD and Reference Tests
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_head_on_main_branch() {
     let test_repo = TestRepo::new();
 
@@ -265,7 +265,7 @@ fn test_head_on_main_branch() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_head_on_feature_branch() {
     let test_repo = TestRepo::new();
 
@@ -289,7 +289,7 @@ fn test_head_on_feature_branch() {
     assert_eq!(shorthand, "feature", "HEAD should be on feature branch");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_head_target() {
     let test_repo = TestRepo::new();
 
@@ -313,7 +313,7 @@ fn test_head_target() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_reference_is_branch() {
     let test_repo = TestRepo::new();
 
@@ -332,7 +332,7 @@ fn test_reference_is_branch() {
     assert!(head.is_branch(), "HEAD should be a branch");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_find_reference() {
     let test_repo = TestRepo::new();
 
@@ -360,7 +360,7 @@ fn test_find_reference() {
 // Commit Operations and Traversal Tests
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_find_commit() {
     let test_repo = TestRepo::new();
 
@@ -386,7 +386,7 @@ fn test_find_commit() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_commit_summary() {
     let test_repo = TestRepo::new();
 
@@ -412,7 +412,7 @@ fn test_commit_summary() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_commit_body() {
     let test_repo = TestRepo::new();
 
@@ -449,7 +449,7 @@ fn test_commit_body() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_commit_parent() {
     let test_repo = TestRepo::new();
 
@@ -477,7 +477,7 @@ fn test_commit_parent() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_commit_parents_iterator() {
     let test_repo = TestRepo::new();
 
@@ -507,7 +507,7 @@ fn test_commit_parents_iterator() {
     assert_eq!(parents.len(), 1, "Should have one parent");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_commit_parent_count() {
     let test_repo = TestRepo::new();
 
@@ -548,7 +548,7 @@ fn test_commit_parent_count() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_commit_tree() {
     let test_repo = TestRepo::new();
 
@@ -569,7 +569,7 @@ fn test_commit_tree() {
     assert!(tree.is_ok(), "Should get tree from commit");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_revparse_single() {
     let test_repo = TestRepo::new();
 
@@ -589,7 +589,7 @@ fn test_revparse_single() {
     assert!(obj.is_ok(), "Should revparse HEAD");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_revparse_single_with_relative_ref() {
     let test_repo = TestRepo::new();
 
@@ -612,7 +612,7 @@ fn test_revparse_single_with_relative_ref() {
     assert!(obj.is_ok(), "Should revparse HEAD~1");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_object_peel_to_commit() {
     let test_repo = TestRepo::new();
 
@@ -637,7 +637,7 @@ fn test_object_peel_to_commit() {
 // Tree and Blob Tests
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tree_get_path() {
     let test_repo = TestRepo::new();
 
@@ -659,7 +659,7 @@ fn test_tree_get_path() {
     assert!(entry.is_ok(), "Should find file in tree");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tree_get_path_nested() {
     let test_repo = TestRepo::new();
 
@@ -682,7 +682,7 @@ fn test_tree_get_path_nested() {
     assert!(entry.is_ok(), "Should find nested file in tree");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tree_get_path_nonexistent() {
     let test_repo = TestRepo::new();
 
@@ -704,7 +704,7 @@ fn test_tree_get_path_nonexistent() {
     assert!(entry.is_err(), "Should not find nonexistent file in tree");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_find_blob() {
     let test_repo = TestRepo::new();
 
@@ -727,7 +727,7 @@ fn test_find_blob() {
     assert!(blob.is_ok(), "Should find blob");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blob_content() {
     let test_repo = TestRepo::new();
 
@@ -760,7 +760,7 @@ fn test_blob_content() {
 // Config Operations Tests
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_config_get_str() {
     let test_repo = TestRepo::new();
 
@@ -783,7 +783,7 @@ fn test_config_get_str() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_config_get_str_nonexistent() {
     let test_repo = TestRepo::new();
 
@@ -801,7 +801,7 @@ fn test_config_get_str_nonexistent() {
     assert!(value.is_none(), "Nonexistent key should return None");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_config_get_regexp() {
     let test_repo = TestRepo::new();
 
@@ -826,7 +826,7 @@ fn test_config_get_regexp() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_git_version() {
     let test_repo = TestRepo::new();
 
@@ -843,7 +843,7 @@ fn test_git_version() {
     assert!(major >= 2, "Git major version should be at least 2");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_git_supports_ignore_revs_file() {
     let test_repo = TestRepo::new();
 
@@ -870,7 +870,7 @@ fn test_git_supports_ignore_revs_file() {
 // Remote Operations Tests
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_remotes_empty() {
     let test_repo = TestRepo::new();
 
@@ -887,7 +887,7 @@ fn test_remotes_empty() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_remotes_with_origin() {
     let (mirror, _upstream) = TestRepo::new_with_remote();
 
@@ -904,7 +904,7 @@ fn test_remotes_with_origin() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_remotes_with_urls() {
     let (mirror, _upstream) = TestRepo::new_with_remote();
 
@@ -926,7 +926,7 @@ fn test_remotes_with_urls() {
     assert!(has_origin, "Should have origin remote with URL");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_get_default_remote() {
     let (mirror, _upstream) = TestRepo::new_with_remote();
 
@@ -945,7 +945,7 @@ fn test_get_default_remote() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_get_default_remote_no_remotes() {
     let test_repo = TestRepo::new();
 
@@ -967,7 +967,7 @@ fn test_get_default_remote_no_remotes() {
 // Commit Range Tests
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_commit_range_length() {
     let test_repo = TestRepo::new();
 
@@ -1008,7 +1008,7 @@ fn test_commit_range_length() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_commit_range_iteration() {
     let test_repo = TestRepo::new();
 
@@ -1057,7 +1057,7 @@ fn test_commit_range_iteration() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_commit_range_all_commits() {
     let test_repo = TestRepo::new();
 
@@ -1098,7 +1098,7 @@ fn test_commit_range_all_commits() {
 // Merge Base Tests
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_merge_base_linear_history() {
     let test_repo = TestRepo::new();
 
@@ -1123,7 +1123,7 @@ fn test_merge_base_linear_history() {
     assert_eq!(base, first.commit_sha, "Merge base should be first commit");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_merge_base_with_branches() {
     let test_repo = TestRepo::new();
 
@@ -1165,7 +1165,7 @@ fn test_merge_base_with_branches() {
 // File Content Tests
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_get_file_content() {
     let test_repo = TestRepo::new();
 
@@ -1189,7 +1189,7 @@ fn test_get_file_content() {
     assert!(content_str.contains(content), "Content should match");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_get_file_content_nonexistent() {
     let test_repo = TestRepo::new();
 
@@ -1208,7 +1208,7 @@ fn test_get_file_content_nonexistent() {
     assert!(result.is_err(), "Should error on nonexistent file");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_list_commit_files() {
     let test_repo = TestRepo::new();
 
@@ -1233,7 +1233,7 @@ fn test_list_commit_files() {
     assert!(files.contains("file2.txt"), "Should contain file2.txt");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_list_commit_files_with_pathspec() {
     let test_repo = TestRepo::new();
 
@@ -1262,7 +1262,7 @@ fn test_list_commit_files_with_pathspec() {
     assert!(!files.contains("file2.txt"), "Should not contain file2.txt");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_changed_files() {
     let test_repo = TestRepo::new();
 
@@ -1295,7 +1295,7 @@ fn test_diff_changed_files() {
 // Error Handling Tests
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_find_commit_invalid_sha() {
     let test_repo = TestRepo::new();
 
@@ -1314,7 +1314,7 @@ fn test_find_commit_invalid_sha() {
     assert!(result.is_err(), "Should error on invalid commit SHA");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_find_blob_with_commit_sha() {
     let test_repo = TestRepo::new();
 
@@ -1337,7 +1337,7 @@ fn test_find_blob_with_commit_sha() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_find_tree_with_commit_sha() {
     let test_repo = TestRepo::new();
 
@@ -1360,7 +1360,7 @@ fn test_find_tree_with_commit_sha() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_revparse_invalid_ref() {
     let test_repo = TestRepo::new();
 
@@ -1383,7 +1383,7 @@ fn test_revparse_invalid_ref() {
 // Bare Repository Tests
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_is_bare_repository() {
     let bare_repo = TestRepo::new_bare();
 
@@ -1398,7 +1398,7 @@ fn test_is_bare_repository() {
     assert!(is_bare.unwrap(), "Should be bare repository");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_is_not_bare_repository() {
     let test_repo = TestRepo::new();
 
@@ -1417,7 +1417,7 @@ fn test_is_not_bare_repository() {
 // Author and Signature Tests
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_commit_author() {
     let test_repo = TestRepo::new();
 
@@ -1446,7 +1446,7 @@ fn test_commit_author() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_commit_committer() {
     let test_repo = TestRepo::new();
 
@@ -1474,7 +1474,7 @@ fn test_commit_committer() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_commit_time() {
     let test_repo = TestRepo::new();
 
@@ -1498,7 +1498,7 @@ fn test_commit_time() {
     assert!(time.seconds() > 0, "Commit time should be after epoch");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_signature_when() {
     let test_repo = TestRepo::new();
 
@@ -1524,7 +1524,7 @@ fn test_signature_when() {
 // Working Directory Operations Tests
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_find_repository_in_path() {
     let test_repo = TestRepo::new();
 
@@ -1537,7 +1537,7 @@ fn test_find_repository_in_path() {
     assert!(result.is_ok(), "Should find repository in path");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_global_args_for_exec() {
     let test_repo = TestRepo::new();
 
@@ -1556,7 +1556,7 @@ fn test_global_args_for_exec() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_git_command_execution() {
     let test_repo = TestRepo::new();
 
@@ -1583,7 +1583,7 @@ fn test_git_command_execution() {
 // References Iterator Tests
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_references_iterator() {
     let test_repo = TestRepo::new();
 
@@ -1607,7 +1607,7 @@ fn test_references_iterator() {
     assert!(!ref_list.is_empty(), "Should have at least one reference");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_resolve_author_spec() {
     let test_repo = TestRepo::new();
 
@@ -1630,7 +1630,7 @@ fn test_resolve_author_spec() {
     assert!(author.is_some(), "Should find author");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_resolve_author_spec_not_found() {
     let test_repo = TestRepo::new();
 
@@ -1657,7 +1657,7 @@ fn test_resolve_author_spec_not_found() {
 // Edge Cases and Special Scenarios
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_empty_repository() {
     let test_repo = TestRepo::new();
 
@@ -1672,7 +1672,7 @@ fn test_empty_repository() {
     assert!(head.is_ok(), "Should get HEAD in empty repository");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_initial_commit_has_no_parent() {
     let test_repo = TestRepo::new();
 
@@ -1697,7 +1697,7 @@ fn test_initial_commit_has_no_parent() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tree_clone() {
     let test_repo = TestRepo::new();
 
@@ -1723,7 +1723,7 @@ fn test_tree_clone() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_commit_with_unicode_message() {
     let test_repo = TestRepo::new();
 
@@ -1756,7 +1756,7 @@ fn test_commit_with_unicode_message() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_multiple_files_in_single_commit() {
     let test_repo = TestRepo::new();
 

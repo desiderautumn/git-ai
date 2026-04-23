@@ -13,7 +13,7 @@ fn fake_copilot_transcript_path(repo: &TestRepo) -> String {
 
 /// Test create_file PreToolUse correctly synthesizes empty dirty_files
 /// This prevents the Pre checkpoint from reading stale disk content from concurrent tool calls
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_create_file_pre_tool_use_empty_dirty_files() {
     let repo = TestRepo::new();
 
@@ -89,7 +89,7 @@ fn test_create_file_pre_tool_use_empty_dirty_files() {
 
 /// Test rapid multi-file creation with concurrent hooks
 /// This is the key regression test - ensures files don't cross-contaminate
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_create_file_rapid_multi_file_no_contamination() {
     let repo = TestRepo::new();
 
@@ -194,7 +194,7 @@ fn test_create_file_rapid_multi_file_no_contamination() {
 
 /// Test that create_file doesn't pull in session-level detected_edited_filepaths
 /// from transcript parsing (regression test for old behavior)
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_create_file_ignores_transcript_session_files() {
     let repo = TestRepo::new();
 
@@ -271,7 +271,7 @@ fn test_create_file_ignores_transcript_session_files() {
 
 /// Test create_file with content from payload (not disk)
 /// Ensures we use tool_input.content to bypass disk timing issues
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_create_file_uses_payload_content_not_disk() {
     let repo = TestRepo::new();
 
@@ -347,7 +347,7 @@ fn test_create_file_uses_payload_content_not_disk() {
 
 /// Test that hook_data.edited_filepaths/will_edit_filepaths are ignored
 /// in favor of tool_input file paths (regression test)
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_create_file_ignores_top_level_edited_filepaths() {
     let repo = TestRepo::new();
 

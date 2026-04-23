@@ -160,7 +160,7 @@ impl ApiClient {
 mod tests {
     use super::*;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_successful_indices() {
         let response = MetricsUploadResponse {
             errors: vec![
@@ -179,14 +179,14 @@ mod tests {
         assert_eq!(successful, vec![0, 2, 4]);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_successful_indices_empty_errors() {
         let response = MetricsUploadResponse { errors: vec![] };
         let successful = response.successful_indices(3);
         assert_eq!(successful, vec![0, 1, 2]);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_successful_indices_all_errors() {
         let response = MetricsUploadResponse {
             errors: vec![

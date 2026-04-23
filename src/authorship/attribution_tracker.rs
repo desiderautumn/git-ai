@@ -2270,7 +2270,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn substantive_token_change_switches_author() {
         let tracker = AttributionTracker::new();
         let old = "fn main() {\n    let value = 1;\n}\n";
@@ -2292,7 +2292,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn whitespace_only_indent_change_preserves_tokens() {
         let tracker = AttributionTracker::new();
         let old = "fn test() {\n  do_stuff();\n}\n";
@@ -2311,7 +2311,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn large_file_small_edit_preserves_unchanged_tokens() {
         let tracker = AttributionTracker::new();
 
@@ -2339,7 +2339,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn unsorted_ranges_preserve_existing_lines_across_insertions() {
         let tracker = AttributionTracker::new();
         let old = "function example() {\n  return 42;\n}\n";
@@ -2397,7 +2397,7 @@ mod tests {
         assert_range_owned_by(&updated, footer_pos, footer_pos + "// Footer".len(), "Bob");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn line_reflow_without_token_change_is_non_substantive() {
         let tracker = AttributionTracker::new();
         let old = "call(foo, bar, baz)";
@@ -2416,7 +2416,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn line_reflow_without_token_change_is_non_substantive_with_semicolon() {
         let tracker = AttributionTracker::new();
         let old = "call(foo, bar, baz);";
@@ -2435,7 +2435,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn adding_semicolon_is_substantive() {
         let tracker = AttributionTracker::new();
         let old = "call(foo, bar, baz)";
@@ -2454,7 +2454,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn reflow_complex_if_statement_is_non_substantive() {
         let tracker = AttributionTracker::new();
         let old = "if (foo && bar || baz) { println!(\"condition\"); }";
@@ -2473,7 +2473,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn move_block_preserves_original_authors_one_line_threshold() {
         let tracker = AttributionTracker::with_config(AttributionConfig {
             // Test with a one-line threshold
@@ -2502,7 +2502,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn move_block_preserves_original_authors_default_threshold() {
         // Test move detection with blocks of 3+ lines (the default threshold)
         let tracker = AttributionTracker::new();
@@ -2539,7 +2539,7 @@ mod tests {
         assert!(helper_owner.is_some(), "helper text should have an owner");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn deletions_remove_attribution() {
         let tracker = AttributionTracker::new();
         let old = "keep remove keep";
@@ -2560,7 +2560,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn multibyte_tokens_are_preserved_and_added() {
         let tracker = AttributionTracker::new();
         let old = "😀 one\n";
@@ -2580,7 +2580,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn line_attribution_handles_split_multibyte_ranges() {
         let content = "选\n";
         let attrs = vec![Attribution::new(0, 1, "Alice".into(), TEST_TS)];
@@ -2589,7 +2589,7 @@ mod tests {
         assert_eq!(line_attrs[0].author_id, "Alice");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn line_attributions_follow_dominant_tokens() {
         let content = "let x = foo() + bar();\n";
         let attrs = vec![
@@ -2603,7 +2603,7 @@ mod tests {
         assert_eq!(line_attrs[0].author_id, "Alice");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn unattributed_ranges_are_filled() {
         let tracker = AttributionTracker::new();
         let content = "A B C";
@@ -2615,7 +2615,7 @@ mod tests {
         assert_range_owned_by(&filled, 1, content.len(), "Bob");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn ai_inserted_blank_line_counts_for_ai() {
         let tracker = AttributionTracker::new();
         let old = "# My Application\n";
@@ -2658,7 +2658,7 @@ mod tests {
     // CRLF / LF normalization tests
     // ====================================================================
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn crlf_to_lf_same_content_preserves_attributions() {
         // When content only changes line endings (CRLF→LF), attributions should
         // be preserved for the original author, NOT re-attributed.
@@ -2680,7 +2680,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn lf_to_crlf_same_content_preserves_attributions() {
         let tracker = AttributionTracker::new();
         let old = "hello\nworld\n";
@@ -2699,7 +2699,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn crlf_to_lf_with_real_edit_attributes_correctly() {
         // Old has CRLF, new has LF with one line changed. Only the changed line
         // should be attributed to the new author.
@@ -2727,7 +2727,7 @@ mod tests {
         assert_range_owned_by(&updated, line3_start, line3_end, "Alice");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn collect_line_metadata_strips_cr_from_text() {
         // Verify that collect_line_metadata strips \r from the text field
         // (this already works, but verifies the building block)

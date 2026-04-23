@@ -144,7 +144,7 @@ mod tests {
     use crate::commands::diff::FileDiffJson;
     use std::collections::BTreeMap;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_api_file_record_from_file_diff_empty() {
         let file_diff = FileDiffJson {
             annotations: BTreeMap::new(),
@@ -158,7 +158,7 @@ mod tests {
         assert_eq!(api_record.base_content, "");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_api_file_record_from_file_diff_single_lines() {
         let mut annotations = BTreeMap::new();
         annotations.insert(
@@ -183,7 +183,7 @@ mod tests {
         assert_eq!(api_record.base_content, "base content");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_api_file_record_from_file_diff_ranges() {
         let mut annotations = BTreeMap::new();
         annotations.insert(
@@ -220,7 +220,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_api_file_record_from_file_diff_mixed() {
         let mut annotations = BTreeMap::new();
         annotations.insert(
@@ -254,7 +254,7 @@ mod tests {
         assert_eq!(ranges[2], serde_json::Value::Number(20.into()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_create_bundle_response_deserialization() {
         let json = r#"{
             "success": true,
@@ -268,7 +268,7 @@ mod tests {
         assert_eq!(response.url, "https://example.com/bundle123");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_api_error_response_serialization() {
         let error = ApiErrorResponse {
             error: "Invalid request".to_string(),
@@ -280,7 +280,7 @@ mod tests {
         assert!(json.contains("field"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_api_error_response_without_details() {
         let error = ApiErrorResponse {
             error: "Error".to_string(),
@@ -292,7 +292,7 @@ mod tests {
         assert!(!json.contains("details"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_cas_object_serialization() {
         let mut metadata = HashMap::new();
         metadata.insert("key1".to_string(), "value1".to_string());
@@ -308,7 +308,7 @@ mod tests {
         assert!(json.contains("key1"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_cas_object_empty_metadata() {
         let cas_object = CasObject {
             content: serde_json::json!({}),
@@ -320,7 +320,7 @@ mod tests {
         assert!(!json.contains("metadata"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_cas_upload_request() {
         let objects = vec![
             CasObject {
@@ -341,7 +341,7 @@ mod tests {
         assert!(json.contains("h2"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_cas_upload_result() {
         let result = CasUploadResult {
             hash: "hash1".to_string(),
@@ -354,7 +354,7 @@ mod tests {
         assert!(!json.contains("error"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_cas_upload_result_with_error() {
         let result = CasUploadResult {
             hash: "hash2".to_string(),
@@ -367,7 +367,7 @@ mod tests {
         assert!(json.contains("Upload failed"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_cas_upload_response() {
         let response = CasUploadResponse {
             results: vec![
@@ -391,7 +391,7 @@ mod tests {
         assert!(json.contains("failure_count"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_api_file_record_clone() {
         let record = ApiFileRecord {
             annotations: HashMap::new(),
@@ -403,7 +403,7 @@ mod tests {
         assert_eq!(record, cloned);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_cas_messages_object() {
         use crate::authorship::transcript::Message;
 

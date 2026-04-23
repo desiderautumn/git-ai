@@ -45,7 +45,7 @@ mod tests {
     use crate::git::test_utils::TmpRepo;
     use std::fs;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_pre_commit_empty_repo() {
         let test_repo = TmpRepo::new().unwrap();
         let repo = test_repo.gitai_repo();
@@ -56,7 +56,7 @@ mod tests {
         let _ = result;
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_pre_commit_with_staged_changes() {
         let test_repo = TmpRepo::new().unwrap();
         let repo = test_repo.gitai_repo();
@@ -74,7 +74,7 @@ mod tests {
         let _ = result;
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_pre_commit_no_changes() {
         let test_repo = TmpRepo::new().unwrap();
         let repo = test_repo.gitai_repo();
@@ -102,7 +102,7 @@ mod tests {
         let _ = result;
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_pre_commit_result_mapping() {
         let test_repo = TmpRepo::new().unwrap();
         let repo = test_repo.gitai_repo();
@@ -120,7 +120,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_pre_commit_checkpoint_context_uses_inflight_bash_agent_context() {
         let test_repo = TmpRepo::new().unwrap();
         let repo = test_repo.gitai_repo();

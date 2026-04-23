@@ -104,7 +104,7 @@ fn write_raw_commit(repo: &TestRepo, filename: &str, content: &str, message: &st
 /// Broken: the slow path seeds `cached_file_attestation_text` + `existing_files`
 /// from the final pre-rebase state. module_b.rs is in that state (added by B),
 /// so it leaks into every intermediate commit's note including A′.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_future_file_does_not_leak_into_earlier_commit_note() {
     let repo = TestRepo::new();
 
@@ -228,7 +228,7 @@ fn test_rebase_future_file_does_not_leak_into_earlier_commit_note() {
 /// Broken: the slow path writes the full-chain `accepted_lines` to every
 /// intermediate commit because `current_attributions` starts at the final
 /// pre-rebase state and is never rewound to the per-commit checkpoint.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_intermediate_commit_accepted_lines_not_inflated() {
     let repo = TestRepo::new();
 
@@ -343,7 +343,7 @@ fn test_rebase_intermediate_commit_accepted_lines_not_inflated() {
 ///   - A′ note: must NOT contain unit_b.rs or unit_c.rs (future files)
 ///   - B′ note: must NOT contain unit_c.rs (future file)
 ///   - C′ note: tip commit, no future-leak concern
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_three_commits_no_future_file_leakage() {
     let repo = TestRepo::new();
 
@@ -470,7 +470,7 @@ fn test_rebase_three_commits_no_future_file_leakage() {
 ///   - B′ note: must NOT contain temp.rs (it was deleted in B)
 ///   - B′ note: must NOT contain extra.rs (introduced in future commit C)
 ///   - C′ note: must NOT contain temp.rs (deleted before C ever ran)
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_deleted_file_does_not_persist_in_later_notes() {
     let repo = TestRepo::new();
 
@@ -597,7 +597,7 @@ fn test_rebase_deleted_file_does_not_persist_in_later_notes() {
 ///   - A′ note: must NOT contain separate.rs (introduced by B)
 ///   - accepted_lines for A′ < accepted_lines for B′
 ///   - Line-level blame on main.rs reflects the expected attribution
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_slow_path_line_attribution_is_correct() {
     let repo = TestRepo::new();
 
@@ -719,7 +719,7 @@ fn test_rebase_slow_path_line_attribution_is_correct() {
 ///     → hunk-based path shifts fn_ai_a's attribution (line offset +0) ✓
 ///     → hunk-based path sees fn_ai_b as an "inserted" line → assigns NO attribution ✗
 ///   - `git ai diff B′` (blame) shows fn_ai_b as human even though it's 100% AI
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_hunk_path_does_not_drop_ai_attribution_for_new_lines() {
     let repo = TestRepo::new();
 
@@ -783,7 +783,7 @@ fn test_rebase_hunk_path_does_not_drop_ai_attribution_for_new_lines() {
 /// Stronger variant: verify via note inspection that B′'s note attributes
 /// fn_ai_b as AI. The blame test above checks line-level; this checks the
 /// stored note directly. Both fail with the current buggy code.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_second_commit_note_attributes_its_own_ai_lines() {
     let repo = TestRepo::new();
 
@@ -875,7 +875,7 @@ fn test_rebase_second_commit_note_attributes_its_own_ai_lines() {
 /// Expected: each commit's note includes ONLY its own newly-added AI lines.
 /// Broken: B′ and C′ notes don't include their own new AI lines at all
 /// (they only retain A's lines shifted by offset).
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_attribution_loss_compounds_across_three_commits() {
     let repo = TestRepo::new();
 
@@ -965,7 +965,7 @@ fn test_rebase_attribution_loss_compounds_across_three_commits() {
 /// Regression: if the hunk-based content-map lookup for Replace/Insert hunks were broken,
 /// B′ would show `return 100` as human because `apply_hunks_to_line_attributions` alone
 /// only shifts existing attributions and does not stamp newly inserted/replaced lines.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_same_line_overwritten_by_consecutive_commits() {
     let repo = TestRepo::new();
 
@@ -1036,7 +1036,7 @@ fn test_rebase_same_line_overwritten_by_consecutive_commits() {
 /// When a commit introduces an empty file (0 bytes), the slow path must not panic
 /// and must produce no AI attribution for that file.  A second non-empty AI file
 /// in the same commit still receives correct attribution.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_empty_file_does_not_panic_or_pollute_attribution() {
     let repo = TestRepo::new();
 
@@ -1105,7 +1105,7 @@ fn test_rebase_empty_file_does_not_panic_or_pollute_attribution() {
 ///
 /// Fix: after the slow-path loop, remap the original note for any commit that
 /// had a note but wasn't covered by the diff-based attribution transfer.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_conflict_on_ai_file_preserves_note() {
     let repo = TestRepo::new();
 
@@ -1176,7 +1176,7 @@ fn test_rebase_conflict_on_ai_file_preserves_note() {
 ///
 /// Fix: after the slow-path loop, remap original metadata-only notes for any
 /// commits not covered by the diff-based attribution transfer.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_metadata_only_notes_survive_slow_path() {
     let repo = TestRepo::new();
 
@@ -1249,7 +1249,7 @@ fn test_rebase_metadata_only_notes_survive_slow_path() {
 
 /// Same as above but with 3 AI commits and 2 human-only commits interleaved,
 /// ensuring all notes survive the slow path.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_mixed_ai_and_human_commits_all_retain_notes_after_slow_path() {
     let repo = TestRepo::new();
 

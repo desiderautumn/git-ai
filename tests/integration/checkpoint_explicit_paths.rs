@@ -9,7 +9,7 @@ fn write_base_files(repo: &TestRepo) {
         .expect("initial commit should succeed");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_explicit_path_checkpoint_only_tracks_the_explicit_file() {
     let repo = TestRepo::new();
     write_base_files(&repo);
@@ -48,7 +48,7 @@ fn test_explicit_path_checkpoint_only_tracks_the_explicit_file() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_explicit_path_checkpoint_skips_conflicted_files() {
     let repo = TestRepo::new();
     let conflict_path = repo.path().join("conflict.txt");
@@ -96,7 +96,7 @@ fn test_explicit_path_checkpoint_skips_conflicted_files() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_explicit_path_checkpoint_skips_binary_replacements() {
     let repo = TestRepo::new();
     let file_path = repo.path().join("sample.txt");

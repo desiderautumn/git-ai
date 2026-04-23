@@ -374,7 +374,7 @@ macro_rules! from_sparse_typed {
 mod tests {
     use super::*;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_string_to_json() {
         assert_eq!(string_to_json(&None), None);
         assert_eq!(string_to_json(&Some(None)), Some(Value::Null));
@@ -384,14 +384,14 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_u32_to_json() {
         assert_eq!(u32_to_json(&None), None);
         assert_eq!(u32_to_json(&Some(None)), Some(Value::Null));
         assert_eq!(u32_to_json(&Some(Some(42))), Some(Value::Number(42.into())));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_sparse_get_string() {
         let mut arr = SparseArray::new();
         assert_eq!(sparse_get_string(&arr, 0), None);
@@ -403,7 +403,7 @@ mod tests {
         assert_eq!(sparse_get_string(&arr, 1), Some(Some("test".to_string())));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_sparse_get_u32() {
         let mut arr = SparseArray::new();
         assert_eq!(sparse_get_u32(&arr, 0), None);
@@ -415,7 +415,7 @@ mod tests {
         assert_eq!(sparse_get_u32(&arr, 1), Some(Some(42)));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_u64_to_json() {
         assert_eq!(u64_to_json(&None), None);
         assert_eq!(u64_to_json(&Some(None)), Some(Value::Null));
@@ -425,7 +425,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_sparse_get_u64() {
         let mut arr = SparseArray::new();
         assert_eq!(sparse_get_u64(&arr, 0), None);
@@ -441,7 +441,7 @@ mod tests {
         assert_eq!(sparse_get_u64(&arr, 2), None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_vec_string_to_json() {
         assert_eq!(vec_string_to_json(&None), None);
         assert_eq!(vec_string_to_json(&Some(None)), Some(Value::Null));
@@ -454,7 +454,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_vec_u32_to_json() {
         assert_eq!(vec_u32_to_json(&None), None);
         assert_eq!(vec_u32_to_json(&Some(None)), Some(Value::Null));
@@ -468,7 +468,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_vec_u64_to_json() {
         assert_eq!(vec_u64_to_json(&None), None);
         assert_eq!(vec_u64_to_json(&Some(None)), Some(Value::Null));
@@ -481,7 +481,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_sparse_get_vec_string() {
         let mut arr = SparseArray::new();
         assert_eq!(sparse_get_vec_string(&arr, 0), None);
@@ -516,7 +516,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_sparse_get_vec_u32() {
         let mut arr = SparseArray::new();
         assert_eq!(sparse_get_vec_u32(&arr, 0), None);
@@ -541,7 +541,7 @@ mod tests {
         assert_eq!(sparse_get_vec_u32(&arr, 2), Some(Some(vec![10]))); // filters out too-large value
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_sparse_get_vec_u64() {
         let mut arr = SparseArray::new();
         assert_eq!(sparse_get_vec_u64(&arr, 0), None);
@@ -562,7 +562,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_sparse_set() {
         let mut arr = SparseArray::new();
 
@@ -579,7 +579,7 @@ mod tests {
         assert_eq!(arr.get("2"), Some(&Value::Null));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_sparse_get_string_wrong_type() {
         let mut arr = SparseArray::new();
         arr.insert("0".to_string(), Value::Number(123.into()));
@@ -587,7 +587,7 @@ mod tests {
         assert_eq!(sparse_get_string(&arr, 0), None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_sparse_get_u32_wrong_type() {
         let mut arr = SparseArray::new();
         arr.insert("0".to_string(), Value::String("not a number".to_string()));
@@ -595,7 +595,7 @@ mod tests {
         assert_eq!(sparse_get_u32(&arr, 0), None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_sparse_get_u32_overflow() {
         let mut arr = SparseArray::new();
         // Value larger than u32::MAX
@@ -604,7 +604,7 @@ mod tests {
         assert_eq!(sparse_get_u32(&arr, 0), None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_sparse_get_vec_wrong_types() {
         let mut arr = SparseArray::new();
 

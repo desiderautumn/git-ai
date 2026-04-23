@@ -1081,7 +1081,7 @@ fn validate_prompt_storage_value(value: &str) -> Result<(), String> {
 mod tests {
     use super::*;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_prompt_storage_valid_values() {
         for value in ["default", "notes", "local"] {
             let result = validate_prompt_storage_value(value);
@@ -1089,7 +1089,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_prompt_storage_invalid_value() {
         for value in ["invalid", "defaults", "note", "", "DEFAULT", "NOTES"] {
             let result = validate_prompt_storage_value(value);
@@ -1097,7 +1097,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_prompt_storage_invalid_value_error_message() {
         let result = validate_prompt_storage_value("invalid");
         assert!(result.is_err());
@@ -1108,7 +1108,7 @@ mod tests {
         assert!(err.contains("local"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_bool_valid_true_values() {
         for value in ["true", "1", "yes", "on", "TRUE", "True", "YES", "ON"] {
             let result = parse_bool(value);
@@ -1117,7 +1117,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_bool_valid_false_values() {
         for value in ["false", "0", "no", "off", "FALSE", "False", "NO", "OFF"] {
             let result = parse_bool(value);
@@ -1126,7 +1126,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_bool_invalid_value() {
         let result = parse_bool("invalid");
         assert!(result.is_err());
@@ -1135,25 +1135,25 @@ mod tests {
         assert!(err.contains("invalid"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_hook_command_values_supports_plain_string() {
         let commands = parse_hook_command_values("./hooks/post-notes.sh").unwrap();
         assert_eq!(commands, vec!["./hooks/post-notes.sh"]);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_hook_command_values_supports_json_array() {
         let commands = parse_hook_command_values(r#"["a","b"]"#).unwrap();
         assert_eq!(commands, vec!["a", "b"]);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_hook_command_values_json_primitive_falls_back_to_string() {
         let commands = parse_hook_command_values("true").unwrap();
         assert_eq!(commands, vec!["true"]);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_git_ai_hooks_object() {
         let hooks =
             parse_git_ai_hooks_object(r#"{"post_notes_updated":["./hook-a.sh","./hook-b.sh"]}"#)
@@ -1166,25 +1166,25 @@ mod tests {
 
     // --- Additional comprehensive tests ---
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_value_json_string() {
         let result = parse_value("\"hello\"").unwrap();
         assert_eq!(result, Value::String("hello".to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_value_json_number() {
         let result = parse_value("42").unwrap();
         assert_eq!(result, Value::Number(serde_json::Number::from(42)));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_value_json_boolean() {
         let result = parse_value("true").unwrap();
         assert_eq!(result, Value::Bool(true));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_value_json_array() {
         let result = parse_value("[1,2,3]").unwrap();
         assert!(result.is_array());
@@ -1192,77 +1192,77 @@ mod tests {
         assert_eq!(arr.len(), 3);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_value_json_object() {
         let result = parse_value(r#"{"key":"value"}"#).unwrap();
         assert!(result.is_object());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_value_plain_string() {
         let result = parse_value("plain text").unwrap();
         assert_eq!(result, Value::String("plain text".to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_mask_api_key_long() {
         let key = "abcdefghijklmnop";
         let masked = mask_api_key(key);
         assert_eq!(masked, "abcd...mnop");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_mask_api_key_short() {
         let key = "short";
         let masked = mask_api_key(key);
         assert_eq!(masked, "****");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_mask_api_key_exactly_eight() {
         let key = "12345678";
         let masked = mask_api_key(key);
         assert_eq!(masked, "****");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_mask_api_key_nine_chars() {
         let key = "123456789";
         let masked = mask_api_key(key);
         assert_eq!(masked, "1234...6789");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_key_path_single() {
         let result = parse_key_path("key");
         assert_eq!(result, vec!["key"]);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_key_path_nested() {
         let result = parse_key_path("parent.child");
         assert_eq!(result, vec!["parent", "child"]);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_key_path_deeply_nested() {
         let result = parse_key_path("a.b.c.d");
         assert_eq!(result, vec!["a", "b", "c", "d"]);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_key_path_empty() {
         let result = parse_key_path("");
         assert_eq!(result, vec![""]);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_detect_pattern_type_global_wildcard() {
         assert_eq!(detect_pattern_type("*"), PatternType::GlobalWildcard);
         assert_eq!(detect_pattern_type(" * "), PatternType::GlobalWildcard);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_detect_pattern_type_http_url() {
         assert_eq!(
             detect_pattern_type("http://github.com/org/repo"),
@@ -1274,7 +1274,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_detect_pattern_type_git_ssh() {
         assert_eq!(
             detect_pattern_type("git@github.com:org/repo.git"),
@@ -1282,7 +1282,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_detect_pattern_type_ssh_url() {
         assert_eq!(
             detect_pattern_type("ssh://git@github.com/org/repo"),
@@ -1290,7 +1290,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_detect_pattern_type_git_protocol() {
         assert_eq!(
             detect_pattern_type("git://github.com/org/repo"),
@@ -1298,7 +1298,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_detect_pattern_type_wildcard_in_url() {
         assert_eq!(
             detect_pattern_type("https://github.com/org/*"),
@@ -1306,12 +1306,12 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_detect_pattern_type_question_mark_pattern() {
         assert_eq!(detect_pattern_type("repo-?"), PatternType::UrlOrGitProtocol);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_detect_pattern_type_bracket_pattern() {
         assert_eq!(
             detect_pattern_type("[abc]def"),
@@ -1319,85 +1319,85 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_detect_pattern_type_file_path_relative() {
         assert_eq!(detect_pattern_type("./path/to/repo"), PatternType::FilePath);
         assert_eq!(detect_pattern_type("path/to/repo"), PatternType::FilePath);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_detect_pattern_type_file_path_absolute() {
         assert_eq!(detect_pattern_type("/path/to/repo"), PatternType::FilePath);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_detect_pattern_type_file_path_home() {
         assert_eq!(detect_pattern_type("~/repo"), PatternType::FilePath);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_detect_pattern_type_single_dot() {
         assert_eq!(detect_pattern_type("."), PatternType::FilePath);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_detect_pattern_type_double_dot() {
         assert_eq!(detect_pattern_type(".."), PatternType::FilePath);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_resolve_repository_value_wildcard() {
         let result = resolve_repository_value("*").unwrap();
         assert_eq!(result, vec!["*"]);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_resolve_repository_value_url() {
         let result = resolve_repository_value("https://github.com/org/repo").unwrap();
         assert_eq!(result, vec!["https://github.com/org/repo"]);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_resolve_repository_value_git_ssh() {
         let result = resolve_repository_value("git@github.com:org/repo.git").unwrap();
         assert_eq!(result, vec!["git@github.com:org/repo.git"]);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_log_array_changes_add_mode() {
         let items = vec!["item1".to_string(), "item2".to_string()];
         // Just test that it doesn't panic - output goes to stderr
         log_array_changes(&items, true);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_log_array_changes_set_mode() {
         let items = vec!["item1".to_string(), "item2".to_string()];
         // Just test that it doesn't panic - output goes to stderr
         log_array_changes(&items, false);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_log_array_removals() {
         let items = vec!["item1".to_string(), "item2".to_string()];
         // Just test that it doesn't panic - output goes to stderr
         log_array_removals(&items);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_log_array_changes_empty() {
         let items: Vec<String> = vec![];
         log_array_changes(&items, true);
         log_array_changes(&items, false);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_log_array_removals_empty() {
         let items: Vec<String> = vec![];
         log_array_removals(&items);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_bool_case_insensitive() {
         assert!(parse_bool("TRUE").unwrap());
         assert!(parse_bool("True").unwrap());
@@ -1407,13 +1407,13 @@ mod tests {
         assert!(!parse_bool("fAlSe").unwrap());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_bool_numeric() {
         assert!(parse_bool("1").unwrap());
         assert!(!parse_bool("0").unwrap());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_bool_word_forms() {
         assert!(parse_bool("yes").unwrap());
         assert!(parse_bool("YES").unwrap());
@@ -1425,25 +1425,25 @@ mod tests {
         assert!(!parse_bool("OFF").unwrap());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_bool_invalid_number() {
         assert!(parse_bool("2").is_err());
         assert!(parse_bool("-1").is_err());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_bool_empty_string() {
         assert!(parse_bool("").is_err());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_bool_whitespace() {
         // Whitespace is not trimmed by parse_bool
         assert!(parse_bool(" true").is_err());
         assert!(parse_bool("true ").is_err());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_pattern_type_combinations() {
         // Test edge cases with @ and : characters
         assert_eq!(
@@ -1457,7 +1457,7 @@ mod tests {
         assert_eq!(detect_pattern_type("file:name"), PatternType::FilePath);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_pattern_type_custom_protocols() {
         assert_eq!(
             detect_pattern_type("custom://host/path"),

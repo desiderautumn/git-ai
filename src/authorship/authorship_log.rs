@@ -263,7 +263,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_prompt_record_ord_equality() {
         // Two records with identical messages.len(), total_additions, and
         // total_deletions should compare as Equal even when other fields differ.
@@ -285,7 +285,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_prompt_record_sorting() {
         let mut records = [
             create_prompt_record(5, 10, 5), // newest - has messages, additions, deletions
@@ -312,21 +312,21 @@ mod tests {
 
     // --- LineRange::shift regression tests ---
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_shift_single_underflow_returns_none() {
         // Single(5) at insertion_point=3 with offset=-10: 5 >= 3, so shifted = 5 + (-10) = -5 => None
         let result = LineRange::Single(5).shift(3, -10);
         assert_eq!(result, None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_shift_range_zero_offset_identity() {
         // Zero offset should be the identity transform
         let result = LineRange::Range(10, 20).shift(5, 0);
         assert_eq!(result, Some(LineRange::Range(10, 20)));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_shift_range_partial_underflow() {
         // Range(2, 10) at insertion_point=0, offset=-5:
         //   start: 2 >= 0, so 2 + (-5) = -3 => None (apply_offset fails on start)
@@ -334,7 +334,7 @@ mod tests {
         assert_eq!(result, None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_shift_range_collapses_to_single() {
         // Range(10, 11) at insertion_point=11, offset=-1:
         //   start: 10 < 11, so stays 10
@@ -344,14 +344,14 @@ mod tests {
         assert_eq!(result, Some(LineRange::Single(10)));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_shift_single_below_insertion_unchanged() {
         // Single(3) with insertion_point=5: 3 < 5, so line is unchanged
         let result = LineRange::Single(3).shift(5, 10);
         assert_eq!(result, Some(LineRange::Single(3)));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_shift_single_large_value_i64_arithmetic() {
         // Single(u32::MAX) at insertion_point=0, offset=1:
         //   u32::MAX >= 0, so shifted = (u32::MAX as i64) + 1 = 4294967296
@@ -366,7 +366,7 @@ mod tests {
 
     // --- PromptRecord::Ord transitivity test ---
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_prompt_record_ord_transitivity() {
         let a = create_prompt_record(1, 0, 0); // 1 message
         let b = create_prompt_record(2, 0, 0); // 2 messages

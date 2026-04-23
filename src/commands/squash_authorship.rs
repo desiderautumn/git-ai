@@ -95,7 +95,7 @@ mod tests {
     #[allow(unused_imports)]
     use super::*;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_handle_squash_authorship_parse_all_positional_args() {
         // Test that positional arguments are parsed in order
         let args = vec![
@@ -124,7 +124,7 @@ mod tests {
         assert_eq!(old_sha, Some("def456".to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_handle_squash_authorship_parse_with_dry_run() {
         // Test that --dry-run flag is parsed correctly
         let args = [
@@ -165,7 +165,7 @@ mod tests {
         assert!(dry_run);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_handle_squash_authorship_parse_minimal_args() {
         // Test with exactly 3 required arguments
         let args = vec![
@@ -193,7 +193,7 @@ mod tests {
         assert!(old_sha.is_some());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_handle_squash_authorship_parse_missing_base_branch() {
         // Test parsing logic when no args provided
         let args: Vec<String> = vec![];
@@ -209,7 +209,7 @@ mod tests {
         assert!(base_branch.is_none());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_handle_squash_authorship_parse_missing_new_sha() {
         // Test parsing logic when only base_branch provided
         let args = vec!["main".to_string()];
@@ -229,7 +229,7 @@ mod tests {
         assert!(new_sha.is_none());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_handle_squash_authorship_parse_missing_old_sha() {
         // Test parsing logic when only base_branch and new_sha provided
         let args = vec!["main".to_string(), "abc123".to_string()];
@@ -253,7 +253,7 @@ mod tests {
         assert!(old_sha.is_none());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_handle_squash_authorship_parse_order() {
         // Test that argument order matters
         let args = vec![
@@ -281,7 +281,7 @@ mod tests {
         assert_eq!(old_sha.unwrap(), "sha2222");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_handle_squash_authorship_parse_dry_run_at_end() {
         // Test --dry-run flag at the end
         let args = vec![
@@ -306,7 +306,7 @@ mod tests {
         assert_eq!(arg_count, 3);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_handle_squash_authorship_parse_empty_strings() {
         // Test with empty string arguments (edge case)
         let args = vec!["".to_string(), "abc".to_string(), "def".to_string()];
@@ -331,7 +331,7 @@ mod tests {
         assert_eq!(old_sha, Some("def".to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_handle_squash_authorship_parse_special_characters() {
         // Test with special characters in arguments
         let args = vec![

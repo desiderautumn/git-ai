@@ -13,7 +13,7 @@ use std::time::Instant;
 /// - Rebases the feature branch onto the advanced main branch
 ///
 /// Run with: cargo test --package git-ai --test integration rebase_benchmark -- --ignored --nocapture
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn benchmark_rebase_many_ai_commits() {
     let num_feature_commits: usize = std::env::var("REBASE_BENCH_FEATURE_COMMITS")
@@ -146,7 +146,7 @@ fn benchmark_rebase_many_ai_commits() {
 }
 
 /// Smaller benchmark for quick iteration during optimization
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn benchmark_rebase_small() {
     let num_commits = 10;
@@ -207,7 +207,7 @@ fn benchmark_rebase_small() {
 }
 
 /// Benchmark with performance JSON output for precise phase timing
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn benchmark_rebase_with_perf_json() {
     let num_commits: usize = std::env::var("REBASE_BENCH_FEATURE_COMMITS")
@@ -303,7 +303,7 @@ fn benchmark_rebase_with_perf_json() {
 ///
 /// Scale: 50 commits × 10 files × 200 lines = significant AI-authored content.
 /// The diff-based path should complete the per-commit processing loop in <10ms total.
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn benchmark_rebase_diff_based_large() {
     let num_feature_commits: usize = std::env::var("REBASE_BENCH_FEATURE_COMMITS")
@@ -456,7 +456,7 @@ fn benchmark_rebase_diff_based_large() {
 /// Runs the same rebase twice: once with notes (fast) and once without (blame fallback).
 ///
 /// Run with: cargo test --test integration benchmark_blame_vs_diff -- --ignored --nocapture
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn benchmark_blame_vs_diff() {
     let num_feature_commits: usize = std::env::var("REBASE_BENCH_FEATURE_COMMITS")
@@ -606,7 +606,7 @@ fn benchmark_blame_vs_diff() {
 /// 4. Large note payloads (50 files × many line ranges per commit)
 ///
 /// Run with: cargo test --package git-ai --test integration benchmark_rebase_heavy -- --ignored --nocapture
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn benchmark_rebase_heavy() {
     let num_ai_files: usize = std::env::var("HEAVY_BENCH_AI_FILES")
@@ -910,7 +910,7 @@ fn benchmark_rebase_heavy() {
 }
 
 /// Same as heavy benchmark but with timing file output for phase analysis
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn benchmark_rebase_heavy_with_timing() {
     let num_ai_files: usize = std::env::var("HEAVY_BENCH_AI_FILES")
@@ -1056,7 +1056,7 @@ fn benchmark_rebase_heavy_with_timing() {
 /// 4. Renames/moves (directory restructuring mid-feature)
 /// 5. Non-trivial hunks (20-100 line AI edits, deletions, replacements)
 /// 6. Clean rebase still (conflicts are hard to automate reproducibly)
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn benchmark_rebase_realistic_monorepo() {
     // Simple deterministic PRNG (xorshift64) to avoid adding rand dependency
@@ -1504,7 +1504,7 @@ fn benchmark_rebase_realistic_monorepo() {
 /// ```
 ///
 /// Run with: cargo test --test integration benchmark_monorepo_rebase -- --ignored --nocapture
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn benchmark_monorepo_rebase() {
     // Simple deterministic PRNG (xorshift64)
@@ -1916,7 +1916,7 @@ fn benchmark_monorepo_rebase() {
 /// wrapper-based plumbing detection is as fast as the standard post-rewrite hook path.
 ///
 /// Run with: cargo test --test integration benchmark_monorepo_graphite_rebase -- --ignored --nocapture
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn benchmark_monorepo_graphite_rebase() {
     // Skip in hooks mode — commit-tree/update-ref detection requires wrapper mode
@@ -2397,7 +2397,7 @@ fn extract_timing(data: &str, key: &str) -> Option<u64> {
 /// between original and rebased commits, making the fast-path note remap fail.
 ///
 /// This is the worst-case scenario and what we need to optimize.
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn benchmark_rebase_slow_path() {
     let num_feature_commits: usize = std::env::var("REBASE_BENCH_FEATURE_COMMITS")
@@ -2578,7 +2578,7 @@ fn benchmark_rebase_slow_path() {
 /// - Main branch also modifies the same files (forces diff-based path, not blob-copy fast path)
 ///
 /// Run with: cargo test --package git-ai --test integration benchmark_large_scale_mixed -- --ignored --nocapture
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn benchmark_large_scale_mixed() {
     let num_small_files: usize = std::env::var("BENCH_SMALL_FILES")

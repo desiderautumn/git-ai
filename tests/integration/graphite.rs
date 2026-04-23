@@ -442,7 +442,7 @@ fn setup_initial_commit(repo: &TestRepo) {
 // Group 1: gt create — Branch creation with attribution
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gt_create_preserves_ai_attribution() {
     require_gt!();
     let repo = TestRepo::new();
@@ -477,7 +477,7 @@ fn test_gt_create_preserves_ai_attribution() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gt_create_stacked_branches_preserve_attribution() {
     require_gt!();
     let repo = TestRepo::new();
@@ -519,7 +519,7 @@ fn test_gt_create_stacked_branches_preserve_attribution() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gt_create_empty_branch() {
     require_gt!();
     let repo = TestRepo::new();
@@ -545,7 +545,7 @@ fn test_gt_create_empty_branch() {
 // Group 2: gt modify — Amend/new commit with restack
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gt_modify_amend_preserves_attribution() {
     require_gt!();
     let repo = TestRepo::new();
@@ -577,7 +577,7 @@ fn test_gt_modify_amend_preserves_attribution() {
     file2.assert_lines_and_blame(crate::lines!["new ai line".ai(),]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gt_modify_new_commit_preserves_attribution() {
     require_gt!();
     let repo = TestRepo::new();
@@ -607,7 +607,7 @@ fn test_gt_modify_new_commit_preserves_attribution() {
 
 /// `gt modify` amends via `commit-tree` when restacking children.
 /// The wrapper's `update-ref` post-hook intercepts the ref move and remaps authorship notes.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gt_modify_restacks_children_preserves_attribution() {
     require_gt!();
     let repo = TestRepo::new();
@@ -646,7 +646,7 @@ fn test_gt_modify_restacks_children_preserves_attribution() {
 // Group 3: gt squash — Squash commits in branch
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gt_squash_preserves_ai_lines() {
     require_gt!();
     let repo = TestRepo::new();
@@ -685,7 +685,7 @@ fn test_gt_squash_preserves_ai_lines() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gt_squash_mixed_ai_human_across_commits() {
     require_gt!();
     let repo = TestRepo::new();
@@ -728,7 +728,7 @@ fn test_gt_squash_mixed_ai_human_across_commits() {
 
 /// `gt restack` uses `git commit-tree` + `git update-ref`.
 /// The wrapper's `update-ref` post-hook intercepts the ref move and remaps authorship notes.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gt_restack_preserves_attribution() {
     require_gt!();
     let repo = TestRepo::new();
@@ -766,7 +766,7 @@ fn test_gt_restack_preserves_attribution() {
 
 /// `gt restack` with a 3-branch stack — verifies attribution is preserved across
 /// the full stack after restacking via `commit-tree` + `update-ref`.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gt_restack_three_branch_stack() {
     require_gt!();
     let repo = TestRepo::new();
@@ -806,7 +806,7 @@ fn test_gt_restack_three_branch_stack() {
 // Group 5: gt fold — Fold branch into parent
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gt_fold_preserves_attribution() {
     require_gt!();
     let repo = TestRepo::new();
@@ -844,7 +844,7 @@ fn test_gt_fold_preserves_attribution() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gt_fold_with_mixed_content() {
     require_gt!();
     let repo = TestRepo::new();
@@ -884,7 +884,7 @@ fn test_gt_fold_with_mixed_content() {
 
 /// `gt move` uses `git commit-tree` + `git update-ref`.
 /// The wrapper's `update-ref` post-hook intercepts the ref move and remaps authorship notes.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gt_move_preserves_attribution() {
     require_gt!();
     let repo = TestRepo::new();
@@ -923,7 +923,7 @@ fn test_gt_move_preserves_attribution() {
 
 /// KNOWN_ISSUE:COMMIT_TREE — `gt split` uses `git commit-tree` + `git update-ref`
 /// instead of `git rebase`, bypassing git-ai attribution tracking entirely.
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn test_gt_split_by_file_preserves_attribution() {
     require_gt!();
@@ -959,7 +959,7 @@ fn test_gt_split_by_file_preserves_attribution() {
 
 /// KNOWN_ISSUE:COMMIT_TREE — `gt absorb` uses `git commit-tree` + `git update-ref`
 /// to amend earlier commits, bypassing git-ai attribution tracking entirely.
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn test_gt_absorb_preserves_attribution() {
     require_gt!();
@@ -1000,7 +1000,7 @@ fn test_gt_absorb_preserves_attribution() {
 // Group 9: Navigation commands — Verify no attribution side effects
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gt_navigation_preserves_attribution() {
     require_gt!();
     let repo = TestRepo::new();
@@ -1053,7 +1053,7 @@ fn test_gt_navigation_preserves_attribution() {
 // ===========================================================================
 
 /// `gt delete` requires an interactive terminal even with `--force`.
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn test_gt_delete_restacks_children_preserves_attribution() {
     require_gt!();
@@ -1090,7 +1090,7 @@ fn test_gt_delete_restacks_children_preserves_attribution() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gt_pop_retains_working_tree() {
     require_gt!();
     let repo = TestRepo::new();
@@ -1119,7 +1119,7 @@ fn test_gt_pop_retains_working_tree() {
 // Group 11: gt rename — Branch rename
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gt_rename_preserves_attribution() {
     require_gt!();
     let repo = TestRepo::new();
@@ -1148,7 +1148,7 @@ fn test_gt_rename_preserves_attribution() {
 // Group 12: gt track / gt untrack — Metadata operations
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gt_track_untrack_preserves_attribution() {
     require_gt!();
     let repo = TestRepo::new();
@@ -1184,7 +1184,7 @@ fn test_gt_track_untrack_preserves_attribution() {
 
 /// `gt undo` requires interactive terminal even when `--no-interactive` is passed.
 /// Cannot be tested in automated CI.
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn test_gt_undo_create_preserves_attribution() {
     require_gt!();
@@ -1217,7 +1217,7 @@ fn test_gt_undo_create_preserves_attribution() {
 
 /// Full stack workflow: create 3-branch stack, modify middle branch (triggering child restack
 /// via `commit-tree`), and verify attribution is preserved across the entire stack.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gt_full_stack_workflow() {
     require_gt!();
     let repo = TestRepo::new();
@@ -1281,7 +1281,7 @@ fn test_gt_full_stack_workflow() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gt_create_then_squash_then_fold() {
     require_gt!();
     let repo = TestRepo::new();
@@ -1319,7 +1319,7 @@ fn test_gt_create_then_squash_then_fold() {
     child_file.assert_lines_and_blame(crate::lines!["child ai 1".ai(), "child ai 2".ai(),]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gt_create_with_all_flag() {
     require_gt!();
     let repo = TestRepo::new();
@@ -1350,7 +1350,7 @@ fn test_gt_create_with_all_flag() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gt_modify_all_flag() {
     require_gt!();
     let repo = TestRepo::new();

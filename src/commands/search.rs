@@ -1122,14 +1122,14 @@ fn print_search_help() {
 mod tests {
     use super::*;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_search_result_new() {
         let result = SearchResult::new();
         assert!(result.is_empty());
         assert_eq!(result.len(), 0);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_search_mode_variants() {
         let by_commit = SearchMode::Commit {
             commit_rev: "abc123".to_string(),
@@ -1183,13 +1183,13 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_output_format_default() {
         let format = OutputFormat::default();
         assert_eq!(format, OutputFormat::Default);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_search_filters_empty() {
         let filters = SearchFilters::new();
         assert!(filters.is_empty());
@@ -1201,7 +1201,7 @@ mod tests {
         assert!(!filters_with_tool.is_empty());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_line_range() {
         assert_eq!(parse_line_range("42").unwrap(), (42, 42));
         assert_eq!(parse_line_range("10-50").unwrap(), (10, 50));
@@ -1212,7 +1212,7 @@ mod tests {
         assert!(parse_line_range("").is_err());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_search_args_commit() {
         let args = vec!["--commit".to_string(), "abc123".to_string()];
         let parsed = parse_search_args(&args).unwrap();
@@ -1224,7 +1224,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_search_args_commit_range() {
         let args = vec!["--commit".to_string(), "abc..def".to_string()];
         let parsed = parse_search_args(&args).unwrap();
@@ -1237,7 +1237,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_search_args_file_with_lines() {
         let args = vec![
             "--file".to_string(),
@@ -1257,7 +1257,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_search_args_with_filters() {
         let args = vec![
             "--commit".to_string(),
@@ -1274,7 +1274,7 @@ mod tests {
         assert_eq!(parsed.output_format, OutputFormat::Json);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_normalize_file_path_relative() {
         // Test that relative paths pass through correctly
         // Note: We can't easily test the full function without a repo, but we can test the path normalization logic
@@ -1287,7 +1287,7 @@ mod tests {
         assert_eq!(normalized2, "src/main.rs");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_normalize_file_path_backslash() {
         // Test that backslashes are normalized to forward slashes
         let path = "src\\commands\\search.rs";
@@ -1295,7 +1295,7 @@ mod tests {
         assert_eq!(normalized, "src/commands/search.rs");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_search_result_merge_commits() {
         // Test merge behavior for prompt_commits (simpler test without PromptRecord)
         let mut result1 = SearchResult::new();
@@ -1324,7 +1324,7 @@ mod tests {
         assert!(result1.prompt_commits.contains_key("hash2"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_search_result_merge_locations() {
         let mut result1 = SearchResult::new();
         result1
@@ -1347,7 +1347,7 @@ mod tests {
         assert_eq!(locations.len(), 2);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_search_args_lines_without_file_error() {
         let args = vec!["--lines".to_string(), "10-50".to_string()];
         let result = parse_search_args(&args);
@@ -1355,7 +1355,7 @@ mod tests {
         assert!(result.unwrap_err().contains("--lines requires --file"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_search_args_lines_before_file_works() {
         // --lines can come before --file and should work
         let args = vec![
@@ -1374,7 +1374,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_search_args_multiple_output_formats_error() {
         let args = vec![
             "--commit".to_string(),
@@ -1387,7 +1387,7 @@ mod tests {
         assert!(result.unwrap_err().contains("Only one output format"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_search_args_json_porcelain_error() {
         let args = vec![
             "--commit".to_string(),
@@ -1400,7 +1400,7 @@ mod tests {
         assert!(result.unwrap_err().contains("Only one output format"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_search_args_verbose_count_error() {
         let args = vec![
             "--commit".to_string(),
@@ -1413,7 +1413,7 @@ mod tests {
         assert!(result.unwrap_err().contains("Only one output format"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_line_range_invalid_start_greater_than_end() {
         let result = parse_line_range("50-10");
         assert!(result.is_err());
@@ -1453,7 +1453,7 @@ mod tests {
         result
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_make_helpers_roundtrip() {
         let prompt = make_prompt("claude", Some("Alice"));
         assert_eq!(prompt.agent_id.tool, "claude");
@@ -1475,7 +1475,7 @@ mod tests {
         assert_eq!(p2.human_author, Some("Bob".to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_make_helpers_none_author_and_empty() {
         // Edge case: None author
         let prompt = make_prompt("copilot", None);
@@ -1489,7 +1489,7 @@ mod tests {
         assert_eq!(result.len(), 0);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_apply_filters_tool_with_helpers() {
         let result = make_search_result(vec![
             ("hash1", make_prompt("claude", Some("Alice"))),
@@ -1510,7 +1510,7 @@ mod tests {
         assert!(!filtered.prompts.contains_key("hash2"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_apply_filters_author_with_helpers() {
         let result = make_search_result(vec![
             ("hash1", make_prompt("claude", Some("Alice Smith"))),
@@ -1533,7 +1533,7 @@ mod tests {
     // apply_filters tests (Task 4)
     // ---------------------------------------------------------------
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_apply_filters_tool_single_match() {
         let result = make_search_result(vec![
             ("hash1", make_prompt("claude", None)),
@@ -1549,7 +1549,7 @@ mod tests {
         assert!(!filtered.prompts.contains_key("hash2"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_apply_filters_tool_no_match() {
         let result = make_search_result(vec![("hash1", make_prompt("cursor", None))]);
         let filters = SearchFilters {
@@ -1560,7 +1560,7 @@ mod tests {
         assert!(filtered.is_empty());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_apply_filters_author_single_match() {
         let result = make_search_result(vec![
             ("hash1", make_prompt("claude", Some("Alice"))),
@@ -1576,7 +1576,7 @@ mod tests {
         assert!(!filtered.prompts.contains_key("hash2"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_apply_filters_author_no_match() {
         let result = make_search_result(vec![
             ("hash1", make_prompt("claude", Some("Alice"))),
@@ -1590,7 +1590,7 @@ mod tests {
         assert!(filtered.is_empty());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_apply_filters_empty_filters_passthrough() {
         let result = make_search_result(vec![
             ("hash1", make_prompt("claude", Some("Alice"))),
@@ -1607,7 +1607,7 @@ mod tests {
     // parse_time_spec tests (Task 5)
     // ---------------------------------------------------------------
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_time_spec_days() {
         use std::time::{SystemTime, UNIX_EPOCH};
         let now = SystemTime::now()
@@ -1624,7 +1624,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_time_spec_hours() {
         use std::time::{SystemTime, UNIX_EPOCH};
         let now = SystemTime::now()
@@ -1641,7 +1641,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_time_spec_weeks() {
         use std::time::{SystemTime, UNIX_EPOCH};
         let now = SystemTime::now()
@@ -1658,7 +1658,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_time_spec_minutes() {
         use std::time::{SystemTime, UNIX_EPOCH};
         let now = SystemTime::now()
@@ -1675,32 +1675,32 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_time_spec_unix_timestamp() {
         let result = parse_time_spec("1700000000").unwrap();
         assert_eq!(result, 1700000000);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_time_spec_date_format() {
         let result = parse_time_spec("2024-01-01").unwrap();
         let expected = days_since_unix_epoch(2024, 1, 1).unwrap() * 86400;
         assert_eq!(result, expected);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_time_spec_invalid_format() {
         let result = parse_time_spec("invalid");
         assert!(result.is_err());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_time_spec_invalid_suffix() {
         let result = parse_time_spec("7x");
         assert!(result.is_err());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_time_spec_zero_days() {
         use std::time::{SystemTime, UNIX_EPOCH};
         let now = SystemTime::now()
@@ -1720,39 +1720,39 @@ mod tests {
     // days_since_unix_epoch and is_leap_year tests (Task 5)
     // ---------------------------------------------------------------
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_days_since_unix_epoch_epoch() {
         assert_eq!(days_since_unix_epoch(1970, 1, 1), Some(0));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_days_since_unix_epoch_known_date() {
         assert_eq!(days_since_unix_epoch(2000, 1, 1), Some(10957));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_days_since_unix_epoch_invalid_month() {
         assert_eq!(days_since_unix_epoch(2024, 13, 1), None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_days_since_unix_epoch_invalid_day() {
         assert_eq!(days_since_unix_epoch(2024, 1, 32), None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_is_leap_year_regular() {
         assert!(is_leap_year(2024));
         assert!(!is_leap_year(2023));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_is_leap_year_century() {
         assert!(!is_leap_year(1900));
         assert!(is_leap_year(2000));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_is_leap_year_400_year() {
         assert!(is_leap_year(2000));
     }

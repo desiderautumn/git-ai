@@ -3103,7 +3103,7 @@ pub fn get_binary_path() -> &'static PathBuf {
 mod tests {
     use super::*;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_normalize_test_git_ai_checkpoint_args_inserts_separator_for_direct_file() {
         assert_eq!(
             normalize_test_git_ai_checkpoint_args(&["checkpoint", "src/lib.rs"]),
@@ -3111,7 +3111,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_normalize_test_git_ai_checkpoint_args_preserves_known_presets_and_separator() {
         assert_eq!(
             normalize_test_git_ai_checkpoint_args(&["checkpoint", "mock_ai", "src/lib.rs"]),
@@ -3123,7 +3123,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_normalize_test_git_ai_checkpoint_args_handles_hook_input_before_pathspecs() {
         assert_eq!(
             normalize_test_git_ai_checkpoint_args(&[

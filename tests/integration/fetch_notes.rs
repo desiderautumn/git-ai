@@ -15,7 +15,7 @@ fn extract_json(output: &str) -> serde_json::Value {
     panic!("no valid JSON object found in output:\n{}", output);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_fetch_notes_no_remote_notes() {
     let (mirror, _upstream) = TestRepo::new_with_remote();
 
@@ -34,7 +34,7 @@ fn test_fetch_notes_no_remote_notes() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_fetch_notes_with_explicit_remote() {
     let (mirror, _upstream) = TestRepo::new_with_remote();
 
@@ -53,7 +53,7 @@ fn test_fetch_notes_with_explicit_remote() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_fetch_notes_with_remote_flag() {
     let (mirror, _upstream) = TestRepo::new_with_remote();
 
@@ -72,7 +72,7 @@ fn test_fetch_notes_with_remote_flag() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_fetch_notes_json_output_no_notes() {
     let (mirror, _upstream) = TestRepo::new_with_remote();
 
@@ -90,7 +90,7 @@ fn test_fetch_notes_json_output_no_notes() {
     assert_eq!(parsed["remote"], "origin");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_fetch_notes_json_output_with_notes() {
     let (mirror, _upstream) = TestRepo::new_with_remote();
 
@@ -130,7 +130,7 @@ fn test_fetch_notes_json_output_with_notes() {
     assert_eq!(parsed["remote"], "origin");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_fetch_notes_help_flag() {
     let repo = TestRepo::new();
 
@@ -144,7 +144,7 @@ fn test_fetch_notes_help_flag() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_fetch_notes_unknown_option_fails() {
     let repo = TestRepo::new();
 
@@ -158,7 +158,7 @@ fn test_fetch_notes_unknown_option_fails() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_fetch_notes_human_output_with_notes() {
     let (mirror, _upstream) = TestRepo::new_with_remote();
 
@@ -188,7 +188,7 @@ fn test_fetch_notes_human_output_with_notes() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_fetch_notes_remote_missing_value_fails() {
     let repo = TestRepo::new();
 
@@ -202,7 +202,7 @@ fn test_fetch_notes_remote_missing_value_fails() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_fetch_notes_duplicate_remote_fails() {
     let repo = TestRepo::new();
 
@@ -216,7 +216,7 @@ fn test_fetch_notes_duplicate_remote_fails() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_fetch_notes_json_error_includes_remote() {
     let (mirror, _upstream) = TestRepo::new_with_remote();
 

@@ -1,7 +1,7 @@
 use crate::repos::test_file::ExpectedLineExt;
 use crate::repos::test_repo::TestRepo;
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn push_with_set_upstream_flag_pushes_authorship_notes() {
     let (local, upstream) = TestRepo::new_with_remote();
 
@@ -22,7 +22,7 @@ fn push_with_set_upstream_flag_pushes_authorship_notes() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn push_after_branch_set_upstream_pushes_authorship_notes() {
     let (local, upstream) = TestRepo::new_with_remote();
 

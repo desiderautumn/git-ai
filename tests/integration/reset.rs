@@ -3,7 +3,7 @@ use crate::repos::test_repo::TestRepo;
 use std::fs;
 
 /// Test git reset --hard: should discard all changes and reset to target commit
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_reset_hard_deletes_working_log() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -35,7 +35,7 @@ fn test_reset_hard_deletes_working_log() {
 }
 
 /// Test git reset --soft: should preserve AI authorship from unwound commits
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_reset_soft_reconstructs_working_log() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -72,7 +72,7 @@ fn test_reset_soft_reconstructs_working_log() {
 }
 
 /// Test git reset --mixed (default): working directory preserved
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_reset_mixed_reconstructs_working_log() {
     let repo = TestRepo::new();
     let mut file = repo.filename("main.rs");
@@ -111,7 +111,7 @@ fn test_reset_mixed_reconstructs_working_log() {
 }
 
 /// Test git reset to same commit: should preserve uncommitted AI changes
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_reset_to_same_commit_is_noop() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -144,7 +144,7 @@ fn test_reset_to_same_commit_is_noop() {
 }
 
 /// Test git reset with multiple commits unwound: should preserve all AI authorship
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_reset_multiple_commits() {
     let repo = TestRepo::new();
     let mut file = repo.filename("code.js");
@@ -182,7 +182,7 @@ fn test_reset_multiple_commits() {
 }
 
 /// Test git reset with uncommitted changes preserved: should preserve all AI authorship
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_reset_preserves_uncommitted_changes() {
     let repo = TestRepo::new();
     let mut file = repo.filename("app.py");
@@ -222,7 +222,7 @@ fn test_reset_preserves_uncommitted_changes() {
 }
 
 /// Test git reset with pathspecs: should preserve AI authorship for non-reset files
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_reset_with_pathspec() {
     let repo = TestRepo::new();
     let mut file1 = repo.filename("file1.txt");
@@ -264,7 +264,7 @@ fn test_reset_with_pathspec() {
 }
 
 /// Test git reset forward (to descendant): should restore commit state
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_reset_forward_is_noop() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -294,7 +294,7 @@ fn test_reset_forward_is_noop() {
 }
 
 /// Test git reset with AI and human mixed changes: should preserve all authorship
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_reset_mixed_ai_human_changes() {
     let repo = TestRepo::new();
     let mut file = repo.filename("main.rs");
@@ -333,7 +333,7 @@ fn test_reset_mixed_ai_human_changes() {
 }
 
 /// Test git reset --merge: should be like --mixed for clean working tree
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_reset_merge() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -365,7 +365,7 @@ fn test_reset_merge() {
 }
 
 /// Test git reset with new files added in unwound commit: should preserve AI authorship
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_reset_with_new_files() {
     let repo = TestRepo::new();
     let mut old_file = repo.filename("old.txt");
@@ -396,7 +396,7 @@ fn test_reset_with_new_files() {
 }
 
 /// Test git reset with file deletions in unwound commit
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_reset_with_deleted_files() {
     let repo = TestRepo::new();
     let mut keep_file = repo.filename("keep.txt");
@@ -435,7 +435,7 @@ fn test_reset_with_deleted_files() {
 }
 
 /// Test git reset --mixed with pathspec: should preserve AI authorship for non-reset files
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_reset_mixed_pathspec_preserves_ai_authorship() {
     let repo = TestRepo::new();
     let mut file1 = repo.filename("file1.txt");
@@ -486,7 +486,7 @@ fn test_reset_mixed_pathspec_preserves_ai_authorship() {
 }
 
 /// Test git reset --mixed with pathspec on multiple commits worth of AI changes
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_reset_mixed_pathspec_multiple_commits() {
     let repo = TestRepo::new();
     let mut app_file = repo.filename("app.js");
@@ -543,7 +543,7 @@ fn test_reset_mixed_pathspec_multiple_commits() {
 }
 
 /// Test git reset with directory pathspec: should reset only files in the specified directory
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_reset_with_directory_pathspec() {
     let repo = TestRepo::new();
 
@@ -608,7 +608,7 @@ fn test_reset_with_directory_pathspec() {
 /// post-reset hook, which (a) is O(files × file_size) wasted work and (b) always
 /// produced zero AI attributions because the range is empty.  The fix creates an
 /// empty target VA directly, halving the blame work with no correctness change.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_reset_large_commit_preserves_attribution() {
     let repo = TestRepo::new();
 

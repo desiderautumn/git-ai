@@ -21,7 +21,7 @@ fn normalize_blame_output(blame_output: &str) -> String {
     result.to_string()
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_initial_only_no_blame_data() {
     // Test that INITIAL attributions work when there's no blame data (new file case)
     let repo = TestRepo::new();
@@ -110,7 +110,7 @@ fn test_initial_only_no_blame_data() {
     assert_debug_snapshot!(normalized);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_initial_wins_overlaps() {
     // Test that INITIAL attributions seed the initial state
     let repo = TestRepo::new();
@@ -179,7 +179,7 @@ fn test_initial_wins_overlaps() {
     assert_debug_snapshot!(normalized);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_initial_and_blame_merge() {
     // Test that INITIAL covers some lines and blame fills in the gaps
     let repo = TestRepo::new();
@@ -355,7 +355,7 @@ fn test_partial_file_coverage() {
     assert_debug_snapshot!(normalized_b);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_initial_attributions_in_subsequent_checkpoint() {
     // Test that INITIAL attributions work when a file first appears in checkpoint #2+
     // This verifies the bug fix where files appearing in non-first checkpoints

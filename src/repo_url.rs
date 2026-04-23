@@ -82,7 +82,7 @@ fn normalize_ssh_url(host: &str, path: &str) -> Result<String, String> {
 mod tests {
     use super::normalize_repo_url;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_normalize_repo_url_https() {
         assert_eq!(
             normalize_repo_url("https://github.com/user/repo").unwrap(),
@@ -102,7 +102,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_normalize_repo_url_ssh() {
         assert_eq!(
             normalize_repo_url("git@github.com:user/repo.git").unwrap(),
@@ -126,7 +126,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_normalize_repo_url_git_protocol() {
         assert_eq!(
             normalize_repo_url("git://github.com/user/repo.git").unwrap(),
@@ -134,7 +134,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_normalize_repo_url_http_upgrade() {
         assert_eq!(
             normalize_repo_url("http://github.com/user/repo").unwrap(),
@@ -146,7 +146,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_normalize_repo_url_invalid() {
         assert!(normalize_repo_url("not-a-url").is_err());
         assert!(normalize_repo_url("https://").is_err());
@@ -154,7 +154,7 @@ mod tests {
         assert!(normalize_repo_url("git@github.com").is_err()); // missing :path
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_normalize_repo_url_ssh_scp_edge_cases() {
         // SSH URL with leading slash in path
         assert_eq!(
@@ -169,7 +169,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_normalize_repo_url_empty_or_invalid_ssh() {
         // Missing path after colon
         let result = normalize_repo_url("git@github.com:");
@@ -184,7 +184,7 @@ mod tests {
         assert!(result.is_err());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_normalize_repo_url_with_credentials() {
         // HTTPS with user credentials should strip them
         assert_eq!(
@@ -199,7 +199,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_normalize_repo_url_with_port() {
         // HTTPS with custom port
         assert_eq!(
@@ -214,7 +214,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_normalize_repo_url_no_path() {
         // URL with no path (just host)
         let result = normalize_repo_url("https://github.com");
@@ -226,7 +226,7 @@ mod tests {
         assert!(result.is_err());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_normalize_repo_url_complex_paths() {
         // Multiple .git suffixes (strips all at the end)
         assert_eq!(
@@ -253,7 +253,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_validate_normalized_url() {
         use super::validate_normalized_url;
 
@@ -268,7 +268,7 @@ mod tests {
         assert!(validate_normalized_url("https://github.com/").is_err());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_normalize_ssh_url_edge_cases() {
         use super::normalize_ssh_url;
 
@@ -291,7 +291,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_normalize_repo_url_whitespace_handling() {
         // Leading/trailing whitespace
         assert_eq!(
@@ -306,7 +306,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_normalize_repo_url_unsupported_schemes() {
         assert!(normalize_repo_url("ftp://example.com/repo").is_err());
         assert!(normalize_repo_url("file:///local/path").is_err());

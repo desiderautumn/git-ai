@@ -91,7 +91,7 @@ impl MetricsBatch {
 mod tests {
     use super::*;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_metrics_batch_serialization() {
         let batch = MetricsBatch::new(vec![]);
         let json = serde_json::to_string(&batch).unwrap();
@@ -99,7 +99,7 @@ mod tests {
         assert!(json.contains("\"events\":[]"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_metric_event_serialization() {
         let mut values = SparseArray::new();
         values.insert("0".to_string(), Value::String("test".to_string()));
@@ -121,7 +121,7 @@ mod tests {
         assert!(json.contains("\"a\":{"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_metric_event_deserialization() {
         let json = r#"{"t":1704067200,"e":2,"v":{"0":"test"},"a":{"0":"1.0.0"}}"#;
         let event: MetricEvent = serde_json::from_str(json).unwrap();
@@ -138,7 +138,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_metric_event_with_timestamp() {
         use crate::metrics::events::CommittedValues;
 
@@ -152,7 +152,7 @@ mod tests {
         assert_eq!(event.event_id, 1);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_metric_event_id_values() {
         assert_eq!(MetricEventId::Committed as u16, 1);
         assert_eq!(MetricEventId::AgentUsage as u16, 2);
@@ -160,7 +160,7 @@ mod tests {
         assert_eq!(MetricEventId::Checkpoint as u16, 4);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_metric_event_id_equality() {
         let id1 = MetricEventId::Committed;
         let id2 = MetricEventId::Committed;
@@ -170,7 +170,7 @@ mod tests {
         assert_ne!(id1, id3);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_metrics_batch_with_events() {
         let mut values = SparseArray::new();
         values.insert("0".to_string(), Value::Number(100.into()));
@@ -200,7 +200,7 @@ mod tests {
         assert_eq!(batch.events[1].timestamp, 1704067300);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_metrics_batch_deserialization() {
         let json = r#"{"v":1,"events":[{"t":1704067200,"e":1,"v":{},"a":{}}]}"#;
         let batch: MetricsBatch = serde_json::from_str(json).unwrap();
@@ -210,12 +210,12 @@ mod tests {
         assert_eq!(batch.events[0].timestamp, 1704067200);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_metrics_api_version() {
         assert_eq!(METRICS_API_VERSION, 1);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_metric_event_new_creates_current_timestamp() {
         use crate::metrics::events::AgentUsageValues;
         use std::time::{SystemTime, UNIX_EPOCH};
@@ -240,7 +240,7 @@ mod tests {
         assert!(event.timestamp <= after + 1);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_sparse_array_type() {
         let mut arr: SparseArray = HashMap::new();
         arr.insert("0".to_string(), Value::String("test".to_string()));
@@ -253,14 +253,14 @@ mod tests {
         assert_eq!(arr.get("2"), Some(&Value::Null));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_metric_event_id_debug() {
         let id = MetricEventId::Committed;
         let debug_str = format!("{:?}", id);
         assert_eq!(debug_str, "Committed");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_metric_event_id_clone() {
         let id1 = MetricEventId::Checkpoint;
         let id2 = id1;

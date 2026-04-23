@@ -54,6 +54,7 @@ test-support = ["git2"]
 keyring = ["dep:keyring"]
 
 [dev-dependencies]
+print_dur = { path = "../print_dur" }
 git-ai = { path = ".", features = ["test-support"] }
 tempfile = "3.27"
 insta = "1.47"

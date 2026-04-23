@@ -16,7 +16,7 @@ use std::time::Duration;
 // Preset routing tests
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_windsurf_preset_human_checkpoint() {
     let hook_input = json!({
         "trajectory_id": "traj-abc-123",
@@ -49,7 +49,7 @@ fn test_windsurf_preset_human_checkpoint() {
     assert_eq!(result.agent_id.model, "GPT 4.1");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_windsurf_preset_ai_checkpoint_post_write_code() {
     let hook_input = json!({
         "trajectory_id": "traj-abc-123",
@@ -82,7 +82,7 @@ fn test_windsurf_preset_ai_checkpoint_post_write_code() {
     assert_eq!(result.agent_id.model, "unknown");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_windsurf_preset_extracts_model_name_from_hook() {
     let hook_input = json!({
         "trajectory_id": "traj-abc-123",
@@ -104,7 +104,7 @@ fn test_windsurf_preset_extracts_model_name_from_hook() {
     assert_eq!(result.agent_id.model, "Claude Sonnet 4");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_windsurf_preset_ignores_unknown_model_name() {
     let hook_input = json!({
         "trajectory_id": "traj-abc-123",
@@ -127,7 +127,7 @@ fn test_windsurf_preset_ignores_unknown_model_name() {
     assert_eq!(result.agent_id.model, "unknown");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_windsurf_preset_ai_checkpoint_post_cascade() {
     // Create a temp transcript file using real Windsurf nested format
     let mut temp_file = tempfile::NamedTempFile::new().unwrap();
@@ -167,7 +167,7 @@ fn test_windsurf_preset_ai_checkpoint_post_cascade() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_windsurf_preset_missing_trajectory_id() {
     let hook_input = json!({
         "agent_action_name": "post_write_code"
@@ -187,7 +187,7 @@ fn test_windsurf_preset_missing_trajectory_id() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_windsurf_preset_invalid_json() {
     let flags = AgentCheckpointFlags {
         hook_input: Some("{ invalid json }".to_string()),
@@ -201,7 +201,7 @@ fn test_windsurf_preset_invalid_json() {
 // Transcript parser tests
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_windsurf_transcript_parser_basic() {
     let mut temp_file = tempfile::NamedTempFile::new().unwrap();
     writeln!(temp_file, r#"{{"status":"done","type":"user_input","user_input":{{"user_response":"Add a hello world function"}}}}"#).unwrap();
@@ -230,7 +230,7 @@ fn test_windsurf_transcript_parser_basic() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_windsurf_transcript_parser_skips_empty_content() {
     let mut temp_file = tempfile::NamedTempFile::new().unwrap();
     writeln!(
@@ -252,7 +252,7 @@ fn test_windsurf_transcript_parser_skips_empty_content() {
     ));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_windsurf_transcript_parser_handles_malformed_lines() {
     let mut temp_file = tempfile::NamedTempFile::new().unwrap();
     writeln!(
@@ -271,7 +271,7 @@ fn test_windsurf_transcript_parser_handles_malformed_lines() {
     assert_eq!(transcript.messages().len(), 2);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_windsurf_transcript_parser_empty_file() {
     let temp_file = tempfile::NamedTempFile::new().unwrap();
     let temp_path = temp_file.path().to_str().unwrap();
@@ -283,7 +283,7 @@ fn test_windsurf_transcript_parser_empty_file() {
     assert!(model.is_none());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_windsurf_transcript_parser_real_fixture() {
     let fixture = crate::test_utils::fixture_path("windsurf-session-simple.jsonl");
     let (transcript, model) =
@@ -363,7 +363,7 @@ fn test_windsurf_transcript_parser_real_fixture() {
     println!("  {} tool use messages", tool_msgs.len());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_windsurf_transcript_maps_all_tool_types() {
     let fixture = crate::test_utils::fixture_path("windsurf-session-simple.jsonl");
     let (transcript, _) =
@@ -402,7 +402,7 @@ fn test_windsurf_transcript_maps_all_tool_types() {
 // End-to-end tests using TestRepo
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_windsurf_e2e_with_attribution() {
     let repo = TestRepo::new();
 
@@ -460,7 +460,7 @@ fn test_windsurf_e2e_with_attribution() {
     assert_eq!(prompt_record.agent_id.tool, "windsurf");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_windsurf_e2e_human_checkpoint() {
     let repo = TestRepo::new();
 
@@ -506,7 +506,7 @@ fn test_windsurf_e2e_human_checkpoint() {
 // run_command (bash) hook tests
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_windsurf_preset_pre_run_command_captures_bash_snapshot() {
     let repo = TestRepo::new();
     let repo_root = repo.canonical_path();
@@ -553,7 +553,7 @@ fn test_windsurf_preset_pre_run_command_captures_bash_snapshot() {
     assert_eq!(active_context.tool_use_id, "exec-bash-1");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_windsurf_preset_post_run_command_detects_changed_files() {
     let repo = TestRepo::new();
     let repo_root = repo.canonical_path();
@@ -613,7 +613,7 @@ fn test_windsurf_preset_post_run_command_detects_changed_files() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_windsurf_preset_post_run_command_without_snapshot_falls_back_gracefully() {
     let repo = TestRepo::new();
     let repo_root = repo.canonical_path();
@@ -644,7 +644,7 @@ fn test_windsurf_preset_post_run_command_without_snapshot_falls_back_gracefully(
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_windsurf_e2e_run_command_attribution() {
     let repo = TestRepo::new();
     let repo_root = repo.canonical_path();

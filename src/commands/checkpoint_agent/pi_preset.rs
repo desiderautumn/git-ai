@@ -542,7 +542,7 @@ mod tests {
         PathBuf::from(concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/")).join(name)
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_pi_payload_parsing_before_edit() {
         let session_path = fixture_path("pi-session-simple.jsonl");
         let hook_input = json!({
@@ -588,7 +588,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_pi_rejects_unknown_tool_name() {
         let hook_input = json!({
             "hook_event_name": "after_edit",
@@ -614,7 +614,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_pi_rejects_bash_tool_with_edit_event() {
         let hook_input = json!({
             "hook_event_name": "after_edit",
@@ -640,7 +640,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_pi_rejects_edit_tool_with_command_event() {
         let hook_input = json!({
             "hook_event_name": "before_command",
@@ -665,7 +665,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_pi_before_command_produces_human_checkpoint() {
         let hook_input = json!({
             "hook_event_name": "before_command",
@@ -695,7 +695,7 @@ mod tests {
         assert_eq!(metadata.get("tool_name").map(String::as_str), Some("bash"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_pi_after_command_produces_ai_checkpoint() {
         let hook_input = json!({
             "hook_event_name": "after_command",
@@ -720,7 +720,7 @@ mod tests {
         assert!(result.transcript.is_none());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_pi_simple_transcript_fixture() {
         let (transcript, model) =
             PiPreset::transcript_and_model_from_pi_session(fixture_path("pi-session-simple.jsonl"))
@@ -735,7 +735,7 @@ mod tests {
         ));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_pi_tool_call_and_tool_result_fixture() {
         let (transcript, model) =
             PiPreset::transcript_and_model_from_pi_session(fixture_path("pi-session-tool.jsonl"))
@@ -754,7 +754,7 @@ mod tests {
             .any(|message| matches!(message, Message::Assistant { text, .. } if text.contains("Applied edit"))));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_pi_ignores_non_message_entry_kinds() {
         let (transcript, model) = PiPreset::transcript_and_model_from_pi_session(fixture_path(
             "pi-session-ignorable.jsonl",

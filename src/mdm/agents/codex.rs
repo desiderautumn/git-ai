@@ -602,7 +602,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_is_git_ai_codex_notify_args_true_for_absolute_binary() {
         let args = vec![
             "/usr/local/bin/git-ai".to_string(),
@@ -614,7 +614,7 @@ mod tests {
         assert!(CodexInstaller::is_git_ai_codex_notify_args(&args));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_is_git_ai_codex_notify_args_true_for_legacy_via_codex_notify_args() {
         let args = vec![
             "/Users/svarlamov/.git-ai/bin/git-ai".to_string(),
@@ -628,7 +628,7 @@ mod tests {
         assert!(CodexInstaller::is_git_ai_codex_notify_args(&args));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_is_git_ai_codex_notify_args_false_for_non_git_ai_command() {
         let args = vec![
             "notify-send".to_string(),
@@ -639,7 +639,7 @@ mod tests {
         assert!(!CodexInstaller::is_git_ai_codex_notify_args(&args));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_remove_notify_if_git_ai_removes_only_git_ai_notify() {
         let config = CodexInstaller::parse_config_toml(
             r#"
@@ -656,7 +656,7 @@ notify = ["/usr/local/bin/git-ai", "checkpoint", "codex", "--hook-input"]
         assert_eq!(merged.get("model").and_then(|v| v.as_str()), Some("gpt-5"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_remove_notify_if_git_ai_removes_legacy_via_codex_notify_args() {
         let config = CodexInstaller::parse_config_toml(
             r#"
@@ -673,7 +673,7 @@ notify = ["/Users/svarlamov/.git-ai/bin/git-ai", "checkpoint", "codex", "--via-c
         assert_eq!(merged.get("model").and_then(|v| v.as_str()), Some("gpt-5"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_remove_notify_if_git_ai_preserves_custom_notify() {
         let config = CodexInstaller::parse_config_toml(
             r#"
@@ -690,7 +690,7 @@ notify = ["notify-send", "Codex"]
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_config_with_installed_hooks_enables_feature_flag_and_removes_git_ai_notify() {
         let existing = CodexInstaller::parse_config_toml(
             r#"
@@ -717,7 +717,7 @@ notify = ["/usr/local/bin/git-ai", "checkpoint", "codex", "--hook-input"]
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_hooks_with_installed_commands_adds_unscoped_pre_post_stop_hooks() {
         let existing = json!({
             "hooks": {
@@ -772,7 +772,7 @@ notify = ["/usr/local/bin/git-ai", "checkpoint", "codex", "--hook-input"]
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_remove_codex_hooks_from_json_removes_only_git_ai_entries() {
         let existing = json!({
             "hooks": {
@@ -806,7 +806,7 @@ notify = ["/usr/local/bin/git-ai", "checkpoint", "codex", "--hook-input"]
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_install_hooks_updates_config_and_check_reports_up_to_date() {
         with_temp_home(|home| {
@@ -850,7 +850,7 @@ notify = ["/usr/local/bin/git-ai", "checkpoint", "codex", "--hook-input"]
         });
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_install_hooks_migrates_git_ai_notify_to_hooks_json_and_enables_feature_flag() {
         with_temp_home(|home| {
@@ -914,7 +914,7 @@ notify = ["/usr/local/bin/git-ai", "checkpoint", "codex", "--hook-input"]
         });
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_install_hooks_migrates_legacy_via_codex_notify_to_hooks_json() {
         with_temp_home(|home| {
@@ -948,7 +948,7 @@ notify = ["/Users/svarlamov/.git-ai/bin/git-ai", "checkpoint", "codex", "--via-c
         });
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_install_hooks_preserves_custom_notify_while_adding_hooks_json() {
         with_temp_home(|home| {
@@ -1001,13 +1001,13 @@ notify = ["notify-send", "Codex finished"]
         });
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_config_toml_malformed() {
         let result = CodexInstaller::parse_config_toml("invalid [[ toml");
         assert!(result.is_err(), "Malformed TOML should return Err");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_config_toml_non_table_root() {
         // A bare integer is a valid TOML value but not a table at root level,
         // so from_str will fail (TOML requires key-value pairs at the top level).
@@ -1015,7 +1015,7 @@ notify = ["notify-send", "Codex finished"]
         assert!(result.is_err(), "Non-table root value should return Err");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_install_hooks_dry_run() {
         with_temp_home(|home| {
@@ -1049,7 +1049,7 @@ notify = ["notify-send", "Codex finished"]
         });
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_install_hooks_idempotent() {
         with_temp_home(|home| {
@@ -1085,7 +1085,7 @@ notify = ["notify-send", "Codex finished"]
         });
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_install_hooks_migrates_matched_git_ai_hooks_to_unscoped_hooks() {
         with_temp_home(|home| {
@@ -1159,7 +1159,7 @@ model = "gpt-5"
         });
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_uninstall_hooks_removes_git_ai_entries_and_feature_flag() {
         with_temp_home(|home| {
@@ -1217,7 +1217,7 @@ codex_hooks = true
 
     /// Regression test for #1039: install_hooks should succeed even when
     /// ~/.codex/ directory does not yet exist.
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_install_hooks_creates_missing_codex_dir() {
         with_temp_home(|home| {

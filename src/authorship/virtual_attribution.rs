@@ -2727,7 +2727,7 @@ mod tests {
     use super::*;
     use crate::git::test_utils::TmpRepo;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_virtual_attributions() {
         // Create a temporary repo with an initial commit
         let repo = TmpRepo::new().unwrap();

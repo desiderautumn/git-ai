@@ -90,7 +90,7 @@ fn decode_base64_url(input: &str) -> Result<Vec<u8>, String> {
 mod tests {
     use super::*;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_extract_identity_from_access_token() {
         let token = "eyJhbGciOiJub25lIn0.eyJzdWIiOiJ1MTIzIiwiZW1haWwiOiJ1c2VyQGV4YW1wbGUuY29tIiwibmFtZSI6Ik5hbWUiLCJvcmdzIjpbeyJvcmdfaWQiOiJvcmcxIiwib3JnX25hbWUiOiJPcmcgT25lIiwib3JnX3NsdWciOiJvcmctb25lIiwicm9sZSI6Im93bmVyIn1dLCJwZXJzb25hbF9vcmdfaWQiOiJvcmcxIn0.";
         let identity = extract_identity_from_access_token(token);
@@ -102,7 +102,7 @@ mod tests {
         assert_eq!(identity.orgs[0].org_slug.as_deref(), Some("org-one"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_extract_identity_handles_non_jwt_token() {
         let identity = extract_identity_from_access_token("opaque-token");
         assert!(identity.user_id.is_none());

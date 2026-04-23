@@ -63,7 +63,7 @@ struct PromptRow {
 /// Test 1: AI checkpoint saves prompt record to the internal database
 /// Note: The model may initially be "unknown" during checkpoint but gets
 /// updated correctly during post-commit when the transcript is re-read
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_checkpoint_saves_prompt_to_internal_db() {
     let repo = TestRepo::new_dedicated_daemon();
     let repo_root = repo.canonical_path();
@@ -113,7 +113,7 @@ fn test_checkpoint_saves_prompt_to_internal_db() {
 }
 
 /// Test 2: On commit, the latest prompts are saved to the database with commit SHA and correct model
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_commit_updates_prompt_with_commit_sha_and_model() {
     let repo = TestRepo::new_dedicated_daemon();
     let repo_root = repo.canonical_path();
@@ -174,7 +174,7 @@ fn test_commit_updates_prompt_with_commit_sha_and_model() {
 /// Test 3: Post-commit updates prompts with latest messages from transcript
 /// This tests the race condition fix where an early checkpoint might have empty/partial
 /// transcript, but a later checkpoint updates it, and post-commit should use the latest.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_post_commit_uses_latest_transcript_messages() {
     let repo = TestRepo::new_dedicated_daemon();
     let repo_root = repo.canonical_path();
@@ -247,7 +247,7 @@ fn test_post_commit_uses_latest_transcript_messages() {
 }
 
 /// Test 4: Multiple AI checkpoints from same session are deduplicated
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_multiple_checkpoints_same_session_deduplicated() {
     let repo = TestRepo::new_dedicated_daemon();
     let repo_root = repo.canonical_path();
@@ -291,7 +291,7 @@ fn test_multiple_checkpoints_same_session_deduplicated() {
 }
 
 /// Test 5: Different AI sessions create separate prompt records
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_different_sessions_create_separate_prompts() {
     let repo = TestRepo::new_dedicated_daemon();
     let repo_root = repo.canonical_path();
@@ -357,7 +357,7 @@ fn test_different_sessions_create_separate_prompts() {
 }
 
 /// Test 6: Line stats are correctly saved to the database after commit
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_line_stats_saved_to_db_after_commit() {
     let repo = TestRepo::new_dedicated_daemon();
     let repo_root = repo.canonical_path();
@@ -417,7 +417,7 @@ fn test_line_stats_saved_to_db_after_commit() {
 }
 
 /// Test 7: Human author is saved after commit
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_human_author_saved_to_db_after_commit() {
     let repo = TestRepo::new_dedicated_daemon();
     let repo_root = repo.canonical_path();
@@ -469,7 +469,7 @@ fn test_human_author_saved_to_db_after_commit() {
 }
 
 /// Test 8: Workdir is correctly saved
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_workdir_saved_to_db() {
     let repo = TestRepo::new_dedicated_daemon();
     let repo_root = repo.canonical_path();
@@ -515,7 +515,7 @@ fn test_workdir_saved_to_db() {
 }
 
 /// Test 9: Verify mock_ai checkpoint (non-claude) also saves to internal db
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_mock_ai_checkpoint_saves_to_internal_db() {
     let repo = TestRepo::new_dedicated_daemon();
     let repo_root = repo.canonical_path();
@@ -545,7 +545,7 @@ fn test_mock_ai_checkpoint_saves_to_internal_db() {
 }
 
 /// Test 10: Verify thinking transcript (claude with extended thinking) saves correctly after commit
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_thinking_transcript_saves_to_internal_db_after_commit() {
     let repo = TestRepo::new_dedicated_daemon();
     let repo_root = repo.canonical_path();

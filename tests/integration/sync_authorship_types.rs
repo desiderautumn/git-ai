@@ -1,33 +1,33 @@
 /// Tests for authorship synchronization types and utilities
 use git_ai::git::sync_authorship::NotesExistence;
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_notes_existence_found() {
     let found = NotesExistence::Found;
     assert_eq!(found, NotesExistence::Found);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_notes_existence_not_found() {
     let not_found = NotesExistence::NotFound;
     assert_eq!(not_found, NotesExistence::NotFound);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_notes_existence_not_equal() {
     let found = NotesExistence::Found;
     let not_found = NotesExistence::NotFound;
     assert_ne!(found, not_found);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_notes_existence_clone() {
     let found = NotesExistence::Found;
     let cloned = found;
     assert_eq!(found, cloned);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_notes_existence_copy() {
     let found = NotesExistence::Found;
     let copied = found;
@@ -36,7 +36,7 @@ fn test_notes_existence_copy() {
     assert_eq!(copied, NotesExistence::Found);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_notes_existence_debug() {
     let found = NotesExistence::Found;
     let debug_str = format!("{:?}", found);
@@ -47,7 +47,7 @@ fn test_notes_existence_debug() {
     assert!(debug_str.contains("NotFound"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_notes_existence_eq_trait() {
     // Test Eq trait explicitly
     let a = NotesExistence::Found;
@@ -69,7 +69,7 @@ fn test_notes_existence_eq_trait() {
     assert_ne!(c, a);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_notes_existence_pattern_matching() {
     let found = NotesExistence::Found;
     let not_found = NotesExistence::NotFound;
@@ -85,7 +85,7 @@ fn test_notes_existence_pattern_matching() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_notes_existence_if_let() {
     let found = NotesExistence::Found;
 
@@ -96,7 +96,7 @@ fn test_notes_existence_if_let() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_notes_existence_in_result() {
     let result: Result<NotesExistence, String> = Ok(NotesExistence::Found);
     assert!(result.is_ok());
@@ -107,7 +107,7 @@ fn test_notes_existence_in_result() {
     assert_eq!(result, Ok(NotesExistence::NotFound));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_notes_existence_in_option() {
     let some_found = Some(NotesExistence::Found);
     assert!(some_found.is_some());
@@ -117,7 +117,7 @@ fn test_notes_existence_in_option() {
     assert!(none.is_none());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_notes_existence_in_vec() {
     let results = [
         NotesExistence::Found,
@@ -130,7 +130,7 @@ fn test_notes_existence_in_vec() {
     assert_eq!(results[2], NotesExistence::Found);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_notes_existence_bool_conversion_pattern() {
     // Common pattern: converting to bool for logic
     let found = NotesExistence::Found;
@@ -142,7 +142,7 @@ fn test_notes_existence_bool_conversion_pattern() {
     assert!(!has_notes);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_notes_existence_iteration() {
     let all_variants = [NotesExistence::Found, NotesExistence::NotFound];
 
@@ -155,7 +155,7 @@ fn test_notes_existence_iteration() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_notes_existence_comparison_operators() {
     let found1 = NotesExistence::Found;
     let found2 = NotesExistence::Found;
@@ -170,14 +170,14 @@ fn test_notes_existence_comparison_operators() {
     assert!(!(found1 == not_found));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_notes_existence_in_array() {
     // NotesExistence can be used in arrays and collections that don't require Hash
     let results = [NotesExistence::Found, NotesExistence::NotFound];
     assert_eq!(results.len(), 2);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_notes_existence_as_function_return() {
     fn check_notes() -> NotesExistence {
         NotesExistence::Found
@@ -187,7 +187,7 @@ fn test_notes_existence_as_function_return() {
     assert_eq!(result, NotesExistence::Found);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_notes_existence_in_struct() {
     struct SyncResult {
         notes: NotesExistence,
@@ -203,7 +203,7 @@ fn test_notes_existence_in_struct() {
     assert_eq!(result.remote, "origin");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_notes_existence_default_pattern() {
     // Common pattern: providing a default
     let maybe_notes: Option<NotesExistence> = None;
@@ -214,7 +214,7 @@ fn test_notes_existence_default_pattern() {
     assert_eq!(notes, NotesExistence::NotFound);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_notes_existence_conditional_logic() {
     let notes = NotesExistence::Found;
 
@@ -227,7 +227,7 @@ fn test_notes_existence_conditional_logic() {
     assert_eq!(message, "Notes synced successfully");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_notes_existence_match_with_result() {
     fn process_notes(notes: NotesExistence) -> Result<String, String> {
         match notes {
@@ -258,7 +258,7 @@ fn is_likely_remote_name(arg: &str) -> bool {
         && !arg.ends_with(".git")
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_remote_name_detection() {
     // Valid remote names
     assert!(is_likely_remote_name("origin"));
@@ -278,7 +278,7 @@ fn test_remote_name_detection() {
     assert!(!is_likely_remote_name("-v"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_remote_name_edge_cases() {
     // Empty string
     assert!(is_likely_remote_name(""));
@@ -297,7 +297,7 @@ fn test_remote_name_edge_cases() {
     assert!(is_likely_remote_name("192.168.1.1"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_remote_url_detection() {
     // These should NOT be detected as simple remote names
     let urls = vec![
@@ -320,7 +320,7 @@ fn test_remote_url_detection() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_fetch_arg_parsing_concepts() {
     // Test concepts used in fetch arg parsing
 
@@ -356,7 +356,7 @@ fn test_fetch_arg_parsing_concepts() {
     assert_eq!(remote4, Some("origin"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_push_arg_parsing_concepts() {
     // Test concepts for push command parsing
 
@@ -387,7 +387,7 @@ fn test_push_arg_parsing_concepts() {
     assert_eq!(remote3, Some("origin"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_refspec_format() {
     // Test refspec patterns used in authorship sync
     let remote = "origin";
@@ -400,7 +400,7 @@ fn test_refspec_format() {
     assert!(fetch_refspec.starts_with('+'), "Refspec should be forced");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_refspec_patterns() {
     // Test various refspec patterns
     let patterns = vec![

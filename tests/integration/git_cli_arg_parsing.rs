@@ -4,7 +4,7 @@ fn s(v: &[&str]) -> Vec<String> {
     v.iter().map(|x| x.to_string()).collect()
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn parses_simple_commit() {
     let args = s(&["-C", "..", "commit", "-m", "foo"]);
     let got = parse_git_cli_args(&args);
@@ -13,7 +13,7 @@ fn parses_simple_commit() {
     assert_eq!(got.command_args, s(&["-m", "foo"]));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn repeated_dash_c_and_dash_c_sticky() {
     let args = s(&[
         "-c",
@@ -30,7 +30,7 @@ fn repeated_dash_c_and_dash_c_sticky() {
     assert!(got.command_args.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn long_eq_and_separate_forms() {
     let args = s(&["--git-dir=/x/repo.git", "--work-tree", "/x", "status"]);
     let got = parse_git_cli_args(&args);
@@ -41,7 +41,7 @@ fn long_eq_and_separate_forms() {
     assert_eq!(got.command, Some("status".into()));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn meta_version_no_command() {
     let args = s(&["--version"]);
     let got = parse_git_cli_args(&args);
@@ -50,7 +50,7 @@ fn meta_version_no_command() {
     assert!(got.command_args.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn meta_exec_path_with_value_no_command() {
     let args = s(&["--exec-path", "/usr/libexec/git-core"]);
     let got = parse_git_cli_args(&args);
@@ -62,7 +62,7 @@ fn meta_exec_path_with_value_no_command() {
     assert!(got.command_args.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn end_of_options_forces_command_even_if_dashy() {
     let args = s(&["-C", ".", "--", "--weird"]);
     let got = parse_git_cli_args(&args);
@@ -71,7 +71,7 @@ fn end_of_options_forces_command_even_if_dashy() {
     assert!(got.command_args.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn unknown_top_level_option_means_no_command() {
     let args = s(&["--totally-unknown", "rest"]);
     let got = parse_git_cli_args(&args);
@@ -79,7 +79,7 @@ fn unknown_top_level_option_means_no_command() {
     assert_eq!(got.command_args, s(&["--totally-unknown", "rest"]));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn multiple_dash_c_and_casing_mixture() {
     let args = s(&[
         "-c",
@@ -104,7 +104,7 @@ fn multiple_dash_c_and_casing_mixture() {
     assert!(got.command_args.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn repeated_dash_c_retained_order() {
     let args = s(&["-c", "a=1", "-c", "a=2", "rev-parse"]);
     let got = parse_git_cli_args(&args);
@@ -112,7 +112,7 @@ fn repeated_dash_c_retained_order() {
     assert_eq!(got.command, Some("rev-parse".into()));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn mixed_equals_and_separate_for_long_globals() {
     let args = s(&[
         "--git-dir=/x/.git",
@@ -131,7 +131,7 @@ fn mixed_equals_and_separate_for_long_globals() {
     assert_eq!(got.command_args, s(&["--amend"]));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn dash_c_space_and_sticky_variants() {
     let args = s(&["-c", "name=val", "-cname2=val2", "log"]);
     let got = parse_git_cli_args(&args);
@@ -139,7 +139,7 @@ fn dash_c_space_and_sticky_variants() {
     assert_eq!(got.command, Some("log".into()));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn config_env_equals_form() {
     let args = s(&[
         "--config-env",
@@ -159,7 +159,7 @@ fn config_env_equals_form() {
     assert_eq!(got.command, Some("fetch".into()));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn multiple_dash_c_with_command_args_present() {
     let args = s(&[
         "-c",
@@ -179,7 +179,7 @@ fn multiple_dash_c_with_command_args_present() {
     assert_eq!(got.command_args, s(&["-m", "msg"]));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn pathspec_toggles_as_globals() {
     let args = s(&[
         "--literal-pathspecs",
@@ -201,7 +201,7 @@ fn pathspec_toggles_as_globals() {
     assert_eq!(got.command_args, s(&["-z"]));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn negated_pathspec_toggles_as_globals() {
     let args = s(&[
         "--no-literal-pathspecs",
@@ -225,7 +225,7 @@ fn negated_pathspec_toggles_as_globals() {
     assert_eq!(got.command_args, s(&["-z"]));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn fugitive_commit_with_no_literal_pathspecs() {
     // vim-fugitive passes --no-literal-pathspecs between -c flags when committing
     let args = s(&[
@@ -255,7 +255,7 @@ fn fugitive_commit_with_no_literal_pathspecs() {
     assert!(got.command_args.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn paginate_and_no_pager_both_present_kept_as_globals() {
     let args = s(&["--paginate", "--no-pager", "log"]);
     let got = parse_git_cli_args(&args);
@@ -263,7 +263,7 @@ fn paginate_and_no_pager_both_present_kept_as_globals() {
     assert_eq!(got.command, Some("log".into()));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn multiple_dash_c_directives_before_end_of_options() {
     let args = s(&["-c", "a=b", "--", "commit", "-m", "x"]);
     let got = parse_git_cli_args(&args);
@@ -272,7 +272,7 @@ fn multiple_dash_c_directives_before_end_of_options() {
     assert_eq!(got.command_args, s(&["-m", "x"]));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn dash_dash_forces_command_even_if_dashy() {
     let args = s(&["--", "--help"]);
     let got = parse_git_cli_args(&args);
@@ -281,7 +281,7 @@ fn dash_dash_forces_command_even_if_dashy() {
     assert!(got.command_args.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn end_of_options_then_dashy_non_meta_command() {
     let args = s(&["--", "-notarealcmd", "--arg"]);
     let got = parse_git_cli_args(&args);
@@ -289,7 +289,7 @@ fn end_of_options_then_dashy_non_meta_command() {
     assert_eq!(got.command_args, s(&["--arg"]));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn unknown_top_level_option_disables_command_and_passthrough() {
     let args = s(&["--unknown-top", "status", "-s"]);
     let got = parse_git_cli_args(&args);
@@ -298,7 +298,7 @@ fn unknown_top_level_option_disables_command_and_passthrough() {
     assert_eq!(got.command_args, s(&["--unknown-top", "status", "-s"]));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn meta_version_no_command_even_with_extra_flags() {
     let args = s(&["--version", "-v"]);
     let got = parse_git_cli_args(&args);
@@ -307,7 +307,7 @@ fn meta_version_no_command_even_with_extra_flags() {
     assert_eq!(got.command_args, s(&["-v"]));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn meta_help_no_command() {
     let args = s(&["--help"]);
     let got = parse_git_cli_args(&args);
@@ -316,7 +316,7 @@ fn meta_help_no_command() {
     assert!(got.command_args.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn meta_exec_path_equals_form_no_command() {
     let args = s(&["--exec-path=/usr/libexec/git-core"]);
     let got = parse_git_cli_args(&args);
@@ -325,7 +325,7 @@ fn meta_exec_path_equals_form_no_command() {
     assert!(got.command_args.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn precommand_help_rewrites_to_help_command() {
     let args = s(&["--help", "commit", "-a"]);
     let got = parse_git_cli_args(&args);
@@ -336,7 +336,7 @@ fn precommand_help_rewrites_to_help_command() {
     assert!(got.is_help);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn postcommand_help_does_not_rewrite_even_for_known_cmd() {
     let args = s(&["commit", "--help"]);
     let got = parse_git_cli_args(&args);
@@ -345,7 +345,7 @@ fn postcommand_help_does_not_rewrite_even_for_known_cmd() {
     assert!(got.is_help);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn top_level_short_h_is_alias_for_help() {
     let args = s(&["-h", "status"]);
     let got = parse_git_cli_args(&args);
@@ -354,7 +354,7 @@ fn top_level_short_h_is_alias_for_help() {
     assert!(got.is_help);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn help_precedes_version_when_both_given() {
     let args = s(&["-v", "--help"]);
     let got = parse_git_cli_args(&args);
@@ -363,7 +363,7 @@ fn help_precedes_version_when_both_given() {
     assert!(got.is_help);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn version_rewrites_when_no_command() {
     let args = s(&["--version", "--build-options"]);
     let got = parse_git_cli_args(&args);
@@ -372,7 +372,7 @@ fn version_rewrites_when_no_command() {
     assert!(!got.is_help);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn version_rewrites_even_if_a_command_token_follows() {
     let args = s(&["--version", "commit"]);
     let got = parse_git_cli_args(&args);
@@ -382,7 +382,7 @@ fn version_rewrites_even_if_a_command_token_follows() {
     assert!(!got.is_help);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn version_keeps_build_options_and_drops_command_token() {
     let args = s(&["--version", "--build-options", "commit"]);
     let got = parse_git_cli_args(&args);
@@ -391,7 +391,7 @@ fn version_keeps_build_options_and_drops_command_token() {
     assert!(!got.is_help);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn short_v_behaves_like_version_even_with_command_token() {
     let args = s(&["-v", "status"]);
     let got = parse_git_cli_args(&args);
@@ -400,7 +400,7 @@ fn short_v_behaves_like_version_even_with_command_token() {
     assert!(!got.is_help);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn help_still_precedes_version_when_both_present_with_command() {
     let args = s(&["--version", "--help", "commit"]);
     let got = parse_git_cli_args(&args);
@@ -409,7 +409,7 @@ fn help_still_precedes_version_when_both_present_with_command() {
     assert!(got.is_help);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn help_precedes_version_no_command_case_too() {
     let args = s(&["-v", "-h"]);
     let got = parse_git_cli_args(&args);
@@ -418,7 +418,7 @@ fn help_precedes_version_no_command_case_too() {
     assert!(got.is_help);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn end_of_opts_prevents_help_rewrite() {
     let args = s(&["--", "--help"]);
     let got = parse_git_cli_args(&args);
@@ -429,7 +429,7 @@ fn end_of_opts_prevents_help_rewrite() {
     assert!(got.is_help);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn help_rewrites_only_when_precommand() {
     // `git --help revisions` -> `git help revisions`
     let args = s(&["--help", "revisions"]);
@@ -439,7 +439,7 @@ fn help_rewrites_only_when_precommand() {
     assert!(got.is_help);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn guides_topic_postcommand_must_fail_case() {
     // `git revisions --help` must NOT rewrite
     let args = s(&["revisions", "--help"]);
@@ -449,7 +449,7 @@ fn guides_topic_postcommand_must_fail_case() {
     assert!(got.is_help);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn commit_short_h_is_not_rewritten() {
     let args = s(&["commit", "-h"]);
     let got = parse_git_cli_args(&args);
@@ -459,7 +459,7 @@ fn commit_short_h_is_not_rewritten() {
     assert!(got.is_help);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn command_help_is_a_real_command() {
     let args = s(&["help", "-a"]);
     let got = parse_git_cli_args(&args);
@@ -468,7 +468,7 @@ fn command_help_is_a_real_command() {
     assert!(got.is_help);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn repeated_dash_c_and_multiple_dash_c_with_command_afterwards() {
     let args = s(&[
         "-c",
@@ -486,7 +486,7 @@ fn repeated_dash_c_and_multiple_dash_c_with_command_afterwards() {
     assert_eq!(got.command_args, s(&["--is-inside-work-tree"]));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn multiple_dash_c_and_dash_c_sticky_then_end_of_options_and_weird_command() {
     let args = s(&["-cfoo=bar", "-c", "a=b", "--", "--oddcmd", "arg"]);
     let got = parse_git_cli_args(&args);
@@ -495,7 +495,7 @@ fn multiple_dash_c_and_dash_c_sticky_then_end_of_options_and_weird_command() {
     assert_eq!(got.command_args, s(&["arg"]));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn dash_c_and_namespace_and_gitdir_and_worktree() {
     let args = s(&[
         "-c",
@@ -523,7 +523,7 @@ fn dash_c_and_namespace_and_gitdir_and_worktree() {
     assert_eq!(got.command_args, s(&["--porcelain"]));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn list_cmds_as_global_takes_value() {
     let args = s(&["--list-cmds=main,others", "status"]);
     let got = parse_git_cli_args(&args);
@@ -531,7 +531,7 @@ fn list_cmds_as_global_takes_value() {
     assert_eq!(got.command, Some("status".into()));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn super_prefix_and_attr_source_globals() {
     let args = s(&[
         "--super-prefix=foo/",
@@ -550,7 +550,7 @@ fn super_prefix_and_attr_source_globals() {
     assert_eq!(got.command_args, s(&["crlf", "README"]));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn multiple_dash_c_and_bare() {
     let args = s(&[
         "--bare",
@@ -568,7 +568,7 @@ fn multiple_dash_c_and_bare() {
     assert_eq!(got.command_args, s(&["--git-dir"]));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn sticky_dash_c_then_command() {
     let args = s(&["-cfoo.bar=baz", "status"]);
     let got = parse_git_cli_args(&args);
@@ -576,7 +576,7 @@ fn sticky_dash_c_then_command() {
     assert_eq!(got.command, Some("status".into()));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn sticky_dash_c_then_end_of_options_then_command() {
     let args = s(&["-cfoo.bar=baz", "--", "status", "-s"]);
     let got = parse_git_cli_args(&args);
@@ -585,7 +585,7 @@ fn sticky_dash_c_then_end_of_options_then_command() {
     assert_eq!(got.command_args, s(&["-s"]));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn sticky_dash_c_and_sticky_dash_c_with_equals_in_value() {
     let args = s(&["-chttp.extraHeader=Authorization: Bearer=XYZ", "fetch"]);
     let got = parse_git_cli_args(&args);
@@ -596,7 +596,7 @@ fn sticky_dash_c_and_sticky_dash_c_with_equals_in_value() {
     assert_eq!(got.command, Some("fetch".into()));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn dash_c_then_missing_value_at_end_is_kept_and_no_crash() {
     let args = s(&["-c"]);
     let got = parse_git_cli_args(&args);
@@ -605,7 +605,7 @@ fn dash_c_then_missing_value_at_end_is_kept_and_no_crash() {
     assert!(got.command_args.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn dash_c_value_but_no_command() {
     let args = s(&["-c", "a=b"]);
     let got = parse_git_cli_args(&args);
@@ -614,7 +614,7 @@ fn dash_c_value_but_no_command() {
     assert!(got.command_args.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn dash_c_and_cwd_changes_multiple_c_variants() {
     let args = s(&["-C", ".", "-C/tmp", "-C", "-", "status"]);
     let got = parse_git_cli_args(&args);
@@ -622,7 +622,7 @@ fn dash_c_and_cwd_changes_multiple_c_variants() {
     assert_eq!(got.command, Some("status".into()));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn meta_info_path_without_command() {
     let args = s(&["--info-path"]);
     let got = parse_git_cli_args(&args);
@@ -631,7 +631,7 @@ fn meta_info_path_without_command() {
     assert_eq!(got.command_args, s(&["--info-path"]));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn meta_html_path_then_real_command_meta_is_dropped_current_behavior() {
     let args = s(&["--html-path", "log", "-1"]);
     let got = parse_git_cli_args(&args);
@@ -640,7 +640,7 @@ fn meta_html_path_then_real_command_meta_is_dropped_current_behavior() {
     assert_eq!(got.command_args, s(&["-1"]));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn no_args_at_all() {
     let args: Vec<String> = vec![];
     let got = parse_git_cli_args(&args);
@@ -649,7 +649,7 @@ fn no_args_at_all() {
     assert!(got.command_args.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn command_with_hyphen_in_name() {
     let args = s(&["ls-files", "--stage"]);
     let got = parse_git_cli_args(&args);
@@ -657,7 +657,7 @@ fn command_with_hyphen_in_name() {
     assert_eq!(got.command_args, s(&["--stage"]));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn unknown_then_everything_passthrough_even_if_command_like_token_exists() {
     let args = s(&["--mystery", "commit", "-m", "x"]);
     let got = parse_git_cli_args(&args);
@@ -666,7 +666,7 @@ fn unknown_then_everything_passthrough_even_if_command_like_token_exists() {
     assert_eq!(got.command_args, s(&["--mystery", "commit", "-m", "x"]));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn exec_path_without_value_no_command() {
     let args = s(&["--exec-path"]);
     let got = parse_git_cli_args(&args);
@@ -675,7 +675,7 @@ fn exec_path_without_value_no_command() {
     assert!(got.command_args.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn attr_source_and_super_prefix_mixed_with_namespace() {
     let args = s(&[
         "--attr-source=HEAD:/.gitattributes",
@@ -702,7 +702,7 @@ fn attr_source_and_super_prefix_mixed_with_namespace() {
     assert_eq!(got.command_args, s(&["eol", "a.txt"]));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn bare_and_no_optional_locks_and_no_advice_and_no_lazy_fetch() {
     let args = s(&[
         "--bare",
@@ -726,7 +726,7 @@ fn bare_and_no_optional_locks_and_no_advice_and_no_lazy_fetch() {
     assert_eq!(got.command_args, s(&["HEAD"]));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn blame_double_dash_then_filename() {
     let args = vec!["blame", "--", "Readme.md"]
         .into_iter()
@@ -744,7 +744,7 @@ fn blame_double_dash_then_filename() {
     assert_eq!(got.to_invocation_vec(), args);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn blame_filename_starts_with_dash() {
     let args = vec!["blame", "--", "--weird"]
         .into_iter()
@@ -759,7 +759,7 @@ fn blame_filename_starts_with_dash() {
     assert!(!got.saw_end_of_opts);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn inverse_with_end_of_opts_roundtrips() {
     let args = vec!["-C", ".", "--", "--weird"]
         .into_iter()
@@ -772,7 +772,7 @@ fn inverse_with_end_of_opts_roundtrips() {
     assert_eq!(parsed.to_invocation_vec(), args);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn inverse_with_end_of_opts_no_command() {
     let args = vec!["-C", ".", "--"]
         .into_iter()
@@ -784,7 +784,7 @@ fn inverse_with_end_of_opts_no_command() {
     assert_eq!(parsed.to_invocation_vec(), args);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn inverse_simple_commit() {
     let args = vec!["-C", "..", "commit", "-m", "foo"]
         .into_iter()
@@ -794,7 +794,7 @@ fn inverse_simple_commit() {
     assert_eq!(parsed.to_invocation_vec(), args);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn inverse_meta_no_command() {
     let args = vec!["--version"]
         .into_iter()
@@ -808,7 +808,7 @@ fn inverse_meta_no_command() {
     assert_eq!(parsed.to_invocation_vec(), ["version".to_string()]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn inverse_unknown_option_passthrough() {
     let args = vec!["--mystery", "status", "-s"]
         .into_iter()
@@ -819,7 +819,7 @@ fn inverse_unknown_option_passthrough() {
     assert_eq!(parsed.to_invocation_vec(), args);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn inverse_end_of_opts_note() {
     let args = vec!["-C", ".", "--", "--weird"]
         .into_iter()
@@ -840,7 +840,7 @@ fn inverse_end_of_opts_note() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn exec_path_then_command_is_global() {
     let args = ["--exec-path=foo", "under_score"]
         .iter()
@@ -854,7 +854,7 @@ fn exec_path_then_command_is_global() {
     assert!(!got.is_help);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn unknown_top_level_blocks_help_rewrite() {
     let args = s(&["--bogus", "--help"]);
     let got = parse_git_cli_args(&args /* , is_known_cmd if you added it */);
@@ -863,7 +863,7 @@ fn unknown_top_level_blocks_help_rewrite() {
     assert!(got.is_help);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn unknown_top_level_blocks_version_rewrite() {
     let args = s(&["--bogus", "--version"]);
     let got = parse_git_cli_args(&args);
@@ -879,7 +879,7 @@ fn unknown_top_level_blocks_version_rewrite() {
 // as a command argument, not interpreted as a global version flag.
 // Regression test for: `git remote -v` incorrectly showing version info.
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn remote_verbose_flag_not_treated_as_version() {
     let args = s(&["remote", "-v"]);
     let got = parse_git_cli_args(&args);
@@ -889,7 +889,7 @@ fn remote_verbose_flag_not_treated_as_version() {
     assert_ne!(got.command.as_deref(), Some("version"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn remote_verbose_long_flag_not_treated_as_version() {
     let args = s(&["remote", "--verbose"]);
     let got = parse_git_cli_args(&args);
@@ -897,7 +897,7 @@ fn remote_verbose_long_flag_not_treated_as_version() {
     assert_eq!(got.command_args, s(&["--verbose"]));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn diff_verbose_flag_not_treated_as_version() {
     let args = s(&["diff", "-v", "HEAD"]);
     let got = parse_git_cli_args(&args);
@@ -905,7 +905,7 @@ fn diff_verbose_flag_not_treated_as_version() {
     assert_eq!(got.command_args, s(&["-v", "HEAD"]));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn log_verbose_flag_not_treated_as_version() {
     let args = s(&["log", "-v", "--oneline"]);
     let got = parse_git_cli_args(&args);
@@ -913,7 +913,7 @@ fn log_verbose_flag_not_treated_as_version() {
     assert_eq!(got.command_args, s(&["-v", "--oneline"]));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn global_option_then_command_with_verbose() {
     // `git -C /tmp remote -v` should parse remote as command with -v as its arg
     let args = s(&["-C", "/tmp", "remote", "-v"]);
@@ -923,7 +923,7 @@ fn global_option_then_command_with_verbose() {
     assert_eq!(got.command_args, s(&["-v"]));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn multiple_global_options_then_command_with_verbose() {
     // `git -c foo=bar -C /tmp remote -v`
     let args = s(&["-c", "foo=bar", "-C", "/tmp", "remote", "-v"]);
@@ -933,7 +933,7 @@ fn multiple_global_options_then_command_with_verbose() {
     assert_eq!(got.command_args, s(&["-v"]));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn commit_verbose_flag_not_treated_as_version() {
     // `git commit -v` shows diff in commit message editor
     let args = s(&["commit", "-v"]);
@@ -942,7 +942,7 @@ fn commit_verbose_flag_not_treated_as_version() {
     assert_eq!(got.command_args, s(&["-v"]));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn push_verbose_flag_not_treated_as_version() {
     let args = s(&["push", "-v", "origin", "main"]);
     let got = parse_git_cli_args(&args);
@@ -950,7 +950,7 @@ fn push_verbose_flag_not_treated_as_version() {
     assert_eq!(got.command_args, s(&["-v", "origin", "main"]));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn fetch_verbose_flag_not_treated_as_version() {
     let args = s(&["fetch", "-v", "--all"]);
     let got = parse_git_cli_args(&args);
@@ -958,7 +958,7 @@ fn fetch_verbose_flag_not_treated_as_version() {
     assert_eq!(got.command_args, s(&["-v", "--all"]));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn pull_verbose_flag_not_treated_as_version() {
     let args = s(&["pull", "-v"]);
     let got = parse_git_cli_args(&args);

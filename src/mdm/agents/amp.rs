@@ -154,7 +154,7 @@ mod tests {
         PathBuf::from("/usr/local/bin/git-ai")
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_amp_install_plugin_creates_file_from_scratch() {
         let (_temp_dir, plugin_path) = setup_test_env();
         let binary_path = create_test_binary_path();
@@ -177,7 +177,7 @@ mod tests {
         assert!(content.contains(r#"const GIT_AI_BIN = '/usr/local/bin/git-ai'"#));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_amp_plugin_content_is_valid_typescript() {
         let content = AMP_PLUGIN_CONTENT;
 
@@ -200,7 +200,7 @@ mod tests {
         assert!(content.contains("__GIT_AI_BINARY_PATH__"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_amp_plugin_placeholder_substitution() {
         let binary_path = create_test_binary_path();
         let content = AmpInstaller::generate_plugin_content(&binary_path);
@@ -213,7 +213,7 @@ mod tests {
         assert!(content.contains("'stdin'"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_amp_plugin_windows_path_escaping() {
         let binary_path = PathBuf::from(r"C:\Users\foo\.git-ai\bin\git-ai.exe");
         let content = AmpInstaller::generate_plugin_content(&binary_path);
@@ -224,7 +224,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_amp_plugin_handles_empty_directory() {
         let temp_dir = TempDir::new().unwrap();
         let binary_path = create_test_binary_path();

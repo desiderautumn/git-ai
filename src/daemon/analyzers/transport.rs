@@ -151,7 +151,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn pull_with_rebase_maps_strategy() {
         let analyzer = TransportAnalyzer;
         let result = analyzer

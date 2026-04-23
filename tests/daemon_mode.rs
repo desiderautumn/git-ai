@@ -608,7 +608,7 @@ fn ai_agent_run_result(
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn prepare_captured_checkpoint_only_captures_explicit_files_when_other_ai_touched_files_are_dirty()
 {
@@ -988,19 +988,19 @@ fn assert_post_commit_uploads_prompt_cas(mode: GitTestMode) {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_mode_post_commit_uploads_prompt_cas() {
     assert_post_commit_uploads_prompt_cas(GitTestMode::Daemon);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn wrapper_daemon_mode_post_commit_uploads_prompt_cas() {
     assert_post_commit_uploads_prompt_cas(GitTestMode::WrapperDaemon);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_start_spawns_detached_run_process() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -1052,7 +1052,7 @@ fn daemon_start_spawns_detached_run_process() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn checkpoint_delegate_autostarts_daemon_when_unavailable() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -1120,7 +1120,7 @@ fn checkpoint_delegate_autostarts_daemon_when_unavailable() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn checkpoint_delegate_falls_back_when_daemon_startup_is_blocked() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -1186,7 +1186,7 @@ fn checkpoint_delegate_falls_back_when_daemon_startup_is_blocked() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_write_mode_applies_delegated_checkpoint_and_updates_state() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -1225,7 +1225,7 @@ fn daemon_write_mode_applies_delegated_checkpoint_and_updates_state() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_test_mode_git_ai_checkpoint_runs_via_daemon() {
     let repo =
@@ -1273,7 +1273,7 @@ fn daemon_test_mode_git_ai_checkpoint_runs_via_daemon() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_test_mode_pathless_mock_ai_uses_waited_live_checkpoint_path() {
     let repo =
@@ -1329,7 +1329,7 @@ fn daemon_test_mode_pathless_mock_ai_uses_waited_live_checkpoint_path() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_test_mode_human_checkpoint_direct_file_arg_queues_as_scoped_capture() {
     let repo =
@@ -1386,7 +1386,7 @@ fn daemon_test_mode_human_checkpoint_direct_file_arg_queues_as_scoped_capture() 
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_captured_checkpoint_replay_uses_blob_snapshot_after_worktree_changes() {
     let repo = TestRepo::new_with_mode(GitTestMode::Daemon);
@@ -1467,7 +1467,7 @@ fn daemon_captured_checkpoint_replay_uses_blob_snapshot_after_worktree_changes()
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_captured_checkpoint_replay_supports_mixed_dirty_and_blob_sources() {
     let repo = TestRepo::new_with_mode(GitTestMode::Daemon);
@@ -1569,7 +1569,7 @@ fn daemon_captured_checkpoint_replay_supports_mixed_dirty_and_blob_sources() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_captured_checkpoint_failure_cleans_up_capture_dir() {
     let repo = TestRepo::new_with_mode(GitTestMode::Daemon);
@@ -1632,7 +1632,7 @@ fn daemon_captured_checkpoint_failure_cleans_up_capture_dir() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_captured_checkpoint_rejects_manifest_for_different_repo() {
     let repo = TestRepo::new_with_mode(GitTestMode::Daemon);
@@ -1702,7 +1702,7 @@ fn daemon_captured_checkpoint_rejects_manifest_for_different_repo() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_pure_trace_socket_commit_after_ai_checkpoint_preserves_ai_replacement_attribution() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -1762,7 +1762,7 @@ fn daemon_pure_trace_socket_commit_after_ai_checkpoint_preserves_ai_replacement_
     file.assert_lines_and_blame(lines!["new line from ai".ai()]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_trace_ingest_treats_atexit_as_terminal_for_reflog_capture() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -1801,7 +1801,7 @@ fn daemon_trace_ingest_treats_atexit_as_terminal_for_reflog_capture() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_pure_trace_socket_checkpoint_stage_checkpoint_two_commits_preserve_ai_lines() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -1903,7 +1903,7 @@ fn daemon_pure_trace_socket_checkpoint_stage_checkpoint_two_commits_preserve_ai_
     file.assert_lines_and_blame(lines!["base", "test".ai(), "test1".ai()]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_pure_trace_socket_checkpoint_stage_checkpoint_non_adjacent_hunks_survive_split_commits() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -2040,7 +2040,7 @@ omega body
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_pure_trace_socket_write_mode_applies_amend_rewrite() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -2097,7 +2097,7 @@ fn daemon_pure_trace_socket_write_mode_applies_amend_rewrite() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_pure_trace_socket_rebase_abort_emits_abort_event() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -2220,7 +2220,7 @@ fn daemon_pure_trace_socket_rebase_abort_emits_abort_event() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_pure_trace_socket_cherry_pick_abort_emits_abort_event() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -2341,7 +2341,7 @@ fn daemon_pure_trace_socket_cherry_pick_abort_emits_abort_event() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_pure_trace_socket_stash_main_ops_emit_stash_events() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -2462,7 +2462,7 @@ fn daemon_pure_trace_socket_stash_main_ops_emit_stash_events() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_commit_replay_recovers_stash_restore_when_working_log_is_missing() {
     let repo =
@@ -2502,7 +2502,7 @@ fn daemon_commit_replay_recovers_stash_restore_when_working_log_is_missing() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_pure_trace_socket_reset_modes_emit_reset_kinds() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -2629,7 +2629,7 @@ fn daemon_pure_trace_socket_reset_modes_emit_reset_kinds() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_commit_replay_recovers_backward_reset_when_working_log_is_missing() {
     let repo =
@@ -2678,7 +2678,7 @@ fn daemon_commit_replay_recovers_backward_reset_when_working_log_is_missing() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_commit_replay_recovers_same_head_pathspec_reset_when_working_log_is_missing() {
     let repo =
@@ -2758,7 +2758,7 @@ fn daemon_commit_replay_recovers_same_head_pathspec_reset_when_working_log_is_mi
     drop.assert_lines_and_blame(lines!["drop base".human(), "// drop ai".ai()]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_commit_replay_recovers_squash_prep_when_working_log_is_missing() {
     let repo =
@@ -2810,7 +2810,7 @@ fn daemon_commit_replay_recovers_squash_prep_when_working_log_is_missing() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_pure_trace_socket_rebase_continue_emits_complete_event() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -2877,7 +2877,7 @@ fn daemon_pure_trace_socket_rebase_continue_emits_complete_event() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_commit_replay_recovers_switch_migration_when_working_log_is_missing() {
     let repo =
@@ -2923,7 +2923,7 @@ fn daemon_commit_replay_recovers_switch_migration_when_working_log_is_missing() 
     file.assert_lines_and_blame(lines!["base".human(), "// AI branch carryover".ai()]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_pure_trace_socket_cherry_pick_continue_emits_complete_event() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -2993,7 +2993,7 @@ fn daemon_pure_trace_socket_cherry_pick_continue_emits_complete_event() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_pure_trace_socket_rebase_with_short_sha_emits_complete_event() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -3114,7 +3114,7 @@ fn daemon_pure_trace_socket_rebase_with_short_sha_emits_complete_event() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_pure_trace_socket_cherry_pick_with_short_sha_emits_complete_event() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -3229,7 +3229,7 @@ fn daemon_pure_trace_socket_cherry_pick_with_short_sha_emits_complete_event() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_pure_trace_socket_switch_tracks_success_and_conflict_failure() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -3282,7 +3282,7 @@ fn daemon_pure_trace_socket_switch_tracks_success_and_conflict_failure() {
     assert!(saw_switch_failure, "switch failure should be tracked");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_pure_trace_socket_checkout_tracks_success_failure_and_new_branch() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -3340,7 +3340,7 @@ fn daemon_pure_trace_socket_checkout_tracks_success_failure_and_new_branch() {
     assert!(saw_checkout_failure, "checkout failure should be tracked");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_pure_trace_socket_pull_fast_forward_tracks_pull_command() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -3452,7 +3452,7 @@ fn daemon_pure_trace_socket_pull_fast_forward_tracks_pull_command() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_pure_trace_socket_pull_rebase_tracks_pull_and_rebase_completion() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -3573,7 +3573,7 @@ fn daemon_pure_trace_socket_pull_rebase_tracks_pull_and_rebase_completion() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_pure_trace_socket_pull_autostash_preserves_local_changes_and_tracks_command() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -3706,7 +3706,7 @@ fn daemon_pure_trace_socket_pull_autostash_preserves_local_changes_and_tracks_co
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_pure_trace_socket_high_throughput_ai_commit_burst_preserves_exact_blame() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -3748,7 +3748,7 @@ fn daemon_pure_trace_socket_high_throughput_ai_commit_burst_preserves_exact_blam
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_pure_trace_socket_concurrent_worktree_burst_preserves_exact_line_attribution() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -3824,7 +3824,7 @@ fn daemon_pure_trace_socket_concurrent_worktree_burst_preserves_exact_line_attri
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_pure_trace_socket_concurrent_checkpoint_requests_preserve_exact_line_attribution() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -3879,7 +3879,7 @@ fn daemon_pure_trace_socket_concurrent_checkpoint_requests_preserve_exact_line_a
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_pure_trace_socket_parallel_worktree_streams_preserve_exact_line_attribution() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -4057,7 +4057,7 @@ fn update_enabled_config_patch() -> String {
 /// Verifies the daemon update check loop lifecycle: when a cached update is
 /// present and the check interval is short, the daemon should detect the
 /// pending update, request a graceful shutdown, and exit on its own.
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_update_check_loop_detects_cached_update_and_shuts_down() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -4116,7 +4116,7 @@ fn daemon_update_check_loop_detects_cached_update_and_shuts_down() {
 
 /// When auto-updates are disabled via config, the daemon should NOT
 /// self-shutdown even when the update cache indicates a newer version.
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_update_check_loop_respects_disabled_auto_updates() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -4160,7 +4160,7 @@ fn daemon_update_check_loop_respects_disabled_auto_updates() {
 
 /// When the update cache indicates no available update, the daemon should
 /// stay alive through multiple check cycles.
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_update_check_loop_no_update_stays_alive() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -4195,7 +4195,7 @@ fn daemon_update_check_loop_no_update_stays_alive() {
     guard.shutdown();
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_memory_does_not_grow_unbounded_under_trace_load() {
     let repo =
@@ -4302,7 +4302,7 @@ fn bg_command(repo: &TestRepo, subcommand: &str, extra_args: &[&str]) -> Output 
 
 use std::process::Output;
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_shutdown_hard_kills_process() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -4343,7 +4343,7 @@ fn daemon_shutdown_hard_kills_process() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_restart_brings_up_new_process() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -4387,7 +4387,7 @@ fn daemon_restart_brings_up_new_process() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_restart_hard_kills_and_restarts() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -4422,7 +4422,7 @@ fn daemon_restart_hard_kills_and_restarts() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_shutdown_hard_when_not_running_fails_gracefully() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -4446,7 +4446,7 @@ fn daemon_shutdown_hard_when_not_running_fails_gracefully() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_restart_when_not_running_starts_fresh() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -4503,7 +4503,7 @@ fn process_exists(pid: u32) -> bool {
 /// 4. Removes the panic flag file.
 /// 5. Sends another git commit and verifies the daemon processes it normally.
 /// 6. Cleanly shuts down the daemon.
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn daemon_recovers_from_panic_in_side_effect_pipeline() {
     let repo = TestRepo::new_with_mode(GitTestMode::Wrapper);
@@ -4630,7 +4630,7 @@ fn daemon_recovers_from_panic_in_side_effect_pipeline() {
 /// The daemon should detect that its socket files have been unlinked and
 /// initiate a graceful shutdown so that the next wrapper invocation can
 /// spawn a fresh daemon via ensure_daemon_running.
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 #[cfg(unix)]
 fn daemon_shuts_down_when_socket_files_are_deleted() {
@@ -4719,7 +4719,7 @@ fn daemon_shuts_down_when_socket_files_are_deleted() {
 /// spawn a detached `git-ai bg restart --hard` process that reaps the
 /// zombie and starts a fresh daemon. Verify that a new, reachable daemon
 /// is running after the original one dies.
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 #[cfg(unix)]
 fn daemon_self_heals_after_socket_deletion() {

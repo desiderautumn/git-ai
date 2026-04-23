@@ -5,7 +5,7 @@
 // Note: The functions we're testing are private, so we test them through the public API
 // or by testing similar logic. In the future, if pattern detection is exposed, we can test directly.
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_pattern_detection_concepts() {
     // Test the concept of different pattern types that config.rs handles
 
@@ -68,7 +68,7 @@ fn is_file_path(s: &str) -> bool {
     !is_global_wildcard(s) && !is_url_or_git_protocol(s)
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_https_url_patterns() {
     assert!(is_url_or_git_protocol("https://github.com/owner/repo"));
     assert!(is_url_or_git_protocol("https://github.com/owner/repo.git"));
@@ -77,13 +77,13 @@ fn test_https_url_patterns() {
     assert!(is_url_or_git_protocol("https://example.com:8080/repo.git"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_http_url_patterns() {
     assert!(is_url_or_git_protocol("http://github.com/owner/repo"));
     assert!(is_url_or_git_protocol("http://localhost/repo.git"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_git_ssh_shorthand() {
     assert!(is_url_or_git_protocol("git@github.com:owner/repo.git"));
     assert!(is_url_or_git_protocol("git@gitlab.com:group/project.git"));
@@ -91,7 +91,7 @@ fn test_git_ssh_shorthand() {
     assert!(is_url_or_git_protocol("deploy@server:repos/app.git"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ssh_url_patterns() {
     assert!(is_url_or_git_protocol(
         "ssh://git@github.com/owner/repo.git"
@@ -100,19 +100,19 @@ fn test_ssh_url_patterns() {
     assert!(is_url_or_git_protocol("ssh://git@gitlab.com/project.git"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_git_protocol_patterns() {
     assert!(is_url_or_git_protocol("git://github.com/owner/repo.git"));
     assert!(is_url_or_git_protocol("git://example.com/path/to/repo"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_custom_protocols() {
     assert!(is_url_or_git_protocol("ftp://example.com/repo"));
     assert!(is_url_or_git_protocol("custom://host/path"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_glob_patterns_with_wildcards() {
     assert!(is_url_or_git_protocol("https://github.com/org/*"));
     assert!(is_url_or_git_protocol("https://github.com/*/repo"));
@@ -121,13 +121,13 @@ fn test_glob_patterns_with_wildcards() {
     assert!(is_url_or_git_protocol("https://*.example.com/repo"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_glob_patterns_with_question_marks() {
     assert!(is_url_or_git_protocol("https://github.com/user/repo?"));
     assert!(is_url_or_git_protocol("git@github.com:user/????.git"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_glob_patterns_with_brackets() {
     assert!(is_url_or_git_protocol(
         "https://github.com/[org1|org2]/repo"
@@ -135,14 +135,14 @@ fn test_glob_patterns_with_brackets() {
     assert!(is_url_or_git_protocol("git@github.com:user/[a-z]*.git"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_file_paths_absolute() {
     assert!(is_file_path("/home/user/projects/repo"));
     assert!(is_file_path("/var/git/repositories/project"));
     assert!(is_file_path("/Users/developer/code/app"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_file_paths_relative() {
     assert!(is_file_path("./repo"));
     assert!(is_file_path("../parent/repo"));
@@ -150,27 +150,27 @@ fn test_file_paths_relative() {
     assert!(is_file_path("projects/myapp"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_file_paths_tilde_expansion() {
     assert!(is_file_path("~/projects/repo"));
     assert!(is_file_path("~/Documents/code/app"));
     assert!(is_file_path("~user/shared/repo"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_file_paths_windows() {
     assert!(is_file_path("C:/Users/name/repo"));
     assert!(is_file_path("D:/Projects/app"));
     assert!(is_file_path("C:\\Users\\name\\repo")); // Backslashes
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_global_wildcard_exact() {
     assert!(is_global_wildcard("*"));
     assert!(is_global_wildcard(" * ")); // With whitespace
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_not_global_wildcard() {
     assert!(!is_global_wildcard("**"));
     assert!(!is_global_wildcard("*something"));
@@ -178,20 +178,20 @@ fn test_not_global_wildcard() {
     assert!(!is_global_wildcard(""));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_edge_cases_empty_string() {
     assert!(is_file_path(""));
     assert!(!is_url_or_git_protocol(""));
     assert!(!is_global_wildcard(""));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_edge_cases_whitespace() {
     assert!(is_file_path("   "));
     assert!(!is_url_or_git_protocol("   "));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_urls_with_ports() {
     assert!(is_url_or_git_protocol("https://github.com:443/org/repo"));
     assert!(is_url_or_git_protocol("http://localhost:8080/repo.git"));
@@ -200,7 +200,7 @@ fn test_urls_with_ports() {
     ));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_urls_with_authentication() {
     assert!(is_url_or_git_protocol(
         "https://user:pass@github.com/org/repo"
@@ -210,14 +210,14 @@ fn test_urls_with_authentication() {
     ));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_urls_with_query_params() {
     // Question mark in URL should be detected as URL, not glob
     assert!(is_url_or_git_protocol("https://example.com/repo?ref=main"));
     assert!(is_url_or_git_protocol("https://example.com/repo?token=abc"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_paths_with_special_characters() {
     assert!(is_file_path("/path/with spaces/repo"));
     assert!(is_file_path("/path/with-dashes/repo"));
@@ -225,7 +225,7 @@ fn test_paths_with_special_characters() {
     assert!(is_file_path("/path/with.dots/repo"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ambiguous_cases() {
     // These could be ambiguous but should have defined behavior
 
@@ -239,7 +239,7 @@ fn test_ambiguous_cases() {
     assert!(is_file_path("/path/to/repo#branch"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_git_ssh_shorthand_variations() {
     // Valid SSH shorthand
     assert!(is_url_or_git_protocol("git@host:path"));
@@ -252,13 +252,13 @@ fn test_git_ssh_shorthand_variations() {
     assert!(is_file_path("/user@host:path")); // Starts with /
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_url_fragments_and_anchors() {
     assert!(is_url_or_git_protocol("https://github.com/org/repo#readme"));
     assert!(is_url_or_git_protocol("https://gitlab.com/project#section"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_submodule_paths() {
     // Relative submodule paths
     assert!(is_file_path("../submodules/lib"));
@@ -268,73 +268,73 @@ fn test_submodule_paths() {
     assert!(is_url_or_git_protocol("https://github.com/org/submodule"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bare_repository_paths() {
     assert!(is_file_path("/srv/git/repo.git"));
     assert!(is_file_path("~/bare-repos/project.git"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ipv4_addresses_in_urls() {
     assert!(is_url_or_git_protocol("https://192.168.1.1/repo.git"));
     assert!(is_url_or_git_protocol("git@192.168.1.100:repos/app.git"));
     assert!(is_url_or_git_protocol("ssh://git@10.0.0.1/repo"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ipv6_addresses_in_urls() {
     assert!(is_url_or_git_protocol("https://[::1]/repo.git"));
     assert!(is_url_or_git_protocol("ssh://git@[2001:db8::1]/repo"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_localhost_variants() {
     assert!(is_url_or_git_protocol("https://localhost/repo"));
     assert!(is_url_or_git_protocol("http://127.0.0.1/repo.git"));
     assert!(is_url_or_git_protocol("git@localhost:repo"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_file_protocol() {
     assert!(is_url_or_git_protocol("file:///path/to/repo"));
     assert!(is_url_or_git_protocol("file://localhost/repo"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_mixed_slashes_windows() {
     // Windows paths with mixed slashes
     assert!(is_file_path("C:/Users\\name/repo"));
     assert!(is_file_path("D:\\Projects/app"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_network_paths_unc() {
     // UNC paths (Windows network paths)
     assert!(is_file_path("\\\\server\\share\\repo"));
     assert!(is_file_path("//server/share/repo"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_very_long_paths() {
     let long_path = format!("/very/{}/path", "long/".repeat(50));
     assert!(is_file_path(&long_path));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_unicode_in_paths() {
     assert!(is_file_path("/home/用户/项目/repo"));
     assert!(is_file_path("~/Документы/проект"));
     assert!(is_url_or_git_protocol("https://github.com/用户/项目"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_pattern_whitespace_trimming() {
     // Patterns with leading/trailing whitespace should be handled
     assert!(is_global_wildcard("  *  "));
     assert!(is_url_or_git_protocol("  https://github.com/org/repo  "));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_case_sensitivity() {
     // Protocol names should work regardless of case
     assert!(is_url_or_git_protocol("HTTPS://github.com/repo"));

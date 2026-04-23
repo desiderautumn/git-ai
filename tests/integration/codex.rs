@@ -12,7 +12,7 @@ use std::fs;
 use std::thread;
 use std::time::Duration;
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_parse_codex_rollout_transcript() {
     let fixture = fixture_path("codex-session-simple.jsonl");
     let (transcript, model) =
@@ -47,7 +47,7 @@ fn test_parse_codex_rollout_transcript() {
     assert!(has_tool_use, "Should parse function calls as tool uses");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_codex_preset_legacy_hook_input() {
     let fixture = fixture_path("codex-session-simple.jsonl");
     let hook_input = json!({
@@ -99,7 +99,7 @@ fn test_codex_preset_legacy_hook_input() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_codex_preset_structured_hook_input() {
     let fixture = fixture_path("codex-session-simple.jsonl");
     let hook_input = json!({
@@ -143,7 +143,7 @@ fn test_codex_preset_structured_hook_input() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_codex_preset_bash_pre_tool_use_skips_checkpoint_after_capturing_snapshot() {
     use crate::repos::test_repo::TestRepo;
 
@@ -196,7 +196,7 @@ fn test_codex_preset_bash_pre_tool_use_skips_checkpoint_after_capturing_snapshot
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_codex_preset_bash_pre_tool_use_supports_camel_case_hook_event_name() {
     use crate::repos::test_repo::TestRepo;
 
@@ -240,7 +240,7 @@ fn test_codex_preset_bash_pre_tool_use_supports_camel_case_hook_event_name() {
     assert_eq!(active_context.tool_use_id, "bash-use-camel-1");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_codex_preset_bash_post_tool_use_detects_changed_files() {
     use crate::repos::test_repo::TestRepo;
 
@@ -311,7 +311,7 @@ fn test_codex_preset_bash_post_tool_use_detects_changed_files() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_find_rollout_path_for_session_in_home() {
     let fixture = fixture_path("codex-session-simple.jsonl");
     let temp = tempfile::tempdir().unwrap();
@@ -330,7 +330,7 @@ fn test_find_rollout_path_for_session_in_home() {
     assert_eq!(resolved, rollout_path);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_codex_e2e_commit_resync_uses_latest_rollout() {
     use crate::repos::test_repo::TestRepo;
 
@@ -411,7 +411,7 @@ fn test_codex_e2e_commit_resync_uses_latest_rollout() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_codex_commit_inside_bash_inflight_is_attributed_to_codex() {
     use crate::repos::test_repo::TestRepo;
 
@@ -487,7 +487,7 @@ fn test_codex_commit_inside_bash_inflight_is_attributed_to_codex() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_codex_commit_inside_bash_inflight_repeated_append_keeps_file_ai() {
     use crate::repos::test_repo::TestRepo;
 
@@ -567,7 +567,7 @@ fn test_codex_commit_inside_bash_inflight_repeated_append_keeps_file_ai() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_codex_file_edit_then_bash_pretooluse_does_not_steal_ai_commit_attribution() {
     use crate::repos::test_repo::TestRepo;
 
@@ -616,7 +616,7 @@ fn test_codex_file_edit_then_bash_pretooluse_does_not_steal_ai_commit_attributio
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_codex_file_edit_then_camel_case_bash_pretooluse_does_not_steal_ai_commit_attribution() {
     use crate::repos::test_repo::TestRepo;
 
@@ -665,7 +665,7 @@ fn test_codex_file_edit_then_camel_case_bash_pretooluse_does_not_steal_ai_commit
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_codex_read_only_bash_post_tool_use_before_edit_does_not_steal_commit_attribution() {
     use crate::repos::test_repo::TestRepo;
 
@@ -744,7 +744,7 @@ fn test_codex_read_only_bash_post_tool_use_before_edit_does_not_steal_commit_att
 /// unattributed (legacy) human checkpoints. Assertions match origin/main behavior: with empty
 /// attribution, all lines (including "Project README") are attributed to AI because the codex
 /// session claims any unattributed content.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_codex_commit_inside_bash_inflight_repeated_append_keeps_file_ai_standard_human() {
     use crate::repos::test_repo::TestRepo;
 

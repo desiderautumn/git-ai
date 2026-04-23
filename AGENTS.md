@@ -95,7 +95,7 @@ Tests create real git repositories. The test framework has three key files:
 
 Simple test pattern (using all standard helpers):
 ```rust
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_using_test_repo() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -108,7 +108,7 @@ fn test_using_test_repo() {
 For certain test cases, especially where you are focused on testing specific checkpoint or attribution behavior, do NOT use the `file.set_contents` helper as it has a very specific (and unrealistic) ai vs human checkpointing flow that first sets file content to all the human values with explicit placeholders for the lines that are AI, calls a known human checkpoint, and then replaces the AI lines with their real values and calls the AI checkpoint after. As you can imagine, if you really want to test nuances of checkpointing, this is problematic. In those cases, explicitly write the file using standard Rust file write utils and explicitly call the ai vs human checkpoints mocking the real pre/post checkpointing flow using `mock_known_human` for explicit/known human changes, `human` for untracked changes, and `mock_ai` for AI changes. Example with custom writes+checkpointing for when you really care about exact replication of issues or testing checkpointing/attribution internals or any time the exact flow, order, etc. of checkpoints is relevant:
 
 ```rust
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_using_test_repo_with_custom_checkpoints() {
     let repo = TestRepo::new();
     let file_path = repo.path().join("example.md");

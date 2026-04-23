@@ -343,7 +343,7 @@ mod tests {
         set
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_get_working_dir_diff_stats_post_filter_equivalence() {
         let repo = TmpRepo::new().unwrap();
         repo.write_file("a.txt", "L1\nL2\nL3\n", true).unwrap();
@@ -374,7 +374,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_get_working_dir_diff_stats_post_filter_exclusion() {
         let repo = TmpRepo::new().unwrap();
         repo.write_file("a.txt", "L1\nL2\nL3\n", true).unwrap();
@@ -397,7 +397,7 @@ mod tests {
         assert_eq!(added, 2, "should only count a.txt additions, not b.txt");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_get_working_dir_diff_stats_none_pathspecs() {
         let repo = TmpRepo::new().unwrap();
         repo.write_file("a.txt", "L1\nL2\nL3\n", true).unwrap();
@@ -419,7 +419,7 @@ mod tests {
         assert_eq!(added, 3, "None pathspecs should count all additions");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_get_working_dir_diff_stats_empty_pathspecs_returns_zero() {
         let repo = TmpRepo::new().unwrap();
         repo.write_file("a.txt", "L1\nL2\n", true).unwrap();
@@ -435,7 +435,7 @@ mod tests {
         assert_eq!(deleted, 0);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_get_working_dir_diff_stats_post_filter_with_rename() {
         let repo = TmpRepo::new().unwrap();
         repo.write_file("old_name.txt", "L1\nL2\nL3\n", true)
@@ -470,7 +470,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_get_working_dir_diff_stats_respects_ignore_patterns() {
         let repo = TmpRepo::new().unwrap();
         repo.write_file("src/lib.rs", "pub fn a() {}\n", true)
@@ -495,7 +495,7 @@ mod tests {
         assert_eq!(added, 1, "Cargo.lock additions should be ignored");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_count_ai_lines_from_initial_respects_ignore_patterns() {
         let mut initial = InitialAttributions::default();
         initial.prompts.insert(

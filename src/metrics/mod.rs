@@ -56,7 +56,7 @@ mod tests {
     use super::*;
     use types::MetricEventId;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_record_creates_event() {
         // This test verifies that record() creates a valid MetricEvent
         // The actual write to the log file happens via observability::log_metrics()
@@ -78,7 +78,7 @@ mod tests {
     }
 
     /// Verify that the mock_ai guard in record() detects tool="mock_ai" in attrs.
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_mock_ai_is_blocked_by_record_guard() {
         let attrs = EventAttributes::with_version("1.0.0").tool("mock_ai");
         assert_eq!(attrs.tool, Some(Some("mock_ai".to_string())));
@@ -92,7 +92,7 @@ mod tests {
     /// but whose attrs.tool is unset would NOT be caught by the record() guard.
     /// This demonstrates why filtering must also happen at the call site
     /// (post_commit::record_commit_metrics).
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_committed_with_mock_ai_tool_model_pair_bypasses_attrs_guard() {
         let attrs = EventAttributes::with_version("1.0.0");
         // attrs.tool is None — the guard won't trigger

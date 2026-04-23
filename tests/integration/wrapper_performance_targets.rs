@@ -6,7 +6,7 @@ use git_ai::observability::wrapper_performance_targets::{
 };
 use std::time::Duration;
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_performance_floor_constant() {
     assert_eq!(
         PERFORMANCE_FLOOR_MS,
@@ -15,7 +15,7 @@ fn test_performance_floor_constant() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_benchmark_result_structure() {
     let result = BenchmarkResult {
         total_duration: Duration::from_millis(1000),
@@ -30,7 +30,7 @@ fn test_benchmark_result_structure() {
     assert_eq!(result.pre_command_duration.as_millis(), 50);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_benchmark_result_clone() {
     let result = BenchmarkResult {
         total_duration: Duration::from_millis(500),
@@ -46,7 +46,7 @@ fn test_benchmark_result_clone() {
     assert_eq!(cloned.pre_command_duration, result.pre_command_duration);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_benchmark_result_debug() {
     let result = BenchmarkResult {
         total_duration: Duration::from_millis(100),
@@ -60,7 +60,7 @@ fn test_benchmark_result_debug() {
     assert!(debug_str.contains("total_duration"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_log_performance_commit_within_target() {
     // Test commit command that meets target (10% overhead)
     let git_duration = Duration::from_millis(1000);
@@ -71,7 +71,7 @@ fn test_log_performance_commit_within_target() {
     log_performance_target_if_violated("commit", pre_command, git_duration, post_command);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_log_performance_commit_violates_target() {
     // Test commit with high overhead that violates target
     let git_duration = Duration::from_millis(100);
@@ -82,7 +82,7 @@ fn test_log_performance_commit_violates_target() {
     log_performance_target_if_violated("commit", pre_command, git_duration, post_command);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_log_performance_commit_below_floor() {
     // Test commit with overhead below floor (should pass)
     let git_duration = Duration::from_millis(5000);
@@ -92,7 +92,7 @@ fn test_log_performance_commit_below_floor() {
     log_performance_target_if_violated("commit", pre_command, git_duration, post_command);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_log_performance_rebase_within_target() {
     let git_duration = Duration::from_millis(2000);
     let pre_command = Duration::from_millis(100);
@@ -101,7 +101,7 @@ fn test_log_performance_rebase_within_target() {
     log_performance_target_if_violated("rebase", pre_command, git_duration, post_command);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_log_performance_cherry_pick_within_target() {
     let git_duration = Duration::from_millis(500);
     let pre_command = Duration::from_millis(30);
@@ -110,7 +110,7 @@ fn test_log_performance_cherry_pick_within_target() {
     log_performance_target_if_violated("cherry-pick", pre_command, git_duration, post_command);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_log_performance_reset_within_target() {
     let git_duration = Duration::from_millis(300);
     let pre_command = Duration::from_millis(20);
@@ -119,7 +119,7 @@ fn test_log_performance_reset_within_target() {
     log_performance_target_if_violated("reset", pre_command, git_duration, post_command);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_log_performance_fetch_within_target() {
     // Fetch allows 50% overhead (1.5x multiplier)
     let git_duration = Duration::from_millis(2000);
@@ -129,7 +129,7 @@ fn test_log_performance_fetch_within_target() {
     log_performance_target_if_violated("fetch", pre_command, git_duration, post_command);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_log_performance_pull_within_target() {
     // Pull allows 50% overhead
     let git_duration = Duration::from_millis(3000);
@@ -139,7 +139,7 @@ fn test_log_performance_pull_within_target() {
     log_performance_target_if_violated("pull", pre_command, git_duration, post_command);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_log_performance_push_within_target() {
     // Push allows 50% overhead
     let git_duration = Duration::from_millis(1000);
@@ -149,7 +149,7 @@ fn test_log_performance_push_within_target() {
     log_performance_target_if_violated("push", pre_command, git_duration, post_command);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_log_performance_unknown_command_within_floor() {
     // Unknown commands use floor target
     let git_duration = Duration::from_millis(1000);
@@ -159,7 +159,7 @@ fn test_log_performance_unknown_command_within_floor() {
     log_performance_target_if_violated("unknown-cmd", pre_command, git_duration, post_command);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_log_performance_zero_durations() {
     // Test with zero durations (edge case)
     let git_duration = Duration::from_millis(0);
@@ -169,7 +169,7 @@ fn test_log_performance_zero_durations() {
     log_performance_target_if_violated("commit", pre_command, git_duration, post_command);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_log_performance_very_fast_git_command() {
     // Git command faster than pre/post (realistic for status, etc.)
     let git_duration = Duration::from_millis(10);
@@ -179,7 +179,7 @@ fn test_log_performance_very_fast_git_command() {
     log_performance_target_if_violated("status", pre_command, git_duration, post_command);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_log_performance_very_slow_git_command() {
     // Very slow git command (like large repo clone)
     let git_duration = Duration::from_millis(60000); // 60 seconds
@@ -189,7 +189,7 @@ fn test_log_performance_very_slow_git_command() {
     log_performance_target_if_violated("clone", pre_command, git_duration, post_command);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_log_performance_checkpoint_within_target() {
     // Checkpoint target: 50ms per file edited
     let files_edited = 10;
@@ -198,7 +198,7 @@ fn test_log_performance_checkpoint_within_target() {
     log_performance_for_checkpoint(files_edited, duration, CheckpointKind::Human);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_log_performance_checkpoint_violates_target() {
     // Checkpoint that's too slow
     let files_edited = 5;
@@ -207,7 +207,7 @@ fn test_log_performance_checkpoint_violates_target() {
     log_performance_for_checkpoint(files_edited, duration, CheckpointKind::Human);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_log_performance_checkpoint_zero_files() {
     // Edge case: zero files edited
     let files_edited = 0;
@@ -216,7 +216,7 @@ fn test_log_performance_checkpoint_zero_files() {
     log_performance_for_checkpoint(files_edited, duration, CheckpointKind::AiAgent);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_log_performance_checkpoint_one_file() {
     // Single file checkpoint
     let files_edited = 1;
@@ -225,7 +225,7 @@ fn test_log_performance_checkpoint_one_file() {
     log_performance_for_checkpoint(files_edited, duration, CheckpointKind::Human);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_log_performance_checkpoint_many_files() {
     // Large checkpoint with many files
     let files_edited = 1000;
@@ -234,7 +234,7 @@ fn test_log_performance_checkpoint_many_files() {
     log_performance_for_checkpoint(files_edited, duration, CheckpointKind::AiAgent);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_log_performance_checkpoint_automatic_kind() {
     let files_edited = 5;
     let duration = Duration::from_millis(200);
@@ -242,7 +242,7 @@ fn test_log_performance_checkpoint_automatic_kind() {
     log_performance_for_checkpoint(files_edited, duration, CheckpointKind::AiAgent);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_log_performance_checkpoint_manual_kind() {
     let files_edited = 5;
     let duration = Duration::from_millis(200);
@@ -250,7 +250,7 @@ fn test_log_performance_checkpoint_manual_kind() {
     log_performance_for_checkpoint(files_edited, duration, CheckpointKind::Human);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_checkpoint_kind_to_string() {
     let human = CheckpointKind::Human;
     let ai_agent = CheckpointKind::AiAgent;
@@ -261,7 +261,7 @@ fn test_checkpoint_kind_to_string() {
     assert_eq!(ai_tab.to_string(), "ai_tab");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_performance_targets_commit_exact_boundary() {
     // Test at exact 10% overhead boundary for commit
     let git_duration = Duration::from_millis(1000);
@@ -272,7 +272,7 @@ fn test_performance_targets_commit_exact_boundary() {
     log_performance_target_if_violated("commit", pre_command, git_duration, post_command);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_performance_targets_fetch_exact_boundary() {
     // Test at exact 50% overhead boundary for fetch
     let git_duration = Duration::from_millis(2000);
@@ -283,7 +283,7 @@ fn test_performance_targets_fetch_exact_boundary() {
     log_performance_target_if_violated("fetch", pre_command, git_duration, post_command);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_performance_floor_exact_boundary() {
     // Test at exact floor boundary
     let git_duration = Duration::from_millis(1000);
@@ -293,7 +293,7 @@ fn test_performance_floor_exact_boundary() {
     log_performance_target_if_violated("commit", pre_command, git_duration, post_command);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_checkpoint_target_exact_boundary() {
     // Test checkpoint at exact 50ms per file boundary
     let files_edited = 10;
@@ -302,7 +302,7 @@ fn test_checkpoint_target_exact_boundary() {
     log_performance_for_checkpoint(files_edited, duration, CheckpointKind::Human);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_all_supported_commands() {
     let commands = vec![
         "commit",
@@ -326,7 +326,7 @@ fn test_all_supported_commands() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_performance_logging_does_not_panic() {
     // Verify various edge cases don't cause panics
     let test_cases = vec![
@@ -352,7 +352,7 @@ fn test_performance_logging_does_not_panic() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_checkpoint_logging_does_not_panic() {
     let test_cases = vec![
         (0, Duration::from_millis(0)),
@@ -366,7 +366,7 @@ fn test_checkpoint_logging_does_not_panic() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_performance_metrics_consistency() {
     // Verify that total = pre + git + post in calculations
     let git_duration = Duration::from_millis(800);
@@ -379,7 +379,7 @@ fn test_performance_metrics_consistency() {
     log_performance_target_if_violated("commit", pre_command, git_duration, post_command);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_overhead_calculation() {
     // Test overhead calculation for targets
     let _git_duration = Duration::from_millis(1000);
@@ -391,7 +391,7 @@ fn test_overhead_calculation() {
     assert!(overhead < PERFORMANCE_FLOOR_MS);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_multiplier_targets() {
     // Verify multiplier logic: 1.1x for commit, 1.5x for network commands
     let _git_duration = Duration::from_millis(1000);

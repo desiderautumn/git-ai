@@ -9,7 +9,7 @@ fn direct_test_repo() -> TestRepo {
 
 /// Test that single-parent squash merges work even when the parent is not reachable
 /// from the base ref (partial clone scenario). This is the core fix from PR #918.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_squash_merge_single_parent_not_on_base_ref() {
     let repo = direct_test_repo();
     let file_path = repo.path().join("file.txt");
@@ -86,7 +86,7 @@ fn test_squash_merge_single_parent_not_on_base_ref() {
 
 /// Test single-commit rebase where the parent IS reachable from base ref.
 /// This is the happy path - both parent(0) shortcut and parent_on_refname should work.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_single_commit_rebase_parent_on_base_ref() {
     let repo = direct_test_repo();
 
@@ -151,7 +151,7 @@ fn test_single_commit_rebase_parent_on_base_ref() {
 
 /// Test multi-commit PR squashed to 1 merge commit (single parent).
 /// Verifies the squash path handles multiple original commits correctly.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_multi_commit_squash_merge_single_parent() {
     let repo = direct_test_repo();
 
@@ -232,7 +232,7 @@ fn test_multi_commit_squash_merge_single_parent() {
 
 /// Test that true merge commits (2 parents) are detected as simple merges
 /// and skipped entirely - verifying the multi-parent path is unchanged.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_regular_two_parent_merge_skipped() {
     let repo = direct_test_repo();
     let file_path = repo.path().join("file.txt");

@@ -423,7 +423,7 @@ fn build_authorship_push_args(global_args: Vec<String>, remote_name: &str) -> Ve
 mod tests {
     use super::*;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn authorship_fetch_args_always_disable_hooks() {
         let disabled_hooks = disabled_hooks_config();
         let args = build_authorship_fetch_args(
@@ -439,7 +439,7 @@ mod tests {
         assert!(args.contains(&"fetch".to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn authorship_push_args_always_disable_hooks() {
         let disabled_hooks = disabled_hooks_config();
         let args =
@@ -452,7 +452,7 @@ mod tests {
         assert!(args.contains(&"push".to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn missing_remote_notes_ref_error_is_detected() {
         let err = GitAiError::GitCliError {
             code: Some(128),
@@ -462,7 +462,7 @@ mod tests {
         assert!(is_missing_remote_notes_ref_error(&err));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn missing_remote_notes_ref_error_ignores_unrelated_git_errors() {
         let err = GitAiError::GitCliError {
             code: Some(128),

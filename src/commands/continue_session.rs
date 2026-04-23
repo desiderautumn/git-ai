@@ -1197,7 +1197,7 @@ fn print_continue_help() {
 mod tests {
     use super::*;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_continue_mode_variants() {
         let by_commit = ContinueMode::ByCommit {
             commit_rev: "abc123".to_string(),
@@ -1233,7 +1233,7 @@ mod tests {
         assert_eq!(interactive, ContinueMode::Interactive);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_continue_options_default() {
         let options = ContinueOptions::new();
         assert!(options.agent.is_none());
@@ -1244,7 +1244,7 @@ mod tests {
         assert_eq!(options.agent_name(), "claude");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_continue_options_agent_name() {
         let options = ContinueOptions {
             agent: Some("cursor".to_string()),
@@ -1253,14 +1253,14 @@ mod tests {
         assert_eq!(options.agent_name(), "cursor");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_continue_args_empty() {
         let args: Vec<String> = vec![];
         let parsed = parse_continue_args(&args).unwrap();
         assert_eq!(parsed.mode, ContinueMode::Interactive);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_continue_args_commit() {
         let args = vec!["--commit".to_string(), "abc123".to_string()];
         let parsed = parse_continue_args(&args).unwrap();
@@ -1272,7 +1272,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_continue_args_with_launch() {
         let args = vec![
             "--commit".to_string(),
@@ -1286,7 +1286,7 @@ mod tests {
         assert_eq!(parsed.options.agent, Some("claude".to_string())); // lowercased
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_continue_args_file_with_lines() {
         let args = vec![
             "--file".to_string(),
@@ -1304,50 +1304,50 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_line_range() {
         assert_eq!(parse_line_range("42").unwrap(), (42, 42));
         assert_eq!(parse_line_range("10-50").unwrap(), (10, 50));
         assert!(parse_line_range("50-10").is_err());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_agent_choice_empty_default() {
         let choice = parse_agent_choice_input("").unwrap();
         assert_eq!(choice, AgentChoice::Launch("claude".to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_agent_choice_one() {
         let choice = parse_agent_choice_input("1").unwrap();
         assert_eq!(choice, AgentChoice::Launch("claude".to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_agent_choice_two() {
         let choice = parse_agent_choice_input("2").unwrap();
         assert_eq!(choice, AgentChoice::Stdout);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_agent_choice_three() {
         let choice = parse_agent_choice_input("3").unwrap();
         assert_eq!(choice, AgentChoice::Clipboard);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_agent_choice_invalid() {
         assert!(parse_agent_choice_input("4").is_err());
         assert!(parse_agent_choice_input("abc").is_err());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_agent_choice_with_whitespace() {
         let choice = parse_agent_choice_input("  2  \n").unwrap();
         assert_eq!(choice, AgentChoice::Stdout);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_no_args_activates_interactive_mode() {
         let args: Vec<String> = vec![];
         let parsed = parse_continue_args(&args).unwrap();
@@ -1392,7 +1392,7 @@ mod tests {
 
     // --- Group 1: Message handling ---
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_context_block_empty_messages() {
         let mut ctx = make_session_context();
         ctx.prompts.insert(
@@ -1415,7 +1415,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_context_block_max_messages_cap() {
         let mut ctx = make_session_context();
         ctx.max_messages = 3;
@@ -1439,7 +1439,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_context_block_tool_use_filtered() {
         let mut ctx = make_session_context();
         let msgs = vec![
@@ -1463,7 +1463,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_context_block_section_headers() {
         let mut ctx = make_session_context();
         ctx.prompts.insert(
@@ -1487,7 +1487,7 @@ mod tests {
 
     // --- Group 2: Commit info ---
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_context_block_no_commit_info() {
         let ctx = make_session_context();
         let output = format_context_block(&ctx);
@@ -1497,7 +1497,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_context_block_with_commit_info() {
         let mut ctx = make_session_context();
         ctx.commit_info = Some(CommitInfo {
@@ -1517,7 +1517,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_context_block_commit_full_message_differs() {
         let mut ctx = make_session_context();
         ctx.commit_info = Some(CommitInfo {
@@ -1535,7 +1535,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_context_block_commit_diffs_included() {
         let mut ctx = make_session_context();
         ctx.commit_diffs.insert(
@@ -1556,7 +1556,7 @@ mod tests {
 
     // --- Group 3: Project context ---
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_context_block_no_project_context() {
         let ctx = make_session_context();
         let output = format_context_block(&ctx);
@@ -1566,7 +1566,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_context_block_with_project_context() {
         let mut ctx = make_session_context();
         ctx.project_context = Some("Test instructions here".to_string());
@@ -1581,7 +1581,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_context_block_project_context_truncated() {
         let mut ctx = make_session_context();
         let truncated = format!(
@@ -1599,7 +1599,7 @@ mod tests {
 
     // --- Group 4: Git status ---
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_context_block_no_git_status() {
         let ctx = make_session_context();
         let output = format_context_block(&ctx);
@@ -1609,7 +1609,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_context_block_with_git_status() {
         let mut ctx = make_session_context();
         ctx.git_status =
@@ -1631,7 +1631,7 @@ mod tests {
 
     // --- Group 5: JSON output ---
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_context_json_output_structure() {
         let mut ctx = make_session_context();
         ctx.commit_info = Some(CommitInfo {
@@ -1701,7 +1701,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_context_json_null_fields() {
         let ctx = make_session_context();
         let json_str = format_context_json(&ctx);
@@ -1722,7 +1722,7 @@ mod tests {
 
     // --- Group 6: Diff truncation and edge cases ---
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_context_block_diff_truncation_notice() {
         let mut ctx = make_session_context();
         let diff_text = format!(
@@ -1737,7 +1737,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_context_block_multiple_sessions() {
         let mut ctx = make_session_context();
         ctx.prompts.insert(
@@ -1767,7 +1767,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_context_block_footer() {
         let ctx = make_session_context();
         let output = format_context_block(&ctx);

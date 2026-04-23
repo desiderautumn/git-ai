@@ -7,7 +7,7 @@ use git_ai::git::refs::notes_add;
 use std::collections::HashMap;
 
 /// Test cherry-picking a single AI-authored commit
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_single_commit_cherry_pick() {
     let repo = TestRepo::new();
 
@@ -79,7 +79,7 @@ fn test_single_commit_cherry_pick() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cherry_pick_preserves_human_only_commit_note_metadata() {
     let repo = TestRepo::new();
 
@@ -115,7 +115,7 @@ fn test_cherry_pick_preserves_human_only_commit_note_metadata() {
     assert_eq!(new_log.metadata.base_commit_sha, new_commit);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cherry_pick_preserves_prompt_only_commit_note_metadata() {
     let repo = TestRepo::new();
 
@@ -207,7 +207,7 @@ fn test_cherry_pick_preserves_prompt_only_commit_note_metadata() {
 }
 
 /// Test cherry-picking multiple commits in sequence
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_multiple_commits_cherry_pick() {
     let repo = TestRepo::new();
 
@@ -282,7 +282,7 @@ fn test_multiple_commits_cherry_pick() {
 }
 
 /// Test cherry-pick with conflicts and --continue
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cherry_pick_with_conflict_and_continue() {
     let repo = TestRepo::new();
 
@@ -329,7 +329,7 @@ fn test_cherry_pick_with_conflict_and_continue() {
 }
 
 /// Test cherry-pick --abort
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cherry_pick_abort() {
     let repo = TestRepo::new();
 
@@ -384,7 +384,7 @@ fn test_cherry_pick_abort() {
 }
 
 /// Test cherry-picking from branch without AI authorship
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cherry_pick_no_ai_authorship() {
     let repo = TestRepo::new();
 
@@ -409,7 +409,7 @@ fn test_cherry_pick_no_ai_authorship() {
 }
 
 /// Test cherry-pick preserving multiple AI sessions from different commits
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cherry_pick_multiple_ai_sessions() {
     let repo = TestRepo::new();
 
@@ -482,7 +482,7 @@ fn test_cherry_pick_multiple_ai_sessions() {
 }
 
 /// Test that trees-identical fast path works
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cherry_pick_identical_trees() {
     let repo = TestRepo::new();
 
@@ -512,7 +512,7 @@ fn test_cherry_pick_identical_trees() {
 }
 
 /// Test cherry-pick where some commits become empty (already applied)
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cherry_pick_empty_commits() {
     let repo = TestRepo::new();
 
@@ -564,7 +564,7 @@ fn test_cherry_pick_empty_commits() {
 
 /// Test that custom attributes set via config are preserved through a cherry-pick
 /// when the real post-commit pipeline injects them.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cherry_pick_preserves_custom_attributes_from_config() {
     let mut repo = TestRepo::new();
 
@@ -639,7 +639,7 @@ fn test_cherry_pick_preserves_custom_attributes_from_config() {
 /// bad revision arguments.  If that stale event is left in the rewrite log, the next
 /// valid cherry-pick may process attribution against the wrong (empty) source list,
 /// producing zero AI attributions even for lines that came from an AI session.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cherry_pick_bad_args_dont_corrupt_subsequent_attribution() {
     let repo = TestRepo::new();
     let mut file = repo.filename("file.txt");
@@ -694,7 +694,7 @@ fn test_cherry_pick_bad_args_dont_corrupt_subsequent_attribution() {
 /// CherryPickStart source_commits list.  The post-hook then found a mismatch between
 /// the number of source commits (3) and the number of new commits actually created (2),
 /// and skipped attribution for ALL remaining commits.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cherry_pick_skip_preserves_subsequent_attribution() {
     let repo = TestRepo::new();
     let mut file = repo.filename("file.txt");
@@ -757,7 +757,7 @@ fn test_cherry_pick_skip_preserves_subsequent_attribution() {
 /// attribution, but found nothing because `refs/notes/ai` hadn't been fetched from the
 /// remote.  The fix auto-fetches notes via `fetch_authorship_notes` (the safe,
 /// non-destructive pattern) when any source commit is missing local notes.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cherry_pick_from_remote_without_prefetched_notes() {
     // Source repo: one human initial commit, then one AI commit.
     let source_repo = TestRepo::new();

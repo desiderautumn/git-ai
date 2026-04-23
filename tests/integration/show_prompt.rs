@@ -9,14 +9,14 @@ fn args(list: &[&str]) -> Vec<String> {
 // Reimport the parsing function from the show_prompt command module
 use git_ai::commands::show_prompt::parse_args;
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn parse_args_requires_prompt_id() {
     let result = parse_args(&args(&[]));
     assert!(result.is_err());
     assert_eq!(result.unwrap_err(), "show-prompt requires a prompt ID");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn parse_args_parses_basic_id() {
     let result = parse_args(&args(&["my-prompt-id"])).unwrap();
     assert_eq!(result.prompt_id, "my-prompt-id");
@@ -24,7 +24,7 @@ fn parse_args_parses_basic_id() {
     assert_eq!(result.offset, 0);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn parse_args_parses_commit_flag() {
     let result = parse_args(&args(&["my-id", "--commit", "HEAD"])).unwrap();
     assert_eq!(result.prompt_id, "my-id");
@@ -32,7 +32,7 @@ fn parse_args_parses_commit_flag() {
     assert_eq!(result.offset, 0);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn parse_args_parses_offset_flag() {
     let result = parse_args(&args(&["my-id", "--offset", "2"])).unwrap();
     assert_eq!(result.prompt_id, "my-id");
@@ -40,7 +40,7 @@ fn parse_args_parses_offset_flag() {
     assert_eq!(result.offset, 2);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn parse_args_rejects_commit_and_offset_together() {
     let result = parse_args(&args(&["id", "--commit", "HEAD", "--offset", "1"]));
     assert!(result.is_err());
@@ -50,7 +50,7 @@ fn parse_args_rejects_commit_and_offset_together() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn parse_args_rejects_multiple_prompt_ids() {
     let result = parse_args(&args(&["id1", "id2"]));
     assert!(result.is_err());
@@ -60,21 +60,21 @@ fn parse_args_rejects_multiple_prompt_ids() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn parse_args_requires_commit_value() {
     let result = parse_args(&args(&["id", "--commit"]));
     assert!(result.is_err());
     assert_eq!(result.unwrap_err(), "--commit requires a value");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn parse_args_requires_offset_value() {
     let result = parse_args(&args(&["id", "--offset"]));
     assert!(result.is_err());
     assert_eq!(result.unwrap_err(), "--offset requires a value");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn parse_args_rejects_invalid_offset() {
     let result = parse_args(&args(&["id", "--offset", "not-a-number"]));
     assert!(result.is_err());
@@ -84,14 +84,14 @@ fn parse_args_rejects_invalid_offset() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn parse_args_rejects_unknown_flag() {
     let result = parse_args(&args(&["id", "--unknown"]));
     assert!(result.is_err());
     assert_eq!(result.unwrap_err(), "Unknown option: --unknown");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn show_prompt_returns_latest_prompt_by_default() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -121,7 +121,7 @@ fn show_prompt_returns_latest_prompt_by_default() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn show_prompt_with_offset_skips_occurrences() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");

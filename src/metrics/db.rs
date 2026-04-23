@@ -321,7 +321,7 @@ mod tests {
         (db, temp_dir)
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_initialize_schema() {
         let (db, _temp_dir) = create_test_db();
 
@@ -348,7 +348,7 @@ mod tests {
         assert_eq!(version, "2");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_initialize_schema_handles_preexisting_agent_usage_table() {
         let temp_dir = TempDir::new().unwrap();
         let db_path = temp_dir.path().join("concurrent-init.db");
@@ -386,7 +386,7 @@ mod tests {
         assert_eq!(version, "2");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_insert_events() {
         let (mut db, _temp_dir) = create_test_db();
 
@@ -401,7 +401,7 @@ mod tests {
         assert_eq!(count, 2);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_get_batch() {
         let (mut db, _temp_dir) = create_test_db();
 
@@ -423,7 +423,7 @@ mod tests {
         assert!(batch[1].event_json.contains("\"t\":2"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_delete_records() {
         let (mut db, _temp_dir) = create_test_db();
 
@@ -451,7 +451,7 @@ mod tests {
         assert!(remaining[0].event_json.contains("\"t\":3"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_empty_operations() {
         let (mut db, _temp_dir) = create_test_db();
 
@@ -470,7 +470,7 @@ mod tests {
         assert_eq!(count, 0);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_database_path() {
         let path = MetricsDatabase::database_path().unwrap();
         assert!(path.to_string_lossy().contains(".git-ai"));
@@ -478,7 +478,7 @@ mod tests {
         assert!(path.to_string_lossy().ends_with("metrics-db"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_emit_agent_usage_rate_limit() {
         let (mut db, _temp_dir) = create_test_db();
         let prompt_id = "prompt-123";

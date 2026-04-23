@@ -121,7 +121,7 @@ impl FeatureFlags {
 mod tests {
     use super::*;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_default_feature_flags() {
         let flags = FeatureFlags::default();
         // Test that defaults are set correctly based on debug/release mode
@@ -145,7 +145,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_from_file_config_none() {
         let flags = FeatureFlags::from_file_config(None);
         // Should return defaults
@@ -155,7 +155,7 @@ mod tests {
         assert_eq!(flags.auth_keyring, defaults.auth_keyring);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_from_file_config_some() {
         let deserializable = DeserializableFeatureFlags {
             rewrite_stash: Some(false),
@@ -170,7 +170,7 @@ mod tests {
         assert!(flags.auth_keyring);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_from_file_config_partial() {
         let deserializable = DeserializableFeatureFlags {
             rewrite_stash: Some(true),
@@ -186,7 +186,7 @@ mod tests {
         assert_eq!(flags.auth_keyring, defaults.auth_keyring);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_from_deserializable() {
         let deserializable = DeserializableFeatureFlags {
             rewrite_stash: Some(false),
@@ -201,7 +201,7 @@ mod tests {
         assert!(flags.auth_keyring);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial_test::serial]
     fn test_from_env_and_file_defaults_only() {
         // No file flags, env should be empty
@@ -219,7 +219,7 @@ mod tests {
         assert_eq!(flags.auth_keyring, defaults.auth_keyring);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial_test::serial]
     fn test_from_env_and_file_file_overrides() {
         unsafe {
@@ -242,7 +242,7 @@ mod tests {
         assert!(flags.async_mode);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_serialization() {
         let flags = FeatureFlags {
             rewrite_stash: true,
@@ -262,7 +262,7 @@ mod tests {
         assert!(serialized.contains("git_hooks_externally_managed"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_clone_trait() {
         let flags = FeatureFlags {
             rewrite_stash: true,
@@ -284,7 +284,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_debug_trait() {
         let flags = FeatureFlags::default();
         let debug_str = format!("{:?}", flags);

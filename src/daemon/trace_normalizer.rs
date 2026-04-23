@@ -1719,7 +1719,7 @@ mod tests {
         })
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn normalizer_emits_one_command_for_start_exit() {
         let backend = Arc::new(MockBackend::default());
         backend.set_family("/repo", "/repo/.git");
@@ -1747,7 +1747,7 @@ mod tests {
         assert_eq!(cmd.exit_code, 0);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn normalizer_uses_atexit_when_exit_is_missing() {
         let backend = Arc::new(MockBackend::default());
         backend.set_family("/repo", "/repo/.git");
@@ -1775,7 +1775,7 @@ mod tests {
         assert_eq!(cmd.exit_code, 0);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn completed_root_retention_does_not_clear_all_recent_roots() {
         let backend = Arc::new(MockBackend::default());
         let mut normalizer = TraceNormalizer::new(backend);
@@ -1804,7 +1804,7 @@ mod tests {
         assert_eq!(normalizer.state.completed_root_order.len(), 3);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn alias_commit_captures_mutation_state_at_start() {
         let backend = Arc::new(MockBackend::default());
         let temp = tempfile::tempdir().expect("create tempdir");
@@ -1841,7 +1841,7 @@ mod tests {
         assert_eq!(cmd.primary_command.as_deref(), Some("commit"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn normalizer_errors_on_exit_without_start() {
         let backend = Arc::new(MockBackend::default());
         backend.set_family("/repo", "/repo/.git");
@@ -1869,7 +1869,7 @@ mod tests {
         assert_eq!(cmd.exit_code, 0);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn child_cmd_name_enriches_root() {
         let backend = Arc::new(MockBackend::default());
         backend.set_family("/repo", "/repo/.git");
@@ -1903,7 +1903,7 @@ mod tests {
         assert_eq!(cmd.primary_command.as_deref(), Some("status"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn child_exit_does_not_finalize_without_root_exit() {
         let backend = Arc::new(MockBackend::default());
         backend.set_family("/repo", "/repo/.git");
@@ -1955,7 +1955,7 @@ mod tests {
         assert!(normalizer.state().pending.is_empty());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn child_exit_before_root_exec_is_ignored_until_root_exit() {
         let backend = Arc::new(MockBackend::default());
         backend.set_family("/repo", "/repo/.git");
@@ -2007,7 +2007,7 @@ mod tests {
         assert!(normalizer.state().pending.is_empty());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn clone_relative_target_falls_back_to_argv_target_when_def_repo_candidate_fails() {
         let backend = Arc::new(MockBackend::default());
         let mut normalizer = TraceNormalizer::new(backend);
@@ -2045,7 +2045,7 @@ mod tests {
         assert!(matches!(cmd.scope, CommandScope::Family(_)));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn clone_with_late_family_resolution_does_not_error_without_reflog_start_cut() {
         let backend = Arc::new(MockBackend::default());
         let mut normalizer = TraceNormalizer::new(backend);
@@ -2096,7 +2096,7 @@ mod tests {
         assert!(matches!(cmd.scope, CommandScope::Family(_)));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn clone_prefers_target_family_over_source_cwd_family() {
         let backend = Arc::new(MockBackend::default());
         let mut normalizer = TraceNormalizer::new(backend);
@@ -2142,7 +2142,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn clone_child_def_repo_does_not_overwrite_root_worktree() {
         // Real git trace2 output shows child processes (remote-https, index-pack)
         // emit def_repo with the CWD as worktree, not the clone destination.
@@ -2205,7 +2205,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn no_repo_routes_to_global_scope() {
         let backend = Arc::new(MockBackend::default());
         let mut normalizer = TraceNormalizer::new(backend);
@@ -2228,7 +2228,7 @@ mod tests {
         assert!(matches!(cmd.scope, CommandScope::Global));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn ignores_non_supported_trace_events() {
         let backend = Arc::new(MockBackend::default());
         let mut normalizer = TraceNormalizer::new(backend);
@@ -2236,7 +2236,7 @@ mod tests {
         assert!(normalizer.ingest_payload(&p).unwrap().is_none());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn interleaved_roots_with_out_of_order_exits_finalize_independently() {
         let backend = Arc::new(MockBackend::default());
         let mut normalizer = TraceNormalizer::new(backend);
@@ -2295,7 +2295,7 @@ mod tests {
         assert!(normalizer.state().pending.is_empty());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn start_ignores_repo_gitdir_hint_and_uses_cwd_for_worktree_resolution() {
         let backend = Arc::new(MockBackend::default());
         let mut normalizer = TraceNormalizer::new(backend.clone());
@@ -2369,7 +2369,7 @@ mod tests {
         assert_eq!(cmd.worktree.as_deref(), Some(worker_worktree.as_path()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn stash_target_oid_can_arrive_after_start_on_def_repo() {
         let backend = Arc::new(MockBackend::default());
         let mut normalizer = TraceNormalizer::new(backend);
@@ -2410,7 +2410,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn destructive_stash_can_normalize_without_pre_command_target_oid() {
         let backend = Arc::new(MockBackend::default());
         let mut normalizer = TraceNormalizer::new(backend);
@@ -2442,7 +2442,7 @@ mod tests {
         assert!(cmd.stash_target_oid.is_none());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn pre_repo_can_arrive_after_start_on_def_repo() {
         let backend = Arc::new(MockBackend::default());
         let mut normalizer = TraceNormalizer::new(backend);

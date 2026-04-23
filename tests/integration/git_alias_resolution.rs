@@ -17,7 +17,7 @@ fn resolve(repo: &TestRepo, argv: &[&str]) -> Option<ParsedGitInvocation> {
 
 // ─── Unit-style alias resolution tests ───────────────────────────────────────
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn alias_with_args_resolves_command_for_hooks() {
     let repo = TestRepo::new();
     repo.git(&["config", "alias.ci", "commit -v"]).unwrap();
@@ -31,7 +31,7 @@ fn alias_with_args_resolves_command_for_hooks() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn alias_chain_resolves_to_final_command() {
     let repo = TestRepo::new();
     repo.git(&["config", "alias.lg", "log --oneline"]).unwrap();
@@ -46,7 +46,7 @@ fn alias_chain_resolves_to_final_command() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn alias_cycle_returns_none() {
     let repo = TestRepo::new();
     repo.git(&["config", "alias.a", "b"]).unwrap();
@@ -55,7 +55,7 @@ fn alias_cycle_returns_none() {
     assert!(resolve(&repo, &["a"]).is_none());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn alias_self_recursive_with_args_returns_none() {
     let repo = TestRepo::new();
     repo.git(&["config", "alias.ls", "ls -la"]).unwrap();
@@ -63,7 +63,7 @@ fn alias_self_recursive_with_args_returns_none() {
     assert!(resolve(&repo, &["ls"]).is_none());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn shell_alias_returns_none() {
     let repo = TestRepo::new();
     repo.git(&["config", "alias.root", "!git rev-parse --show-toplevel"])
@@ -72,7 +72,7 @@ fn shell_alias_returns_none() {
     assert!(resolve(&repo, &["root"]).is_none());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn alias_parsing_respects_quotes() {
     let repo = TestRepo::new();
     repo.git(&[
@@ -94,7 +94,7 @@ fn alias_parsing_respects_quotes() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn non_alias_passthrough() {
     let repo = TestRepo::new();
     // No aliases configured — "commit" should pass through unchanged
@@ -107,7 +107,7 @@ fn non_alias_passthrough() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn global_args_preserved_after_alias_resolution() {
     let repo = TestRepo::new();
     repo.git(&["config", "alias.ci", "commit"]).unwrap();
@@ -132,7 +132,7 @@ fn global_args_preserved_after_alias_resolution() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn alias_to_non_hooked_command() {
     let repo = TestRepo::new();
     repo.git(&["config", "alias.s", "status"]).unwrap();
@@ -143,7 +143,7 @@ fn alias_to_non_hooked_command() {
     assert_eq!(resolved.command_args, vec!["--short".to_string()]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn alias_with_no_extra_args() {
     let repo = TestRepo::new();
     repo.git(&["config", "alias.ci", "commit"]).unwrap();
@@ -154,7 +154,7 @@ fn alias_with_no_extra_args() {
     assert!(resolved.command_args.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn alias_with_double_quotes() {
     let repo = TestRepo::new();
     repo.git(&[
@@ -175,7 +175,7 @@ fn alias_with_double_quotes() {
 
 // ─── E2E: aliased commit triggers hooks ──────────────────────────────────────
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn aliased_commit_triggers_authorship_hooks() {
     let repo = TestRepo::new();
 
@@ -205,7 +205,7 @@ fn aliased_commit_triggers_authorship_hooks() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn aliased_commit_with_extra_flags_triggers_authorship_hooks() {
     let repo = TestRepo::new();
 
@@ -236,7 +236,7 @@ fn aliased_commit_with_extra_flags_triggers_authorship_hooks() {
 
 // ─── E2E: aliased push triggers hooks ────────────────────────────────────────
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn aliased_push_succeeds_with_hooks() {
     let (local, _upstream) = TestRepo::new_with_remote();
 

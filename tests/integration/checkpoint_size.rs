@@ -2,7 +2,7 @@ use crate::repos::test_repo::TestRepo;
 use rand::{RngExt, distr::Alphanumeric};
 use std::{fs, time::Instant};
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_checkpoint_size_logging_large_ai_rewrites() {
     eprintln!("test_checkpoint_size_logging_large_ai_rewrites started...");
     let repo = TestRepo::new();

@@ -133,7 +133,7 @@ mod tests {
         PathBuf::from("/usr/local/bin/git-ai")
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_pi_extension_output_path() {
         assert_eq!(
             PiInstaller::extension_path(),
@@ -145,7 +145,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_pi_extension_content_contains_checkpoint_command() {
         let content = PiInstaller::generate_extension_content(&create_test_binary_path());
 
@@ -160,7 +160,7 @@ mod tests {
         assert!(content.contains(r#"const GIT_AI_BIN = '/usr/local/bin/git-ai'"#));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_pi_extension_content_contains_tool_normalization_table() {
         let content = PiInstaller::generate_extension_content(&create_test_binary_path());
 

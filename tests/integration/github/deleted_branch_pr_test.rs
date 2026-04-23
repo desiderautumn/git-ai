@@ -3,7 +3,7 @@ use crate::repos::test_file::ExpectedLineExt;
 
 // GitHub deletes the branch after the PR is merged, so we need to test that we can still access the PR commits using PR refs.
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore] // Ignored by default - run with `cargo test --test github_integration -- --ignored`
 fn test_squash_merge_with_deleted_branch() {
     let test_repo = match GitHubTestRepo::new("test_squash_merge_with_deleted_branch") {

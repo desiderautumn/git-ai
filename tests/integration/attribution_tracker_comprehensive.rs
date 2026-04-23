@@ -25,7 +25,7 @@ use git_ai::authorship::attribution_tracker::{
 // Basic Attribution Tests - Core functionality
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_attribution_new_creates_valid_range() {
     // Test that Attribution::new creates valid ranges
     let attr = Attribution::new(0, 10, "ai-1".to_string(), 1000);
@@ -37,7 +37,7 @@ fn test_attribution_new_creates_valid_range() {
     assert!(!attr.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_attribution_empty_range() {
     // Test empty attribution ranges
     let attr = Attribution::new(5, 5, "ai-1".to_string(), 1000);
@@ -45,7 +45,7 @@ fn test_attribution_empty_range() {
     assert_eq!(attr.len(), 0);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_attribution_overlaps_basic() {
     // Test basic overlap detection
     let attr = Attribution::new(10, 20, "ai-1".to_string(), 1000);
@@ -63,7 +63,7 @@ fn test_attribution_overlaps_basic() {
     assert!(!attr.overlaps(25, 30)); // Completely after
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_attribution_intersection() {
     // Test intersection computation
     let attr = Attribution::new(10, 20, "ai-1".to_string(), 1000);
@@ -76,7 +76,7 @@ fn test_attribution_intersection() {
     assert_eq!(attr.intersection(20, 30), None);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_line_attribution_new_creates_valid_range() {
     // Test that LineAttribution::new creates valid ranges
     let attr = LineAttribution::new(1, 10, "ai-1".to_string(), None);
@@ -88,14 +88,14 @@ fn test_line_attribution_new_creates_valid_range() {
     assert!(!attr.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_line_attribution_with_override() {
     // Test LineAttribution with override tracking
     let attr = LineAttribution::new(1, 5, "human-1".to_string(), Some("ai-1".to_string()));
     assert_eq!(attr.overrode, Some("ai-1".to_string()));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_line_attribution_overlaps() {
     // Test line attribution overlap detection
     let attr = LineAttribution::new(10, 20, "ai-1".to_string(), None);
@@ -109,7 +109,7 @@ fn test_line_attribution_overlaps() {
     assert!(!attr.overlaps(21, 30)); // After
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_line_attribution_intersection() {
     // Test line attribution intersection
     let attr = LineAttribution::new(10, 20, "ai-1".to_string(), None);
@@ -126,7 +126,7 @@ fn test_line_attribution_intersection() {
 // AttributionTracker Tests - Core update_attributions functionality
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_no_changes_preserves_attributions() {
     // Test that identical content preserves all attributions
     let tracker = AttributionTracker::new();
@@ -148,7 +148,7 @@ fn test_tracker_no_changes_preserves_attributions() {
     assert_eq!(new_attrs[2].author_id, "ai-2");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_simple_addition_at_end() {
     // Test adding new content at the end
     let tracker = AttributionTracker::new();
@@ -166,7 +166,7 @@ fn test_tracker_simple_addition_at_end() {
     assert!(new_attrs.iter().any(|a| a.author_id == "current-author"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_simple_addition_at_start() {
     // Test adding new content at the start
     let tracker = AttributionTracker::new();
@@ -193,7 +193,7 @@ fn test_tracker_simple_addition_at_start() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_simple_deletion_at_end() {
     // Test deleting content at the end
     let tracker = AttributionTracker::new();
@@ -220,7 +220,7 @@ fn test_tracker_simple_deletion_at_end() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_simple_deletion_at_start() {
     // Test deleting content at the start
     let tracker = AttributionTracker::new();
@@ -244,7 +244,7 @@ fn test_tracker_simple_deletion_at_start() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_modification_in_middle() {
     // Test modifying content in the middle
     let tracker = AttributionTracker::new();
@@ -272,7 +272,7 @@ fn test_tracker_modification_in_middle() {
 // Whitespace Handling Tests
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_whitespace_only_addition() {
     // Test that whitespace-only additions are handled correctly
     let tracker = AttributionTracker::new();
@@ -293,7 +293,7 @@ fn test_tracker_whitespace_only_addition() {
     assert!(new_attrs.iter().any(|a| a.author_id == "ai-2"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_whitespace_only_deletion() {
     // Test that whitespace-only deletions are handled correctly
     let tracker = AttributionTracker::new();
@@ -315,7 +315,7 @@ fn test_tracker_whitespace_only_deletion() {
     assert!(new_attrs.iter().any(|a| a.author_id == "ai-3"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_trailing_whitespace_changes() {
     // Test trailing whitespace changes
     let tracker = AttributionTracker::new();
@@ -336,7 +336,7 @@ fn test_tracker_trailing_whitespace_changes() {
     assert!(new_attrs.iter().any(|a| a.author_id == "ai-2"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_indentation_changes() {
     // Test indentation changes
     let tracker = AttributionTracker::new();
@@ -360,7 +360,7 @@ fn test_tracker_indentation_changes() {
 // Unicode and Special Character Tests
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_unicode_content() {
     // Test handling of Unicode characters
     let tracker = AttributionTracker::new();
@@ -377,7 +377,7 @@ fn test_tracker_unicode_content() {
     assert!(!new_attrs.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_emoji_content() {
     // Test handling of emoji characters
     let tracker = AttributionTracker::new();
@@ -393,7 +393,7 @@ fn test_tracker_emoji_content() {
     assert!(!new_attrs.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_mixed_unicode_content() {
     // Test mixed ASCII and Unicode content
     let tracker = AttributionTracker::new();
@@ -410,7 +410,7 @@ fn test_tracker_mixed_unicode_content() {
     assert!(new_attrs.iter().any(|a| a.author_id == "current-author"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_zero_width_unicode() {
     // Test zero-width Unicode characters
     let tracker = AttributionTracker::new();
@@ -426,7 +426,7 @@ fn test_tracker_zero_width_unicode() {
     assert!(!new_attrs.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_special_characters() {
     // Test special characters and escape sequences
     let tracker = AttributionTracker::new();
@@ -446,7 +446,7 @@ fn test_tracker_special_characters() {
 // Move Detection Tests
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_simple_line_move_within_file() {
     // Test detecting a simple line move within a file
     // Note: Move detection may not trigger for very small files or simple swaps
@@ -474,7 +474,7 @@ fn test_tracker_simple_line_move_within_file() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_block_move_within_file() {
     // Test detecting a block of lines moved within a file
     // Note: Move detection may not trigger for very small files
@@ -508,7 +508,7 @@ fn test_tracker_block_move_within_file() {
     assert!(has_original || has_current);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_partial_line_move() {
     // Test detecting partial content moved within a line
     let tracker = AttributionTracker::new();
@@ -525,7 +525,7 @@ fn test_tracker_partial_line_move() {
     assert!(!new_attrs.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_move_with_modification() {
     // Test a line that's both moved and modified
     let tracker = AttributionTracker::new();
@@ -546,7 +546,7 @@ fn test_tracker_move_with_modification() {
     assert!(new_attrs.iter().any(|a| a.author_id == "current-author"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_duplicate_line_handling() {
     // Test handling duplicate lines
     let tracker = AttributionTracker::new();
@@ -570,7 +570,7 @@ fn test_tracker_duplicate_line_handling() {
 // Mixed AI/Human Edit Tests
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_mixed_edit_same_line() {
     // Test when AI and human both edit the same line
     let tracker = AttributionTracker::new();
@@ -587,7 +587,7 @@ fn test_tracker_mixed_edit_same_line() {
     assert!(new_attrs.iter().any(|a| a.author_id == "human-1"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_ai_adds_human_deletes() {
     // Test AI adding content that human later deletes
     let tracker = AttributionTracker::new();
@@ -611,7 +611,7 @@ fn test_tracker_ai_adds_human_deletes() {
     assert!(attrs2.is_empty() || attrs2.iter().any(|a| a.author_id == "human-1"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_human_adds_ai_modifies() {
     // Test human adding content that AI later modifies
     let tracker = AttributionTracker::new();
@@ -632,7 +632,7 @@ fn test_tracker_human_adds_ai_modifies() {
     assert!(attrs2.iter().any(|a| a.author_id == "ai-1"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_interleaved_ai_human_edits() {
     // Test interleaved AI and human edits
     let tracker = AttributionTracker::new();
@@ -659,7 +659,7 @@ fn test_tracker_interleaved_ai_human_edits() {
 // Attribute Unattributed Ranges Tests
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_attribute_unattributed_fills_gaps() {
     // Test that unattributed ranges are filled correctly
     let tracker = AttributionTracker::new();
@@ -684,7 +684,7 @@ fn test_attribute_unattributed_fills_gaps() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_attribute_unattributed_no_gaps() {
     // Test when there are no gaps to fill
     let tracker = AttributionTracker::new();
@@ -699,7 +699,7 @@ fn test_attribute_unattributed_no_gaps() {
     assert_eq!(result[0].author_id, "ai-1");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_attribute_unattributed_multiple_gaps() {
     // Test multiple gaps in attribution
     let tracker = AttributionTracker::new();
@@ -736,7 +736,7 @@ fn test_attribute_unattributed_multiple_gaps() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_attribute_unattributed_empty_content() {
     // Test with empty content
     let tracker = AttributionTracker::new();
@@ -750,7 +750,7 @@ fn test_attribute_unattributed_empty_content() {
     assert!(result.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_attribute_unattributed_overlapping_attrs() {
     // Test with overlapping attributions
     let tracker = AttributionTracker::new();
@@ -777,7 +777,7 @@ fn test_attribute_unattributed_overlapping_attrs() {
 // Configuration Tests
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_with_default_config() {
     // Test creating tracker with default configuration
     let config = AttributionConfig::default();
@@ -796,7 +796,7 @@ fn test_tracker_with_default_config() {
 // Large File Performance Tests
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_large_file_many_lines() {
     // Test performance with a large number of lines
     let tracker = AttributionTracker::new();
@@ -834,7 +834,7 @@ fn test_tracker_large_file_many_lines() {
     assert!(new_attrs.len() > 900);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_large_file_long_lines() {
     // Test performance with very long lines
     let tracker = AttributionTracker::new();
@@ -854,7 +854,7 @@ fn test_tracker_large_file_long_lines() {
     assert!(result.is_ok());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_many_small_changes() {
     // Test many small changes throughout a file
     let tracker = AttributionTracker::new();
@@ -883,7 +883,7 @@ fn test_tracker_many_small_changes() {
 // Edge Cases and Error Handling
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_empty_old_content() {
     // Test with empty old content (new file)
     let tracker = AttributionTracker::new();
@@ -899,7 +899,7 @@ fn test_tracker_empty_old_content() {
     assert!(new_attrs.iter().all(|a| a.author_id == "author"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_empty_new_content() {
     // Test with empty new content (file deletion)
     let tracker = AttributionTracker::new();
@@ -915,7 +915,7 @@ fn test_tracker_empty_new_content() {
     assert!(new_attrs.is_empty() || new_attrs.iter().all(|a| a.is_empty()));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_both_empty() {
     // Test with both old and new content empty
     let tracker = AttributionTracker::new();
@@ -930,7 +930,7 @@ fn test_tracker_both_empty() {
     assert!(new_attrs.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_no_newline_at_end() {
     // Test content without trailing newline
     let tracker = AttributionTracker::new();
@@ -946,7 +946,7 @@ fn test_tracker_no_newline_at_end() {
     assert!(!new_attrs.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_only_newlines() {
     // Test content that's only newlines
     let tracker = AttributionTracker::new();
@@ -962,7 +962,7 @@ fn test_tracker_only_newlines() {
     assert!(!new_attrs.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_windows_line_endings() {
     // Test Windows line endings (CRLF)
     let tracker = AttributionTracker::new();
@@ -981,7 +981,7 @@ fn test_tracker_windows_line_endings() {
     assert!(!new_attrs.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_mixed_line_endings() {
     // Test mixed line endings
     let tracker = AttributionTracker::new();
@@ -1005,7 +1005,7 @@ fn test_tracker_mixed_line_endings() {
 // Integration Tests with TestRepo
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_attribution_through_commit() {
     // Integration test: attribution preservation through git commits
     let repo = TestRepo::new();
@@ -1031,7 +1031,7 @@ fn test_attribution_through_commit() {
     assert!(result.is_ok());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_attribution_through_multiple_commits() {
     // Test attribution preservation through multiple commits
     let repo = TestRepo::new();
@@ -1056,7 +1056,7 @@ fn test_attribution_through_multiple_commits() {
     assert!(result.is_ok());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_attribution_with_file_rename() {
     // Test that attribution survives file renames
     let repo = TestRepo::new();
@@ -1074,7 +1074,7 @@ fn test_attribution_with_file_rename() {
     assert!(new_file.file_path.exists());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_attribution_multifile_edit() {
     // Test attribution tracking across multiple files
     let repo = TestRepo::new();
@@ -1094,14 +1094,14 @@ fn test_attribution_multifile_edit() {
     assert!(result.is_ok());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_initial_attribution_timestamp() {
     // Test that INITIAL_ATTRIBUTION_TS constant is used correctly
     let attr = Attribution::new(0, 10, "ai-1".to_string(), INITIAL_ATTRIBUTION_TS);
     assert_eq!(attr.ts, 42);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_attribution_with_checkpoint() {
     // Test attribution behavior with checkpoints
     let repo = TestRepo::new();
@@ -1122,7 +1122,7 @@ fn test_attribution_with_checkpoint() {
 // Additional Edge Cases and Complex Scenarios
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_repeated_content() {
     // Test handling of repeated identical content blocks
     let tracker = AttributionTracker::new();
@@ -1143,7 +1143,7 @@ fn test_tracker_repeated_content() {
     assert!(new_attrs.iter().any(|a| a.author_id == "current"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_single_character_changes() {
     // Test single character insertions and deletions
     let tracker = AttributionTracker::new();
@@ -1159,7 +1159,7 @@ fn test_tracker_single_character_changes() {
     assert!(!new_attrs.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_very_long_single_line() {
     // Test handling of a very long single line
     let tracker = AttributionTracker::new();
@@ -1173,7 +1173,7 @@ fn test_tracker_very_long_single_line() {
     assert!(result.is_ok());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_binary_like_content() {
     // Test handling content that looks binary-ish but is still text
     let tracker = AttributionTracker::new();
@@ -1189,7 +1189,7 @@ fn test_tracker_binary_like_content() {
     assert!(!new_attrs.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_complete_file_replacement() {
     // Test completely replacing file content
     let tracker = AttributionTracker::new();
@@ -1209,7 +1209,7 @@ fn test_tracker_complete_file_replacement() {
     assert!(new_attrs.iter().any(|a| a.author_id == "current"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_alternating_small_edits() {
     // Test alternating character-level edits
     let tracker = AttributionTracker::new();
@@ -1225,7 +1225,7 @@ fn test_tracker_alternating_small_edits() {
     assert!(!new_attrs.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_nested_structures() {
     // Test code with nested structures
     let tracker = AttributionTracker::new();
@@ -1241,7 +1241,7 @@ fn test_tracker_nested_structures() {
     assert!(new_attrs.iter().any(|a| a.author_id == "current"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_surrounding_context_preserved() {
     // Test that surrounding context is preserved when middle is edited
     let tracker = AttributionTracker::new();
@@ -1264,7 +1264,7 @@ fn test_tracker_surrounding_context_preserved() {
     assert!(new_attrs.iter().any(|a| a.author_id == "current"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_line_attribution_zero_line_count() {
     // Test edge case of inverted line range
     let attr = LineAttribution::new(10, 5, "ai-1".to_string(), None);
@@ -1272,7 +1272,7 @@ fn test_line_attribution_zero_line_count() {
     assert!(attr.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_line_attribution_single_line() {
     // Test single line attribution
     let attr = LineAttribution::new(5, 5, "ai-1".to_string(), None);
@@ -1280,7 +1280,7 @@ fn test_line_attribution_single_line() {
     assert!(!attr.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_all_whitespace_file() {
     // Test a file that's entirely whitespace
     let tracker = AttributionTracker::new();
@@ -1296,7 +1296,7 @@ fn test_tracker_all_whitespace_file() {
     assert!(!new_attrs.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_massive_insertion() {
     // Test inserting a large block of text
     let tracker = AttributionTracker::new();
@@ -1321,7 +1321,7 @@ fn test_tracker_massive_insertion() {
     assert!(new_attrs.iter().any(|a| a.author_id == "current"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_massive_deletion() {
     // Test deleting a large block of text
     let tracker = AttributionTracker::new();
@@ -1351,7 +1351,7 @@ fn test_tracker_massive_deletion() {
     assert!(new_attrs.iter().any(|a| a.author_id == "ai-3"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_attribution_consistency_multiple_rounds() {
     // Test that multiple rounds of attribution produce consistent results
     let tracker = AttributionTracker::new();
@@ -1377,7 +1377,7 @@ fn test_attribution_consistency_multiple_rounds() {
     assert!(attrs3.iter().any(|a| a.author_id == "author3"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_attribution_through_complex_branch_workflow() {
     // Test attribution through a complex branching workflow
     let repo = TestRepo::new();
@@ -1405,7 +1405,7 @@ fn test_attribution_through_complex_branch_workflow() {
     assert!(content.contains("base"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_attribution_with_merge_conflict_markers() {
     // Test handling merge conflict markers as regular text
     let tracker = AttributionTracker::new();
@@ -1421,7 +1421,7 @@ fn test_attribution_with_merge_conflict_markers() {
     assert!(!new_attrs.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_symmetric_changes() {
     // Test symmetric changes (same edit at multiple locations)
     let tracker = AttributionTracker::new();
@@ -1442,7 +1442,7 @@ fn test_tracker_symmetric_changes() {
     assert!(new_attrs.iter().any(|a| a.author_id == "ai-2"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_regex_like_patterns() {
     // Test content with regex-like patterns
     let tracker = AttributionTracker::new();
@@ -1458,7 +1458,7 @@ fn test_tracker_regex_like_patterns() {
     assert!(!new_attrs.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_json_like_content() {
     // Test JSON-like structured content
     let tracker = AttributionTracker::new();
@@ -1474,7 +1474,7 @@ fn test_tracker_json_like_content() {
     assert!(!new_attrs.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_url_like_content() {
     // Test URLs and paths
     let tracker = AttributionTracker::new();
@@ -1490,7 +1490,7 @@ fn test_tracker_url_like_content() {
     assert!(!new_attrs.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_attribution_boundary_conditions() {
     // Test attribution at exact boundaries
     let attr = Attribution::new(10, 20, "ai-1".to_string(), 1000);
@@ -1503,7 +1503,7 @@ fn test_attribution_boundary_conditions() {
     assert!(attr.overlaps(19, 21)); // Crosses end boundary
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_line_attribution_boundary_conditions() {
     // Test line attribution at exact boundaries
     let attr = LineAttribution::new(10, 20, "ai-1".to_string(), None);
@@ -1516,7 +1516,7 @@ fn test_line_attribution_boundary_conditions() {
     assert!(attr.overlaps(19, 21)); // Crosses end
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tracker_progressive_file_growth() {
     // Test progressive file growth over multiple edits
     let tracker = AttributionTracker::new();
@@ -1547,7 +1547,7 @@ fn test_tracker_progressive_file_growth() {
     assert!(attrs.len() >= 10);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_attribution_with_stash() {
     // Test attribution behavior with git stash
     let repo = TestRepo::new();

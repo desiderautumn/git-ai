@@ -39,7 +39,7 @@ fn setup_squash_merge_with_local_only_base(repo: &TestRepo) -> (String, String, 
     (merge_sha, feature_sha, base_sha, base_ref)
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_local_merge_fails_when_base_ref_only_exists_locally() {
     let (repo, _upstream) = TestRepo::new_with_remote();
     let (merge_sha, head_sha, base_sha, base_ref) = setup_squash_merge_with_local_only_base(&repo);
@@ -68,7 +68,7 @@ fn test_ci_local_merge_fails_when_base_ref_only_exists_locally() {
     assert!(err.contains(&base_ref));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_local_merge_skip_fetch_base_allows_local_only_base_ref() {
     let (repo, _upstream) = TestRepo::new_with_remote();
     let (merge_sha, head_sha, base_sha, base_ref) = setup_squash_merge_with_local_only_base(&repo);
@@ -98,7 +98,7 @@ fn test_ci_local_merge_skip_fetch_base_allows_local_only_base_ref() {
     assert!(output.contains("Local CI (merge): no AI authorship to track"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_local_merge_skip_fetch_notes_works_without_origin_remote() {
     let repo = TestRepo::new();
     let file_path = repo.path().join("file.txt");
@@ -155,7 +155,7 @@ fn test_ci_local_merge_skip_fetch_notes_works_without_origin_remote() {
     assert!(output.contains("Local CI (merge): skipped fast-forward merge"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ci_local_merge_skip_fetch_base_fails_if_base_ref_missing_locally() {
     let repo = TestRepo::new();
     let file_path = repo.path().join("file.txt");

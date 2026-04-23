@@ -91,14 +91,14 @@ mod tests {
     use std::time::Duration;
 
     // Test error logging
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_log_error_no_panic() {
         use std::io;
         let error = io::Error::new(io::ErrorKind::NotFound, "test error");
         log_error(&error, None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_log_error_with_context() {
         use serde_json::json;
         use std::io;
@@ -108,19 +108,19 @@ mod tests {
     }
 
     // Test performance logging
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_log_performance_basic() {
         log_performance("test_operation", Duration::from_millis(100), None, None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_log_performance_with_context() {
         use serde_json::json;
         let context = json!({"files": 5, "lines": 100});
         log_performance("test_op", Duration::from_secs(1), Some(context), None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_log_performance_with_tags() {
         let mut tags = HashMap::new();
         tags.insert("command".to_string(), "commit".to_string());
@@ -129,31 +129,31 @@ mod tests {
     }
 
     // Test message logging
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_log_message_basic() {
         log_message("test message", "info", None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_log_message_with_context() {
         use serde_json::json;
         let context = json!({"user": "test", "action": "login"});
         log_message("user logged in", "info", Some(context));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_log_message_warning() {
         log_message("warning message", "warning", None);
     }
 
     // Test metrics logging
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_log_metrics_empty() {
         log_metrics(vec![]);
     }
 
     // Test constants
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_max_metrics_per_envelope() {
         assert_eq!(MAX_METRICS_PER_ENVELOPE, 250);
     }

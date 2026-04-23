@@ -183,7 +183,7 @@ mod tests {
         PathBuf::from("/usr/local/bin/git-ai")
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_opencode_install_plugin_creates_file_from_scratch() {
         let (_temp_dir, plugin_path) = setup_test_env();
         let binary_path = create_test_binary_path();
@@ -208,7 +208,7 @@ mod tests {
         assert!(content.contains(r#"const GIT_AI_BIN = "/usr/local/bin/git-ai""#));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_opencode_plugin_content_is_valid_typescript() {
         let content = OPENCODE_PLUGIN_CONTENT;
 
@@ -228,7 +228,7 @@ mod tests {
         assert!(content.contains("PostToolUse"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_opencode_plugin_placeholder_substitution() {
         let binary_path = create_test_binary_path();
         let content = OpenCodeInstaller::generate_plugin_content(&binary_path);
@@ -241,7 +241,7 @@ mod tests {
         assert!(content.contains("${GIT_AI_BIN} checkpoint opencode"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_opencode_plugin_skips_if_already_exists() {
         let (_temp_dir, plugin_path) = setup_test_env();
         let binary_path = create_test_binary_path();
@@ -260,7 +260,7 @@ mod tests {
         assert_eq!(content1, content2);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_opencode_plugin_updates_outdated_content() {
         let (_temp_dir, plugin_path) = setup_test_env();
         let binary_path = create_test_binary_path();
@@ -283,7 +283,7 @@ mod tests {
         assert!(!content_after.contains("OldPlugin"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_opencode_plugin_windows_path_escaping() {
         let binary_path = PathBuf::from(r"C:\Users\foo\.git-ai\bin\git-ai.exe");
         let content = OpenCodeInstaller::generate_plugin_content(&binary_path);
@@ -295,7 +295,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_opencode_plugin_handles_empty_directory() {
         let temp_dir = TempDir::new().unwrap();
         let binary_path = create_test_binary_path();

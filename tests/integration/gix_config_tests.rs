@@ -28,7 +28,7 @@ fn git_config_cli_regexp(
 // config_get_str tests
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_config_get_str_simple_value() {
     let repo = TestRepo::new();
     let key = "custom.key";
@@ -49,7 +49,7 @@ fn test_config_get_str_simple_value() {
     assert_eq!(result, "custom_value".to_string());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_config_get_str_subsection() {
     let repo = TestRepo::new();
     let key = "custom.sub.key";
@@ -69,7 +69,7 @@ fn test_config_get_str_subsection() {
     assert_eq!(result, git_config_result.trim());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_config_get_str_missing_key_returns_none() {
     let repo = TestRepo::new();
     let git_ai_repo =
@@ -80,7 +80,7 @@ fn test_config_get_str_missing_key_returns_none() {
     assert_eq!(result, None);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_config_get_str_special_chars() {
     let repo = TestRepo::new();
     let name_key = "user.name";
@@ -121,7 +121,7 @@ fn test_config_get_str_special_chars() {
 // config_get_regexp tests
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_config_get_regexp_subsection() {
     let repo = TestRepo::new();
     let key = "custom.sub.testkey";
@@ -141,7 +141,7 @@ fn test_config_get_regexp_subsection() {
     assert_eq!(result, git_config_result);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_config_get_regexp_no_matches() {
     let repo = TestRepo::new();
     let pattern = "nonexistant";
@@ -153,7 +153,7 @@ fn test_config_get_regexp_no_matches() {
     assert!(result.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_config_get_regexp_with_subsections() {
     let repo = TestRepo::new();
     let git_ai_repo =
@@ -187,7 +187,7 @@ fn test_config_get_regexp_with_subsections() {
     assert!(result.contains_key("remote.upstream.url"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_config_get_regexp_case_insensitive_keys() {
     let repo = TestRepo::new();
     let key = "Core.AutoCRLF";
@@ -216,7 +216,7 @@ fn test_config_get_regexp_case_insensitive_keys() {
 // Global config fallback tests
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore] // Temporarily ignored: Permission denied on global git config
 fn test_config_falls_back_to_global() {
     let repo = TestRepo::new();
@@ -242,7 +242,7 @@ fn test_config_falls_back_to_global() {
     assert_eq!(result, Some(global_value.to_string()));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_config_local_overrides_global() {
     let repo = TestRepo::new();
 
@@ -273,7 +273,7 @@ fn test_config_local_overrides_global() {
 // Bare repository tests
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_config_get_str_bare_repo() {
     let repo = TestRepo::new_bare();
     let key = "custom.baretest";
@@ -286,7 +286,7 @@ fn test_config_get_str_bare_repo() {
     assert_eq!(result, Some("bare_value".to_string()));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_config_get_regexp_bare_repo() {
     let repo = TestRepo::new_bare();
 

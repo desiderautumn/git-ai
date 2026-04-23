@@ -58,7 +58,7 @@ fn head_authorship_log(repo: &TestRepo) -> AuthorshipLog {
 /// used `set_contents` which always creates AI checkpoints even for all-human
 /// content — that made the test exercise a different (checkpoint-carrying) path
 /// rather than the actual user-reported scenario.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stale_prompt_not_carried_to_subsequent_human_commits() {
     let repo = TestRepo::new();
 
@@ -126,7 +126,7 @@ fn test_stale_prompt_not_carried_to_subsequent_human_commits() {
 }
 
 /// Complementary test: prompts ARE correctly included when AI lines are committed.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prompt_present_when_ai_lines_committed() {
     let repo = TestRepo::new();
 
@@ -148,7 +148,7 @@ fn test_prompt_present_when_ai_lines_committed() {
 
 /// Test that unstaged AI lines carry their prompt to INITIAL but don't pollute
 /// the committed note of a human-only commit.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_unstaged_ai_lines_prompt_not_in_human_commit_note() {
     let repo = TestRepo::new();
 
@@ -223,7 +223,7 @@ fn test_unstaged_ai_lines_prompt_not_in_human_commit_note() {
 /// 1. Commit A: AI lines committed + some AI lines left unstaged (→ INITIAL)
 /// 2. Commit B: human-only on a separate file (INITIAL carries the stale prompt)
 /// 3. Amend B with more human content → stale prompt must NOT appear in note
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_amend_stale_initial_prompt_not_in_amended_human_commit() {
     let repo = TestRepo::new();
 
@@ -288,7 +288,7 @@ fn test_amend_stale_initial_prompt_not_in_amended_human_commit() {
 /// 1. Commit A: AI writes code (committed — AI lines are in the tree)
 /// 2. Commit B: human-only on a different file
 /// 3. Amend B with more human content → A's prompt must NOT appear in B's note
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_amend_stale_blame_prompt_not_in_amended_human_commit() {
     let repo = TestRepo::new();
 
@@ -342,7 +342,7 @@ fn test_amend_stale_blame_prompt_not_in_amended_human_commit() {
 
 /// Complementary: amending a commit that actually has AI lines MUST keep those
 /// prompts — ensures we don't over-filter in the amend path.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_amend_preserves_prompt_when_ai_lines_survive() {
     let repo = TestRepo::new();
 
@@ -390,7 +390,7 @@ fn test_amend_preserves_prompt_when_ai_lines_survive() {
 ///    b. Commit B: human-only on a different file
 /// 3. Main advances
 /// 4. Rebase feature onto main → replayed B must NOT have A's prompt
-#[test]
+#[test] #[print_dur::print_dur]
 #[cfg(not(target_os = "windows"))]
 fn test_rebase_stale_prompt_not_in_rebased_human_commit() {
     let repo = TestRepo::new();
@@ -456,7 +456,7 @@ fn test_rebase_stale_prompt_not_in_rebased_human_commit() {
 
 /// Complementary: after a rebase, commits that DO have AI lines must keep their
 /// prompts — ensures rebase doesn't over-filter.
-#[test]
+#[test] #[print_dur::print_dur]
 #[cfg(not(target_os = "windows"))]
 fn test_rebase_preserves_prompt_when_ai_lines_present() {
     let repo = TestRepo::new();

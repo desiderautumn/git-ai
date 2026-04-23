@@ -670,7 +670,7 @@ mod tests {
     use super::*;
     use serde_json::Value;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_committed_values_builder() {
         let values = CommittedValues::new()
             .human_additions(50)
@@ -695,7 +695,7 @@ mod tests {
         assert_eq!(values.ai_additions, Some(Some(vec![100, 70])));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_committed_values_to_sparse() {
         use super::PosEncoded;
 
@@ -727,7 +727,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_committed_values_from_sparse() {
         use super::PosEncoded;
 
@@ -756,13 +756,13 @@ mod tests {
         assert_eq!(values.git_diff_deleted_lines, None); // not set
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_committed_values_event_id() {
         assert_eq!(CommittedValues::event_id(), MetricEventId::Committed);
         assert_eq!(CommittedValues::event_id() as u16, 1);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_committed_values_null_fields() {
         let values = CommittedValues::new()
             .human_additions_null()
@@ -774,7 +774,7 @@ mod tests {
         assert_eq!(values.tool_model_pairs, Some(None));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_committed_values_with_commit_info() {
         let values = CommittedValues::new()
             .human_additions(10)
@@ -795,7 +795,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_committed_values_roundtrip_with_new_fields() {
         use super::PosEncoded;
 
@@ -817,7 +817,7 @@ mod tests {
         assert_eq!(restored.commit_body, Some(None));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_agent_usage_values() {
         let values = AgentUsageValues::new();
         assert_eq!(AgentUsageValues::event_id(), MetricEventId::AgentUsage);
@@ -828,7 +828,7 @@ mod tests {
         assert!(sparse.is_empty());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_agent_usage_values_roundtrip() {
         use super::PosEncoded;
 
@@ -840,7 +840,7 @@ mod tests {
         assert!(PosEncoded::to_sparse(&restored).is_empty());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_install_hooks_values_builder() {
         let values = InstallHooksValues::new()
             .tool_id("cursor".to_string())
@@ -855,7 +855,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_install_hooks_values_with_null_message() {
         let values = InstallHooksValues::new()
             .tool_id("fork".to_string())
@@ -865,7 +865,7 @@ mod tests {
         assert_eq!(values.message, Some(None));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_install_hooks_values_to_sparse() {
         use super::PosEncoded;
 
@@ -884,7 +884,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_install_hooks_values_from_sparse() {
         use super::PosEncoded;
 
@@ -903,13 +903,13 @@ mod tests {
         assert_eq!(values.message, Some(None));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_install_hooks_event_id() {
         assert_eq!(InstallHooksValues::event_id(), MetricEventId::InstallHooks);
         assert_eq!(InstallHooksValues::event_id() as u16, 3);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_checkpoint_values_builder() {
         let values = CheckpointValues::new()
             .checkpoint_ts(1704067200)
@@ -929,7 +929,7 @@ mod tests {
         assert_eq!(values.lines_deleted_sloc, Some(Some(8)));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_checkpoint_values_with_nulls() {
         let values = CheckpointValues::new()
             .checkpoint_ts_null()
@@ -943,7 +943,7 @@ mod tests {
         assert_eq!(values.lines_added, Some(None));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_checkpoint_values_to_sparse() {
         use super::PosEncoded;
 
@@ -966,7 +966,7 @@ mod tests {
         assert_eq!(sparse.get("4"), Some(&Value::Number(20.into())));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_checkpoint_values_from_sparse() {
         use super::PosEncoded;
 
@@ -990,13 +990,13 @@ mod tests {
         assert_eq!(values.lines_deleted_sloc, Some(Some(12)));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_checkpoint_event_id() {
         assert_eq!(CheckpointValues::event_id(), MetricEventId::Checkpoint);
         assert_eq!(CheckpointValues::event_id() as u16, 4);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_committed_values_with_all_arrays() {
         let values = CommittedValues::new()
             .tool_model_pairs(vec!["all".to_string(), "cursor:gpt-4".to_string()])
@@ -1019,7 +1019,7 @@ mod tests {
         assert_eq!(values.time_waiting_for_ai, Some(Some(vec![5000, 3000])));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_committed_values_array_nulls() {
         let values = CommittedValues::new()
             .mixed_additions_null()

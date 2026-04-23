@@ -778,7 +778,7 @@ mod tests {
     use super::*;
     use std::fs;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_ensure_config_directory_creates_structure() {
         // Create a temporary repository
         let tmp_repo = TmpRepo::new().expect("Failed to create tmp repo");
@@ -813,7 +813,7 @@ mod tests {
         assert_eq!(content, "", "rewrite_log should be empty by default");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_ensure_config_directory_handles_existing_files() {
         // Create a temporary repository
         let tmp_repo = TmpRepo::new().expect("Failed to create tmp repo");
@@ -849,7 +849,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_persisted_working_log_blob_storage() {
         // Create a temporary repository
         let tmp_repo = TmpRepo::new().expect("Failed to create tmp repo");
@@ -894,7 +894,7 @@ mod tests {
         assert_eq!(sha, sha2, "Same content should produce same SHA");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_persisted_working_log_checkpoint_storage() {
         use crate::authorship::working_log::CheckpointKind;
 
@@ -954,7 +954,7 @@ mod tests {
         assert_eq!(checkpoints[1].author, "test-author-2");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_read_all_checkpoints_filters_incompatible_versions() {
         use crate::authorship::working_log::CheckpointKind;
 
@@ -1010,7 +1010,7 @@ mod tests {
         assert_eq!(checkpoints[0].api_version, CHECKPOINT_API_VERSION);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_persisted_working_log_reset() {
         use crate::authorship::working_log::CheckpointKind;
 
@@ -1084,7 +1084,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_working_log_for_base_commit_creates_directory() {
         // Create a temporary repository
         let tmp_repo = TmpRepo::new().expect("Failed to create tmp repo");
@@ -1123,7 +1123,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_write_initial_with_contents_persists_snapshot_blob() {
         let tmp_repo = TmpRepo::new().expect("Failed to create tmp repo");
         let repo_storage =
@@ -1166,7 +1166,7 @@ mod tests {
         assert_eq!(persisted, "fn main() {}\n");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_write_initial_empty_removes_existing_file() {
         let tmp_repo = TmpRepo::new().expect("Failed to create tmp repo");
         let repo_storage =
@@ -1200,7 +1200,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_pi_transcript_refetch_requires_session_path_metadata() {
         let tmp_repo = TmpRepo::new().expect("Failed to create tmp repo");
         let repo_storage =
@@ -1266,7 +1266,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_delete_working_log_archives_to_old_sha() {
         let tmp_repo = TmpRepo::new().expect("Failed to create tmp repo");
         let repo_storage =
@@ -1301,7 +1301,7 @@ mod tests {
         assert!(ts > 0);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_delete_working_log_replaces_existing_old_dir() {
         let tmp_repo = TmpRepo::new().expect("Failed to create tmp repo");
         let repo_storage =
@@ -1329,7 +1329,7 @@ mod tests {
         assert!(old_dir.join("checkpoints.jsonl").exists());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_prune_expired_old_working_logs_removes_expired() {
         let tmp_repo = TmpRepo::new().expect("Failed to create tmp repo");
         let repo_storage =
@@ -1372,7 +1372,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_prune_expired_old_working_logs_removes_missing_marker() {
         let tmp_repo = TmpRepo::new().expect("Failed to create tmp repo");
         let repo_storage =
@@ -1392,7 +1392,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_prune_does_not_touch_active_working_logs() {
         let tmp_repo = TmpRepo::new().expect("Failed to create tmp repo");
         let repo_storage =

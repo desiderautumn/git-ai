@@ -748,7 +748,7 @@ mod tests {
     // These tests pin the CORRECT behaviour (URL-derived name as the only positional)
     // and will FAIL until `takes_value` includes those options.
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn clone_positionals_skips_value_for_depth_flag() {
         let args = argv(&["--depth", "1", "https://example.com/org/test-repo.git"]);
         assert_eq!(
@@ -758,7 +758,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn clone_positionals_skips_value_for_jobs_short_flag() {
         let args = argv(&["-j", "4", "https://example.com/org/test-repo.git"]);
         assert_eq!(
@@ -768,7 +768,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn clone_positionals_skips_value_for_jobs_long_flag() {
         let args = argv(&["--jobs", "4", "https://example.com/org/test-repo.git"]);
         assert_eq!(
@@ -778,7 +778,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn clone_positionals_skips_value_for_config_short_flag() {
         let args = argv(&[
             "-c",
@@ -792,7 +792,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn clone_target_derives_name_from_url_with_depth_flag() {
         let backend = SystemGitBackend::new();
         let cwd = PathBuf::from("/home/testuser/projects");
@@ -819,7 +819,7 @@ mod tests {
     // These tests pin the CORRECT behaviour (return None so that the caller doesn't
     // attempt a meaningless filesystem lookup against an unresolvable relative path).
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn init_target_returns_none_for_implicit_dot_without_cwd_hint() {
         let backend = SystemGitBackend::new();
         let args = argv(&["git", "init"]);
@@ -830,7 +830,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn clone_target_returns_none_for_explicit_dot_without_cwd_hint() {
         let backend = SystemGitBackend::new();
         let args = argv(&["git", "clone", "https://example.com/org/test-repo.git", "."]);
@@ -841,7 +841,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn init_target_resolves_dot_when_cwd_hint_is_provided() {
         let backend = SystemGitBackend::new();
         // Use temp_dir() so the base path is absolute on all platforms (Windows
@@ -868,7 +868,7 @@ mod tests {
     // as its "value".  `git clone --reference /mirror --dissociate <url>` would leave
     // the positionals list empty and `clone_target()` would return None.
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn clone_positionals_treats_dissociate_as_boolean_not_value_taking() {
         let args = argv(&[
             "--reference",
@@ -883,7 +883,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn builtin_primary_command_skips_repository_lookup() {
         let backend = SystemGitBackend::new();
         let missing_worktree = PathBuf::from("/definitely/missing/git-ai-backend-test");
@@ -896,7 +896,7 @@ mod tests {
         assert_eq!(resolved.as_deref(), Some("commit"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn default_clone_target_from_url() {
         assert_eq!(
             default_clone_target_from_source("https://github.com/user/repo.git"),
@@ -912,7 +912,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn default_clone_target_from_windows_path() {
         assert_eq!(
             default_clone_target_from_source(r"C:\Users\runner\Temp\repo"),
@@ -928,7 +928,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn unknown_primary_command_still_requires_repository_lookup() {
         let backend = SystemGitBackend::new();
         let missing_worktree = PathBuf::from("/definitely/missing/git-ai-backend-test");

@@ -345,7 +345,7 @@ mod tests {
     use super::*;
     use insta::assert_debug_snapshot;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn parse_varied_porcelain_v2_records() {
         // Construct a blob of porcelain v2 entries covering tracked, renamed, copied,
         // unmerged, untracked, and ignored states with spaces and special characters.

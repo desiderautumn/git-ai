@@ -557,28 +557,28 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_summarize_rebase_args_continue_is_control_mode() {
         let parsed = make_rebase_invocation(&["--continue"]);
         let summary = summarize_rebase_args(&parsed);
         assert!(summary.is_control_mode);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_summarize_rebase_args_abort_is_control_mode() {
         let parsed = make_rebase_invocation(&["--abort"]);
         let summary = summarize_rebase_args(&parsed);
         assert!(summary.is_control_mode);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_summarize_rebase_args_skip_is_control_mode() {
         let parsed = make_rebase_invocation(&["--skip"]);
         let summary = summarize_rebase_args(&parsed);
         assert!(summary.is_control_mode);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_summarize_rebase_args_upstream_only() {
         let parsed = make_rebase_invocation(&["origin/main"]);
         let summary = summarize_rebase_args(&parsed);
@@ -586,7 +586,7 @@ mod tests {
         assert_eq!(summary.positionals, vec!["origin/main".to_string()]);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_summarize_rebase_args_upstream_and_branch() {
         let parsed = make_rebase_invocation(&["origin/main", "feature"]);
         let summary = summarize_rebase_args(&parsed);
@@ -597,7 +597,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_summarize_rebase_args_onto_flag() {
         let parsed = make_rebase_invocation(&["--onto", "abc123", "origin/main"]);
         let summary = summarize_rebase_args(&parsed);
@@ -606,7 +606,7 @@ mod tests {
         assert_eq!(summary.positionals, vec!["origin/main".to_string()]);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_summarize_rebase_args_onto_equals_flag() {
         let parsed = make_rebase_invocation(&["--onto=abc123", "origin/main"]);
         let summary = summarize_rebase_args(&parsed);
@@ -614,7 +614,7 @@ mod tests {
         assert_eq!(summary.onto_spec, Some("abc123".to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_summarize_rebase_args_root_flag() {
         let parsed = make_rebase_invocation(&["--root"]);
         let summary = summarize_rebase_args(&parsed);
@@ -622,7 +622,7 @@ mod tests {
         assert!(summary.has_root);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_summarize_rebase_args_interactive_with_upstream() {
         let parsed = make_rebase_invocation(&["-i", "origin/main"]);
         let summary = summarize_rebase_args(&parsed);
@@ -630,7 +630,7 @@ mod tests {
         assert_eq!(summary.positionals, vec!["origin/main".to_string()]);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_summarize_rebase_args_strategy_consumes_value() {
         let parsed = make_rebase_invocation(&["-s", "ours", "origin/main"]);
         let summary = summarize_rebase_args(&parsed);
@@ -638,7 +638,7 @@ mod tests {
         assert_eq!(summary.positionals, vec!["origin/main".to_string()]);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_build_rebase_commit_mappings_excludes_merge_commits_from_new_commits() {
         use crate::git::test_utils::TmpRepo;
 
@@ -707,7 +707,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_build_rebase_commit_mappings_excludes_merge_commits_when_onto_equals_merge_base() {
         use crate::git::test_utils::TmpRepo;
 
@@ -766,7 +766,7 @@ mod tests {
         assert_eq!(new_commits.len(), 1);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_build_rebase_commit_mappings_multi_commit_with_onto_equals_merge_base() {
         use crate::git::test_utils::TmpRepo;
 

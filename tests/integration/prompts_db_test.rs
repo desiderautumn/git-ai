@@ -121,7 +121,7 @@ fn verify_schema(conn: &Connection) {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_populate_creates_database_with_schema() {
     let mut repo = TestRepo::new_dedicated_daemon();
 
@@ -171,7 +171,7 @@ fn test_populate_creates_database_with_schema() {
     assert!(count > 0, "Should have at least one prompt");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_populate_with_since_filter() {
     let mut repo = TestRepo::new_dedicated_daemon();
 
@@ -216,7 +216,7 @@ fn test_populate_with_since_filter() {
     // how the since filter works with Unix timestamps.
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_populate_with_author_filter() {
     let mut repo = TestRepo::new_dedicated_daemon();
 
@@ -283,7 +283,7 @@ fn test_populate_with_author_filter() {
     assert_eq!(count, 0, "Should have no prompts for NonExistent User");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_populate_with_all_authors_flag() {
     let mut repo = TestRepo::new_dedicated_daemon();
 
@@ -324,7 +324,7 @@ fn test_populate_with_all_authors_flag() {
     assert!(count > 0, "Should have prompts with --all-authors");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_list_command_outputs_tsv() {
     let mut repo = TestRepo::new_dedicated_daemon();
 
@@ -377,7 +377,7 @@ fn test_list_command_outputs_tsv() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_list_command_with_custom_columns() {
     let mut repo = TestRepo::new_dedicated_daemon();
 
@@ -420,7 +420,7 @@ fn test_list_command_with_custom_columns() {
     assert!(header.contains("model"), "Header should contain model");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_next_command_returns_json() {
     let mut repo = TestRepo::new_dedicated_daemon();
 
@@ -476,7 +476,7 @@ fn test_next_command_returns_json() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_next_command_advances_pointer() {
     let mut repo = TestRepo::new_dedicated_daemon();
 
@@ -545,7 +545,7 @@ fn test_next_command_advances_pointer() {
     assert_eq!(pointer, seq_id2, "Pointer should be at second prompt");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_next_command_no_more_prompts() {
     let mut repo = TestRepo::new_dedicated_daemon();
 
@@ -592,7 +592,7 @@ fn test_next_command_no_more_prompts() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_reset_command() {
     let mut repo = TestRepo::new_dedicated_daemon();
 
@@ -662,7 +662,7 @@ fn test_reset_command() {
     assert_eq!(seq_id2, seq_id1, "Should get the same prompt after reset");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_count_command() {
     let mut repo = TestRepo::new_dedicated_daemon();
 
@@ -704,7 +704,7 @@ fn test_count_command() {
     assert_eq!(count, 3, "Should have 3 prompts");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_exec_command_select_query() {
     let mut repo = TestRepo::new_dedicated_daemon();
 
@@ -753,7 +753,7 @@ fn test_exec_command_select_query() {
     assert!(data.contains("test-model"), "Should contain test-model");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_exec_command_update_query() {
     let mut repo = TestRepo::new_dedicated_daemon();
 
@@ -800,7 +800,7 @@ fn test_exec_command_update_query() {
     assert_eq!(tool, "updated-tool", "Tool should be updated");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_database_not_found_error() {
     let repo = TestRepo::new_dedicated_daemon();
 
@@ -818,7 +818,7 @@ fn test_database_not_found_error() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_upsert_deduplicates_prompts() {
     let mut repo = TestRepo::new_dedicated_daemon();
 
@@ -859,7 +859,7 @@ fn test_upsert_deduplicates_prompts() {
     assert_eq!(count, 1, "Should have exactly one prompt (deduplicated)");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_populate_aggregates_from_git_notes() {
     let mut repo = TestRepo::new_dedicated_daemon();
 
@@ -912,7 +912,7 @@ fn test_populate_aggregates_from_git_notes() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prompt_messages_field_contains_transcript() {
     let mut repo = TestRepo::new_dedicated_daemon();
 
@@ -960,7 +960,7 @@ fn test_prompt_messages_field_contains_transcript() {
     let _json: Value = serde_json::from_str(&messages_str).expect("Messages should be valid JSON");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_accepted_rate_calculation() {
     let mut repo = TestRepo::new_dedicated_daemon();
 
@@ -1002,7 +1002,7 @@ fn test_accepted_rate_calculation() {
     assert!(result.is_ok(), "Should be able to query accepted_rate");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_timestamp_fields_populated() {
     let mut repo = TestRepo::new_dedicated_daemon();
 
@@ -1059,7 +1059,7 @@ fn test_timestamp_fields_populated() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_exec_invalid_sql_error() {
     let mut repo = TestRepo::new_dedicated_daemon();
 
@@ -1087,7 +1087,7 @@ fn test_exec_invalid_sql_error() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_commit_sha_field_populated() {
     let mut repo = TestRepo::new_dedicated_daemon();
 
@@ -1134,7 +1134,7 @@ fn test_commit_sha_field_populated() {
     assert_eq!(sha.len(), 40, "commit_sha should be a full 40-char SHA");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_workdir_field_populated() {
     let mut repo = TestRepo::new_dedicated_daemon();
 
@@ -1180,7 +1180,7 @@ fn test_workdir_field_populated() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_seq_id_auto_increments() {
     let mut repo = TestRepo::new_dedicated_daemon();
 
@@ -1230,7 +1230,7 @@ fn test_seq_id_auto_increments() {
     assert_eq!(seq_ids[2], 3, "Third seq_id should be 3");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_unique_constraint_on_id() {
     let mut repo = TestRepo::new_dedicated_daemon();
 

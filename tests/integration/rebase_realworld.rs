@@ -383,7 +383,7 @@ fn run_blame_api(
 // are identical between original and rebased commits (fast path fires).
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_fast_path_python_microservice_5_endpoints() {
     let repo = TestRepo::new();
 
@@ -762,7 +762,7 @@ fn test_fast_path_python_microservice_5_endpoints() {
     assert_accepted_lines_monotonic(&repo, "monotonic", &chain);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_fast_path_typescript_frontend_5_components() {
     let repo = TestRepo::new();
 
@@ -1109,7 +1109,7 @@ fn test_fast_path_typescript_frontend_5_components() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_fast_path_rust_library_5_modules() {
     let repo = TestRepo::new();
 
@@ -1257,7 +1257,7 @@ fn test_fast_path_rust_library_5_modules() {
     write_raw_commit(
         &repo,
         "tests/integration.rs",
-        "#[test]\nfn integration_placeholder() { assert!(true); }\n",
+        "#[test] #[print_dur::print_dur]\nfn integration_placeholder() { assert!(true); }\n",
         "test: add integration test placeholder",
     );
 
@@ -1487,7 +1487,7 @@ fn test_fast_path_rust_library_5_modules() {
     assert_accepted_lines_monotonic(&repo, "monotonic", &chain);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_fast_path_go_service_5_handlers() {
     let repo = TestRepo::new();
 
@@ -1832,7 +1832,7 @@ fn test_fast_path_go_service_5_handlers() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_fast_path_mixed_ai_and_human_feature_commits() {
     let repo = TestRepo::new();
 
@@ -2060,7 +2060,7 @@ fn test_fast_path_mixed_ai_and_human_feature_commits() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_fast_path_10_commits_javascript_utilities() {
     let repo = TestRepo::new();
 
@@ -2801,7 +2801,7 @@ fn test_fast_path_10_commits_javascript_utilities() {
     assert_accepted_lines_monotonic(&repo, "monotonic", &chain);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_fast_path_nested_directory_structure() {
     let repo = TestRepo::new();
 
@@ -3163,7 +3163,7 @@ fn test_fast_path_nested_directory_structure() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_fast_path_single_file_grows_across_commits() {
     let repo = TestRepo::new();
 
@@ -3453,7 +3453,7 @@ fn test_fast_path_single_file_grows_across_commits() {
     assert_note_files_exact(&repo, &chain[4], "sha4_files", &["service.py"]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_fast_path_feature_deletes_file_then_recreates() {
     let repo = TestRepo::new();
 
@@ -3813,7 +3813,7 @@ fn test_fast_path_feature_deletes_file_then_recreates() {
     // (removes temp_module.py) which has 0 accepted lines, breaking the monotonic property.
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_fast_path_multi_file_commits_2_files_each() {
     let repo = TestRepo::new();
 
@@ -4369,7 +4369,7 @@ fn test_fast_path_multi_file_commits_2_files_each() {
 ///
 /// Checks that accepted_lines at sha0 is ~8 (not the full-chain ~40), and that
 /// no future commit's AI lines appear in earlier notes.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_slow_path_python_utils_main_prepends_feature_appends() {
     let repo = TestRepo::new();
 
@@ -4673,7 +4673,7 @@ fn test_slow_path_python_utils_main_prepends_feature_appends() {
 /// Test 2: Rust lib.rs — upstream prepends crate-level doc and deny(warnings),
 /// feature appends impl blocks per commit AND adds a unique module file.
 /// Checks cumulative file sets and that future module files don't leak.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_slow_path_rust_lib_rs_main_prepends_feature_adds_impls() {
     let repo = TestRepo::new();
 
@@ -5153,7 +5153,7 @@ fn test_slow_path_rust_lib_rs_main_prepends_feature_adds_impls() {
 
 /// Test 3: TypeScript routes.ts — upstream prepends a comment, feature appends
 /// endpoint handler functions. Blame at sha0 checks human lines at top.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_slow_path_typescript_routes_main_prepends_feature_adds_handlers() {
     let repo = TestRepo::new();
 
@@ -5407,7 +5407,7 @@ fn test_slow_path_typescript_routes_main_prepends_feature_adds_handlers() {
 /// Test 4: TOML config file — upstream prepends production header, feature
 /// appends new TOML sections per commit. Each commit adds 8+ AI lines.
 /// Verifies no future sections bleed into earlier commit notes.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_slow_path_config_file_both_add_different_sections() {
     let repo = TestRepo::new();
 
@@ -5672,7 +5672,7 @@ fn test_slow_path_config_file_both_add_different_sections() {
 /// Test 5: 10-commit feature branch, all appending to src/engine.rs.
 /// Upstream prepends a 3-line license header. Verifies ALL 10 SHAs.
 /// Critical: sha0 must NOT have sha9's accepted_lines.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_slow_path_growing_shared_file_10_commits() {
     let repo = TestRepo::new();
 
@@ -5708,7 +5708,7 @@ fn test_slow_path_growing_shared_file_10_commits() {
     write_raw_commit(
         &repo,
         "tests/engine_test.rs",
-        "#[test]\nfn smoke_test() { assert!(true); }\n",
+        "#[test] #[print_dur::print_dur]\nfn smoke_test() { assert!(true); }\n",
         "main: add smoke test",
     );
 
@@ -6079,7 +6079,7 @@ fn test_slow_path_growing_shared_file_10_commits() {
 /// Test 6: Two shared files (models.py + services.py), both prepended by main.
 /// Feature appends AI lines to both in each commit. Checks cumulative lines
 /// across both files and no future-file leak.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_slow_path_multiple_shared_files_both_modified() {
     let repo = TestRepo::new();
 
@@ -6432,7 +6432,7 @@ fn test_slow_path_multiple_shared_files_both_modified() {
 
 /// Test 7: Mixed — core.rs is shared (slow path), plus unique files in C2 and C4.
 /// Critical: no future unique files leak into earlier notes.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_slow_path_mixed_unique_and_shared_files() {
     let repo = TestRepo::new();
 
@@ -6722,7 +6722,7 @@ fn test_slow_path_mixed_unique_and_shared_files() {
 /// C1 and C4 are human-only. C2, C3, C5 append AI to api.py.
 /// Checks that human-only commits don't introduce phantom attribution,
 /// and cumulative AI lines are stable across the human commits.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_slow_path_feature_has_human_commits_intermixed() {
     let repo = TestRepo::new();
 
@@ -6953,7 +6953,7 @@ fn test_slow_path_feature_has_human_commits_intermixed() {
 /// Test 9: Large function blocks with 20-line license header prepended.
 /// Feature adds 15-AI-line functions to processor.rs per commit.
 /// Line offsets shift by 20 after rebase. Blame at sha0 checks the offset.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_slow_path_large_function_blocks_line_offset() {
     let repo = TestRepo::new();
 
@@ -7011,7 +7011,7 @@ fn test_slow_path_large_function_blocks_line_offset() {
     write_raw_commit(
         &repo,
         "tests/smoke.rs",
-        "#[test] fn smoke() { assert!(true); }\n",
+        "#[test] #[print_dur::print_dur] fn smoke() { assert!(true); }\n",
         "main: add smoke test",
     );
     write_raw_commit(
@@ -7281,7 +7281,7 @@ fn test_slow_path_large_function_blocks_line_offset() {
 /// Test 10: Shared file grows AND each commit adds a unique helper file.
 /// shared_util.js prepended by main; feature appends 8 lines to it and
 /// creates helpers/X.js per commit. Checks cumulative file sets at every SHA.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_slow_path_file_grows_then_unique_files_each_commit() {
     let repo = TestRepo::new();
 
@@ -7778,7 +7778,7 @@ fn test_slow_path_file_grows_then_unique_files_each_commit() {
 /// the same file's header comment → conflict on C1.  Human resolves by keeping
 /// both parts.  C1' must have NO auth.py in its note; C2'–C5' accumulate other
 /// AI files (models.py, views.py, serializers.py, signals.py) normally.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_human_conflict_python_auth_c1_conflicts_rest_accumulate() {
     let repo = TestRepo::new();
 
@@ -7950,7 +7950,7 @@ fn test_human_conflict_python_auth_c1_conflicts_rest_accumulate() {
 /// mod declaration at the top → conflict on C2 (middle of chain).
 /// C1' is attributed normally; C2' loses lib.rs; C3'–C5' accumulate helpers.rs,
 /// types.rs, error.rs as expected.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_human_conflict_rust_lib_c2_conflicts_surroundings_ok() {
     let repo = TestRepo::new();
 
@@ -8096,7 +8096,7 @@ fn test_human_conflict_rust_lib_c2_conflicts_surroundings_ok() {
 /// Test 3: TypeScript api.ts — feature adds AI REST handlers, main adds an
 /// import at the top that conflicts with feature's C3.  C1'–C2' accumulate
 /// dto.ts and service.ts; C3' loses api.ts attribution; C4'–C5' add more files.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_human_conflict_typescript_api_c3_conflicts_accumulation_intact() {
     let repo = TestRepo::new();
 
@@ -8250,7 +8250,7 @@ fn test_human_conflict_typescript_api_c3_conflicts_accumulation_intact() {
 /// Test 4: Python models.py — main adds a class attribute that conflicts with
 /// feature's last commit (C5).  All prior AI commits C1'–C4' are attributed
 /// normally; C5' loses models.py.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_human_conflict_python_models_c5_last_commit_conflicts() {
     let repo = TestRepo::new();
 
@@ -8399,7 +8399,7 @@ fn test_human_conflict_python_models_c5_last_commit_conflicts() {
 /// Test 5: Rust src/config.rs — main and feature both extend a constants block,
 /// triggering a conflict on C2.  C1' has config.rs attributed; C2' loses it
 /// due to human resolution; C3'–C5' accumulate cache.rs, retry.rs, timeout.rs.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_human_conflict_rust_config_c2_loses_attribution_rest_accumulate() {
     let repo = TestRepo::new();
 
@@ -8553,7 +8553,7 @@ fn test_human_conflict_rust_config_c2_loses_attribution_rest_accumulate() {
 /// Main edits the same file causing conflict on C1; human resolves.
 /// No file is attributed in C1' (human resolved the only AI file in that commit).
 /// C2'–C5' accumulate actions.ts, selectors.ts, reducers.ts, hooks.ts.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_human_conflict_typescript_store_ai_created_file_conflict() {
     let repo = TestRepo::new();
 
@@ -8704,7 +8704,7 @@ fn test_human_conflict_typescript_store_ai_created_file_conflict() {
 /// Test 7: Rust src/server.rs — feature adds AI HTTP handler functions; main
 /// adds a conflicting use declaration in C4.  C1'–C3' and C5' keep their AI
 /// attribution; C4' (server.rs) is dropped due to human resolution.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_human_conflict_rust_server_c4_human_resolved_c5_accumulates() {
     let repo = TestRepo::new();
 
@@ -8870,7 +8870,7 @@ fn test_human_conflict_rust_server_c4_human_resolved_c5_accumulates() {
 /// Test 8: Python pipeline.py — feature starts from a mixed human+AI baseline,
 /// then modifies the same file as main in C3.  C1' + C2' accumulate other AI
 /// files; C3' loses pipeline.py; C4'–C5' add transform.py and sink.py.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_human_conflict_python_pipeline_mixed_baseline_c3_conflict() {
     let repo = TestRepo::new();
 
@@ -9032,7 +9032,7 @@ fn test_human_conflict_python_pipeline_mixed_baseline_c3_conflict() {
 /// fs::write + checkpoint), main adds a style import that conflicts on C2.
 /// C1' accumulates hooks.ts; C2' loses component.tsx; C3'–C5' add context.ts,
 /// provider.tsx, types.ts normally.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_human_conflict_typescript_component_ai_created_c2_conflict() {
     let repo = TestRepo::new();
 
@@ -9185,7 +9185,7 @@ fn test_human_conflict_typescript_component_ai_created_c2_conflict() {
 /// files; main edits shared.rs causing conflict on C4 (middle of a 7-commit
 /// chain).  Verifies 7-element chain: C1'–C3' accumulate normally, C4' loses
 /// shared.rs, C5'–C7' continue accumulating math.rs, string_utils.rs, io.rs.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_human_conflict_rust_7_commit_chain_c4_conflict_surroundings_intact() {
     let repo = TestRepo::new();
 
@@ -9379,7 +9379,7 @@ fn test_human_conflict_rust_7_commit_chain_c4_conflict_surroundings_intact() {
 /// different content.  After rebase, the conflict commit should have NO note
 /// (commit_has_attestations=false → else branch returns None).
 /// Subsequent AI commits should be unaffected.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_human_conflict_resolves_all_ai_lines_replaced() {
     let repo = TestRepo::new();
 
@@ -9506,7 +9506,7 @@ fn test_human_conflict_resolves_all_ai_lines_replaced() {
 /// note must still be remapped to the rebased commit.  Before this fix the slow path
 /// produced no note (content-diff found no matching AI lines) and the metadata-only
 /// remap skipped notes with real attestations, silently losing provenance.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_human_conflict_ai_file_is_conflict_file_note_preserved() {
     let repo = TestRepo::new();
 
@@ -9580,7 +9580,7 @@ fn test_human_conflict_ai_file_is_conflict_file_note_preserved() {
 /// notes.  Before the fix, the conflict commit's note was lost (content-diff
 /// produced nothing for the manually resolved file and the fallback remap was
 /// too narrow).
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_human_conflict_multicommit_chain_middle_conflict_all_notes_preserved() {
     let repo = TestRepo::new();
 
@@ -9692,7 +9692,7 @@ fn test_human_conflict_multicommit_chain_middle_conflict_all_notes_preserved() {
 /// main changes it to 120 → conflict.  AI resolves to TIMEOUT = 90.
 /// C1' has users.py, C2' adds products.py, C3' adds config.py (AI-resolved),
 /// C4' adds orders.py, C5' adds payments.py.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_conflict_ai_resolves_timeout_constant() {
     let repo = TestRepo::new();
 
@@ -9902,7 +9902,7 @@ fn test_conflict_ai_resolves_timeout_constant() {
 /// Test 2: compute.rs function body — feature (C2) implements a function with
 /// 10 AI lines, main also implements it differently (conflict).  AI resolution
 /// produces 15 merged lines (all .ai()).  Extra lines from resolution are counted.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_conflict_ai_resolves_with_added_extra_lines() {
     let repo = TestRepo::new();
 
@@ -9937,7 +9937,7 @@ fn test_conflict_ai_resolves_with_added_extra_lines() {
     write_raw_commit(
         &repo,
         "src/tests.rs",
-        "#[cfg(test)]\nmod tests { #[test] fn it_works() {} }\n",
+        "#[cfg(test)]\nmod tests { #[test] #[print_dur::print_dur] fn it_works() {} }\n",
         "main: add tests",
     );
     write_raw_commit(
@@ -10122,7 +10122,7 @@ fn test_conflict_ai_resolves_with_added_extra_lines() {
 /// `result.append(i * 2)` survive the content match — 4 lines.  The newly
 /// introduced lines (`# AI merged`, `label = `, `return result, label`) have no
 /// entry in `original_head_line_to_author` and therefore receive human attribution.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_conflict_ai_resolves_preserving_human_context_lines() {
     let repo = TestRepo::new();
 
@@ -10344,7 +10344,7 @@ fn test_conflict_ai_resolves_preserving_human_context_lines() {
 /// Test 4: version.py — conflict is on C1 (the VERY FIRST feature commit).
 /// Feature changes VERSION to "2.0", main changes it to "1.5".
 /// AI resolves to "2.1".  C2–C5 accumulate other files normally.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_conflict_ai_resolves_on_first_commit() {
     let repo = TestRepo::new();
 
@@ -10542,7 +10542,7 @@ fn test_conflict_ai_resolves_on_first_commit() {
 /// Test 5: schema.rs max_connections — conflict is on C5 (LAST feature commit).
 /// C1–C4 accumulate model_*.rs files cleanly.  C5 modifies schema.rs
 /// max_connections constant; main also modifies same constant.  AI resolves.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_conflict_ai_resolves_on_last_commit() {
     let repo = TestRepo::new();
 
@@ -10748,7 +10748,7 @@ fn test_conflict_ai_resolves_on_last_commit() {
 /// Test 6: config.py AND settings.py both conflict in C3.
 /// C3 AI changes a line in both files; main also changes same lines.
 /// AI resolves both conflicts.  Note for C3' has both files.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_conflict_ai_resolves_multiple_files_in_same_commit() {
     let repo = TestRepo::new();
 
@@ -10974,7 +10974,7 @@ fn test_conflict_ai_resolves_multiple_files_in_same_commit() {
 /// Test 7: dispatcher.py — conflict on C2.  C3 and C4 also modify dispatcher.py
 /// (no further conflicts).  AI resolves C2 with 12-line process() implementation.
 /// Subsequent commits append more methods to dispatcher.py.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_conflict_ai_resolves_then_more_ai_builds_on_result() {
     let repo = TestRepo::new();
 
@@ -11175,7 +11175,7 @@ fn test_conflict_ai_resolves_then_more_ai_builds_on_result() {
 /// Test 8: models.rs struct fields — feature (C3) AI adds 4 new fields,
 /// main human adds 2 different fields.  AI resolution merges all 8 fields.
 /// The merged struct body is all .ai().
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_conflict_ai_resolves_rust_struct_fields() {
     let repo = TestRepo::new();
 
@@ -11399,7 +11399,7 @@ fn test_conflict_ai_resolves_rust_struct_fields() {
 /// function body; main also implements the same function (12 lines).
 /// AI resolution produces a 25-line merged implementation (all .ai()).
 /// Non-conflict commits: C1 models.py, C2 validators.py, C3 exceptions.py, C5 utils.py.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_conflict_ai_resolves_complex_function_with_error_handling() {
     let repo = TestRepo::new();
 
@@ -11661,7 +11661,7 @@ fn test_conflict_ai_resolves_complex_function_with_error_handling() {
 /// Verifies that after two sequential conflicts in the same rebase,
 /// AI attribution is tracked correctly: C2' gets AI config_a.py; C4' does NOT
 /// get AI config_b.py (human resolved).
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_conflict_mixed_ai_and_human_resolve_different_commits() {
     let repo = TestRepo::new();
 
@@ -11873,7 +11873,7 @@ fn test_conflict_mixed_ai_and_human_resolve_different_commits() {
 ///   - The working-log fallback must fire and attribute `= 45` as AI.
 ///
 /// Regression: if `build_note_from_conflict_wl` were removed, C1' would have no note.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_conflict_working_log_is_sole_attribution_source() {
     let repo = TestRepo::new();
 
@@ -11978,7 +11978,7 @@ fn test_conflict_working_log_is_sole_attribution_source() {
 ///   - Content-diff sees `MAX_RETRIES = 5` (original) == `MAX_RETRIES = 5` (resolved) → Equal.
 ///   - `commit_has_attestations = true` → content-diff path wins; working-log is not consulted.
 ///   - Result: C1' note attributes `MAX_RETRIES = 5` as AI regardless of path.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_conflict_content_diff_wins_over_working_log() {
     let repo = TestRepo::new();
 
@@ -12080,7 +12080,7 @@ fn test_conflict_content_diff_wins_over_working_log() {
 /// main changes it to 120 → conflict.  AI resolves to TIMEOUT = 90.
 /// C1' has users.py, C2' adds products.py, C3' adds config.py (AI-resolved),
 /// C4' adds orders.py, C5' adds payments.py.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_conflict_ai_resolves_timeout_constant_standard_human() {
     let repo = TestRepo::new();
 
@@ -12272,7 +12272,7 @@ fn test_conflict_ai_resolves_timeout_constant_standard_human() {
 /// `result.append(i * 2)` survive the content match — 4 lines.  The newly
 /// introduced lines (`# AI merged`, `label = `, `return result, label`) have no
 /// entry in `original_head_line_to_author` and therefore receive human attribution.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_conflict_ai_resolves_preserving_human_context_lines_standard_human() {
     let repo = TestRepo::new();
 
@@ -12470,7 +12470,7 @@ fn test_conflict_ai_resolves_preserving_human_context_lines_standard_human() {
 /// Test 4: version.py — conflict is on C1 (the VERY FIRST feature commit).
 /// Feature changes VERSION to "2.0", main changes it to "1.5".
 /// AI resolves to "2.1".  C2–C5 accumulate other files normally.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_conflict_ai_resolves_on_first_commit_standard_human() {
     let repo = TestRepo::new();
 
@@ -12644,7 +12644,7 @@ fn test_conflict_ai_resolves_on_first_commit_standard_human() {
 /// Test 5: schema.rs max_connections — conflict is on C5 (LAST feature commit).
 /// C1–C4 accumulate model_*.rs files cleanly.  C5 modifies schema.rs
 /// max_connections constant; main also modifies same constant.  AI resolves.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_conflict_ai_resolves_on_last_commit_standard_human() {
     let repo = TestRepo::new();
 
@@ -12826,7 +12826,7 @@ fn test_conflict_ai_resolves_on_last_commit_standard_human() {
 /// Test 6: config.py AND settings.py both conflict in C3.
 /// C3 AI changes a line in both files; main also changes same lines.
 /// AI resolves both conflicts.  Note for C3' has both files.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_conflict_ai_resolves_multiple_files_in_same_commit_standard_human() {
     let repo = TestRepo::new();
 
@@ -13028,7 +13028,7 @@ fn test_conflict_ai_resolves_multiple_files_in_same_commit_standard_human() {
 /// Test 7: dispatcher.py — conflict on C2.  C3 and C4 also modify dispatcher.py
 /// (no further conflicts).  AI resolves C2 with 12-line process() implementation.
 /// Subsequent commits append more methods to dispatcher.py.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_conflict_ai_resolves_then_more_ai_builds_on_result_standard_human() {
     let repo = TestRepo::new();
 
@@ -13205,7 +13205,7 @@ fn test_conflict_ai_resolves_then_more_ai_builds_on_result_standard_human() {
 /// Test 8: models.rs struct fields — feature (C3) AI adds 4 new fields,
 /// main human adds 2 different fields.  AI resolution merges all 8 fields.
 /// The merged struct body is all .ai().
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_conflict_ai_resolves_rust_struct_fields_standard_human() {
     let repo = TestRepo::new();
 
@@ -13405,7 +13405,7 @@ fn test_conflict_ai_resolves_rust_struct_fields_standard_human() {
 /// function body; main also implements the same function (12 lines).
 /// AI resolution produces a 25-line merged implementation (all .ai()).
 /// Non-conflict commits: C1 models.py, C2 validators.py, C3 exceptions.py, C5 utils.py.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_conflict_ai_resolves_complex_function_with_error_handling_standard_human() {
     let repo = TestRepo::new();
 

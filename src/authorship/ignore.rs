@@ -355,7 +355,7 @@ mod tests {
         )
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn defaults_include_snapshot_and_lock_patterns() {
         let defaults = default_ignore_patterns();
         assert!(defaults.contains(&"**/*.snap".to_string()));
@@ -363,7 +363,7 @@ mod tests {
         assert!(defaults.contains(&"*.generated.*".to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn defaults_ignore_drizzle_meta_files() {
         let defaults = default_ignore_patterns();
         let matcher = build_ignore_matcher(&defaults);
@@ -387,7 +387,7 @@ mod tests {
         ));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn defaults_do_not_ignore_generic_snapshots_directories() {
         let defaults = default_ignore_patterns();
         let matcher = build_ignore_matcher(&defaults);
@@ -406,7 +406,7 @@ mod tests {
         ));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn defaults_ignore_nested_named_lockfiles() {
         let defaults = default_ignore_patterns();
         let matcher = build_ignore_matcher(&defaults);
@@ -425,7 +425,7 @@ mod tests {
         ));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn should_ignore_file_matches_path_and_filename() {
         let patterns = vec!["*.lock".to_string(), "**/node_modules/**".to_string()];
         let matcher = build_ignore_matcher(&patterns);
@@ -448,7 +448,7 @@ mod tests {
         assert!(!should_ignore_file_with_matcher("src/main.rs", &matcher));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn loads_positive_linguist_generated_only() {
         let tmp_repo = TmpRepo::new().expect("tmp repo");
         tmp_repo
@@ -481,7 +481,7 @@ generated\\ files/** linguist-generated=true
         assert!(!patterns.contains(&"other/**".to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn ignores_gitattributes_macro_definitions() {
         let tmp_repo = TmpRepo::new().expect("tmp repo");
         tmp_repo
@@ -505,7 +505,7 @@ generated/** linguist-generated=true
         assert!(!patterns.contains(&"[attr]generated".to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn invalid_patterns_fallback_to_exact_path_or_filename() {
         let patterns = vec!["[".to_string(), "docs/[bad".to_string()];
         let matcher = build_ignore_matcher(&patterns);
@@ -515,7 +515,7 @@ generated/** linguist-generated=true
         assert!(!should_ignore_file_with_matcher("docs/good.rs", &matcher));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn loads_linguist_generated_from_bare_repo_head() {
         let (_tmp, bare_repo) = make_bare_repo(
             Some("generated/** linguist-generated=true\nmanual/** linguist-generated=false\n"),
@@ -527,7 +527,7 @@ generated/** linguist-generated=true
         assert!(!patterns.contains(&"manual/**".to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn bare_repo_does_not_read_parent_directory_gitattributes() {
         let (_tmp, bare_repo) = make_bare_repo(None, Some("leak/** linguist-generated=true\n"));
 
@@ -535,7 +535,7 @@ generated/** linguist-generated=true
         assert!(patterns.is_empty());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn loads_git_ai_ignore_patterns_from_workdir() {
         let tmp_repo = TmpRepo::new().expect("tmp repo");
         tmp_repo
@@ -562,7 +562,7 @@ assets/images/**
         assert!(patterns.contains(&"assets/images/**".to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn git_ai_ignore_skips_comments_and_blank_lines() {
         let tmp_repo = TmpRepo::new().expect("tmp repo");
         tmp_repo
@@ -588,7 +588,7 @@ build/**
         assert!(patterns.contains(&"build/**".to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn git_ai_ignore_deduplicates_patterns() {
         let tmp_repo = TmpRepo::new().expect("tmp repo");
         tmp_repo
@@ -610,7 +610,7 @@ docs/**
         assert_eq!(patterns.len(), 2);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn git_ai_ignore_returns_empty_when_file_missing() {
         let tmp_repo = TmpRepo::new().expect("tmp repo");
         tmp_repo
@@ -622,7 +622,7 @@ docs/**
         assert!(patterns.is_empty());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn effective_patterns_include_git_ai_ignore() {
         let tmp_repo = TmpRepo::new().expect("tmp repo");
         tmp_repo
@@ -639,7 +639,7 @@ docs/**
         assert!(patterns.contains(&"*.lock".to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn effective_patterns_union_gitattributes_and_git_ai_ignore() {
         let tmp_repo = TmpRepo::new().expect("tmp repo");
         tmp_repo
@@ -665,7 +665,7 @@ docs/**
         assert!(patterns.contains(&"*.lock".to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn effective_patterns_union_git_ai_ignore_and_user_patterns() {
         let tmp_repo = TmpRepo::new().expect("tmp repo");
         tmp_repo
@@ -724,7 +724,7 @@ docs/**
         )
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn loads_git_ai_ignore_from_bare_repo_head() {
         let (_tmp, bare_repo) = make_bare_repo_with_ignore(None, Some("docs/**\n*.pdf\n"));
 
@@ -733,7 +733,7 @@ docs/**
         assert!(patterns.contains(&"*.pdf".to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn bare_repo_returns_empty_when_git_ai_ignore_missing() {
         let (_tmp, bare_repo) = make_bare_repo_with_ignore(None, None);
 
@@ -741,7 +741,7 @@ docs/**
         assert!(patterns.is_empty());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn bare_repo_effective_patterns_union_gitattributes_and_git_ai_ignore() {
         let (_tmp, bare_repo) = make_bare_repo_with_ignore(
             Some("generated/** linguist-generated=true\n"),
@@ -754,7 +754,7 @@ docs/**
         assert!(patterns.contains(&"*.lock".to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn defaults_include_protobuf_generated_patterns() {
         let defaults = default_ignore_patterns();
         // Objective-C protobuf
@@ -774,7 +774,7 @@ docs/**
         assert!(defaults.contains(&"*.pb.dart".to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn defaults_ignore_protobuf_generated_files() {
         let defaults = default_ignore_patterns();
         let matcher = build_ignore_matcher(&defaults);

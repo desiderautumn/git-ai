@@ -139,7 +139,7 @@ fn run_iteration(
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore] // Run with --ignored flag since this is a benchmark
 fn test_simple_ai_checkpoint_and_commit() {
     const NUM_ITERATIONS: u32 = 10;

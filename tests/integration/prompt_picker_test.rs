@@ -79,7 +79,7 @@ fn populate_test_database(_repo: &TestRepo, prompts: Vec<PromptDbRecord>) {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prompt_record_first_message_snippet_user_message() {
     let prompt = create_test_prompt(
         "test1",
@@ -94,7 +94,7 @@ fn test_prompt_record_first_message_snippet_user_message() {
     assert_eq!(snippet, "This is a user message");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prompt_record_first_message_snippet_truncation() {
     let long_message =
         "This is a very long message that should be truncated at the specified length";
@@ -113,7 +113,7 @@ fn test_prompt_record_first_message_snippet_truncation() {
     assert!(snippet.starts_with("This is a very long"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prompt_record_first_message_snippet_unicode_boundary() {
     // Test with emoji/unicode characters
     let message = "Hello 🎉 World! This is a test with unicode characters";
@@ -133,7 +133,7 @@ fn test_prompt_record_first_message_snippet_unicode_boundary() {
     assert!(snippet.ends_with("..."));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prompt_record_first_message_snippet_no_user_message() {
     let mut transcript = AiTranscript::new();
     transcript.add_message(Message::assistant(
@@ -168,7 +168,7 @@ fn test_prompt_record_first_message_snippet_no_user_message() {
     assert_eq!(snippet, "Only assistant message");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prompt_record_first_message_snippet_empty_transcript() {
     let transcript = AiTranscript::new();
 
@@ -199,7 +199,7 @@ fn test_prompt_record_first_message_snippet_empty_transcript() {
     assert_eq!(snippet, "(No messages)");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prompt_record_message_count() {
     let prompt = create_test_prompt(
         "test1",
@@ -213,7 +213,7 @@ fn test_prompt_record_message_count() {
     assert_eq!(prompt.message_count(), 2);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prompt_record_message_count_empty() {
     let transcript = AiTranscript::new();
     let now = std::time::SystemTime::now()
@@ -242,7 +242,7 @@ fn test_prompt_record_message_count_empty() {
     assert_eq!(prompt.message_count(), 0);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prompt_record_relative_time_seconds() {
     let now = std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)
@@ -263,7 +263,7 @@ fn test_prompt_record_relative_time_seconds() {
     assert!(time_str.contains("30 second"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prompt_record_relative_time_minutes() {
     let now = std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)
@@ -284,7 +284,7 @@ fn test_prompt_record_relative_time_minutes() {
     assert!(time_str.contains("5 minute"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prompt_record_relative_time_hours() {
     let now = std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)
@@ -305,7 +305,7 @@ fn test_prompt_record_relative_time_hours() {
     assert!(time_str.contains("2 hour"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prompt_record_relative_time_days() {
     let now = std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)
@@ -326,7 +326,7 @@ fn test_prompt_record_relative_time_days() {
     assert!(time_str.contains("3 day"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prompt_record_relative_time_weeks() {
     let now = std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)
@@ -347,7 +347,7 @@ fn test_prompt_record_relative_time_weeks() {
     assert!(time_str.contains("2 week"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prompt_record_relative_time_months() {
     let now = std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)
@@ -368,7 +368,7 @@ fn test_prompt_record_relative_time_months() {
     assert!(time_str.contains("month"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prompt_record_relative_time_years() {
     let now = std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)
@@ -389,7 +389,7 @@ fn test_prompt_record_relative_time_years() {
     assert!(time_str.contains("year"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prompt_record_relative_time_singular() {
     let now = std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)
@@ -423,7 +423,7 @@ fn test_prompt_record_relative_time_singular() {
     assert!(!prompt.relative_time().contains("days"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_database_list_prompts_no_filter() {
     let repo = TestRepo::new();
 
@@ -469,7 +469,7 @@ fn test_database_list_prompts_no_filter() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_database_list_prompts_with_workdir_filter() {
     let repo = TestRepo::new();
 
@@ -517,7 +517,7 @@ fn test_database_list_prompts_with_workdir_filter() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_database_list_prompts_pagination() {
     let repo = TestRepo::new();
 
@@ -564,7 +564,7 @@ fn test_database_list_prompts_pagination() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_database_search_prompts_finds_matches() {
     let repo = TestRepo::new();
 
@@ -620,7 +620,7 @@ fn test_database_search_prompts_finds_matches() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_database_search_prompts_case_insensitive() {
     let repo = TestRepo::new();
 
@@ -656,7 +656,7 @@ fn test_database_search_prompts_case_insensitive() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_database_search_prompts_no_matches() {
     let repo = TestRepo::new();
 
@@ -690,7 +690,7 @@ fn test_database_search_prompts_no_matches() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_database_search_prompts_with_workdir_filter() {
     let repo = TestRepo::new();
 
@@ -738,7 +738,7 @@ fn test_database_search_prompts_with_workdir_filter() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_database_search_prompts_pagination() {
     let repo = TestRepo::new();
 
@@ -786,7 +786,7 @@ fn test_database_search_prompts_pagination() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prompt_record_with_all_message_types() {
     let mut transcript = AiTranscript::new();
     transcript.add_message(Message::user("User question".to_string(), None));
@@ -825,7 +825,7 @@ fn test_prompt_record_with_all_message_types() {
     assert_eq!(prompt.message_count(), 4);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prompt_record_snippet_prefers_user_over_assistant() {
     let mut transcript = AiTranscript::new();
     transcript.add_message(Message::assistant("Assistant first".to_string(), None));
@@ -859,7 +859,7 @@ fn test_prompt_record_snippet_prefers_user_over_assistant() {
     assert_eq!(snippet, "User message");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prompt_record_fields_populated() {
     let workdir = "/test/path";
     let mut prompt = create_test_prompt(
@@ -894,7 +894,7 @@ fn test_prompt_record_fields_populated() {
     assert_eq!(prompt.overridden_lines, Some(5));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prompt_record_optional_fields_none() {
     let transcript = AiTranscript::new();
     let now = std::time::SystemTime::now()
@@ -930,7 +930,7 @@ fn test_prompt_record_optional_fields_none() {
     assert!(prompt.overridden_lines.is_none());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_first_message_snippet_exact_boundary() {
     // Test when message is exactly at the max length
     let message = "x".repeat(20);
@@ -941,7 +941,7 @@ fn test_first_message_snippet_exact_boundary() {
     assert!(!snippet.ends_with("..."));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_first_message_snippet_off_by_one() {
     // Test edge case: message is 1 char longer than max
     let message = "x".repeat(21);

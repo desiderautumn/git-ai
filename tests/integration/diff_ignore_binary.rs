@@ -31,7 +31,7 @@ fn diff_raw(repo: &TestRepo, args: &[&str]) -> String {
 // Binary file tests
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_ignores_binary_files_in_output() {
     let repo = TestRepo::new();
 
@@ -75,7 +75,7 @@ fn test_diff_json_ignores_binary_files_in_output() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_terminal_handles_binary_files_without_error() {
     let repo = TestRepo::new();
 
@@ -98,7 +98,7 @@ fn test_diff_terminal_handles_binary_files_without_error() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_with_only_binary_changes() {
     let repo = TestRepo::new();
 
@@ -126,7 +126,7 @@ fn test_diff_json_with_only_binary_changes() {
 // UTF-8 / non-UTF-8 charset tests
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_handles_non_utf8_file_content() {
     let repo = TestRepo::new();
 
@@ -159,7 +159,7 @@ fn test_diff_json_handles_non_utf8_file_content() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_handles_mixed_utf8_and_binary_content() {
     let repo = TestRepo::new();
 
@@ -195,7 +195,7 @@ fn test_diff_json_handles_mixed_utf8_and_binary_content() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_handles_complex_utf8_characters() {
     let repo = TestRepo::new();
 
@@ -226,7 +226,7 @@ fn test_diff_json_handles_complex_utf8_characters() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_terminal_handles_non_utf8_without_error() {
     let repo = TestRepo::new();
 
@@ -255,7 +255,7 @@ fn test_diff_terminal_handles_non_utf8_without_error() {
 // Ignore pattern tests for diff
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_respects_default_ignore_patterns() {
     let repo = TestRepo::new();
 
@@ -301,7 +301,7 @@ fn test_diff_json_respects_default_ignore_patterns() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_respects_gitattributes_linguist_generated() {
     let repo = TestRepo::new();
 
@@ -348,7 +348,7 @@ fn test_diff_json_respects_gitattributes_linguist_generated() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_respects_git_ai_ignore_file() {
     let repo = TestRepo::new();
 
@@ -381,7 +381,7 @@ fn test_diff_json_respects_git_ai_ignore_file() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_respects_union_of_all_ignore_sources() {
     let repo = TestRepo::new();
 
@@ -446,7 +446,7 @@ fn test_diff_json_respects_union_of_all_ignore_sources() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_terminal_respects_ignore_patterns() {
     let repo = TestRepo::new();
 
@@ -480,7 +480,7 @@ fn test_diff_terminal_respects_ignore_patterns() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_ignores_protobuf_generated_files_by_default() {
     let repo = TestRepo::new();
 

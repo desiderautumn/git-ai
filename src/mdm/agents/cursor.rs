@@ -447,7 +447,7 @@ mod tests {
         PathBuf::from("/usr/local/bin/git-ai")
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_install_hooks_creates_file_from_scratch() {
         let (_temp_dir, hooks_path) = setup_test_env();
         let binary_path = create_test_binary_path();
@@ -499,7 +499,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_install_hooks_preserves_existing_hooks() {
         let (_temp_dir, hooks_path) = setup_test_env();
         let binary_path = create_test_binary_path();
@@ -571,7 +571,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_install_hooks_updates_outdated_command() {
         let (_temp_dir, hooks_path) = setup_test_env();
         let binary_path = create_test_binary_path();
@@ -651,7 +651,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_cursor_hook_commands_no_windows_extended_path_prefix() {
         let raw_path = PathBuf::from(r"\\?\C:\Users\USERNAME\.git-ai\bin\git-ai.exe");
         let binary_path = clean_path(raw_path);
@@ -675,7 +675,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_cursor_settings_targets_returns_candidates() {
         let targets = CursorInstaller::settings_targets();
         assert!(!targets.is_empty());

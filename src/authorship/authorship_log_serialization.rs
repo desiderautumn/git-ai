@@ -677,7 +677,7 @@ mod tests {
     use super::*;
     use insta::assert_debug_snapshot;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_format_line_ranges() {
         let ranges = vec![
             LineRange::Range(19, 222),
@@ -688,7 +688,7 @@ mod tests {
         assert_debug_snapshot!(format_line_ranges(&ranges));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_line_ranges() {
         let ranges = parse_line_ranges("1,2,19-222").unwrap();
         assert_debug_snapshot!(ranges);
@@ -736,7 +736,7 @@ mod tests {
         assert_debug_snapshot!(deserialized);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_expected_format() {
         let mut log = AuthorshipLog::new();
 
@@ -771,7 +771,7 @@ mod tests {
         assert_debug_snapshot!(serialized);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_line_range_sorting() {
         // Test that ranges are sorted correctly: single ranges and ranges by lowest bound
         let ranges = vec![
@@ -857,7 +857,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_hash_always_maps_to_prompt() {
         // Demonstrate that every hash in attestation section maps to prompts section
         let mut log = AuthorshipLog::new();
@@ -951,7 +951,7 @@ mod tests {
         assert_eq!(deserialized.attestations.len(), 0);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_remove_line_ranges_complete_removal() {
         let mut entry =
             AttestationEntry::new("test_hash".to_string(), vec![LineRange::Range(2, 5)]);
@@ -967,7 +967,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_remove_line_ranges_partial_removal() {
         let mut entry =
             AttestationEntry::new("test_hash".to_string(), vec![LineRange::Range(2, 10)]);
@@ -983,7 +983,7 @@ mod tests {
 
     // Commenting out because working log to authorship helper deprecated in favor
     // of virtual attribution
-    // #[test]
+    // #[test] #[print_dur::print_dur]
     // fn test_metrics_calculation() {
     //     use crate::authorship::attribution_tracker::{Attribution, LineAttribution};
     //     use crate::authorship::transcript::{AiTranscript, Message};
@@ -1081,7 +1081,7 @@ mod tests {
     //     assert_eq!(prompt_record.accepted_lines, 9);
     // }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_convert_authorship_log_to_checkpoints() {
         use crate::authorship::transcript::{AiTranscript, Message};
         use crate::authorship::working_log::AgentId;
@@ -1161,7 +1161,7 @@ mod tests {
         assert_eq!(total_lines, 11); // 5 lines (1-5) + 6 lines (10-15)
     }
 
-    // #[test]
+    // #[test] #[print_dur::print_dur]
     // fn test_overriden_lines_detection() {
     //     use crate::authorship::attribution_tracker::{Attribution, LineAttribution};
     //     use crate::authorship::transcript::{AiTranscript, Message};
@@ -1255,7 +1255,7 @@ mod tests {
     //     assert_eq!(prompt_record.overriden_lines, 3);
     // }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_convert_authorship_log_multiple_ai_sessions() {
         use crate::authorship::transcript::{AiTranscript, Message};
         use crate::authorship::working_log::AgentId;
@@ -1391,7 +1391,7 @@ mod tests {
         assert_eq!(lines_session2, 20);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_generate_human_short_hash() {
         let hash = generate_human_short_hash("Alice Smith <alice@example.com>");
         // Must be exactly 16 chars: "h_" + 14 hex chars
@@ -1412,7 +1412,7 @@ mod tests {
 
     /// Test that `convert_to_checkpoints_for_squash` correctly skips h_ attestation entries
     /// rather than failing with "Missing prompt record".
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_convert_to_checkpoints_skips_h_entries() {
         use crate::authorship::transcript::{AiTranscript, Message};
         use crate::authorship::working_log::AgentId;

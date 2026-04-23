@@ -8,7 +8,7 @@ use crate::repos::test_repo::TestRepo;
 /// When the local branch is strictly behind the remote (fast-forward case) and
 /// the developer has uncommitted AI-authored changes, `git pull --rebase --autostash`
 /// should preserve the AI attribution after the stash cycle.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_pull_rebase_autostash_ff_preserves_uncommitted_ai_attribution() {
     let (local, _upstream) = TestRepo::new_with_remote();
 
@@ -64,7 +64,7 @@ fn test_pull_rebase_autostash_ff_preserves_uncommitted_ai_attribution() {
 
 /// `git rebase --no-verify` should still transfer AI attribution notes from
 /// original commit SHAs to the new rebased commit SHAs.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_no_verify_preserves_attribution() {
     let repo = TestRepo::new();
 
@@ -100,7 +100,7 @@ fn test_rebase_no_verify_preserves_attribution() {
 
 /// When `git rebase -i --autosquash` squashes a fixup! commit into its target,
 /// the resulting single commit should preserve AI attribution from both sources.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_autosquash_preserves_combined_ai_attribution() {
     let repo = TestRepo::new();
 
@@ -149,7 +149,7 @@ fn test_autosquash_preserves_combined_ai_attribution() {
 
 /// When using `git rebase -i` with `edit` and then `commit --amend`, the final
 /// commit should preserve AI attribution notes.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_interactive_rebase_edit_amend_preserves_notes() {
     let repo = TestRepo::new();
 

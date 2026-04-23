@@ -312,14 +312,14 @@ mod tests {
 
     // ============= ApiContext Tests =============
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_api_context_without_auth() {
         let ctx = ApiContext::without_auth(Some("https://example.com".to_string()));
         assert!(ctx.auth_token.is_none());
         assert_eq!(ctx.base_url, "https://example.com");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_api_context_with_auth() {
         let ctx = ApiContext::with_auth(
             Some("https://example.com".to_string()),
@@ -329,14 +329,14 @@ mod tests {
         assert_eq!(ctx.base_url, "https://example.com");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_api_context_with_timeout() {
         let ctx =
             ApiContext::without_auth(Some("https://example.com".to_string())).with_timeout(60);
         assert_eq!(ctx.timeout_secs, Some(60));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_api_context_default_timeout() {
         let ctx = ApiContext::without_auth(Some("https://example.com".to_string()));
         assert_eq!(ctx.timeout_secs, Some(30));
@@ -344,7 +344,7 @@ mod tests {
 
     // ============= ApiClient Tests =============
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_api_client_is_logged_in_true() {
         let ctx =
             ApiContext::with_auth(Some("https://example.com".to_string()), "token".to_string());
@@ -352,14 +352,14 @@ mod tests {
         assert!(client.is_logged_in());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_api_client_is_logged_in_false() {
         let ctx = ApiContext::without_auth(Some("https://example.com".to_string()));
         let client = ApiClient::new(ctx);
         assert!(!client.is_logged_in());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_api_client_context_access() {
         let ctx =
             ApiContext::with_auth(Some("https://example.com".to_string()), "token".to_string());
@@ -369,21 +369,21 @@ mod tests {
 
     // ============= URL Building Tests =============
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_build_url_simple() {
         let ctx = ApiContext::without_auth(Some("https://example.com".to_string()));
         let url = ctx.build_url("/api/test").unwrap();
         assert_eq!(url, "https://example.com/api/test");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_build_url_with_trailing_slash() {
         let ctx = ApiContext::without_auth(Some("https://example.com/".to_string()));
         let url = ctx.build_url("api/test").unwrap();
         assert_eq!(url, "https://example.com/api/test");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_build_url_invalid_base() {
         let ctx = ApiContext::without_auth(Some("not-a-url".to_string()));
         let result = ctx.build_url("/api/test");
@@ -392,7 +392,7 @@ mod tests {
 
     // ============= Mutex Thread Safety Tests =============
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_mutex_is_accessible() {
         // Simple test to verify the mutex can be locked
         let guard = REFRESH_LOCK.lock();
@@ -400,7 +400,7 @@ mod tests {
         // Guard drops here, releasing the lock
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_concurrent_access_to_mutex() {
         // Test that multiple threads can safely contend for the mutex
         let counter = Arc::new(AtomicUsize::new(0));

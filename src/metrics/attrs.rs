@@ -270,7 +270,7 @@ mod tests {
     use super::*;
     use serde_json::Value;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_event_attributes_builder() {
         let attrs = EventAttributes::with_version("1.0.0")
             .repo_url("https://github.com/user/repo")
@@ -299,7 +299,7 @@ mod tests {
         assert_eq!(attrs.prompt_id, Some(Some("prompt-123".to_string())));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_event_attributes_to_sparse() {
         let attrs = EventAttributes::with_version("1.0.0")
             .tool("test-tool")
@@ -325,7 +325,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_event_attributes_from_sparse() {
         let mut sparse = SparseArray::new();
         sparse.insert("0".to_string(), Value::String("2.0.0".to_string()));
@@ -343,7 +343,7 @@ mod tests {
         assert_eq!(attrs.prompt_id, Some(Some("prompt-123".to_string())));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_event_attributes_all_fields() {
         let attrs = EventAttributes::with_version("1.2.3")
             .repo_url("https://github.com/user/repo")
@@ -371,7 +371,7 @@ mod tests {
         assert_eq!(attrs.external_prompt_id, Some(Some("ext-789".to_string())));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_event_attributes_all_nulls() {
         let attrs = EventAttributes::new()
             .git_ai_version_null()
@@ -397,7 +397,7 @@ mod tests {
         assert_eq!(attrs.external_prompt_id, Some(None));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_event_attributes_to_sparse_all_fields() {
         let attrs = EventAttributes::with_version("1.0.0")
             .repo_url("https://github.com/test/repo")
@@ -445,7 +445,7 @@ mod tests {
         assert_eq!(sparse.get("23"), Some(&Value::String("ext-id".to_string())));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_event_attributes_roundtrip() {
         let original = EventAttributes::with_version("2.5.0")
             .repo_url("https://gitlab.com/org/repo")
@@ -468,7 +468,7 @@ mod tests {
         assert_eq!(restored.model, None); // not set
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_event_attributes_partial_sparse() {
         let mut sparse = SparseArray::new();
         sparse.insert("0".to_string(), Value::String("3.0.0".to_string()));
@@ -483,7 +483,7 @@ mod tests {
         assert_eq!(attrs.branch, None); // not set
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_event_attributes_default() {
         let attrs = EventAttributes::default();
 
@@ -499,13 +499,13 @@ mod tests {
         assert_eq!(attrs.external_prompt_id, None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_event_attributes_git_ai_version_builder() {
         let attrs = EventAttributes::new().git_ai_version("4.0.0");
         assert_eq!(attrs.git_ai_version, Some(Some("4.0.0".to_string())));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_event_attributes_sparse_positions() {
         // Verify the position constants match expected values
         use super::attr_pos::*;

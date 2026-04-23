@@ -479,7 +479,7 @@ mod tests {
     use super::*;
     use crate::git::test_utils::TmpRepo;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_range_authorship_simple_range() {
         let tmp_repo = TmpRepo::new().unwrap();
 
@@ -522,7 +522,7 @@ mod tests {
         assert_eq!(stats.range_stats.git_diff_added_lines, 2);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_range_authorship_from_empty_tree() {
         let tmp_repo = TmpRepo::new().unwrap();
 
@@ -568,7 +568,7 @@ mod tests {
         assert_eq!(stats.range_stats.git_diff_added_lines, 3);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_range_authorship_single_commit() {
         let tmp_repo = TmpRepo::new().unwrap();
 
@@ -608,7 +608,7 @@ mod tests {
         assert_eq!(stats.range_stats.ai_additions, 1);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_range_authorship_mixed_commits() {
         let tmp_repo = TmpRepo::new().unwrap();
 
@@ -672,7 +672,7 @@ mod tests {
         assert_eq!(stats.range_stats.git_diff_added_lines, 3);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_range_authorship_no_changes() {
         let tmp_repo = TmpRepo::new().unwrap();
 
@@ -704,7 +704,7 @@ mod tests {
         assert_eq!(stats.authorship_stats.total_commits, 1);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_range_authorship_empty_tree_with_multiple_files() {
         let tmp_repo = TmpRepo::new().unwrap();
 
@@ -746,7 +746,7 @@ mod tests {
         assert_eq!(stats.range_stats.git_diff_added_lines, 2);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_range_authorship_ignores_single_lockfile() {
         let tmp_repo = TmpRepo::new().unwrap();
 
@@ -808,7 +808,7 @@ mod tests {
         assert!(stats.range_stats.git_diff_added_lines < 100); // Significantly less than if lockfile was counted
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_range_authorship_mixed_lockfile_and_source() {
         let tmp_repo = TmpRepo::new().unwrap();
 
@@ -882,7 +882,7 @@ mod tests {
         assert!(stats.range_stats.unknown_additions > 0);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_range_authorship_multiple_lockfile_types() {
         let tmp_repo = TmpRepo::new().unwrap();
 
@@ -943,7 +943,7 @@ mod tests {
         assert_eq!(stats.range_stats.git_diff_added_lines, 1); // All lockfiles excluded
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_range_authorship_lockfile_only_commit() {
         let tmp_repo = TmpRepo::new().unwrap();
 
@@ -999,7 +999,7 @@ mod tests {
         assert_eq!(stats.range_stats.human_additions, 0);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_ignore_file_with_patterns() {
         let lockfile_patterns = vec![
             "package-lock.json".to_string(),
@@ -1034,7 +1034,7 @@ mod tests {
         assert!(!should_ignore_file("Cargo.lock", &empty_patterns));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_ignore_file_with_glob_patterns() {
         // Test wildcard patterns
         let wildcard_patterns = vec!["*.lock".to_string()];
@@ -1059,7 +1059,7 @@ mod tests {
         assert!(!should_ignore_file("manual.js", &multi_wildcard));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_ignore_file_with_path_glob_patterns() {
         // Test path-based patterns
         let path_patterns = vec!["**/target/**".to_string()];
@@ -1086,7 +1086,7 @@ mod tests {
         assert!(!should_ignore_file("src/node_modules.rs", &dir_patterns));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_ignore_file_with_prefix_patterns() {
         // Test prefix patterns
         let prefix_patterns = vec!["generated-*".to_string()];
@@ -1101,7 +1101,7 @@ mod tests {
         assert!(!should_ignore_file("manual.ts", &prefix_patterns));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_ignore_file_with_complex_glob_patterns() {
         // Test complex patterns (note: brace expansion like {js,ts} is not supported by glob crate)
         let complex_patterns = vec![
@@ -1129,7 +1129,7 @@ mod tests {
         assert!(!should_ignore_file("lock.txt", &complex_patterns));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_ignore_file_mixed_exact_and_glob() {
         // Test mixing exact matches and glob patterns
         let mixed_patterns = vec![
@@ -1152,7 +1152,7 @@ mod tests {
         assert!(!should_ignore_file("manual.js", &mixed_patterns));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_ignore_file_case_sensitivity() {
         // Test that pattern matching is case-sensitive
         let patterns = vec!["Cargo.lock".to_string(), "*.LOG".to_string()];
@@ -1169,7 +1169,7 @@ mod tests {
         assert!(!should_ignore_file("file.Log", &patterns));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_ignore_file_special_characters() {
         // Test filenames with special characters
         let patterns = vec![
@@ -1199,7 +1199,7 @@ mod tests {
         assert!(!should_ignore_file("different-file.txt", &patterns));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_ignore_file_hidden_files() {
         // Test hidden files (starting with .)
         let patterns = vec![".env".to_string(), ".*.swp".to_string(), ".*rc".to_string()];
@@ -1223,7 +1223,7 @@ mod tests {
         assert!(!should_ignore_file("bashrc", &patterns));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_ignore_file_multiple_extensions() {
         // Test files with multiple extensions
         let patterns = vec![
@@ -1245,7 +1245,7 @@ mod tests {
         assert!(!should_ignore_file("types.ts", &patterns));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_ignore_file_no_extension() {
         // Test files without extensions
         let patterns = vec![
@@ -1271,7 +1271,7 @@ mod tests {
         assert!(!should_ignore_file("LICENSE.txt", &patterns));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_ignore_file_deeply_nested_paths() {
         // Test patterns at various nesting depths
         let patterns = vec![
@@ -1299,7 +1299,7 @@ mod tests {
         assert!(!should_ignore_file("git.txt", &patterns));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_ignore_file_partial_matches() {
         // Test that partial matches don't incorrectly match
         let patterns = vec!["lock".to_string(), "*.lock".to_string()];
@@ -1315,7 +1315,7 @@ mod tests {
         assert!(!should_ignore_file("locksmith.rs", &patterns));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_ignore_file_with_wildcards_in_middle() {
         // Test patterns with wildcards in the middle
         let patterns = vec!["test-*-output.log".to_string(), "backup-*.sql".to_string()];
@@ -1333,7 +1333,7 @@ mod tests {
         assert!(!should_ignore_file("backup.sql", &patterns));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_ignore_file_empty_pattern() {
         // Test with empty pattern string - empty pattern is technically valid glob
         // that matches empty string, but we test that non-empty files don't match
@@ -1348,7 +1348,7 @@ mod tests {
         assert!(should_ignore_file("package.lock", &patterns));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_ignore_file_directory_traversal() {
         // Test patterns with ../ or ./ in paths
         let patterns = vec!["*.lock".to_string()];
@@ -1361,7 +1361,7 @@ mod tests {
         assert!(should_ignore_file("src/../lib/file.lock", &patterns));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_ignore_file_numeric_filenames() {
         // Test numeric filenames
         let patterns = vec!["[0-9]*".to_string(), "*.123".to_string()];
@@ -1380,7 +1380,7 @@ mod tests {
         assert!(!should_ignore_file("test.456", &patterns));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_range_authorship_with_glob_patterns() {
         let tmp_repo = TmpRepo::new().unwrap();
 

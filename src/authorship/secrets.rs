@@ -505,21 +505,21 @@ mod tests {
 
     use super::*;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_p_random_random_strings() {
         // These should be detected as random
         assert!(p_random(b"pk_test_TYooMQauvdEDq54NiTphI7jx") > 1.0 / 1e4);
         assert!(p_random(b"sk_test_4eC39HqLyjWDarjtT1zdp7dc") > 1.0 / 1e4);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_p_random_non_random_strings() {
         // These should NOT be detected as random
         assert!(p_random(b"hello_world") < 1.0 / 1e6);
         assert!(p_random(b"PROJECT_NAME_ALIAS") < 1.0 / 1e4);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_is_random() {
         // Secrets
         assert!(is_random(b"pk_test_TYooMQauvdEDq54NiTphI7jx"));
@@ -531,7 +531,7 @@ mod tests {
         assert!(!is_random(b"my_variable_name"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_extract_tokens() {
         let text = "API_KEY=sk_test_4eC39HqLyjWDarjtT1zdp7dc";
         let tokens = extract_tokens(text);
@@ -544,7 +544,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_redact_secret() {
         assert_eq!(
             redact_secret("sk_test_4eC39HqLyjWDarjtT1zdp7dc"),
@@ -554,7 +554,7 @@ mod tests {
         assert_eq!(redact_secret("short"), "*****"); // Too short
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_redact_secrets_in_text() {
         let text = "Set API_KEY=sk_test_4eC39HqLyjWDarjtT1zdp7dc in your config";
         let (redacted, count) = redact_secrets_in_text(text);
@@ -563,7 +563,7 @@ mod tests {
         assert_eq!(count, 1);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_no_redaction_for_normal_text() {
         let text = "This is normal text without any secrets";
         let (redacted, count) = redact_secrets_in_text(text);
@@ -571,14 +571,14 @@ mod tests {
         assert_eq!(count, 0);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_distinct_values() {
         assert_eq!(analyze_token(b"abca").distinct_count, 3);
         assert_eq!(analyze_token(b"aaaaaa").distinct_count, 1);
         assert_eq!(analyze_token(b"abcdef").distinct_count, 6);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_redact_secret_in_lorem_ipsum() {
         let text = r#"
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor 
@@ -601,7 +601,7 @@ voluptate velit esse cillum dolore eu fugiat nulla pariatur.
         assert!(redacted.contains("Here is my API key:"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_redact_multiple_secrets_in_code() {
         let code = r#"
 use std::env;
@@ -637,7 +637,7 @@ fn main() {
         assert!(redacted.contains("println!"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_redact_secret_in_json_config() {
         let json = r#"{
     "database": {
@@ -668,7 +668,7 @@ fn main() {
         assert!(redacted.contains("info"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_redact_secret_in_env_file() {
         let env_content = r#"
 # Application configuration
@@ -702,7 +702,7 @@ HOST=0.0.0.0
         assert!(redacted.contains("PORT=3000"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_no_false_positives_in_normal_code() {
         let code = r#"
 pub fn calculate_total(items: &[Item]) -> f64 {

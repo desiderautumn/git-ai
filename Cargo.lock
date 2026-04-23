@@ -1127,6 +1127,7 @@ dependencies = [
  "once_cell",
  "openssl",
  "paste",
+ "print_dur",
  "rand 0.10.1",
  "ratatui",
  "regex",
@@ -2571,6 +2572,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "479ca8adacdd7ce8f1fb39ce9ecccbfe93a3f1344b3d0d97f20bc0196208f62b"
 dependencies = [
  "proc-macro2",
+ "syn 2.0.117",
+]
+
+[[package]]
+name = "print_dur"
+version = "0.1.0"
+dependencies = [
+ "proc-macro2",
+ "quote",
  "syn 2.0.117",
 ]
 

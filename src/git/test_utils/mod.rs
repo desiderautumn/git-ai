@@ -1618,7 +1618,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_build_scoped_human_agent_run_result_uses_current_changed_paths() {
         let repo = TmpRepo::new().expect("repo should be creatable");
         let mut file = repo
@@ -1645,7 +1645,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_apply_default_checkpoint_scope_preserves_existing_explicit_scope() {
         let repo = TmpRepo::new().expect("repo should be creatable");
         let mut file = repo

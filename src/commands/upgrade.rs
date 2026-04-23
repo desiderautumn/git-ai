@@ -1053,7 +1053,7 @@ mod tests {
     }
 
     #[cfg(windows)]
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_is_git_process_name() {
         assert!(is_git_process_name("git"));
         assert!(is_git_process_name("git.exe"));
@@ -1063,7 +1063,7 @@ mod tests {
     }
 
     #[cfg(windows)]
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_block_git_extension_upgrade() {
         assert!(should_block_git_extension_upgrade(Some("git.exe"), false));
         assert!(should_block_git_extension_upgrade(
@@ -1078,7 +1078,7 @@ mod tests {
         assert!(!should_block_git_extension_upgrade(None, false));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_is_newer_version() {
         assert!(!is_newer_version("1.0.0", "1.0.0"));
         assert!(!is_newer_version("1.0.10", "1.0.10"));
@@ -1103,7 +1103,7 @@ mod tests {
         assert!(is_newer_version("100.200.300", "100.200.299"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_semver_from_tag_strips_prefix_and_suffix() {
         assert_eq!(semver_from_tag("v1.2.3"), "1.2.3");
         assert_eq!(semver_from_tag("1.2.3"), "1.2.3");
@@ -1112,7 +1112,7 @@ mod tests {
         assert_eq!(semver_from_tag("enterprise-v1.2.3-next-abc"), "1.2.3");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_run_impl_with_url() {
         let temp_dir = tempfile::tempdir().unwrap();
@@ -1183,7 +1183,7 @@ mod tests {
         clear_test_cache_dir();
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_run_impl_with_url_enterprise_channels() {
         let temp_dir = tempfile::tempdir().unwrap();
@@ -1254,7 +1254,7 @@ mod tests {
         clear_test_cache_dir();
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_check_for_updates_respects_interval() {
         let now = current_timestamp();
         let mut cache = UpdateCache::new(UpdateChannel::Latest);
@@ -1274,7 +1274,7 @@ mod tests {
         assert!(should_check_for_updates(UpdateChannel::Latest, None));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_check_for_updates_verifies_channel() {
         let now = current_timestamp();
         let mut cache = UpdateCache::new(UpdateChannel::Latest);
@@ -1290,7 +1290,7 @@ mod tests {
         assert!(should_check_for_updates(UpdateChannel::Next, Some(&cache)));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_verify_sha256_success() {
         let content = b"hello world";
         // SHA256 of "hello world"
@@ -1298,14 +1298,14 @@ mod tests {
         assert!(verify_sha256(content, expected).is_ok());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_verify_sha256_case_insensitive() {
         let content = b"hello world";
         let expected_upper = "B94D27B9934D3E08A52E52D7DA7DABFAC484EFE37A5380EE9088F7ACE2EFCDE9";
         assert!(verify_sha256(content, expected_upper).is_ok());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_verify_sha256_mismatch() {
         let content = b"hello world";
         let wrong_hash = "0000000000000000000000000000000000000000000000000000000000000000";
@@ -1314,7 +1314,7 @@ mod tests {
         assert!(result.unwrap_err().contains("Checksum mismatch"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_verify_sha256_empty_content() {
         let content = b"";
         // SHA256 of empty string
@@ -1322,7 +1322,7 @@ mod tests {
         assert!(verify_sha256(content, expected).is_ok());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_checksums_valid_format() {
         let content = "594de6cf107e8ffb6efd9029bf727b465ab55a9b4c4c3995eb3e628c857dc423  git-ai-linux-arm64\n\
                        88db3c0c7fc62a815579ec0ca42535c2b83ab18d9e3af8efe345dee96677b1d8  git-ai-linux-x64\n\
@@ -1344,7 +1344,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_checksums_with_extensions() {
         let content = "23c693a25f4f2e99463c911e67d534ae17cbd9b98513aa65f0ae9da861775d54  git-ai-windows-x64.exe\n\
                        f895af791eb30f6b074b2ab9f0f803e91230b084f5864befcb51ee9ced752adf  install.ps1";
@@ -1355,13 +1355,13 @@ mod tests {
         assert!(checksums.contains_key("install.ps1"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_checksums_empty_input() {
         let checksums = parse_checksums("");
         assert!(checksums.is_empty());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_checksums_whitespace_lines() {
         let content = "  \n\nhash  file\n  \n";
         let checksums = parse_checksums(content);
@@ -1369,7 +1369,7 @@ mod tests {
         assert_eq!(checksums.get("file"), Some(&"hash".to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_checksums_ignores_invalid_lines() {
         // Lines with single space or no space should be ignored
         let content = "valid  file1\ninvalid file2\nalsovalid  file3";
@@ -1382,7 +1382,7 @@ mod tests {
 
     // --- Additional comprehensive tests ---
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_cache_new() {
         let cache = UpdateCache::new(UpdateChannel::Latest);
         assert_eq!(cache.last_checked_at, 0);
@@ -1394,14 +1394,14 @@ mod tests {
         assert!(!cache.matches_channel(UpdateChannel::Next));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_cache_update_available() {
         let mut cache = UpdateCache::new(UpdateChannel::Latest);
         cache.available_semver = Some("2.0.0".to_string());
         assert!(cache.update_available());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_cache_matches_channel_enterprise() {
         let cache_latest = UpdateCache::new(UpdateChannel::EnterpriseLatest);
         assert!(cache_latest.matches_channel(UpdateChannel::EnterpriseLatest));
@@ -1409,7 +1409,7 @@ mod tests {
         assert!(!cache_latest.matches_channel(UpdateChannel::Latest));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_determine_action_force() {
         let release = ChannelRelease {
             tag: "v1.0.0".to_string(),
@@ -1420,7 +1420,7 @@ mod tests {
         assert_eq!(action, UpgradeAction::ForceReinstall);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_determine_action_already_latest() {
         let release = ChannelRelease {
             tag: "v1.0.0".to_string(),
@@ -1431,7 +1431,7 @@ mod tests {
         assert_eq!(action, UpgradeAction::AlreadyLatest);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_determine_action_upgrade_available() {
         let release = ChannelRelease {
             tag: "v2.0.0".to_string(),
@@ -1442,7 +1442,7 @@ mod tests {
         assert_eq!(action, UpgradeAction::UpgradeAvailable);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_determine_action_running_newer() {
         let release = ChannelRelease {
             tag: "v1.0.0".to_string(),
@@ -1453,7 +1453,7 @@ mod tests {
         assert_eq!(action, UpgradeAction::RunningNewerVersion);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_upgrade_action_to_string() {
         assert_eq!(
             UpgradeAction::UpgradeAvailable.to_string(),
@@ -1467,56 +1467,56 @@ mod tests {
         assert_eq!(UpgradeAction::ForceReinstall.to_string(), "force_reinstall");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_semver_from_tag_enterprise_prefix() {
         assert_eq!(semver_from_tag("enterprise-v1.2.3"), "1.2.3");
         assert_eq!(semver_from_tag("enterprise-1.2.3"), "1.2.3");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_semver_from_tag_with_build_metadata() {
         assert_eq!(semver_from_tag("v1.2.3+build123"), "1.2.3");
         assert_eq!(semver_from_tag("1.2.3+build123"), "1.2.3");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_semver_from_tag_empty() {
         assert_eq!(semver_from_tag(""), "");
         assert_eq!(semver_from_tag("v"), "");
         assert_eq!(semver_from_tag("enterprise-v"), "");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_is_newer_version_major() {
         assert!(is_newer_version("2.0.0", "1.9.9"));
         assert!(!is_newer_version("1.9.9", "2.0.0"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_is_newer_version_minor() {
         assert!(is_newer_version("1.2.0", "1.1.9"));
         assert!(!is_newer_version("1.1.9", "1.2.0"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_is_newer_version_patch() {
         assert!(is_newer_version("1.0.1", "1.0.0"));
         assert!(!is_newer_version("1.0.0", "1.0.1"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_is_newer_version_empty_parts() {
         assert!(is_newer_version("1", "0.9.9"));
         assert!(!is_newer_version("0.9.9", "1"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_is_newer_version_equal() {
         assert!(!is_newer_version("1.0.0", "1.0.0"));
         assert!(!is_newer_version("2.5.10", "2.5.10"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_checksums_multiple_spaces() {
         // Format requires exactly two spaces between hash and filename
         // More spaces should still work because split_once("  ") matches the first occurrence
@@ -1529,7 +1529,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_verify_sha256_with_binary_content() {
         let content = b"\x00\x01\x02\x03\xff\xfe";
         let mut hasher = sha2::Sha256::new();
@@ -1538,7 +1538,7 @@ mod tests {
         assert!(verify_sha256(content, &expected).is_ok());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_release_from_response_missing_channel() {
         let releases = ReleasesResponse {
             channels: HashMap::new(),
@@ -1548,7 +1548,7 @@ mod tests {
         assert!(result.unwrap_err().contains("not found"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_release_from_response_empty_tag() {
         let mut channels = HashMap::new();
         channels.insert(
@@ -1564,7 +1564,7 @@ mod tests {
         assert!(result.unwrap_err().contains("not found"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_release_from_response_empty_checksum() {
         let mut channels = HashMap::new();
         channels.insert(
@@ -1580,7 +1580,7 @@ mod tests {
         assert!(result.unwrap_err().contains("Checksum"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_release_from_response_invalid_semver() {
         let mut channels = HashMap::new();
         channels.insert(
@@ -1596,7 +1596,7 @@ mod tests {
         assert!(result.unwrap_err().contains("semver"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_release_from_response_success() {
         let mut channels = HashMap::new();
         channels.insert(
@@ -1615,12 +1615,12 @@ mod tests {
         assert_eq!(release.checksum, "abc123def456");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_check_for_updates_no_cache() {
         assert!(should_check_for_updates(UpdateChannel::Latest, None));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_check_for_updates_zero_last_checked() {
         let cache = UpdateCache {
             last_checked_at: 0,
@@ -1634,7 +1634,7 @@ mod tests {
         ));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_check_for_updates_channel_mismatch() {
         let now = current_timestamp();
         let cache = UpdateCache {
@@ -1646,7 +1646,7 @@ mod tests {
         assert!(should_check_for_updates(UpdateChannel::Next, Some(&cache)));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_cache_serialization() {
         // Test serialization/deserialization without file I/O
         let mut cache = UpdateCache::new(UpdateChannel::Latest);
@@ -1663,7 +1663,7 @@ mod tests {
         assert_eq!(deserialized.channel, "latest");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_persist_update_state_creates_cache_object() {
         // Test that persist_update_state creates correct UpdateCache structure
         // without relying on file I/O
@@ -1685,7 +1685,7 @@ mod tests {
         assert!(cache.last_checked_at > 0);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_persist_update_state_no_release_structure() {
         // Test that persist_update_state without release creates correct structure
         let mut cache = UpdateCache::new(UpdateChannel::Latest);
@@ -1698,7 +1698,7 @@ mod tests {
         assert!(cache.last_checked_at > 0);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_daemon_update_check_result_debug() {
         // Verify that DaemonUpdateCheckResult derives Debug and PartialEq correctly.
         assert_eq!(
@@ -1715,7 +1715,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_check_for_update_available_no_cache_newer_version() {
         // When the cache is empty and a newer version is available, the function should
@@ -1748,7 +1748,7 @@ mod tests {
         clear_test_cache_dir();
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_check_for_update_available_same_version() {
         let current = env!("CARGO_PKG_VERSION");
         let test_checksum = "a".repeat(64);
@@ -1770,7 +1770,7 @@ mod tests {
         assert!(!cache.update_available());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_check_for_updates_skips_when_recently_checked() {
         // When the cache was recently written, should_check_for_updates returns false.
         let mut cache = UpdateCache::new(UpdateChannel::Latest);

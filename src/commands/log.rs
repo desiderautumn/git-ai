@@ -180,28 +180,28 @@ mod tests {
 
     // -- double-dash separator --
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn double_dash_stops_extraction() {
         let (global, rest) = extract_git_global_args(&s(&["--", "--bare"]));
         assert!(global.is_empty());
         assert_eq!(rest, s(&["--", "--bare"]));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn double_dash_after_global_arg() {
         let (global, rest) = extract_git_global_args(&s(&["--paginate", "--", "--bare"]));
         assert_eq!(global, s(&["--paginate"]));
         assert_eq!(rest, s(&["--", "--bare"]));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn double_dash_alone() {
         let (global, rest) = extract_git_global_args(&s(&["--"]));
         assert!(global.is_empty());
         assert_eq!(rest, s(&["--"]));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn double_dash_as_last_after_log_args() {
         let (global, rest) = extract_git_global_args(&s(&["--oneline", "--"]));
         assert!(global.is_empty());
@@ -210,14 +210,14 @@ mod tests {
 
     // -- no-value global flags --
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn no_value_global_flags_extracted() {
         let (global, rest) = extract_git_global_args(&s(&["--paginate", "--oneline"]));
         assert_eq!(global, s(&["--paginate"]));
         assert_eq!(rest, s(&["--oneline"]));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn bare_flag_extracted() {
         let (global, rest) = extract_git_global_args(&s(&["--bare", "--graph"]));
         assert_eq!(global, s(&["--bare"]));
@@ -226,21 +226,21 @@ mod tests {
 
     // -- takes-value global options --
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn git_dir_spaced_form() {
         let (global, rest) = extract_git_global_args(&s(&["--git-dir", "/some/path", "--oneline"]));
         assert_eq!(global, s(&["--git-dir", "/some/path"]));
         assert_eq!(rest, s(&["--oneline"]));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn git_dir_equals_form() {
         let (global, rest) = extract_git_global_args(&s(&["--git-dir=/some/path", "--oneline"]));
         assert_eq!(global, s(&["--git-dir=/some/path"]));
         assert_eq!(rest, s(&["--oneline"]));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn takes_value_option_at_end_without_value() {
         let (global, rest) = extract_git_global_args(&s(&["--git-dir"]));
         assert_eq!(global, s(&["--git-dir"]));
@@ -249,14 +249,14 @@ mod tests {
 
     // -- exec-path --
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn exec_path_standalone() {
         let (global, rest) = extract_git_global_args(&s(&["--exec-path", "--oneline"]));
         assert_eq!(global, s(&["--exec-path"]));
         assert_eq!(rest, s(&["--oneline"]));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn exec_path_equals_form() {
         let (global, rest) = extract_git_global_args(&s(&["--exec-path=/usr/lib/git", "--graph"]));
         assert_eq!(global, s(&["--exec-path=/usr/lib/git"]));
@@ -265,14 +265,14 @@ mod tests {
 
     // -- -c config override --
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn dash_c_with_valid_config_key() {
         let (global, rest) = extract_git_global_args(&s(&["-c", "core.pager=cat", "--oneline"]));
         assert_eq!(global, s(&["-c", "core.pager=cat"]));
         assert_eq!(rest, s(&["--oneline"]));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn dash_c_without_dot_is_not_extracted() {
         // bare -c followed by something without section.key=val is git log's combined-diff
         let (global, rest) = extract_git_global_args(&s(&["-c", "foo=bar"]));
@@ -280,21 +280,21 @@ mod tests {
         assert_eq!(rest, s(&["-c", "foo=bar"]));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn dash_c_followed_by_log_option() {
         let (global, rest) = extract_git_global_args(&s(&["-c", "--format=%H"]));
         assert!(global.is_empty());
         assert_eq!(rest, s(&["-c", "--format=%H"]));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn sticky_c_with_valid_config_key() {
         let (global, rest) = extract_git_global_args(&s(&["-ccore.pager=cat"]));
         assert_eq!(global, s(&["-ccore.pager=cat"]));
         assert!(rest.is_empty());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn sticky_c_without_dot_is_not_extracted() {
         // -cC=3 should NOT be extracted — no dot in key portion
         let (global, rest) = extract_git_global_args(&s(&["-cC=3"]));
@@ -304,21 +304,21 @@ mod tests {
 
     // -- ambiguous short flags are NOT extracted --
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn dash_capital_c_not_extracted() {
         let (global, rest) = extract_git_global_args(&s(&["-C", "--oneline"]));
         assert!(global.is_empty());
         assert_eq!(rest, s(&["-C", "--oneline"]));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn dash_p_not_extracted() {
         let (global, rest) = extract_git_global_args(&s(&["-p"]));
         assert!(global.is_empty());
         assert_eq!(rest, s(&["-p"]));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn dash_capital_p_not_extracted() {
         let (global, rest) = extract_git_global_args(&s(&["-P"]));
         assert!(global.is_empty());
@@ -327,7 +327,7 @@ mod tests {
 
     // -- empty args --
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn empty_args() {
         let (global, rest) = extract_git_global_args(&s(&[]));
         assert!(global.is_empty());
@@ -336,7 +336,7 @@ mod tests {
 
     // -- mixed scenarios --
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn multiple_global_args_with_log_args() {
         let (global, rest) = extract_git_global_args(&s(&[
             "--paginate",
@@ -349,7 +349,7 @@ mod tests {
         assert_eq!(rest, s(&["--oneline", "--graph"]));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn global_args_then_double_dash_then_pathspecs() {
         let (global, rest) = extract_git_global_args(&s(&[
             "--no-pager",

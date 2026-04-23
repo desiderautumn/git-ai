@@ -355,7 +355,7 @@ fn hunks_to_diff_ops(diff: &Diff, old_len: usize, _new_len: usize) -> Vec<DiffOp
 mod tests {
     use super::*;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_capture_diff_slices_simple() {
         let old = vec!["a", "b", "c"];
         let new = vec!["a", "x", "c"];
@@ -390,7 +390,7 @@ mod tests {
         ));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_capture_diff_slices_insert() {
         let old = vec!["a", "c"];
         let new = vec!["a", "b", "c"];
@@ -424,7 +424,7 @@ mod tests {
         ));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_capture_diff_slices_delete() {
         let old = vec!["a", "b", "c"];
         let new = vec!["a", "c"];
@@ -458,7 +458,7 @@ mod tests {
         ));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_compute_line_changes() {
         let old = "line1\nline2\nline3\n";
         let new = "line1\nmodified\nline3\n";
@@ -477,7 +477,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_compute_line_changes_insert_only() {
         let old = "line1\nline2\n";
         let new = "line1\nline2\nline3\n";
@@ -495,7 +495,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_split_lines_with_terminators() {
         let s = "line1\nline2\nline3";
         let lines = split_lines_with_terminators(s);
@@ -510,7 +510,7 @@ mod tests {
     // CRLF / LF normalization tests
     // ====================================================================
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_compute_line_changes_crlf_to_lf_identical_content() {
         // Old file has CRLF, new file has LF. Content is identical otherwise.
         // Should produce NO changes (all Equal).
@@ -531,7 +531,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_compute_line_changes_lf_to_crlf_identical_content() {
         // Old file has LF, new file has CRLF. Content is identical otherwise.
         // Should produce NO changes (all Equal).
@@ -552,7 +552,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_compute_line_changes_crlf_old_with_real_addition() {
         // Old file has CRLF (100-line-like scenario), new file has LF with real additions.
         // Only the actual new lines should show as Insert.
@@ -574,7 +574,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_compute_line_changes_mixed_crlf_with_modification() {
         // Old has CRLF, new has LF. One line is actually modified.
         let old = "line1\r\nline2\r\nline3\r\n";
@@ -595,7 +595,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_compute_line_changes_crlf_large_file_few_additions() {
         // Simulates the user-reported bug: 100-line CRLF file with 5 LF additions.
         // Should show exactly 5 inserts, NOT 105 inserts + 100 deletes.
@@ -627,7 +627,7 @@ mod tests {
         assert_eq!(delete_count, 0, "Should have 0 deletes (no lines removed)");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_split_lines_with_terminators_crlf() {
         // CRLF lines should be split the same way as LF lines
         // (the \r should be treated as part of the line ending, not content)

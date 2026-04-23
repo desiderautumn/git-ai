@@ -9,7 +9,7 @@ use std::collections::HashMap;
 use std::fs;
 use std::io::Write;
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_parse_example_claude_code_jsonl_with_model() {
     let fixture = fixture_path("example-claude-code.jsonl");
     let (transcript, model) =
@@ -42,7 +42,7 @@ fn test_parse_example_claude_code_jsonl_with_model() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_claude_preset_extracts_edited_filepath() {
     let hook_input = r##"{
         "cwd": "/Users/svarlamov/projects/testing-git",
@@ -75,7 +75,7 @@ fn test_claude_preset_extracts_edited_filepath() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_claude_preset_no_filepath_when_tool_input_missing() {
     let hook_input = r##"{
         "cwd": "/Users/svarlamov/projects/testing-git",
@@ -96,7 +96,7 @@ fn test_claude_preset_no_filepath_when_tool_input_missing() {
     assert!(result.edited_filepaths.is_none());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_claude_preset_ignores_vscode_copilot_payload() {
     let hook_input = json!({
         "hookEventName": "PreToolUse",
@@ -125,7 +125,7 @@ fn test_claude_preset_ignores_vscode_copilot_payload() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_claude_preset_ignores_cursor_payload() {
     let hook_input = json!({
         "conversation_id": "dff2bf79-6a53-446c-be41-f33512532fb0",
@@ -155,7 +155,7 @@ fn test_claude_preset_ignores_cursor_payload() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_claude_preset_does_not_ignore_when_transcript_path_is_claude() {
     let temp = tempfile::tempdir().unwrap();
     let claude_dir = temp.path().join(".claude").join("projects");
@@ -190,7 +190,7 @@ fn test_claude_preset_does_not_ignore_when_transcript_path_is_claude() {
     assert_eq!(result.agent_id.tool, "claude");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_claude_e2e_prefers_latest_checkpoint_for_prompts() {
     use crate::repos::test_repo::TestRepo;
 
@@ -265,7 +265,7 @@ fn test_claude_e2e_prefers_latest_checkpoint_for_prompts() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_parse_claude_code_jsonl_with_thinking() {
     let fixture = fixture_path("claude-code-with-thinking.jsonl");
     let (transcript, model) =
@@ -380,7 +380,7 @@ fn test_parse_claude_code_jsonl_with_thinking() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tool_results_are_not_parsed_as_user_messages() {
     // This test verifies that tool_result content blocks in user messages
     // are not incorrectly parsed as human-authored user messages.
@@ -418,7 +418,7 @@ fn test_tool_results_are_not_parsed_as_user_messages() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_user_text_content_blocks_are_parsed_correctly() {
     // This test verifies that user messages with text content blocks
     // (as opposed to simple string content) are parsed correctly.
@@ -462,7 +462,7 @@ fn test_user_text_content_blocks_are_parsed_correctly() {
 
 // ===== Plan detection tests =====
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_is_plan_file_path_detects_plan_files() {
     // Plan files under ~/.claude/plans should match
     assert!(is_plan_file_path(
@@ -500,7 +500,7 @@ fn test_is_plan_file_path_detects_plan_files() {
     assert!(!is_plan_file_path("/Users/dev/.claude/plans/plan.txt"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_extract_plan_from_write_tool() {
     let mut plan_states = HashMap::new();
     let input = serde_json::json!({
@@ -519,7 +519,7 @@ fn test_extract_plan_from_write_tool() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_extract_plan_from_edit_tool_with_prior_state() {
     let plan_path = "/Users/dev/.claude/plans/abstract-frolicking-neumann.md";
     let mut plan_states = HashMap::new();
@@ -549,7 +549,7 @@ fn test_extract_plan_from_edit_tool_with_prior_state() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_extract_plan_from_edit_tool_without_prior_state() {
     let mut plan_states = HashMap::new();
 
@@ -564,7 +564,7 @@ fn test_extract_plan_from_edit_tool_without_prior_state() {
     assert_eq!(result.unwrap(), "new text");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_extract_plan_returns_none_for_non_plan_files() {
     let mut plan_states = HashMap::new();
     let input = serde_json::json!({
@@ -576,7 +576,7 @@ fn test_extract_plan_returns_none_for_non_plan_files() {
     assert!(result.is_none());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_extract_plan_returns_none_for_non_write_edit_tools() {
     let mut plan_states = HashMap::new();
     let input = serde_json::json!({
@@ -588,7 +588,7 @@ fn test_extract_plan_returns_none_for_non_write_edit_tools() {
     assert!(result.is_none());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_extract_plan_returns_none_for_empty_content() {
     let mut plan_states = HashMap::new();
     let input = serde_json::json!({
@@ -600,7 +600,7 @@ fn test_extract_plan_returns_none_for_empty_content() {
     assert!(result.is_none());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_parse_claude_code_jsonl_with_plan() {
     let fixture = fixture_path("claude-code-with-plan.jsonl");
     let (transcript, model) =
@@ -740,7 +740,7 @@ fn test_parse_claude_code_jsonl_with_plan() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_plan_write_with_inline_jsonl() {
     // Test with minimal inline JSONL to verify Write to plan file becomes Message::Plan
     use std::io::Write;
@@ -764,7 +764,7 @@ fn test_plan_write_with_inline_jsonl() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_plan_edit_with_inline_jsonl() {
     // Test with minimal inline JSONL to verify Edit to plan file becomes Message::Plan
     use std::io::Write;
@@ -789,7 +789,7 @@ fn test_plan_edit_with_inline_jsonl() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_non_plan_edit_remains_tool_use() {
     // Verify that Edit to non-plan files still creates ToolUse messages
     use std::io::Write;
@@ -811,7 +811,7 @@ fn test_non_plan_edit_remains_tool_use() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_plan_message_serialization_roundtrip() {
     // Verify that Plan messages serialize and deserialize correctly
     let plan_msg = Message::Plan {
@@ -827,7 +827,7 @@ fn test_plan_message_serialization_roundtrip() {
     assert!(serialized.contains(r#""type":"plan""#));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_mixed_plan_and_code_edits_in_single_assistant_message() {
     // Test that a single assistant message with both plan and code edits
     // correctly separates them into Plan and ToolUse messages

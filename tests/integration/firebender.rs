@@ -5,7 +5,7 @@ use git_ai::commands::checkpoint_agent::agent_presets::{
 use git_ai::error::GitAiError;
 use serde_json::json;
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_firebender_pre_tool_use_maps_to_human_checkpoint() {
     let hook_input = json!({
         "hook_event_name": "preToolUse",
@@ -37,7 +37,7 @@ fn test_firebender_pre_tool_use_maps_to_human_checkpoint() {
     assert_eq!(result.edited_filepaths, None);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_firebender_post_tool_use_maps_to_ai_agent_checkpoint() {
     let hook_input = json!({
         "hook_event_name": "postToolUse",
@@ -68,7 +68,7 @@ fn test_firebender_post_tool_use_maps_to_ai_agent_checkpoint() {
     assert_eq!(result.will_edit_filepaths, None);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_firebender_edit_supports_apply_patch_path_payloads() {
     let hook_input = json!({
         "hook_event_name": "preToolUse",
@@ -95,7 +95,7 @@ fn test_firebender_edit_supports_apply_patch_path_payloads() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_firebender_edit_supports_raw_apply_patch_payloads() {
     let hook_input = json!({
         "hook_event_name": "postToolUse",
@@ -118,7 +118,7 @@ fn test_firebender_edit_supports_raw_apply_patch_payloads() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_firebender_edit_normalizes_absolute_patch_paths_to_repo_relative() {
     let hook_input = json!({
         "hook_event_name": "postToolUse",
@@ -141,7 +141,7 @@ fn test_firebender_edit_normalizes_absolute_patch_paths_to_repo_relative() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_firebender_edit_normalizes_absolute_structured_paths_to_repo_relative() {
     let hook_input = json!({
         "hook_event_name": "preToolUse",
@@ -168,7 +168,7 @@ fn test_firebender_edit_normalizes_absolute_structured_paths_to_repo_relative() 
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_firebender_edit_normalizes_windows_absolute_patch_paths_to_repo_relative() {
     let hook_input = json!({
         "hook_event_name": "postToolUse",
@@ -191,7 +191,7 @@ fn test_firebender_edit_normalizes_windows_absolute_patch_paths_to_repo_relative
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_firebender_edit_normalizes_windows_absolute_structured_paths_to_repo_relative() {
     let hook_input = json!({
         "hook_event_name": "preToolUse",
@@ -218,7 +218,7 @@ fn test_firebender_edit_normalizes_windows_absolute_structured_paths_to_repo_rel
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_firebender_rejects_unknown_event_name() {
     let hook_input = json!({
         "hook_event_name": "somethingElse",
@@ -240,7 +240,7 @@ fn test_firebender_rejects_unknown_event_name() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_firebender_preset_missing_hook_input() {
     let preset = FirebenderPreset;
     let result = preset.run(AgentCheckpointFlags { hook_input: None });
@@ -254,7 +254,7 @@ fn test_firebender_preset_missing_hook_input() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_firebender_preset_invalid_json() {
     let preset = FirebenderPreset;
     let result = preset.run(AgentCheckpointFlags {
@@ -264,7 +264,7 @@ fn test_firebender_preset_invalid_json() {
     assert!(result.is_err());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_firebender_preset_missing_model() {
     let preset = FirebenderPreset;
     let hook_input = json!({
@@ -288,7 +288,7 @@ fn test_firebender_preset_missing_model() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_firebender_preset_empty_model() {
     let preset = FirebenderPreset;
     let hook_input = json!({
@@ -306,7 +306,7 @@ fn test_firebender_preset_empty_model() {
     assert_eq!(result.agent_id.model, "unknown");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_firebender_preset_falls_back_to_first_workspace_root() {
     let preset = FirebenderPreset;
     let hook_input = json!({

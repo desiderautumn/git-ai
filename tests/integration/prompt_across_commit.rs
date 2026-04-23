@@ -2,7 +2,7 @@ use crate::repos::test_file::ExpectedLineExt;
 use crate::repos::test_repo::TestRepo;
 use git_ai::authorship::authorship_log::LineRange;
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_change_across_commits() {
     let repo = TestRepo::new();
     let mut file = repo.filename("foo.py");
@@ -65,7 +65,7 @@ fn test_change_across_commits() {
 /// Assertions match origin/main: with empty attribution, the file has only 1 attestation
 /// entry (the second AI commit's entry only) because the first commit's attribution is
 /// subsumed into the working log without creating a separate attestation entry.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_change_across_commits_standard_human() {
     let repo = TestRepo::new();
     let mut file = repo.filename("foo.py");

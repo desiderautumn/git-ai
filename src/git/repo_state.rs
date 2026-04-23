@@ -573,7 +573,7 @@ mod tests {
         fs::write(path, contents).unwrap();
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn resolve_stash_target_oid_defaults_to_top_entry() {
         let temp = tempfile::tempdir().unwrap();
         let worktree = temp.path();
@@ -595,7 +595,7 @@ mod tests {
         assert_eq!(resolved, "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn resolve_stash_target_oid_defaults_to_refs_stash_without_reflog() {
         let temp = tempfile::tempdir().unwrap();
         let worktree = temp.path();
@@ -610,7 +610,7 @@ mod tests {
         assert_eq!(resolved, "cccccccccccccccccccccccccccccccccccccccc");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn resolve_stash_target_oid_reads_older_stack_entries() {
         let temp = tempfile::tempdir().unwrap();
         let worktree = temp.path();
@@ -633,7 +633,7 @@ mod tests {
         assert_eq!(resolved, "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn resolve_stash_target_oid_accepts_literal_oid() {
         let temp = tempfile::tempdir().unwrap();
         let resolved = resolve_stash_target_oid_for_worktree(
@@ -644,7 +644,7 @@ mod tests {
         assert_eq!(resolved, "dddddddddddddddddddddddddddddddddddddddd");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn latest_reflog_old_oid_reads_previous_top_entry() {
         let temp = tempfile::tempdir().unwrap();
         let worktree = temp.path();
@@ -662,7 +662,7 @@ mod tests {
         assert_eq!(resolved, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn resolve_reflog_old_oid_for_ref_new_oid_reads_matching_branch_entry() {
         let temp = tempfile::tempdir().unwrap();
         let worktree = temp.path();
@@ -688,7 +688,7 @@ mod tests {
         assert_eq!(resolved, old);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn worktree_root_for_path_walks_parent_directories() {
         let temp = tempfile::tempdir().unwrap();
         let worktree = temp.path();
@@ -700,7 +700,7 @@ mod tests {
         assert_eq!(resolved, worktree);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn read_head_state_for_nested_path_uses_worktree_root() {
         let temp = tempfile::tempdir().unwrap();
         let worktree = temp.path();
@@ -721,7 +721,7 @@ mod tests {
         assert!(!state.detached);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn resolve_linear_head_commit_chain_for_worktree_recovers_multi_step_chain() {
         let temp = tempfile::tempdir().unwrap();
         let worktree = temp.path();
@@ -755,7 +755,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn resolve_linear_head_commit_chain_for_worktree_errors_when_chain_is_incomplete() {
         let temp = tempfile::tempdir().unwrap();
         let worktree = temp.path();
@@ -785,7 +785,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn resolve_linear_head_commit_chain_for_worktree_errors_when_chain_is_ambiguous() {
         let temp = tempfile::tempdir().unwrap();
         let worktree = temp.path();
@@ -814,7 +814,7 @@ mod tests {
         assert!(err.to_string().contains("ambiguous HEAD reflog chain"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn resolve_linear_head_commit_chain_for_worktree_filters_by_reflog_action() {
         let temp = tempfile::tempdir().unwrap();
         let worktree = temp.path();

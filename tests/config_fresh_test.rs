@@ -80,7 +80,7 @@ impl Drop for HomeEnvGuard {
 }
 
 /// Test that Config::fresh() picks up changes to config file
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn test_config_fresh_picks_up_file_changes() {
     // Create a temporary config directory
@@ -115,7 +115,7 @@ fn test_config_fresh_picks_up_file_changes() {
 }
 
 /// Test that Config::get() returns cached config and doesn't pick up changes
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn test_config_get_uses_cache() {
     // This test demonstrates the problem: Config::get() uses OnceLock
@@ -146,7 +146,7 @@ fn test_config_get_uses_cache() {
 }
 
 /// Test that api_key changes are picked up by Config::fresh()
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn test_config_fresh_picks_up_api_key_changes() {
     let temp_dir = TempDir::new().expect("Failed to create temp dir");
@@ -182,7 +182,7 @@ fn test_config_fresh_picks_up_api_key_changes() {
 }
 
 /// Test that environment variable is read when config file doesn't specify value
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn test_config_fresh_respects_env_vars() {
     let temp_dir = TempDir::new().expect("Failed to create temp dir");
@@ -231,7 +231,7 @@ fn test_config_fresh_respects_env_vars() {
     }
 }
 /// Test that ApiContext picks up config changes via Config::fresh()
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn test_api_context_uses_fresh_config() {
     let temp_dir = TempDir::new().expect("Failed to create temp dir");
@@ -261,7 +261,7 @@ fn test_api_context_uses_fresh_config() {
 }
 
 /// Test that OAuthClient picks up config changes via Config::fresh()
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn test_oauth_client_uses_fresh_config() {
     let temp_dir = TempDir::new().expect("Failed to create temp dir");
@@ -291,7 +291,7 @@ fn test_oauth_client_uses_fresh_config() {
 }
 
 /// Test that api_key changes are picked up by ApiContext
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial]
 fn test_api_context_picks_up_api_key_changes() {
     let temp_dir = TempDir::new().expect("Failed to create temp dir");

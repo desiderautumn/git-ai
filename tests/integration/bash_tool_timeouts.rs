@@ -33,7 +33,7 @@ fn repo_root(repo: &TestRepo) -> std::path::PathBuf {
 /// snapshot() must return Err (not a partial snapshot) when the walk exceeds
 /// the walk timeout.  Setting the override to 0 ms guarantees an immediate
 /// timeout because `elapsed >= Duration::ZERO` is always true.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_snapshot_walk_timeout_returns_err() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -65,7 +65,7 @@ fn test_snapshot_walk_timeout_returns_err() {
 /// A walk timeout during pre-hook must NOT propagate as Err to the caller —
 /// the hook swallows it so the user's bash tool call is never blocked.
 /// The action is still TakePreSnapshot (no snapshot stored).
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_pre_hook_walk_timeout_swallows_error() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -82,7 +82,7 @@ fn test_pre_hook_walk_timeout_swallows_error() {
 }
 
 /// A walk timeout during the post-hook must return Fallback, not Err.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_post_hook_walk_timeout_returns_fallback() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -117,7 +117,7 @@ fn test_post_hook_walk_timeout_returns_fallback() {
 
 /// A hook-level timeout during the pre-hook (fires after the daemon query)
 /// must return Fallback rather than proceeding or panicking.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_pre_hook_hook_timeout_returns_fallback() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -135,7 +135,7 @@ fn test_pre_hook_hook_timeout_returns_fallback() {
 
 /// A hook-level timeout during the post-hook (fires after load + before
 /// snapshot) must return Fallback.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_post_hook_hook_timeout_returns_fallback() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -159,7 +159,7 @@ fn test_post_hook_hook_timeout_returns_fallback() {
 
 /// Verify that normal (non-timeout) operation still works correctly after
 /// timeout overrides are cleared, ensuring the reset helpers are effective.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_timeout_override_reset_restores_normal_operation() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);

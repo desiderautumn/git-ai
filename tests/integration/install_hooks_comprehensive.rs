@@ -12,7 +12,7 @@ use std::collections::HashMap;
 // InstallStatus Tests
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_status_as_str() {
     assert_eq!(InstallStatus::NotFound.as_str(), "not_found");
     assert_eq!(InstallStatus::Installed.as_str(), "installed");
@@ -23,7 +23,7 @@ fn test_install_status_as_str() {
     assert_eq!(InstallStatus::Failed.as_str(), "failed");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_status_equality() {
     assert_eq!(InstallStatus::NotFound, InstallStatus::NotFound);
     assert_eq!(InstallStatus::Installed, InstallStatus::Installed);
@@ -37,7 +37,7 @@ fn test_install_status_equality() {
     assert_ne!(InstallStatus::Installed, InstallStatus::Failed);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_status_copy_clone() {
     let status = InstallStatus::Installed;
     let copied = status;
@@ -52,7 +52,7 @@ fn test_install_status_copy_clone() {
 // InstallResult Tests
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_result_installed() {
     let result = InstallResult::installed();
     assert_eq!(result.status, InstallStatus::Installed);
@@ -60,7 +60,7 @@ fn test_install_result_installed() {
     assert!(result.warnings.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_result_already_installed() {
     let result = InstallResult::already_installed();
     assert_eq!(result.status, InstallStatus::AlreadyInstalled);
@@ -68,7 +68,7 @@ fn test_install_result_already_installed() {
     assert!(result.warnings.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_result_not_found() {
     let result = InstallResult::not_found();
     assert_eq!(result.status, InstallStatus::NotFound);
@@ -76,7 +76,7 @@ fn test_install_result_not_found() {
     assert!(result.warnings.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_result_failed() {
     let result = InstallResult::failed("Installation failed");
     assert_eq!(result.status, InstallStatus::Failed);
@@ -84,7 +84,7 @@ fn test_install_result_failed() {
     assert!(result.warnings.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_result_failed_with_string() {
     let error_msg = String::from("Custom error message");
     let result = InstallResult::failed(error_msg.clone());
@@ -92,7 +92,7 @@ fn test_install_result_failed_with_string() {
     assert_eq!(result.error, Some(error_msg));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_result_with_warning() {
     let result = InstallResult::installed().with_warning("Minor issue detected");
     assert_eq!(result.status, InstallStatus::Installed);
@@ -101,7 +101,7 @@ fn test_install_result_with_warning() {
     assert_eq!(result.warnings[0], "Minor issue detected");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_result_with_multiple_warnings() {
     let result = InstallResult::installed()
         .with_warning("Warning 1")
@@ -114,14 +114,14 @@ fn test_install_result_with_multiple_warnings() {
     assert_eq!(result.warnings[2], "Warning 3");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_result_message_for_metrics_with_error() {
     let result = InstallResult::failed("Critical error");
     let message = result.message_for_metrics();
     assert_eq!(message, Some("Critical error".to_string()));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_result_message_for_metrics_with_warnings() {
     let result = InstallResult::installed()
         .with_warning("Warning 1")
@@ -130,7 +130,7 @@ fn test_install_result_message_for_metrics_with_warnings() {
     assert_eq!(message, Some("Warning 1; Warning 2".to_string()));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_result_message_for_metrics_with_error_and_warnings() {
     // Error takes precedence over warnings
     let result = InstallResult::failed("Error message").with_warning("Some warning");
@@ -138,14 +138,14 @@ fn test_install_result_message_for_metrics_with_error_and_warnings() {
     assert_eq!(message, Some("Error message".to_string()));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_result_message_for_metrics_no_error_or_warnings() {
     let result = InstallResult::installed();
     let message = result.message_for_metrics();
     assert!(message.is_none());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_result_message_for_metrics_empty_warnings() {
     let result = InstallResult {
         status: InstallStatus::Installed,
@@ -160,14 +160,14 @@ fn test_install_result_message_for_metrics_empty_warnings() {
 // to_hashmap Conversion Tests
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_to_hashmap_empty() {
     let statuses: HashMap<String, InstallStatus> = HashMap::new();
     let result = to_hashmap(statuses);
     assert!(result.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_to_hashmap_single_entry() {
     let mut statuses = HashMap::new();
     statuses.insert("cursor".to_string(), InstallStatus::Installed);
@@ -177,7 +177,7 @@ fn test_to_hashmap_single_entry() {
     assert_eq!(result.get("cursor"), Some(&"installed".to_string()));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_to_hashmap_multiple_entries() {
     let mut statuses = HashMap::new();
     statuses.insert("cursor".to_string(), InstallStatus::Installed);
@@ -196,7 +196,7 @@ fn test_to_hashmap_multiple_entries() {
     assert_eq!(result.get("windsurf"), Some(&"failed".to_string()));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_to_hashmap_all_statuses() {
     let mut statuses = HashMap::new();
     statuses.insert("not_found".to_string(), InstallStatus::NotFound);
@@ -218,7 +218,7 @@ fn test_to_hashmap_all_statuses() {
 // Argument Parsing Tests
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_run_install_hooks_no_args() {
     // This will try to run against the actual system, but should not crash
     // It may fail if binary path cannot be determined, which is acceptable
@@ -240,7 +240,7 @@ fn test_run_install_hooks_no_args() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_run_install_hooks_with_dry_run_flag() {
     let args = vec!["--dry-run".to_string()];
     let result = run(&args);
@@ -257,7 +257,7 @@ fn test_run_install_hooks_with_dry_run_flag() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_run_install_hooks_with_dry_run_true() {
     let args = vec!["--dry-run=true".to_string()];
     let result = run(&args);
@@ -272,7 +272,7 @@ fn test_run_install_hooks_with_dry_run_true() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_run_install_hooks_with_verbose_flag() {
     let args = vec!["--verbose".to_string()];
     let result = run(&args);
@@ -287,7 +287,7 @@ fn test_run_install_hooks_with_verbose_flag() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_run_install_hooks_with_verbose_short_flag() {
     let args = vec!["-v".to_string()];
     let result = run(&args);
@@ -302,7 +302,7 @@ fn test_run_install_hooks_with_verbose_short_flag() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_run_install_hooks_with_multiple_flags() {
     let args = vec!["--dry-run".to_string(), "--verbose".to_string()];
     let result = run(&args);
@@ -317,7 +317,7 @@ fn test_run_install_hooks_with_multiple_flags() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_run_install_hooks_with_dry_run_false() {
     // Note: This could actually install hooks on the system
     // In a real test environment, this should be run in isolation
@@ -334,7 +334,7 @@ fn test_run_install_hooks_with_dry_run_false() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_run_install_hooks_ignores_unknown_args() {
     // Unknown arguments should be ignored
     let args = vec![
@@ -358,7 +358,7 @@ fn test_run_install_hooks_ignores_unknown_args() {
 // Uninstall Tests
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_run_uninstall_hooks_no_args() {
     let result = run_uninstall(&[]);
 
@@ -373,7 +373,7 @@ fn test_run_uninstall_hooks_no_args() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_run_uninstall_hooks_with_dry_run() {
     let args = vec!["--dry-run".to_string()];
     let result = run_uninstall(&args);
@@ -388,7 +388,7 @@ fn test_run_uninstall_hooks_with_dry_run() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_run_uninstall_hooks_with_verbose() {
     let args = vec!["--verbose".to_string()];
     let result = run_uninstall(&args);
@@ -403,7 +403,7 @@ fn test_run_uninstall_hooks_with_verbose() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_run_uninstall_hooks_with_multiple_flags() {
     let args = vec![
         "--dry-run=true".to_string(),
@@ -426,7 +426,7 @@ fn test_run_uninstall_hooks_with_multiple_flags() {
 // Edge Cases and Error Handling
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_result_clone() {
     let result = InstallResult::failed("Error")
         .with_warning("Warning 1")
@@ -438,7 +438,7 @@ fn test_install_result_clone() {
     assert_eq!(cloned.warnings, result.warnings);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_result_debug_formatting() {
     let result = InstallResult::installed();
     let debug_str = format!("{:?}", result);
@@ -446,14 +446,14 @@ fn test_install_result_debug_formatting() {
     assert!(debug_str.contains("Installed"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_status_debug_formatting() {
     let status = InstallStatus::Installed;
     let debug_str = format!("{:?}", status);
     assert!(debug_str.contains("Installed"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_to_hashmap_preserves_all_keys() {
     let mut statuses = HashMap::new();
     let keys = vec![
@@ -487,28 +487,28 @@ fn test_to_hashmap_preserves_all_keys() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_result_warning_with_empty_string() {
     let result = InstallResult::installed().with_warning("");
     assert_eq!(result.warnings.len(), 1);
     assert_eq!(result.warnings[0], "");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_result_failed_with_empty_string() {
     let result = InstallResult::failed("");
     assert_eq!(result.error, Some("".to_string()));
     assert_eq!(result.status, InstallStatus::Failed);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_result_message_for_metrics_single_warning() {
     let result = InstallResult::installed().with_warning("Only warning");
     let message = result.message_for_metrics();
     assert_eq!(message, Some("Only warning".to_string()));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_result_message_for_metrics_warnings_join_with_semicolon() {
     let result = InstallResult::installed()
         .with_warning("First; warning")
@@ -526,7 +526,7 @@ fn test_install_result_message_for_metrics_warnings_join_with_semicolon() {
 // Integration-style Tests
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_workflow_dry_run_does_not_modify_system() {
     // Dry run should be safe to run repeatedly
     let args = vec!["--dry-run".to_string(), "--verbose".to_string()];
@@ -551,7 +551,7 @@ fn test_install_workflow_dry_run_does_not_modify_system() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_uninstall_workflow_dry_run_does_not_modify_system() {
     let args = vec!["--dry-run".to_string()];
 
@@ -575,7 +575,7 @@ fn test_uninstall_workflow_dry_run_does_not_modify_system() {
 // Status String Validation
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_all_status_strings_are_lowercase() {
     assert!(
         InstallStatus::NotFound
@@ -603,7 +603,7 @@ fn test_all_status_strings_are_lowercase() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_status_strings_use_underscores() {
     // Verify consistent naming convention
     assert!(InstallStatus::NotFound.as_str().contains('_'));
@@ -612,7 +612,7 @@ fn test_status_strings_use_underscores() {
     assert!(!InstallStatus::Failed.as_str().contains('_'));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_status_strings_are_valid_identifiers() {
     // Status strings should be suitable for use as keys
     let statuses = [
@@ -636,7 +636,7 @@ fn test_status_strings_are_valid_identifiers() {
 // Complex Scenario Tests
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_result_builder_pattern() {
     // Demonstrate builder-like pattern with warnings
     let result = InstallResult::installed()
@@ -656,7 +656,7 @@ fn test_install_result_builder_pattern() {
     assert!(msg.contains("Manual action required"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_to_hashmap_with_realistic_agent_names() {
     let mut statuses = HashMap::new();
     statuses.insert("cursor".to_string(), InstallStatus::Installed);
@@ -678,7 +678,7 @@ fn test_to_hashmap_with_realistic_agent_names() {
     assert_eq!(result.get("continue-cli").unwrap(), "not_found");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_result_different_error_types() {
     // Test with different error message types
     let errors = vec![
@@ -698,7 +698,7 @@ fn test_install_result_different_error_types() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_hashmap_conversion_stability() {
     // Test that conversion is stable (same input produces same output)
     let mut statuses = HashMap::new();

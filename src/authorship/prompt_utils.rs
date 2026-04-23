@@ -775,7 +775,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_format_transcript_basic() {
         let prompt = create_test_prompt_record("test", "123", "gpt-4");
         let formatted = format_transcript(&prompt);
@@ -784,7 +784,7 @@ mod tests {
         assert!(formatted.contains("Assistant: Hi there\n"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_format_transcript_all_message_types() {
         let mut prompt = create_test_prompt_record("test", "123", "gpt-4");
         prompt.messages = vec![
@@ -822,7 +822,7 @@ mod tests {
         assert!(!formatted.contains("ToolUse"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_format_transcript_empty() {
         let mut prompt = create_test_prompt_record("test", "123", "gpt-4");
         prompt.messages = vec![];
@@ -831,7 +831,7 @@ mod tests {
         assert_eq!(formatted, "");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_format_transcript_multiline() {
         let mut prompt = create_test_prompt_record("test", "123", "gpt-4");
         prompt.messages = vec![Message::User {
@@ -843,91 +843,91 @@ mod tests {
         assert_eq!(formatted, "User: Line 1\nLine 2\nLine 3\n");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_prompt_from_tool_unknown() {
         let result = update_prompt_from_tool("unknown-tool", "thread-123", None, "gpt-4");
         assert!(matches!(result, PromptUpdateResult::Unchanged));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_codex_prompt_no_metadata() {
         let result = update_codex_prompt(None, "gpt-4");
         assert!(matches!(result, PromptUpdateResult::Unchanged));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_codex_prompt_no_transcript_path() {
         let metadata = HashMap::new();
         let result = update_codex_prompt(Some(&metadata), "gpt-4");
         assert!(matches!(result, PromptUpdateResult::Unchanged));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_claude_prompt_no_metadata() {
         let result = update_claude_prompt(None, "claude-3");
         assert!(matches!(result, PromptUpdateResult::Unchanged));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_claude_prompt_no_transcript_path() {
         let metadata = HashMap::new();
         let result = update_claude_prompt(Some(&metadata), "claude-3");
         assert!(matches!(result, PromptUpdateResult::Unchanged));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_gemini_prompt_no_metadata() {
         let result = update_gemini_prompt(None, "gemini-pro");
         assert!(matches!(result, PromptUpdateResult::Unchanged));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_gemini_prompt_no_transcript_path() {
         let metadata = HashMap::new();
         let result = update_gemini_prompt(Some(&metadata), "gemini-pro");
         assert!(matches!(result, PromptUpdateResult::Unchanged));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_github_copilot_prompt_no_metadata() {
         let result = update_github_copilot_prompt(None, "gpt-4");
         assert!(matches!(result, PromptUpdateResult::Unchanged));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_github_copilot_prompt_no_session_path() {
         let metadata = HashMap::new();
         let result = update_github_copilot_prompt(Some(&metadata), "gpt-4");
         assert!(matches!(result, PromptUpdateResult::Unchanged));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_continue_cli_prompt_no_metadata() {
         let result = update_continue_cli_prompt(None, "gpt-4");
         assert!(matches!(result, PromptUpdateResult::Unchanged));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_continue_cli_prompt_no_transcript_path() {
         let metadata = HashMap::new();
         let result = update_continue_cli_prompt(Some(&metadata), "gpt-4");
         assert!(matches!(result, PromptUpdateResult::Unchanged));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_droid_prompt_no_metadata() {
         let result = update_droid_prompt(None, "gpt-4");
         assert!(matches!(result, PromptUpdateResult::Unchanged));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_droid_prompt_no_transcript_path() {
         let metadata = HashMap::new();
         let result = update_droid_prompt(Some(&metadata), "gpt-4");
         assert!(matches!(result, PromptUpdateResult::Unchanged));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_find_prompt_in_commit_integration() {
         // Create a test repository
         let tmp_repo = TmpRepo::new().expect("Failed to create test repo");
@@ -968,7 +968,7 @@ mod tests {
         assert_eq!(prompt.agent_id.model, "gpt-4");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_find_prompt_in_commit_not_found() {
         let tmp_repo = TmpRepo::new().expect("Failed to create test repo");
 
@@ -996,7 +996,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_find_prompt_in_commit_invalid_revision() {
         let tmp_repo = TmpRepo::new().expect("Failed to create test repo");
 
@@ -1014,7 +1014,7 @@ mod tests {
         assert!(result.is_err());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_find_prompt_in_history_basic() {
         let tmp_repo = TmpRepo::new().expect("Failed to create test repo");
 
@@ -1046,7 +1046,7 @@ mod tests {
         assert_eq!(prompt.agent_id.id, "ai_agent");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_find_prompt_in_history_with_offset() {
         let tmp_repo = TmpRepo::new().expect("Failed to create test repo");
 
@@ -1087,7 +1087,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_find_prompt_in_history_not_found() {
         let tmp_repo = TmpRepo::new().expect("Failed to create test repo");
 
@@ -1111,7 +1111,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_find_prompt_delegates_to_commit() {
         let tmp_repo = TmpRepo::new().expect("Failed to create test repo");
 
@@ -1141,7 +1141,7 @@ mod tests {
         assert_eq!(prompt.agent_id.id, "ai_agent");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_find_prompt_delegates_to_history() {
         let tmp_repo = TmpRepo::new().expect("Failed to create test repo");
 
@@ -1171,7 +1171,7 @@ mod tests {
         assert_eq!(prompt.agent_id.id, "ai_agent");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_find_prompt_with_db_fallback_no_db_no_repo() {
         // Test when prompt is not in DB and no repo is provided
         let result = find_prompt_with_db_fallback("nonexistent-prompt", None);
@@ -1184,7 +1184,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_find_prompt_with_db_fallback_no_db_with_repo() {
         let tmp_repo = TmpRepo::new().expect("Failed to create test repo");
 
@@ -1214,7 +1214,7 @@ mod tests {
         assert_eq!(prompt.agent_id.tool, "test_tool");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_find_prompt_with_db_fallback_not_in_repo() {
         let tmp_repo = TmpRepo::new().expect("Failed to create test repo");
 
@@ -1239,7 +1239,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_prompt_from_tool_dispatch() {
         // Test that unknown tools return Unchanged
         let result = update_prompt_from_tool("unknown", "thread-123", None, "model");
@@ -1297,7 +1297,7 @@ mod tests {
         assert!(matches!(result, PromptUpdateResult::Unchanged));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_format_transcript_with_timestamps() {
         let mut prompt = create_test_prompt_record("test", "123", "gpt-4");
         prompt.messages = vec![
@@ -1318,7 +1318,7 @@ mod tests {
         assert!(formatted.contains("Assistant: Answer\n"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_format_transcript_special_characters() {
         let mut prompt = create_test_prompt_record("test", "123", "gpt-4");
         prompt.messages = vec![Message::User {
@@ -1332,7 +1332,7 @@ mod tests {
         assert!(formatted.contains("\t"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_format_transcript_unicode() {
         let mut prompt = create_test_prompt_record("test", "123", "gpt-4");
         prompt.messages = vec![Message::User {
@@ -1347,7 +1347,7 @@ mod tests {
         assert!(formatted.contains("مرحبا"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_codex_prompt_invalid_path() {
         let mut metadata = HashMap::new();
         metadata.insert(
@@ -1359,7 +1359,7 @@ mod tests {
         assert!(matches!(result, PromptUpdateResult::Failed(_)));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_claude_prompt_invalid_path() {
         let mut metadata = HashMap::new();
         metadata.insert(
@@ -1371,7 +1371,7 @@ mod tests {
         assert!(matches!(result, PromptUpdateResult::Failed(_)));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_gemini_prompt_invalid_path() {
         let mut metadata = HashMap::new();
         metadata.insert(
@@ -1383,7 +1383,7 @@ mod tests {
         assert!(matches!(result, PromptUpdateResult::Failed(_)));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_github_copilot_prompt_invalid_path() {
         let mut metadata = HashMap::new();
         metadata.insert(
@@ -1395,7 +1395,7 @@ mod tests {
         assert!(matches!(result, PromptUpdateResult::Failed(_)));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_continue_cli_prompt_invalid_path() {
         let mut metadata = HashMap::new();
         metadata.insert(
@@ -1407,7 +1407,7 @@ mod tests {
         assert!(matches!(result, PromptUpdateResult::Failed(_)));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_droid_prompt_invalid_transcript_path() {
         let mut metadata = HashMap::new();
         metadata.insert(
@@ -1419,20 +1419,20 @@ mod tests {
         assert!(matches!(result, PromptUpdateResult::Failed(_)));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_windsurf_prompt_no_metadata() {
         let result = update_windsurf_prompt(None, "unknown");
         assert!(matches!(result, PromptUpdateResult::Unchanged));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_windsurf_prompt_no_transcript_path() {
         let metadata = HashMap::new();
         let result = update_windsurf_prompt(Some(&metadata), "unknown");
         assert!(matches!(result, PromptUpdateResult::Unchanged));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_windsurf_prompt_invalid_path() {
         let mut metadata = HashMap::new();
         metadata.insert(
@@ -1444,7 +1444,7 @@ mod tests {
         assert!(matches!(result, PromptUpdateResult::Failed(_)));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_find_prompt_in_history_empty_repo() {
         let tmp_repo = TmpRepo::new().expect("Failed to create test repo");
 
@@ -1458,7 +1458,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_find_prompt_prompt_not_in_commit() {
         let tmp_repo = TmpRepo::new().expect("Failed to create test repo");
 

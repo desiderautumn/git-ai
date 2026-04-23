@@ -9,7 +9,7 @@ use std::fs;
 ///
 /// This uses raw fs::write + checkpoint mock_ai to replicate the exact real-world
 /// flow rather than the helper utilities which use a different checkpointing approach.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ai_reflow_two_lines_to_one_attributed_to_ai() {
     let repo = TestRepo::new();
     let file_path = repo.path().join("test_repo.rs");
@@ -71,7 +71,7 @@ fn ensure_isolated_process_home() {
 /// Intra-commit: AI checkpoint then human checkpoint in the same session
 /// (no commit between them), so the working log retains AI attributions and
 /// the attribution tracker handles the reflow purely through its own logic.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_human_reflow_on_ai_code_retains_ai_attribution() {
     let repo = TestRepo::new();
     let file_path = repo.path().join("test_repo.rs");
@@ -144,7 +144,7 @@ fn ensure_isolated_process_home() {
 /// (no commit between AI and human checkpoints).
 ///
 /// All reflowed lines should retain AI attribution.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_human_reflow_of_ai_set_contents_retains_ai() {
     let repo = TestRepo::new();
     let file_path = repo.path().join("reflow.txt");
@@ -187,7 +187,7 @@ fn test_human_reflow_of_ai_set_contents_retains_ai() {
 ///
 /// NOTE: This now uses a whitespace-only-change check to detect true reflows
 /// vs appends, so it only force-splits when the non-whitespace content matches.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ai_reflow_of_human_content_one_to_many_lines_attributed_to_ai() {
     let repo = TestRepo::new();
     let file_path = repo.path().join("reflow2.txt");

@@ -42,7 +42,7 @@ fn create_unique_workspace(prefix: &str) -> PathBuf {
 
 /// When the agent's CWD is an unrelated directory (not inside any repo being edited),
 /// the checkpoint should still correctly attribute AI-written lines in the target repo.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cwd_different_from_repo_root_single_repo() {
     // repo_target is where the file lives
     let repo_target = TestRepo::new();
@@ -98,7 +98,7 @@ fn test_cwd_different_from_repo_root_single_repo() {
 
 /// When the agent's CWD is an unrelated directory, and it checkpoints files
 /// across multiple different repos, each repo should get correct attribution.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cwd_different_from_repo_root_multiple_repos() {
     let repo_cwd = TestRepo::new(); // unrelated CWD
     let repo_a = TestRepo::new();
@@ -165,7 +165,7 @@ fn test_cwd_different_from_repo_root_multiple_repos() {
 
 /// When the agent's CWD is inside one of the repos being edited, and edits also
 /// span other repos, all repos should get correct attribution including the CWD repo.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cwd_is_one_of_edited_repos_plus_others() {
     let repo_cwd = TestRepo::new(); // CWD is this repo, AND it has edits
     let repo_other1 = TestRepo::new();
@@ -243,7 +243,7 @@ fn test_cwd_is_one_of_edited_repos_plus_others() {
 
 /// When the agent's CWD is a parent directory that contains the repos as
 /// subdirectories (simulating ~/projects), attribution should still work.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cwd_is_parent_dir_above_repos_single_repo() {
     // Create a workspace directory (simulating ~/projects - NOT a git repo)
     let workspace = create_unique_workspace("git-ai-cwd-parent-test");
@@ -296,7 +296,7 @@ fn test_cwd_is_parent_dir_above_repos_single_repo() {
 }
 
 /// Scenario 4 variant: CWD is parent, edits across multiple repos under it.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cwd_is_parent_dir_above_multiple_repos() {
     let workspace = create_unique_workspace("git-ai-cwd-parent-multi-test");
 
@@ -356,7 +356,7 @@ fn test_cwd_is_parent_dir_above_multiple_repos() {
 
 /// When CWD is a parent directory (like ~/projects), and edits span files in
 /// subdirectories of multiple repos, attribution should work for all of them.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cwd_parent_dir_edits_in_repo_subpaths() {
     let workspace = create_unique_workspace("git-ai-cwd-parent-subpaths-test");
 
@@ -445,7 +445,7 @@ fn test_cwd_parent_dir_edits_in_repo_subpaths() {
 }
 
 /// Scenario 5 variant: CWD above repos, edits in multiple files per repo across subpaths.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cwd_parent_dir_multiple_files_per_repo_subpaths() {
     let workspace = create_unique_workspace("git-ai-cwd-parent-multi-files-test");
 
@@ -566,7 +566,7 @@ fn test_cwd_parent_dir_multiple_files_per_repo_subpaths() {
 
 /// Verify that blame output correctly shows AI authorship for lines written
 /// via cross-repo checkpoint where CWD is an unrelated directory.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cross_repo_cwd_blame_shows_correct_attribution() {
     let repo_cwd = TestRepo::new();
     let repo_target = TestRepo::new();
@@ -610,7 +610,7 @@ fn test_cross_repo_cwd_blame_shows_correct_attribution() {
 }
 
 /// Verify blame across multiple repos when CWD is a parent directory.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_parent_cwd_blame_correct_across_repos() {
     let workspace = create_unique_workspace("git-ai-parent-blame-test");
 
@@ -672,7 +672,7 @@ fn test_parent_cwd_blame_correct_across_repos() {
 /// When Claude Code is started in repo A but edits a file in repo B,
 /// the checkpoint should record data in repo B so that committing in repo B
 /// produces non-empty prompts in the git note.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_claude_preset_cross_repo_cwd_records_prompts_in_target_repo() {
     // repo_cwd is where the agent session runs (repo A)
     let repo_cwd = TestRepo::new();
@@ -761,7 +761,7 @@ fn test_claude_preset_cross_repo_cwd_records_prompts_in_target_repo() {
 
 /// Same as above but tests the PreToolUse (human checkpoint) path.
 /// The human checkpoint should also correctly record in repo B when CWD is repo A.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_claude_preset_cross_repo_cwd_pre_tool_use_records_in_target_repo() {
     let repo_cwd = TestRepo::new();
     let repo_target = TestRepo::new();
@@ -848,7 +848,7 @@ fn test_claude_preset_cross_repo_cwd_pre_tool_use_records_in_target_repo() {
 /// When CWD is a parent git repo and the edited file is inside a nested
 /// subrepo (subdirectory with its own .git/), the checkpoint must be written
 /// to the subrepo, not the parent.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_nested_subrepo_single_file_mock_ai() {
     let workspace = create_unique_workspace("git-ai-nested-subrepo-test");
 
@@ -901,7 +901,7 @@ fn test_nested_subrepo_single_file_mock_ai() {
 
 /// Mixed edits: some files in parent repo, some in nested subrepo.
 /// Both repos should get their respective checkpoints.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_nested_subrepo_mixed_edits_mock_ai() {
     let workspace = create_unique_workspace("git-ai-nested-mixed-test");
 
@@ -955,7 +955,7 @@ fn test_nested_subrepo_mixed_edits_mock_ai() {
 }
 
 /// Multiple nested subrepos inside the same parent repo.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_nested_multiple_subrepos_mock_ai() {
     let workspace = create_unique_workspace("git-ai-nested-multi-sub-test");
 
@@ -1012,7 +1012,7 @@ fn test_nested_multiple_subrepos_mock_ai() {
 
 /// Blame verification for nested subrepo: human lines stay human,
 /// AI-appended lines show as AI.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_nested_subrepo_blame_attribution_mock_ai() {
     let workspace = create_unique_workspace("git-ai-nested-blame-test");
 
@@ -1070,7 +1070,7 @@ fn test_nested_subrepo_blame_attribution_mock_ai() {
 
 /// Claude Code running in parent repo, editing a file in nested subrepo.
 /// Checkpoint should record data in subrepo so commit produces non-empty prompts.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_claude_preset_nested_subrepo_records_prompts() {
     let workspace = create_unique_workspace("git-ai-claude-nested-test");
 
@@ -1156,7 +1156,7 @@ fn test_claude_preset_nested_subrepo_records_prompts() {
 }
 
 /// Claude PreToolUse + PostToolUse cycle for nested subrepo.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_claude_preset_nested_subrepo_pre_post_cycle() {
     let workspace = create_unique_workspace("git-ai-claude-nested-cycle-test");
 
@@ -1242,7 +1242,7 @@ fn test_claude_preset_nested_subrepo_pre_post_cycle() {
 /// When CWD is a non-git directory completely unrelated to the target repo
 /// (not a parent/ancestor of the target), checkpoint must still write to the
 /// target repo's working logs so that the commit carries AI attribution.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_issue_954_non_git_cwd_unrelated_to_target_repo_mock_ai() {
     // Create a non-git workspace directory (simulates launching from /tmp or ~/)
     // This directory is a SIBLING of the target repo, not its parent.
@@ -1299,7 +1299,7 @@ fn test_issue_954_non_git_cwd_unrelated_to_target_repo_mock_ai() {
 
 /// Issue #954 variant: non-git CWD, multiple files in multiple separate repos.
 /// Verifies that all target repos receive correct attribution.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_issue_954_non_git_cwd_multiple_target_repos() {
     let cwd_workspace = create_unique_workspace("git-ai-954-multi-target-cwd");
 
@@ -1349,7 +1349,7 @@ fn test_issue_954_non_git_cwd_multiple_target_repos() {
 
 /// Issue #954 variant: Claude preset with non-git CWD and file in a separate repo.
 /// Verifies that the Claude PostToolUse checkpoint records prompts correctly.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_issue_954_claude_preset_non_git_cwd() {
     let cwd_workspace = create_unique_workspace("git-ai-954-claude-cwd");
     let mut repo_target = TestRepo::new();

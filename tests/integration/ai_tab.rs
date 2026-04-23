@@ -24,7 +24,7 @@ fn run_ai_tab_checkpoint(repo: &TestRepo, hook_payload: serde_json::Value) {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ai_tab_before_edit_checkpoint_includes_dirty_files() {
     let hook_input = json!({
         "hook_event_name": "before_edit",
@@ -89,7 +89,7 @@ fn test_ai_tab_before_edit_checkpoint_includes_dirty_files() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ai_tab_after_edit_checkpoint_includes_dirty_files_and_paths() {
     let hook_input = json!({
         "hook_event_name": "after_edit",
@@ -145,7 +145,7 @@ fn test_ai_tab_after_edit_checkpoint_includes_dirty_files_and_paths() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ai_tab_rejects_invalid_hook_event() {
     let hook_input = json!({
         "hook_event_name": "during_edit",
@@ -175,7 +175,7 @@ fn test_ai_tab_rejects_invalid_hook_event() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ai_tab_requires_non_empty_tool_and_model() {
     let preset = AiTabPreset;
 
@@ -222,7 +222,7 @@ fn test_ai_tab_requires_non_empty_tool_and_model() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ai_tab_e2e_marks_ai_lines() {
     let repo = TestRepo::new();
     let relative_path = "notes_test.ts";
@@ -280,7 +280,7 @@ fn test_ai_tab_e2e_marks_ai_lines() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ai_tab_e2e_handles_dirty_files_map() {
     let repo = TestRepo::new();
     let lib_relative_path = std::path::Path::new("src").join("lib.rs");

@@ -4,7 +4,7 @@ use git_ai::mdm::jetbrains::ide_types::{
 };
 use std::path::PathBuf;
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_constants() {
     // Verify plugin constants are correctly defined
     assert_eq!(MIN_INTELLIJ_BUILD, 252, "Min build should be 252 (2025.2)");
@@ -13,7 +13,7 @@ fn test_constants() {
     assert!(MARKETPLACE_URL.contains(PLUGIN_ID));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_jetbrains_ides_definitions() {
     // Verify we have all major JetBrains IDEs defined
     assert!(!JETBRAINS_IDES.is_empty(), "Should have IDE definitions");
@@ -42,7 +42,7 @@ fn test_jetbrains_ides_definitions() {
     assert!(ide_names.iter().any(|n| n.contains("Android Studio")));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_intellij_ultimate_definition() {
     let intellij = JETBRAINS_IDES
         .iter()
@@ -57,7 +57,7 @@ fn test_intellij_ultimate_definition() {
     assert_eq!(intellij.toolbox_app_name, "IDEA-U");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_intellij_community_definition() {
     let intellij_ce = JETBRAINS_IDES
         .iter()
@@ -74,7 +74,7 @@ fn test_intellij_community_definition() {
     assert_eq!(intellij_ce.toolbox_app_name, "IDEA-C");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_pycharm_definitions() {
     let pycharm_pro = JETBRAINS_IDES
         .iter()
@@ -95,7 +95,7 @@ fn test_pycharm_definitions() {
     assert_eq!(pycharm_ce.product_code, "PC");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_webstorm_definition() {
     let webstorm = JETBRAINS_IDES
         .iter()
@@ -109,7 +109,7 @@ fn test_webstorm_definition() {
     assert_eq!(webstorm.toolbox_app_name, "WebStorm");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_goland_definition() {
     let goland = JETBRAINS_IDES
         .iter()
@@ -121,7 +121,7 @@ fn test_goland_definition() {
     assert_eq!(goland.product_code, "GO");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_clion_definition() {
     let clion = JETBRAINS_IDES
         .iter()
@@ -133,7 +133,7 @@ fn test_clion_definition() {
     assert_eq!(clion.product_code, "CL");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_phpstorm_definition() {
     let phpstorm = JETBRAINS_IDES
         .iter()
@@ -145,7 +145,7 @@ fn test_phpstorm_definition() {
     assert_eq!(phpstorm.product_code, "PS");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rider_definition() {
     let rider = JETBRAINS_IDES
         .iter()
@@ -157,7 +157,7 @@ fn test_rider_definition() {
     assert_eq!(rider.product_code, "RD");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rubymine_definition() {
     let rubymine = JETBRAINS_IDES
         .iter()
@@ -169,7 +169,7 @@ fn test_rubymine_definition() {
     assert_eq!(rubymine.product_code, "RM");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_datagrip_definition() {
     let datagrip = JETBRAINS_IDES
         .iter()
@@ -181,7 +181,7 @@ fn test_datagrip_definition() {
     assert_eq!(datagrip.product_code, "DB");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_android_studio_definition() {
     let android = JETBRAINS_IDES
         .iter()
@@ -194,7 +194,7 @@ fn test_android_studio_definition() {
     assert_eq!(android.product_code, "AI");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_all_ides_have_bundle_ids() {
     for ide in JETBRAINS_IDES {
         assert!(
@@ -205,7 +205,7 @@ fn test_all_ides_have_bundle_ids() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_all_ides_have_binary_names() {
     for ide in JETBRAINS_IDES {
         assert!(
@@ -226,7 +226,7 @@ fn test_all_ides_have_binary_names() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_all_ides_have_product_codes() {
     for ide in JETBRAINS_IDES {
         assert!(
@@ -242,7 +242,7 @@ fn test_all_ides_have_product_codes() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_all_ides_have_toolbox_names() {
     for ide in JETBRAINS_IDES {
         assert!(
@@ -253,7 +253,7 @@ fn test_all_ides_have_toolbox_names() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_detected_ide_compatible_with_min_build() {
     let ide = &JETBRAINS_IDES[0]; // Use first IDE as example
 
@@ -269,7 +269,7 @@ fn test_detected_ide_compatible_with_min_build() {
     assert!(detected.is_compatible(), "Build 252 should be compatible");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_detected_ide_compatible_with_newer_build() {
     let ide = &JETBRAINS_IDES[0];
 
@@ -285,7 +285,7 @@ fn test_detected_ide_compatible_with_newer_build() {
     assert!(detected.is_compatible(), "Build 300 should be compatible");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_detected_ide_incompatible_with_old_build() {
     let ide = &JETBRAINS_IDES[0];
 
@@ -304,7 +304,7 @@ fn test_detected_ide_incompatible_with_old_build() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_detected_ide_incompatible_without_build_number() {
     let ide = &JETBRAINS_IDES[0];
 
@@ -323,7 +323,7 @@ fn test_detected_ide_incompatible_without_build_number() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_detected_ide_incompatible_with_only_build_string() {
     let ide = &JETBRAINS_IDES[0];
 
@@ -342,7 +342,7 @@ fn test_detected_ide_incompatible_with_only_build_string() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_binary_names_have_correct_extensions() {
     for ide in JETBRAINS_IDES {
         // macOS and Linux should not have .exe
@@ -373,7 +373,7 @@ fn test_binary_names_have_correct_extensions() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_product_codes_are_unique() {
     use std::collections::HashSet;
 
@@ -387,7 +387,7 @@ fn test_product_codes_are_unique() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_toolbox_names_are_unique() {
     use std::collections::HashSet;
 
@@ -401,7 +401,7 @@ fn test_toolbox_names_are_unique() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_detected_ide_clone() {
     let ide = &JETBRAINS_IDES[0];
 
@@ -422,7 +422,7 @@ fn test_detected_ide_clone() {
     assert_eq!(cloned.plugins_dir, detected.plugins_dir);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_detected_ide_debug_format() {
     let ide = &JETBRAINS_IDES[0];
 
@@ -439,7 +439,7 @@ fn test_detected_ide_debug_format() {
     assert!(debug_str.contains("DetectedIde"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_jetbrains_ide_clone() {
     let ide = &JETBRAINS_IDES[0];
     let cloned = ide.clone();

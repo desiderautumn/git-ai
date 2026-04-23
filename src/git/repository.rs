@@ -3583,7 +3583,7 @@ mod tests {
         String::from_utf8_lossy(&output.stdout).trim().to_string()
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_git_version_standard() {
         // Standard git version format
         assert_eq!(parse_git_version("git version 2.39.3"), Some((2, 39, 3)));
@@ -3591,7 +3591,7 @@ mod tests {
         assert_eq!(parse_git_version("git version 1.8.5"), Some((1, 8, 5)));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_git_version_apple_git() {
         // macOS Apple Git format
         assert_eq!(
@@ -3600,7 +3600,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_git_version_windows() {
         // Windows git format
         assert_eq!(
@@ -3609,19 +3609,19 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_git_version_no_patch() {
         // Version without patch number
         assert_eq!(parse_git_version("git version 2.39"), Some((2, 39, 0)));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_git_version_with_newline() {
         // Version string with trailing newline
         assert_eq!(parse_git_version("git version 2.39.3\n"), Some((2, 39, 3)));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_git_version_invalid() {
         // Invalid formats should return None
         assert_eq!(parse_git_version(""), None);
@@ -3630,7 +3630,7 @@ mod tests {
         assert_eq!(parse_git_version("git version x.y.z"), None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn disable_internal_git_hooks_guard_applies_to_spawned_threads() {
         let args = vec!["status".to_string()];
         let _guard = disable_internal_git_hooks();
@@ -3645,7 +3645,7 @@ mod tests {
         assert!(forwarded[1].starts_with("core.hooksPath="));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn patch_profile_applies_canonical_machine_parse_flags() {
         let args = vec!["diff".to_string(), "HEAD^".to_string(), "HEAD".to_string()];
         let rewritten = args_with_internal_git_profile(&args, InternalGitProfile::PatchParse);
@@ -3665,7 +3665,7 @@ mod tests {
         assert!(rewritten.iter().any(|arg| arg == "--inter-hunk-context=0"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn numstat_profile_disables_renames_and_external_renderers() {
         let args = vec![
             "diff".to_string(),
@@ -3681,7 +3681,7 @@ mod tests {
         assert!(rewritten.iter().any(|arg| arg == "--no-renames"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn numstat_profile_strips_short_rename_and_copy_flags() {
         let args = vec![
             "diff".to_string(),
@@ -3699,14 +3699,14 @@ mod tests {
         assert!(rewritten.iter().any(|arg| arg == "--no-renames"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn general_profile_is_noop() {
         let args = vec!["status".to_string(), "--porcelain=v2".to_string()];
         let rewritten = args_with_internal_git_profile(&args, InternalGitProfile::General);
         assert_eq!(rewritten, args);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn patch_profile_strips_conflicting_ext_diff_and_color_flags() {
         let args = vec![
             "diff".to_string(),
@@ -3722,7 +3722,7 @@ mod tests {
         assert!(rewritten.iter().any(|arg| arg == "--no-color"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn patch_profile_strips_split_prefix_args() {
         let args = vec![
             "diff".to_string(),
@@ -3743,7 +3743,7 @@ mod tests {
         assert!(rewritten.iter().any(|arg| arg == "--dst-prefix=b/"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn profile_rewrite_does_not_strip_pathspec_tokens_after_double_dash() {
         let args = vec![
             "diff".to_string(),
@@ -3770,7 +3770,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn raw_diff_profile_keeps_rename_flags_untouched() {
         let args = vec![
             "diff".to_string(),
@@ -3788,7 +3788,7 @@ mod tests {
         assert!(rewritten.iter().any(|arg| arg == "--no-relative"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_list_commit_files_with_utf8_filename() {
         use crate::git::test_utils::TmpRepo;
 
@@ -3827,7 +3827,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_diff_added_lines_with_insertions_standard_prefix() {
         // Test diff with standard b/ prefix (commit-to-commit diff)
         let diff = r#"diff --git a/test.txt b/test.txt
@@ -3843,7 +3843,7 @@ index 0000000..abc1234 100644
         assert_eq!(insertion_lines.get("test.txt"), Some(&vec![1, 2]));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_diff_added_lines_with_insertions_workdir_prefix() {
         // Test diff with w/ prefix (commit-to-workdir diff)
         let diff = r#"diff --git c/test.txt w/test.txt
@@ -3859,7 +3859,7 @@ index a751413..8adaa6c 100644
         assert_eq!(insertion_lines.get("test.txt"), Some(&vec![1, 2]));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_diff_added_lines_with_insertions_quoted_paths() {
         // Test diff with quoted paths containing spaces
         let diff = r#"diff --git "a/my file.txt" "b/my file.txt"
@@ -3876,7 +3876,7 @@ index 0000000..abc1234 100644
         assert_eq!(insertion_lines.get("my file.txt"), Some(&vec![1, 2, 3]));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_diff_added_lines_with_insertions_quoted_workdir_paths() {
         // Test diff with quoted w/ paths
         let diff = r#"diff --git "c/my file.txt" "w/my file.txt"
@@ -3892,7 +3892,7 @@ index 0000000..abc1234 100644
         assert_eq!(insertion_lines.get("my file.txt"), Some(&vec![1, 2]));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_diff_added_lines_with_insertions_no_prefix_paths() {
         let diff = r#"diff --git my-file.txt my-file.txt
 index 0000000..abc1234 100644
@@ -3907,7 +3907,7 @@ index 0000000..abc1234 100644
         assert_eq!(insertion_lines.get("my-file.txt"), Some(&vec![1, 2]));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_diff_added_lines_with_insertions_custom_prefix_paths() {
         let diff = r#"diff --git SRC/my-file.txt DST/my-file.txt
 index 0000000..abc1234 100644
@@ -3922,7 +3922,7 @@ index 0000000..abc1234 100644
         assert_eq!(insertion_lines.get("DST/my-file.txt"), Some(&vec![1, 2]));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn worktree_storage_ai_dir_keeps_full_relative_worktree_path() {
         let temp = tempfile::tempdir().expect("tempdir");
         let common_dir = temp.path().join("repo.git");
@@ -3941,7 +3941,7 @@ index 0000000..abc1234 100644
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn worktree_storage_ai_dir_fallback_uses_git_dir_leaf_name() {
         let temp = tempfile::tempdir().expect("tempdir");
         let common_dir = temp.path().join("repo.git");
@@ -3960,7 +3960,7 @@ index 0000000..abc1234 100644
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn resolve_command_base_dir_applies_chained_c_arguments() {
         let temp = tempfile::tempdir().expect("tempdir");
         let base = temp.path().join("root");
@@ -3980,7 +3980,7 @@ index 0000000..abc1234 100644
         assert_eq!(resolved, base.join("nested").join("..").join("repo"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn find_repository_in_path_supports_bare_repositories() {
         let temp = tempfile::tempdir().expect("tempdir");
         let source = temp.path().join("source");
@@ -4018,7 +4018,7 @@ index 0000000..abc1234 100644
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn find_repository_in_path_bare_repo_can_read_head_gitattributes() {
         let temp = tempfile::tempdir().expect("tempdir");
         let source = temp.path().join("source");
@@ -4054,7 +4054,7 @@ index 0000000..abc1234 100644
         assert!(content.contains("generated/** linguist-generated=true"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn find_repository_in_path_worktree_uses_common_dir_for_isolated_storage() {
         let temp = tempfile::tempdir().expect("tempdir");
         let main_repo = temp.path().join("main");
@@ -4109,7 +4109,7 @@ index 0000000..abc1234 100644
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn path_is_in_workdir_returns_false_for_linked_worktree_file() {
         // Sibling worktree: the worktree lives OUTSIDE the main repo's working tree.
         // path_is_in_workdir returns false purely because the path doesn't
@@ -4152,7 +4152,7 @@ index 0000000..abc1234 100644
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn path_is_in_workdir_returns_false_for_nested_linked_worktree_file() {
         // Nested worktree: the worktree lives INSIDE the main repo's working tree
         // (e.g. main_repo/.worktrees/feature).  This is the exact Bug-A / Bug-B
@@ -4217,7 +4217,7 @@ index 0000000..abc1234 100644
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn get_all_staged_file_blob_oids_reads_stage_zero_entries_without_git2() {
         let temp = tempfile::tempdir().expect("tempdir");
         let repo_dir = temp.path().join("repo");

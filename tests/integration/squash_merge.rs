@@ -11,7 +11,7 @@ fn deterministic_commit_env(timestamp: &'static str) -> [(&'static str, &'static
 }
 
 /// Test merge --squash with a simple feature branch containing AI and human edits
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prepare_working_log_simple_squash() {
     let repo = TestRepo::new();
     let mut file = repo.filename("main.txt");
@@ -69,7 +69,7 @@ fn test_prepare_working_log_simple_squash() {
 }
 
 /// Test merge --squash with out-of-band changes on master (handles 3-way merge)
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prepare_working_log_squash_with_main_changes() {
     let repo = TestRepo::new();
     let mut file = repo.filename("document.txt");
@@ -124,7 +124,7 @@ fn test_prepare_working_log_squash_with_main_changes() {
 }
 
 /// Test merge --squash with multiple AI sessions and human edits
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prepare_working_log_squash_multiple_sessions() {
     let repo = TestRepo::new();
     let mut file = repo.filename("file.txt");
@@ -184,7 +184,7 @@ fn test_prepare_working_log_squash_multiple_sessions() {
 }
 
 /// Test merge --squash with mixed additions (AI code edited by human before commit)
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prepare_working_log_squash_with_mixed_additions() {
     let repo = TestRepo::new();
     let mut file = repo.filename("code.txt");
@@ -315,7 +315,7 @@ fn test_prepare_working_log_squash_with_mixed_additions() {
 
 /// Test that custom attributes set via config are preserved through a squash merge
 /// when the real post-commit pipeline injects them.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_squash_merge_preserves_custom_attributes_from_config() {
     let mut repo = TestRepo::new_dedicated_daemon();
 
@@ -401,7 +401,7 @@ fn test_squash_merge_preserves_custom_attributes_from_config() {
 
 /// Regression test for #950: squash rebase should preserve all AI attribution
 /// even when two sessions have interleaved lines
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_squash_rebase_preserves_interleaved_attribution() {
     let repo = TestRepo::new();
 
@@ -476,7 +476,7 @@ fn test_squash_rebase_preserves_interleaved_attribution() {
 /// Variant of test_prepare_working_log_squash_with_main_changes using unattributed (legacy)
 /// human checkpoints. Assertions match origin/main behavior: with empty attribution, "section 3"
 /// gains the AI-attributed trailing newline in the squash diff and is counted as AI.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prepare_working_log_squash_with_main_changes_standard_human() {
     let repo = TestRepo::new();
     let mut file = repo.filename("document.txt");
@@ -540,7 +540,7 @@ fn test_prepare_working_log_squash_with_main_changes_standard_human() {
 /// Variant of test_prepare_working_log_squash_multiple_sessions using unattributed (legacy)
 /// human checkpoints. Assertions match origin/main behavior: "footer" gains the AI-attributed
 /// trailing newline and is counted as AI.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prepare_working_log_squash_multiple_sessions_standard_human() {
     let repo = TestRepo::new();
     let mut file = repo.filename("file.txt");

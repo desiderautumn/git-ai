@@ -1028,27 +1028,27 @@ mod tests {
     use std::process::Command;
     use tempfile::tempdir;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn parse_alias_tokens_empty_string() {
         assert_eq!(parse_alias_tokens(""), Some(vec![]));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn parse_alias_tokens_whitespace_only() {
         assert_eq!(parse_alias_tokens("  \t  "), Some(vec![]));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn parse_alias_tokens_shell_alias() {
         assert_eq!(parse_alias_tokens("!echo hello"), None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn parse_alias_tokens_shell_alias_with_leading_whitespace() {
         assert_eq!(parse_alias_tokens("  !echo hello"), None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn parse_alias_tokens_simple_tokens() {
         assert_eq!(
             parse_alias_tokens("commit -v"),
@@ -1056,7 +1056,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn parse_alias_tokens_double_quotes() {
         assert_eq!(
             parse_alias_tokens(r#"log "--format=%H %s""#),
@@ -1064,7 +1064,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn parse_alias_tokens_single_quotes() {
         assert_eq!(
             parse_alias_tokens("log '--format=%H %s'"),
@@ -1072,7 +1072,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn parse_alias_tokens_mixed_adjacent_quotes() {
         assert_eq!(
             parse_alias_tokens("--pretty='format:%h %s'"),
@@ -1080,17 +1080,17 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn parse_alias_tokens_unclosed_single_quote() {
         assert_eq!(parse_alias_tokens("log 'unclosed"), None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn parse_alias_tokens_unclosed_double_quote() {
         assert_eq!(parse_alias_tokens("log \"unclosed"), None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn parse_alias_tokens_escaped_char_outside_quotes() {
         assert_eq!(
             parse_alias_tokens(r"log \-\-oneline"),
@@ -1098,7 +1098,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn parse_alias_tokens_escaped_char_in_double_quotes() {
         assert_eq!(
             parse_alias_tokens(r#"log "--format=\"%H\"""#),
@@ -1106,7 +1106,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn parse_alias_tokens_trailing_backslash() {
         assert_eq!(
             parse_alias_tokens("commit\\"),
@@ -1114,7 +1114,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn parse_alias_tokens_multiple_whitespace_between_tokens() {
         assert_eq!(
             parse_alias_tokens("log   --oneline   -5"),
@@ -1126,7 +1126,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn resolve_child_hooks_path_override_no_state_file_returns_none() {
         let temp = tempdir().expect("tempdir should create");
         let output = Command::new("git")
@@ -1151,7 +1151,7 @@ mod tests {
     }
 
     #[cfg(unix)]
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn exit_status_was_interrupted_on_sigint() {
         let status = std::process::Command::new("sh")
             .arg("-c")
@@ -1162,7 +1162,7 @@ mod tests {
     }
 
     #[cfg(unix)]
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn exit_status_was_interrupted_false_on_success() {
         let status = std::process::Command::new("sh")
             .arg("-c")
@@ -1173,7 +1173,7 @@ mod tests {
     }
 
     #[cfg(windows)]
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn exit_status_was_interrupted_on_windows_ctrl_c_code() {
         // Simulate a Ctrl+C NTSTATUS exit code via cmd's exit value.
         let status = std::process::Command::new("cmd")
@@ -1187,7 +1187,7 @@ mod tests {
     }
 
     #[cfg(windows)]
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn exit_status_was_interrupted_false_on_success_windows() {
         let status = std::process::Command::new("cmd")
             .arg("/C")

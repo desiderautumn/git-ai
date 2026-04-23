@@ -6,7 +6,7 @@ use crate::repos::test_repo::TestRepo;
 ///
 /// This test uses the wrapper path where `onto_head` is correctly captured.
 /// The unit test in rebase_hooks.rs tests the `onto_head = None` fallback path.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_onto_branch_with_merge_commits_does_not_note_merge_commits() {
     let repo = TestRepo::new();
 
@@ -115,7 +115,7 @@ fn test_rebase_onto_branch_with_merge_commits_does_not_note_merge_commits() {
 }
 
 /// Same scenario but using `git pull --rebase`.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_pull_rebase_onto_branch_with_merge_commits_does_not_note_merge_commits() {
     let (local, _upstream) = TestRepo::new_with_remote();
 
@@ -190,7 +190,7 @@ fn test_pull_rebase_onto_branch_with_merge_commits_does_not_note_merge_commits()
 /// Calls build_rebase_commit_mappings directly with Some(merge_base) to verify
 /// merge commits on the target branch are excluded from new_commits.
 /// Strict per-line blame assertions on all files.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_with_onto_equals_merge_base_does_not_note_merge_commits() {
     let repo = TestRepo::new();
 
@@ -322,7 +322,7 @@ fn test_rebase_with_onto_equals_merge_base_does_not_note_merge_commits() {
 /// Multiple AI feature commits rebased onto branch with merge commits.
 /// Daemon fallback path (onto_head == merge_base). Mixed AI + human files.
 /// Strict per-line blame assertions on every file and every line.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_multi_commit_with_onto_equals_merge_base_preserves_all_blame() {
     let repo = TestRepo::new();
 
@@ -463,7 +463,7 @@ fn test_rebase_multi_commit_with_onto_equals_merge_base_preserves_all_blame() {
 
 /// Edge case: rebase onto a branch with MULTIPLE merge commits (busy main with
 /// several merged PRs). Daemon fallback path (onto_head == merge_base).
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_onto_multiple_merge_commits_with_onto_equals_merge_base() {
     let repo = TestRepo::new();
 

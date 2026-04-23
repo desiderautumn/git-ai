@@ -7,7 +7,7 @@ use git_ai::git::refs::notes_add;
 use std::collections::HashMap;
 
 /// Test simple rebase with no conflicts where trees are identical - multiple commits
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_no_conflicts_identical_trees() {
     let repo = TestRepo::new();
 
@@ -60,7 +60,7 @@ fn test_rebase_no_conflicts_identical_trees() {
 }
 
 /// Test rebase where trees differ (parent changes result in different tree IDs) - multiple commits
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_with_different_trees() {
     let repo = TestRepo::new();
 
@@ -101,7 +101,7 @@ fn test_rebase_with_different_trees() {
 }
 
 /// Test rebase with multiple commits
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_multiple_commits() {
     let repo = TestRepo::new();
 
@@ -148,7 +148,7 @@ fn test_rebase_multiple_commits() {
 }
 
 /// Test rebase where only some commits have authorship logs
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_mixed_authorship() {
     let repo = TestRepo::new();
 
@@ -188,7 +188,7 @@ fn test_rebase_mixed_authorship() {
     ai_file.assert_lines_and_blame(crate::lines!["// AI work".ai()]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_preserves_exact_mixed_line_attribution_in_single_file() {
     let repo = TestRepo::new();
 
@@ -231,7 +231,7 @@ fn test_rebase_preserves_exact_mixed_line_attribution_in_single_file() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_with_human_only_commit_between_ai_commits_preserves_exact_lines() {
     let repo = TestRepo::new();
 
@@ -268,7 +268,7 @@ fn test_rebase_with_human_only_commit_between_ai_commits_preserves_exact_lines()
     notes_file.assert_lines_and_blame(crate::lines!["human notes line".human()]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_preserves_human_only_commit_note_metadata() {
     let repo = TestRepo::new();
 
@@ -327,7 +327,7 @@ fn test_rebase_preserves_human_only_commit_note_metadata() {
     assert_eq!(rebased_log.metadata.base_commit_sha, rebased_sha);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_preserves_prompt_only_commit_note_metadata() {
     let repo = TestRepo::new();
 
@@ -423,7 +423,7 @@ fn test_rebase_preserves_prompt_only_commit_note_metadata() {
 }
 
 /// Test empty rebase (fast-forward)
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_fast_forward() {
     let repo = TestRepo::new();
 
@@ -452,7 +452,7 @@ fn test_rebase_fast_forward() {
 
 /// Test `git rebase <upstream> <branch>` when invoked from another branch.
 /// We should capture original_head from `<branch>`, not from the currently checked-out branch.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_with_explicit_branch_argument_preserves_authorship() {
     let repo = TestRepo::new();
 
@@ -491,7 +491,7 @@ fn test_rebase_with_explicit_branch_argument_preserves_authorship() {
 
 /// Test `git rebase --root --onto <base> <branch>` when invoked from another branch.
 /// We should resolve original_head from `<branch>`, not from the currently checked-out branch.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_root_with_explicit_branch_argument_preserves_authorship() {
     let repo = TestRepo::new();
 
@@ -537,7 +537,7 @@ fn test_rebase_root_with_explicit_branch_argument_preserves_authorship() {
 }
 
 /// Test interactive rebase with commit reordering - verifies interactive rebase works
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_interactive_reorder() {
     let repo = TestRepo::new();
 
@@ -585,7 +585,7 @@ fn test_rebase_interactive_reorder() {
 }
 
 /// Test rebase skip - skipping a commit during rebase
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_skip() {
     let repo = TestRepo::new();
 
@@ -628,7 +628,7 @@ fn test_rebase_skip() {
 }
 
 /// Test rebase with empty commits (--keep-empty)
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_keep_empty() {
     let repo = TestRepo::new();
 
@@ -669,7 +669,7 @@ fn test_rebase_keep_empty() {
 }
 
 /// Test rebase with rerere (reuse recorded resolution) enabled
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_rerere() {
     let repo = TestRepo::new();
 
@@ -728,7 +728,7 @@ fn test_rebase_rerere() {
 }
 
 /// Test dependent branch stack (patch-stack workflow)
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_patch_stack() {
     let repo = TestRepo::new();
 
@@ -788,7 +788,7 @@ fn test_rebase_patch_stack() {
 }
 
 /// Test rebase with no changes (already up to date)
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_already_up_to_date() {
     let repo = TestRepo::new();
 
@@ -819,7 +819,7 @@ fn test_rebase_already_up_to_date() {
 }
 
 /// Test rebase with conflicts - verifies reconstruction works after conflict resolution
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_with_conflicts() {
     let repo = TestRepo::new();
 
@@ -861,7 +861,7 @@ fn test_rebase_with_conflicts() {
 }
 
 /// Test rebase abort - ensures no authorship corruption on abort
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_abort() {
     let repo = TestRepo::new();
 
@@ -906,7 +906,7 @@ fn test_rebase_abort() {
 }
 
 /// Test branch switch during rebase - ensures proper state handling
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_branch_switch_during() {
     let repo = TestRepo::new();
 
@@ -946,7 +946,7 @@ fn test_rebase_branch_switch_during() {
 }
 
 /// Test rebase with autosquash enabled
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_autosquash() {
     let repo = TestRepo::new();
 
@@ -991,7 +991,7 @@ fn test_rebase_autosquash() {
 }
 
 /// Test rebase with autostash enabled
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_autostash() {
     let repo = TestRepo::new();
 
@@ -1040,7 +1040,7 @@ fn test_rebase_autostash() {
 }
 
 /// Test rebase --exec to run tests at each commit
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_exec() {
     let repo = TestRepo::new();
 
@@ -1089,7 +1089,7 @@ fn test_rebase_exec() {
 ///
 /// The test checks that authorship notes for rebased commits include files
 /// from side branches (reached via parent(1) of merge commits).
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_preserve_merges() {
     let repo = TestRepo::new();
 
@@ -1174,7 +1174,7 @@ fn test_rebase_preserve_merges() {
 
 /// Test rebase with commit splitting (fewer original commits than new commits)
 /// This tests that rebase handles AI authorship correctly even with complex commit histories
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_commit_splitting() {
     let repo = TestRepo::new();
 
@@ -1223,7 +1223,7 @@ fn test_rebase_commit_splitting() {
 
 /// Test interactive rebase with squashing - verifies authorship from all commits is preserved
 /// This tests that squashing preserves authorship from all commits
-#[test]
+#[test] #[print_dur::print_dur]
 #[cfg(not(target_os = "windows"))]
 fn test_rebase_squash_preserves_all_authorship() {
     let repo = TestRepo::new();
@@ -1316,7 +1316,7 @@ sed -i.bak '3s/pick/squash/' "$1"
 
 /// Test rebase with rewording (renaming) a commit that has 2 children commits
 /// Verifies that authorship is preserved for all 3 commits after reword
-#[test]
+#[test] #[print_dur::print_dur]
 #[cfg(not(target_os = "windows"))]
 fn test_rebase_reword_commit_with_children() {
     let repo = TestRepo::new();
@@ -1444,7 +1444,7 @@ cat {} > "$1"
 
 /// Test that custom attributes set via config are preserved through a rebase
 /// when the real post-commit pipeline injects them.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_preserves_custom_attributes_from_config() {
     let mut repo = TestRepo::new();
 
@@ -1519,7 +1519,7 @@ fn test_rebase_preserves_custom_attributes_from_config() {
 /// Regression test: prompt metrics (accepted_lines) must update per commit, not be frozen
 /// from the initial state. When commit 1 has 2 AI lines and commit 2 adds 2 more
 /// (total 4), the rebased notes should reflect different accepted_lines.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_prompt_metrics_update_per_commit() {
     let repo = TestRepo::new();
     let default_branch = repo.current_branch();
@@ -1630,7 +1630,7 @@ fn test_rebase_prompt_metrics_update_per_commit() {
 /// Regression test: attributions should survive a delete-recreate cycle within a rebase.
 /// If a file is deleted in commit N and recreated in commit N+1, the recreated file
 /// should inherit attributions from the pre-deletion state via positional diff transfer.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_file_delete_recreate_preserves_attribution() {
     let repo = TestRepo::new();
     let default_branch = repo.current_branch();
@@ -1698,7 +1698,7 @@ fn test_rebase_file_delete_recreate_preserves_attribution() {
 ///    new blob OID is read on recreation.
 /// 2. files_with_synced_state: must be cleared on deletion so recreation
 ///    uses content-diff (not stale hunk-based transfer).
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_file_delete_recreate_different_content_preserves_attribution() {
     let repo = TestRepo::new();
     let default_branch = repo.current_branch();
@@ -1774,7 +1774,7 @@ fn test_rebase_file_delete_recreate_different_content_preserves_attribution() {
 /// Each commit's note only covers lines changed in THAT commit. HEAD doesn't
 /// touch all AI-attributed files. The reconstruction must process ALL commits'
 /// notes to build the complete attribution state, not just HEAD's.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_preserves_attribution_from_non_head_commits() {
     let repo = TestRepo::new();
 
@@ -1850,7 +1850,7 @@ fn test_rebase_preserves_attribution_from_non_head_commits() {
 /// Commit 1 adds AI lines 1-3, commit 3 adds AI lines 4-6, but commit 2
 /// (between them) touches a different file entirely. The reconstruction must
 /// combine notes from both commits to get the full attribution for the file.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_preserves_multi_commit_attribution_same_file() {
     let repo = TestRepo::new();
 
@@ -1912,7 +1912,7 @@ fn test_rebase_preserves_multi_commit_attribution_same_file() {
 /// files, forcing the slow path (blob OID mismatch between original and rebased).
 /// This tests that attribution from non-HEAD commits survives even through the
 /// full attribution rewrite path.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_non_head_attribution_survives_slow_path() {
     let repo = TestRepo::new();
 
@@ -2000,7 +2000,7 @@ fn test_rebase_non_head_attribution_survives_slow_path() {
 ///
 /// The fix: when original and new commit counts differ, pair commits by matching
 /// the commit subject line rather than by position.
-#[test]
+#[test] #[print_dur::print_dur]
 #[cfg(not(target_os = "windows"))]
 fn test_rebase_interactive_drop_preserves_attribution() {
     let repo = TestRepo::new();
@@ -2128,7 +2128,7 @@ crate::reuse_tests_in_worktree_with_attrs!(
 /// 4. Commit 4: recreate file with new content
 ///
 /// Main branch must also modify the same file to force the slow reconstruction path.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_file_delete_recreate_after_hunk_modification() {
     let repo = TestRepo::new();
     let default_branch = repo.current_branch();
@@ -2205,7 +2205,7 @@ fn test_rebase_file_delete_recreate_after_hunk_modification() {
 /// during rebase authorship tracking. The `→` character (U+2192, 3 bytes in UTF-8)
 /// placed so that byte index 40 falls inside its encoding triggers a panic in
 /// `run_diff_tree_with_hunks` when `&line[..40]` is used instead of `line.get(..40)`.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rebase_preserves_authorship_with_multibyte_utf8_in_diff_context() {
     let repo = TestRepo::new();
 

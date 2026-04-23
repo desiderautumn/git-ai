@@ -886,7 +886,7 @@ mod tests {
     use std::fs;
     use tempfile::TempDir;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_version() {
         // Test standard versions
         assert_eq!(parse_version("1.7.38"), Some((1, 7)));
@@ -906,7 +906,7 @@ mod tests {
         assert_eq!(parse_version(""), None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_version_meets_requirement() {
         // Test exact match
         assert!(version_meets_requirement((1, 7), (1, 7)));
@@ -928,7 +928,7 @@ mod tests {
         assert!(!version_meets_requirement((1, 98), (1, 99)));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_version_requirements() {
         // Test minimum version requirements against example versions from user
 
@@ -963,7 +963,7 @@ mod tests {
         assert!(!version_meets_requirement(old_claude, MIN_CLAUDE_VERSION));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_is_git_ai_checkpoint_command() {
         assert!(is_git_ai_checkpoint_command("git-ai checkpoint"));
         assert!(is_git_ai_checkpoint_command(
@@ -988,7 +988,7 @@ mod tests {
         assert!(!is_git_ai_checkpoint_command("git-ai"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_is_github_codespaces() {
         // Save original value
         let original = std::env::var("CODESPACES").ok();
@@ -1022,7 +1022,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_git_path_setting_appends_with_comments() {
         let temp_dir = TempDir::new().unwrap();
         let settings_path = temp_dir.path().join("settings.json");
@@ -1054,7 +1054,7 @@ mod tests {
         assert!(verify.is_none());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_git_path_setting_updates_existing_value_in_place() {
         let temp_dir = TempDir::new().unwrap();
         let settings_path = temp_dir.path().join("settings.json");
@@ -1074,7 +1074,7 @@ mod tests {
         assert!(final_content.contains("\"editor.tabSize\": 2"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_git_path_setting_detects_no_change() {
         let temp_dir = TempDir::new().unwrap();
         let settings_path = temp_dir.path().join("settings.json");
@@ -1088,7 +1088,7 @@ mod tests {
         assert_eq!(final_content, initial);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_vscode_chat_hook_settings_enables_use_hooks() {
         let temp_dir = TempDir::new().unwrap();
         let settings_path = temp_dir.path().join("settings.json");
@@ -1107,7 +1107,7 @@ mod tests {
         assert!(final_content.contains("\"chat.useHooks\": true"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_vscode_chat_hook_settings_detects_no_change() {
         let temp_dir = TempDir::new().unwrap();
         let settings_path = temp_dir.path().join("settings.json");
@@ -1124,7 +1124,7 @@ mod tests {
         assert_eq!(final_content, initial);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_vscode_chat_hook_settings_adds_use_hooks_to_empty() {
         let temp_dir = TempDir::new().unwrap();
         let settings_path = temp_dir.path().join("settings.json");
@@ -1137,7 +1137,7 @@ mod tests {
         assert!(final_content.contains("\"chat.useHooks\": true"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_write_atomic_regular_file() {
         let temp_dir = TempDir::new().unwrap();
         let file_path = temp_dir.path().join("test.txt");
@@ -1149,7 +1149,7 @@ mod tests {
         assert!(!file_path.is_symlink());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[cfg(unix)]
     fn test_write_atomic_preserves_symlink() {
         use std::os::unix::fs::symlink;
@@ -1190,7 +1190,7 @@ mod tests {
         assert_eq!(symlink_content, "updated content");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[cfg(unix)]
     fn test_write_atomic_preserves_relative_symlink() {
         use std::os::unix::fs::symlink;
@@ -1226,7 +1226,7 @@ mod tests {
         assert_eq!(target_content, "relative symlink content");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_editor_cli_command_from_path() {
         let cmd = EditorCliCommand::from_path("code");
         assert_eq!(cmd.program, "code");
@@ -1234,7 +1234,7 @@ mod tests {
         assert!(cmd.env_vars.is_empty());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_editor_cli_command_from_cli_js() {
         let electron = PathBuf::from("/Applications/Cursor.app/Contents/MacOS/Cursor");
         let cli_js = PathBuf::from("/Applications/Cursor.app/Contents/Resources/app/out/cli.js");
@@ -1248,7 +1248,7 @@ mod tests {
         assert_eq!(cmd.env_vars[0].1, "1");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_editor_cli_command_builds_command_with_args() {
         let cmd = EditorCliCommand::from_path("cursor");
         let built = cmd.command(&["--list-extensions"]);
@@ -1259,7 +1259,7 @@ mod tests {
         assert_eq!(built.get_program(), "cursor");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_editor_cli_command_from_cli_js_builds_command_with_env() {
         let electron = PathBuf::from("/usr/bin/electron");
         let cli_js = PathBuf::from("/usr/share/code/resources/app/out/cli.js");
@@ -1275,13 +1275,13 @@ mod tests {
         }));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_resolve_editor_cli_returns_none_for_unknown() {
         // An unknown editor name should return None (no binary in PATH, no known install dirs)
         assert!(resolve_editor_cli("nonexistent-editor-xyz").is_none());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_resolve_editor_cli_finds_cli_js_fallback() {
         // Create a fake editor installation directory structure (unix only)
         #[cfg(unix)]
@@ -1339,7 +1339,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_get_editor_cli_candidates_returns_expected_paths() {
         // Test that candidates are returned for known editors
         let cursor_candidates = get_editor_cli_candidates("cursor");
@@ -1387,7 +1387,7 @@ mod tests {
         assert!(unknown_candidates.is_empty());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_to_git_bash_path_converts_windows_path() {
         let path = PathBuf::from(r"C:\Users\Administrator\.git-ai\bin\git-ai.exe");
         let result = to_git_bash_path(&path);
@@ -1397,7 +1397,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_to_git_bash_path_converts_different_drive_letter() {
         let path = PathBuf::from(r"D:\Projects\code\app.exe");
         let result = to_git_bash_path(&path);
@@ -1407,7 +1407,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_to_git_bash_path_preserves_unix_path() {
         let path = PathBuf::from("/usr/local/bin/git-ai");
         let result = to_git_bash_path(&path);
@@ -1417,7 +1417,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_to_git_bash_path_handles_extended_prefix_after_clean() {
         // After clean_path strips \\?\ prefix, the path looks like C:\...
         let raw = PathBuf::from(r"\\?\C:\Users\USERNAME\.git-ai\bin\git-ai.exe");
@@ -1429,7 +1429,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_to_git_bash_path_handles_drive_relative_path() {
         // Drive-relative path like C:foo (no separator after colon)
         let path = PathBuf::from("C:foo");
@@ -1440,7 +1440,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_clean_path_strips_windows_prefix() {
         let path = PathBuf::from(r"\\?\C:\Users\test\.git-ai\bin\git-ai.exe");
         let cleaned = clean_path(path);
@@ -1457,35 +1457,35 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_clean_path_preserves_normal_windows_path() {
         let path = PathBuf::from(r"C:\Users\test\.git-ai\bin\git-ai.exe");
         let cleaned = clean_path(path.clone());
         assert_eq!(cleaned, path);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_clean_path_preserves_unix_path() {
         let path = PathBuf::from("/usr/local/bin/git-ai");
         let cleaned = clean_path(path.clone());
         assert_eq!(cleaned, path);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_to_windows_git_bash_style_path_converts_backslashes() {
         let path = PathBuf::from(r"C:\Users\Administrator\.git-ai\bin\git.exe");
         let result = to_windows_git_bash_style_path(&path);
         assert_eq!(result, "C:/Users/Administrator/.git-ai/bin/git.exe");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_to_windows_git_bash_style_path_preserves_unix_path() {
         let path = PathBuf::from("/usr/local/bin/git");
         let result = to_windows_git_bash_style_path(&path);
         assert_eq!(result, "/usr/local/bin/git");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_claude_config_dir_defaults_to_home_dot_claude() {
         unsafe {
@@ -1495,7 +1495,7 @@ mod tests {
         assert_eq!(dir, home_dir().join(".claude"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_claude_config_dir_respects_env_var() {
         let custom = "/tmp/my-claude-config";
@@ -1509,7 +1509,7 @@ mod tests {
         assert_eq!(dir, PathBuf::from(custom));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_claude_config_dir_ignores_empty_env_var() {
         unsafe {
@@ -1524,7 +1524,7 @@ mod tests {
 
     /// Regression test for #1039: write_atomic should create parent directories
     /// if they do not exist, preventing "No such file or directory" errors.
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_write_atomic_creates_parent_dirs() {
         let temp_dir = TempDir::new().unwrap();
         // Path whose parent directory does NOT yet exist
@@ -1543,7 +1543,7 @@ mod tests {
     }
 
     /// Regression test for #1039: ensure_parent_dir handles nested missing dirs.
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_ensure_parent_dir_creates_nested() {
         let temp_dir = TempDir::new().unwrap();
         let file_path = temp_dir
@@ -1560,7 +1560,7 @@ mod tests {
     }
 
     /// Regression test for #1039: ensure_parent_dir is a no-op for root-level paths.
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_ensure_parent_dir_no_parent() {
         // A path with no parent component should not error
         let path = Path::new("standalone_file.txt");

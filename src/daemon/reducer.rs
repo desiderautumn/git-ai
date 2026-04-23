@@ -208,7 +208,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn reducer_applies_ref_changes_and_produces_applied_command() {
         let mut state = family_state();
         let registry = AnalyzerRegistry::new();
@@ -225,7 +225,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn reducer_tracks_head_from_post_repo_snapshot_for_head_moving_commands() {
         let mut state = family_state();
         let registry = AnalyzerRegistry::new();
@@ -248,7 +248,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn reducer_ignores_post_repo_snapshot_for_stash_commands() {
         let mut state = family_state();
         state
@@ -275,7 +275,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn global_reducer_never_drops_commands() {
         let mut state = GlobalState { applied_seq: 0 };
         let registry = AnalyzerRegistry::new();

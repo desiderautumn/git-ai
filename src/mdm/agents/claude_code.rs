@@ -450,7 +450,7 @@ mod tests {
 
     // ---- Install scenarios ----
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn s1_fresh_install_creates_catch_all_block() {
         let (_td, path) = setup_test_env();
         // File does not exist yet
@@ -470,7 +470,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn s2_idempotent_already_on_catch_all() {
         let (_td, path) = setup_test_env();
         let cmd = expected_cmd();
@@ -490,7 +490,7 @@ mod tests {
         assert!(diff.is_none(), "should return None when already up-to-date");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn s3_migration_old_matcher_no_user_hooks() {
         let (_td, path) = setup_test_env();
         let cmd = expected_cmd();
@@ -528,7 +528,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn s4_migration_old_matcher_user_hook_preserved() {
         let (_td, path) = setup_test_env();
         let cmd = expected_cmd();
@@ -597,7 +597,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn s5_fresh_install_user_has_old_matcher_hook() {
         let (_td, path) = setup_test_env();
         fs::write(
@@ -642,7 +642,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn s6_fresh_install_user_has_catch_all_hook() {
         let (_td, path) = setup_test_env();
         fs::write(
@@ -684,7 +684,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn s7_idempotent_user_catch_all_plus_git_ai() {
         let (_td, path) = setup_test_env();
         let cmd = expected_cmd();
@@ -706,7 +706,7 @@ mod tests {
         assert!(diff.is_none(), "should be idempotent");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn s8_deduplication_git_ai_in_both_catch_all_and_old_matcher() {
         let (_td, path) = setup_test_env();
         let cmd = expected_cmd();
@@ -768,7 +768,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn s9_deduplication_two_git_ai_in_catch_all_block() {
         let (_td, path) = setup_test_env();
         let cmd = expected_cmd();
@@ -803,7 +803,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn s10_stale_command_upgraded_in_catch_all() {
         let (_td, path) = setup_test_env();
         fs::write(
@@ -834,7 +834,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn s11_git_ai_in_arbitrary_old_matcher_migrated() {
         let (_td, path) = setup_test_env();
         let cmd = expected_cmd();
@@ -893,7 +893,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn s12_git_ai_spread_across_multiple_old_blocks() {
         let (_td, path) = setup_test_env();
         let cmd = expected_cmd();
@@ -937,7 +937,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn s13_hook_types_handled_independently() {
         let (_td, path) = setup_test_env();
         let cmd = expected_cmd();
@@ -969,7 +969,7 @@ mod tests {
 
     // ---- Uninstall scenarios ----
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn u1_uninstall_from_catch_all() {
         let (_td, path) = setup_test_env();
         let cmd = expected_cmd();
@@ -1003,7 +1003,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn u2_uninstall_from_old_matcher_preserves_user_hook() {
         let (_td, path) = setup_test_env();
         let cmd = expected_cmd();
@@ -1053,7 +1053,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn u3_uninstall_from_multiple_blocks_preserves_user_hooks() {
         let (_td, path) = setup_test_env();
         let cmd = expected_cmd();
@@ -1118,7 +1118,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn u4_noop_uninstall_when_no_git_ai() {
         let (_td, path) = setup_test_env();
         fs::write(
@@ -1141,7 +1141,7 @@ mod tests {
 
     // ---- check_hooks scenarios ----
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn c1_no_hooks_returns_not_installed() {
         let settings = json!({});
         let (installed, up_to_date) = ClaudeCodeInstaller::hook_status(&settings);
@@ -1149,7 +1149,7 @@ mod tests {
         assert!(!up_to_date);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn c2_git_ai_in_catch_all_returns_up_to_date() {
         let cmd = expected_cmd();
         let settings = json!({
@@ -1162,7 +1162,7 @@ mod tests {
         assert!(up_to_date);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn c3_git_ai_only_in_old_matcher_returns_installed_but_not_up_to_date() {
         let cmd = expected_cmd();
         let settings = json!({
@@ -1177,7 +1177,7 @@ mod tests {
 
     // ---- Path / Windows tests (preserved from original) ----
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_claude_hook_commands_no_windows_extended_path_prefix() {
         let raw_path = PathBuf::from(r"\\?\C:\Users\USERNAME\.git-ai\bin\git-ai.exe");
         let binary_path = clean_path(raw_path);
@@ -1202,7 +1202,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_claude_hook_commands_use_git_bash_path_on_windows() {
         let binary_path = PathBuf::from(r"C:\Users\Administrator\.git-ai\bin\git-ai.exe");
         let binary_path_str = to_git_bash_path(&binary_path);
@@ -1221,7 +1221,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_claude_hook_commands_preserve_unix_path() {
         let binary_path = PathBuf::from("/usr/local/bin/git-ai");
         let binary_path_str = to_git_bash_path(&binary_path);
@@ -1235,7 +1235,7 @@ mod tests {
 
     /// Regression test for #1039: install_hooks_at should succeed even when
     /// the parent directory does not yet exist.
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_install_hooks_creates_missing_parent_dir() {
         let temp_dir = TempDir::new().unwrap();
         // Point to a settings.json inside a directory that does NOT exist yet

@@ -192,7 +192,7 @@ mod tests {
     use crate::git::{find_repository_in_path, sync_authorship::fetch_authorship_notes};
     use std::time::Instant;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_load_ai_touched_files_for_specific_commits() {
         smol::block_on(async {
             let repo = find_repository_in_path(".").unwrap();
@@ -247,7 +247,7 @@ mod tests {
         });
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_load_ai_touched_files_for_nonexistent_commit() {
         smol::block_on(async {
             let repo = find_repository_in_path(".").unwrap();
@@ -270,7 +270,7 @@ mod tests {
         });
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_load_ai_touched_files_empty_commits() {
         smol::block_on(async {
             let repo = find_repository_in_path(".").unwrap();
@@ -283,7 +283,7 @@ mod tests {
         });
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_commits_have_authorship_notes_empty() {
         let repo = find_repository_in_path(".").unwrap();
 
@@ -292,7 +292,7 @@ mod tests {
         assert!(!result, "Empty list should return false");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_commits_have_authorship_notes_nonexistent() {
         let repo = find_repository_in_path(".").unwrap();
 
@@ -307,13 +307,13 @@ mod tests {
         assert!(!result);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_cat_file_batch_output_empty() {
         let result = parse_cat_file_batch_output_with_oids(b"").unwrap();
         assert!(result.is_empty(), "Empty input should return empty map");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_cat_file_batch_output_missing() {
         let data = b"abc123 missing\n";
         let result = parse_cat_file_batch_output_with_oids(data).unwrap();
@@ -323,7 +323,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_cat_file_batch_output_single_blob() {
         let data = b"abc123 blob 11\nhello world\n";
         let result = parse_cat_file_batch_output_with_oids(data).unwrap();
@@ -331,7 +331,7 @@ mod tests {
         assert_eq!(result.get("abc123"), Some(&"hello world".to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_cat_file_batch_output_multiple_blobs() {
         let data = b"abc123 blob 5\nhello\ndef456 blob 5\nworld\n";
         let result = parse_cat_file_batch_output_with_oids(data).unwrap();
@@ -340,7 +340,7 @@ mod tests {
         assert_eq!(result.get("def456"), Some(&"world".to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_cat_file_batch_output_truncated() {
         // Size says 20 bytes but only 5 provided
         let data = b"abc123 blob 20\nhello";
@@ -348,35 +348,35 @@ mod tests {
         assert!(result.is_err(), "Truncated content should return error");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_cat_file_batch_output_invalid_size() {
         let data = b"abc123 blob notanumber\n";
         let result = parse_cat_file_batch_output_with_oids(data);
         assert!(result.is_err(), "Invalid size should return error");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_cat_file_batch_output_malformed_header() {
         let data = b"abc123\n";
         let result = parse_cat_file_batch_output_with_oids(data).unwrap();
         assert!(result.is_empty(), "Malformed header should skip that entry");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_batch_read_blobs_with_oids_empty() {
         let repo = find_repository_in_path(".").unwrap();
         let result = batch_read_blobs_with_oids(&repo.global_args_for_exec(), &[]).unwrap();
         assert!(result.is_empty(), "Empty OID list should return empty map");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_extract_file_paths_from_note_empty() {
         let mut files = HashSet::new();
         extract_file_paths_from_note("", &mut files);
         assert!(files.is_empty(), "Empty note should extract no files");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_extract_file_paths_from_note_no_divider() {
         let mut files = HashSet::new();
         extract_file_paths_from_note("some content without divider", &mut files);
@@ -386,7 +386,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_extract_file_paths_from_note_invalid_format() {
         let mut files = HashSet::new();
         let content = "invalid attestation\n---\n{\"metadata\":\"test\"}";

@@ -530,14 +530,14 @@ mod tests {
     use super::get_plugins_dir;
     use std::path::PathBuf;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_get_plugins_dir_prefers_product_info_data_directory_name() {
         let plugins_dir = get_plugins_dir(Some("IntelliJIdea2026.1"), "IU", Some("261.22158.277"));
         let expected_suffix = PathBuf::from("IntelliJIdea2026.1").join("plugins");
         assert!(plugins_dir.ends_with(&expected_suffix));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_get_plugins_dir_falls_back_to_product_code_when_data_directory_name_missing() {
         let plugins_dir = get_plugins_dir(None, "IU", Some("252.27397.103"));
         let expected_suffix = PathBuf::from("IU2025.2").join("plugins");

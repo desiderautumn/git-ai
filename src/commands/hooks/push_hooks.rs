@@ -184,23 +184,23 @@ mod tests {
         args.iter().map(|arg| (*arg).to_string()).collect()
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn skip_authorship_push_when_dry_run() {
         assert!(should_skip_authorship_push(&strings(&["--dry-run"])));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn skip_authorship_push_when_delete() {
         assert!(should_skip_authorship_push(&strings(&["--delete"])));
         assert!(should_skip_authorship_push(&strings(&["-d"])));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn skip_authorship_push_when_mirror() {
         assert!(should_skip_authorship_push(&strings(&["--mirror"])));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn resolve_push_remote_prefers_positional_remote() {
         let args = strings(&["origin", "main"]);
         let remote = resolve_push_remote_from_parts(
@@ -212,7 +212,7 @@ mod tests {
         assert_eq!(remote.as_deref(), Some("origin"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn resolve_push_remote_prefers_repo_flag() {
         let args = strings(&["--repo", "upstream", "HEAD"]);
         let remote = resolve_push_remote_from_parts(
@@ -224,7 +224,7 @@ mod tests {
         assert_eq!(remote.as_deref(), Some("upstream"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn resolve_push_remote_falls_back_to_upstream_then_default() {
         let args = Vec::<String>::new();
         let with_upstream = resolve_push_remote_from_parts(

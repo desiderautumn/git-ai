@@ -13,7 +13,7 @@ fn fake_copilot_transcript_path(repo: &TestRepo) -> String {
 
 /// Test replace_string_in_file with realistic hook data
 /// This is a normal file edit tool, not a bash tool
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_replace_string_in_file_basic() {
     let repo = TestRepo::new();
 
@@ -108,7 +108,7 @@ fn test_replace_string_in_file_basic() {
 
 /// Test run_in_terminal with realistic hook data
 /// This tool should use bash checkpoint flow (snapshot diff)
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_run_in_terminal_bash_checkpoint() {
     let repo = TestRepo::new();
 
@@ -198,7 +198,7 @@ fn test_run_in_terminal_bash_checkpoint() {
 }
 
 /// Test run_in_terminal with no file changes (no checkpoint created)
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_run_in_terminal_no_changes() {
     let repo = TestRepo::new();
 

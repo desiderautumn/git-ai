@@ -12,7 +12,7 @@ use std::fs;
 // ClaudePreset Error Cases
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_claude_preset_missing_hook_input() {
     let preset = ClaudePreset;
     let result = preset.run(AgentCheckpointFlags { hook_input: None });
@@ -26,7 +26,7 @@ fn test_claude_preset_missing_hook_input() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_claude_preset_invalid_json() {
     let preset = ClaudePreset;
     let result = preset.run(AgentCheckpointFlags {
@@ -42,7 +42,7 @@ fn test_claude_preset_invalid_json() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_claude_preset_missing_transcript_path() {
     let preset = ClaudePreset;
     let hook_input = json!({
@@ -64,7 +64,7 @@ fn test_claude_preset_missing_transcript_path() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_claude_preset_missing_cwd() {
     let preset = ClaudePreset;
     let hook_input = json!({
@@ -86,7 +86,7 @@ fn test_claude_preset_missing_cwd() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_claude_preset_pretooluse_checkpoint() {
     let preset = ClaudePreset;
     let hook_input = json!({
@@ -114,7 +114,7 @@ fn test_claude_preset_pretooluse_checkpoint() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_claude_preset_invalid_transcript_path() {
     let preset = ClaudePreset;
     let hook_input = json!({
@@ -135,7 +135,7 @@ fn test_claude_preset_invalid_transcript_path() {
     assert_eq!(result.agent_id.model, "unknown");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_claude_transcript_parsing_empty_file() {
     let temp_file = std::env::temp_dir().join("empty_claude.jsonl");
     fs::write(&temp_file, "").expect("Failed to write temp file");
@@ -151,7 +151,7 @@ fn test_claude_transcript_parsing_empty_file() {
     fs::remove_file(temp_file).ok();
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_claude_transcript_parsing_malformed_json() {
     let temp_file = std::env::temp_dir().join("malformed_claude.jsonl");
     fs::write(&temp_file, "{invalid json}\n").expect("Failed to write temp file");
@@ -163,7 +163,7 @@ fn test_claude_transcript_parsing_malformed_json() {
     fs::remove_file(temp_file).ok();
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_claude_transcript_parsing_with_empty_lines() {
     let temp_file = std::env::temp_dir().join("empty_lines_claude.jsonl");
     let content = r#"
@@ -184,7 +184,7 @@ fn test_claude_transcript_parsing_with_empty_lines() {
     fs::remove_file(temp_file).ok();
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_claude_vscode_copilot_detection() {
     let preset = ClaudePreset;
     let hook_input = json!({
@@ -209,7 +209,7 @@ fn test_claude_vscode_copilot_detection() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_claude_cursor_detection() {
     let preset = ClaudePreset;
     let hook_input = json!({
@@ -242,7 +242,7 @@ fn test_claude_cursor_detection() {
 // GeminiPreset Error Cases
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_preset_missing_hook_input() {
     let preset = GeminiPreset;
     let result = preset.run(AgentCheckpointFlags { hook_input: None });
@@ -256,7 +256,7 @@ fn test_gemini_preset_missing_hook_input() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_preset_invalid_json() {
     let preset = GeminiPreset;
     let result = preset.run(AgentCheckpointFlags {
@@ -272,7 +272,7 @@ fn test_gemini_preset_invalid_json() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_preset_missing_session_id() {
     let preset = GeminiPreset;
     let hook_input = json!({
@@ -294,7 +294,7 @@ fn test_gemini_preset_missing_session_id() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_preset_missing_transcript_path() {
     let preset = GeminiPreset;
     let hook_input = json!({
@@ -316,7 +316,7 @@ fn test_gemini_preset_missing_transcript_path() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_preset_missing_cwd() {
     let preset = GeminiPreset;
     let hook_input = json!({
@@ -338,7 +338,7 @@ fn test_gemini_preset_missing_cwd() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_preset_beforetool_checkpoint() {
     let preset = GeminiPreset;
     let hook_input = json!({
@@ -366,7 +366,7 @@ fn test_gemini_preset_beforetool_checkpoint() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_transcript_parsing_invalid_path() {
     let result = GeminiPreset::transcript_and_model_from_gemini_json("/nonexistent/path.json");
 
@@ -377,7 +377,7 @@ fn test_gemini_transcript_parsing_invalid_path() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_transcript_parsing_empty_messages() {
     let temp_file = std::env::temp_dir().join("gemini_empty_messages.json");
     let content = json!({
@@ -395,7 +395,7 @@ fn test_gemini_transcript_parsing_empty_messages() {
     fs::remove_file(temp_file).ok();
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_transcript_parsing_missing_messages_field() {
     let temp_file = std::env::temp_dir().join("gemini_no_messages.json");
     let content = json!({
@@ -420,7 +420,7 @@ fn test_gemini_transcript_parsing_missing_messages_field() {
 // ContinueCliPreset Error Cases
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_preset_missing_hook_input() {
     let preset = ContinueCliPreset;
     let result = preset.run(AgentCheckpointFlags { hook_input: None });
@@ -434,7 +434,7 @@ fn test_continue_preset_missing_hook_input() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_preset_invalid_json() {
     let preset = ContinueCliPreset;
     let result = preset.run(AgentCheckpointFlags {
@@ -444,7 +444,7 @@ fn test_continue_preset_invalid_json() {
     assert!(result.is_err());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_preset_missing_session_id() {
     let preset = ContinueCliPreset;
     let hook_input = json!({
@@ -467,7 +467,7 @@ fn test_continue_preset_missing_session_id() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_preset_missing_transcript_path() {
     let preset = ContinueCliPreset;
     let hook_input = json!({
@@ -490,7 +490,7 @@ fn test_continue_preset_missing_transcript_path() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_preset_missing_model_defaults_to_unknown() {
     let preset = ContinueCliPreset;
     let hook_input = json!({
@@ -510,7 +510,7 @@ fn test_continue_preset_missing_model_defaults_to_unknown() {
     assert_eq!(result.agent_id.model, "unknown");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_preset_pretooluse_checkpoint() {
     let preset = ContinueCliPreset;
     let hook_input = json!({
@@ -543,7 +543,7 @@ fn test_continue_preset_pretooluse_checkpoint() {
 // CodexPreset Error Cases
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_codex_preset_missing_hook_input() {
     let preset = CodexPreset;
     let result = preset.run(AgentCheckpointFlags { hook_input: None });
@@ -557,7 +557,7 @@ fn test_codex_preset_missing_hook_input() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_codex_preset_invalid_json() {
     let preset = CodexPreset;
     let result = preset.run(AgentCheckpointFlags {
@@ -567,7 +567,7 @@ fn test_codex_preset_invalid_json() {
     assert!(result.is_err());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_codex_preset_missing_session_id() {
     let preset = CodexPreset;
     let hook_input = json!({
@@ -590,7 +590,7 @@ fn test_codex_preset_missing_session_id() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_codex_preset_invalid_transcript_path() {
     let preset = CodexPreset;
     let hook_input = json!({
@@ -621,7 +621,7 @@ fn test_codex_preset_invalid_transcript_path() {
 // CursorPreset Error Cases
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cursor_preset_missing_hook_input() {
     let preset = CursorPreset;
     let result = preset.run(AgentCheckpointFlags { hook_input: None });
@@ -635,7 +635,7 @@ fn test_cursor_preset_missing_hook_input() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cursor_preset_invalid_json() {
     let preset = CursorPreset;
     let result = preset.run(AgentCheckpointFlags {
@@ -645,7 +645,7 @@ fn test_cursor_preset_invalid_json() {
     assert!(result.is_err());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cursor_preset_missing_conversation_id() {
     let preset = CursorPreset;
     let hook_input = json!({
@@ -667,7 +667,7 @@ fn test_cursor_preset_missing_conversation_id() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cursor_preset_missing_workspace_roots() {
     let preset = CursorPreset;
     let hook_input = json!({
@@ -697,7 +697,7 @@ fn test_cursor_preset_missing_workspace_roots() {
 // GithubCopilotPreset Error Cases
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_github_copilot_preset_missing_hook_input() {
     let preset = GithubCopilotPreset;
     let result = preset.run(AgentCheckpointFlags { hook_input: None });
@@ -711,7 +711,7 @@ fn test_github_copilot_preset_missing_hook_input() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_github_copilot_preset_invalid_json() {
     let preset = GithubCopilotPreset;
     let result = preset.run(AgentCheckpointFlags {
@@ -721,7 +721,7 @@ fn test_github_copilot_preset_invalid_json() {
     assert!(result.is_err());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_github_copilot_preset_invalid_hook_event_name() {
     let preset = GithubCopilotPreset;
     let hook_input = json!({
@@ -749,7 +749,7 @@ fn test_github_copilot_preset_invalid_hook_event_name() {
 // DroidPreset Error Cases
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_droid_preset_missing_hook_input() {
     let preset = DroidPreset;
     let result = preset.run(AgentCheckpointFlags { hook_input: None });
@@ -763,7 +763,7 @@ fn test_droid_preset_missing_hook_input() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_droid_preset_invalid_json() {
     let preset = DroidPreset;
     let result = preset.run(AgentCheckpointFlags {
@@ -773,7 +773,7 @@ fn test_droid_preset_invalid_json() {
     assert!(result.is_err());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_droid_preset_generates_fallback_session_id() {
     let preset = DroidPreset;
     let hook_input = json!({
@@ -799,7 +799,7 @@ fn test_droid_preset_generates_fallback_session_id() {
 // AiTabPreset Error Cases
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_aitab_preset_missing_hook_input() {
     let preset = AiTabPreset;
     let result = preset.run(AgentCheckpointFlags { hook_input: None });
@@ -813,7 +813,7 @@ fn test_aitab_preset_missing_hook_input() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_aitab_preset_invalid_json() {
     let preset = AiTabPreset;
     let result = preset.run(AgentCheckpointFlags {
@@ -823,7 +823,7 @@ fn test_aitab_preset_invalid_json() {
     assert!(result.is_err());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_aitab_preset_invalid_hook_event_name() {
     let preset = AiTabPreset;
     let hook_input = json!({
@@ -847,7 +847,7 @@ fn test_aitab_preset_invalid_hook_event_name() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_aitab_preset_empty_tool() {
     let preset = AiTabPreset;
     let hook_input = json!({
@@ -870,7 +870,7 @@ fn test_aitab_preset_empty_tool() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_aitab_preset_empty_model() {
     let preset = AiTabPreset;
     let hook_input = json!({
@@ -893,7 +893,7 @@ fn test_aitab_preset_empty_model() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_aitab_preset_before_edit_checkpoint() {
     let preset = AiTabPreset;
     let hook_input = json!({
@@ -921,7 +921,7 @@ fn test_aitab_preset_before_edit_checkpoint() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_aitab_preset_after_edit_checkpoint() {
     let preset = AiTabPreset;
     let hook_input = json!({
@@ -944,7 +944,7 @@ fn test_aitab_preset_after_edit_checkpoint() {
     assert_eq!(result.edited_filepaths, Some(vec!["/file1.rs".to_string()]));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_aitab_preset_with_dirty_files() {
     let preset = AiTabPreset;
     let mut dirty_files = std::collections::HashMap::new();
@@ -971,7 +971,7 @@ fn test_aitab_preset_with_dirty_files() {
     assert_eq!(dirty.get("/file1.rs"), Some(&"content1".to_string()));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_aitab_preset_empty_repo_working_dir_filtered() {
     let preset = AiTabPreset;
     let hook_input = json!({
@@ -996,7 +996,7 @@ fn test_aitab_preset_empty_repo_working_dir_filtered() {
 // Integration Tests - Cross-Preset Behavior
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_all_presets_handle_missing_hook_input_consistently() {
     let presets: Vec<Box<dyn AgentCheckpointPreset>> = vec![
         Box::new(ClaudePreset),
@@ -1025,7 +1025,7 @@ fn test_all_presets_handle_missing_hook_input_consistently() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_all_presets_handle_invalid_json_consistently() {
     let presets: Vec<Box<dyn AgentCheckpointPreset>> = vec![
         Box::new(ClaudePreset),
@@ -1051,7 +1051,7 @@ fn test_all_presets_handle_invalid_json_consistently() {
 // Edge Cases - Unusual but Valid Inputs
 // ==============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_claude_preset_with_tool_input_no_file_path() {
     let preset = ClaudePreset;
     let hook_input = json!({
@@ -1073,7 +1073,7 @@ fn test_claude_preset_with_tool_input_no_file_path() {
     assert!(result.edited_filepaths.is_none());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_preset_with_tool_input_no_file_path() {
     let preset = GeminiPreset;
     let hook_input = json!({
@@ -1095,7 +1095,7 @@ fn test_gemini_preset_with_tool_input_no_file_path() {
     assert!(result.edited_filepaths.is_none());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_preset_with_tool_input_no_file_path() {
     let preset = ContinueCliPreset;
     let hook_input = json!({
@@ -1116,7 +1116,7 @@ fn test_continue_preset_with_tool_input_no_file_path() {
     assert!(result.edited_filepaths.is_none());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_claude_preset_with_unicode_in_path() {
     let preset = ClaudePreset;
     let hook_input = json!({
@@ -1142,7 +1142,7 @@ fn test_claude_preset_with_unicode_in_path() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_transcript_with_unknown_message_types() {
     let temp_file = std::env::temp_dir().join("gemini_unknown_types.json");
     let content = json!({
@@ -1165,7 +1165,7 @@ fn test_gemini_transcript_with_unknown_message_types() {
     fs::remove_file(temp_file).ok();
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_claude_transcript_with_tool_result_in_user_content() {
     let temp_file = std::env::temp_dir().join("claude_tool_result.jsonl");
     let content = r#"{"type":"user","timestamp":"2025-01-01T00:00:00Z","message":{"content":[{"type":"tool_result","content":"should be skipped"},{"type":"text","text":"actual user input"}]}}
@@ -1188,7 +1188,7 @@ fn test_claude_transcript_with_tool_result_in_user_content() {
     fs::remove_file(temp_file).ok();
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_transcript_with_empty_tool_calls() {
     let temp_file = std::env::temp_dir().join("gemini_empty_tools.json");
     let content = json!({
@@ -1211,7 +1211,7 @@ fn test_gemini_transcript_with_empty_tool_calls() {
     fs::remove_file(temp_file).ok();
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_transcript_tool_call_without_args() {
     let temp_file = std::env::temp_dir().join("gemini_tool_no_args.json");
     let content = json!({

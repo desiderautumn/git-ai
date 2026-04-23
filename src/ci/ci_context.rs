@@ -298,7 +298,7 @@ mod tests {
     use crate::git::test_utils::TmpRepo;
     use std::fs;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_ci_event_debug() {
         let event = CiEvent::Merge {
             merge_commit_sha: "abc123".to_string(),
@@ -314,7 +314,7 @@ mod tests {
         assert!(debug_str.contains("feature"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_ci_run_result_debug() {
         let result = CiRunResult::SkippedSimpleMerge;
         let debug_str = format!("{:?}", result);
@@ -329,7 +329,7 @@ mod tests {
         assert!(debug_str3.contains("NoAuthorshipAvailable"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_ci_context_with_repository() {
         let test_repo = TmpRepo::new().unwrap();
         let repo_path = test_repo.path().to_path_buf();
@@ -348,7 +348,7 @@ mod tests {
         assert!(context.temp_dir.as_os_str().is_empty());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_ci_context_teardown_empty_temp_dir() {
         let test_repo = TmpRepo::new().unwrap();
         let repo_path = test_repo.path().to_path_buf();
@@ -368,7 +368,7 @@ mod tests {
         assert!(result.is_ok());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_ci_context_teardown_with_temp_dir() {
         let test_repo = TmpRepo::new().unwrap();
         let repo_path = test_repo.path().to_path_buf();
@@ -404,7 +404,7 @@ mod tests {
         assert!(!temp_path.exists());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_get_rebased_commits_linear_history() {
         let test_repo = TmpRepo::new().unwrap();
         let _repo = test_repo.gitai_repo();
@@ -471,7 +471,7 @@ mod tests {
         assert_eq!(commits[0], commit1.to_string());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_get_rebased_commits_more_than_available() {
         let test_repo = TmpRepo::new().unwrap();
         let _repo = test_repo.gitai_repo();
@@ -510,7 +510,7 @@ mod tests {
         assert_eq!(commits.len(), 1);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_ci_context_debug() {
         let test_repo = TmpRepo::new().unwrap();
         let repo_path = test_repo.path().to_path_buf();

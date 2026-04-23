@@ -104,7 +104,7 @@ fn normalize_for_snapshot(output: &str) -> String {
         .join("\n")
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_basic_format() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -133,7 +133,7 @@ fn test_blame_basic_format() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_line_range() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -163,7 +163,7 @@ fn test_blame_line_range() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_multiple_line_ranges_default() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -193,7 +193,7 @@ fn test_blame_multiple_line_ranges_default() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_multiple_line_ranges_default_reversed_order() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -223,7 +223,7 @@ fn test_blame_multiple_line_ranges_default_reversed_order() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_multiple_line_ranges_overlap_default() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -253,7 +253,7 @@ fn test_blame_multiple_line_ranges_overlap_default() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_multiple_line_ranges_porcelain() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -283,7 +283,7 @@ fn test_blame_multiple_line_ranges_porcelain() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_multiple_line_ranges_line_porcelain() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -321,7 +321,7 @@ fn test_blame_multiple_line_ranges_line_porcelain() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_multiple_line_ranges_incremental() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -359,7 +359,7 @@ fn test_blame_multiple_line_ranges_incremental() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_porcelain_multiple_hunks_same_commit_matches_git_filename_behavior() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -407,7 +407,7 @@ fn test_blame_porcelain_multiple_hunks_same_commit_matches_git_filename_behavior
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_incremental_uses_real_commit_summaries() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -447,7 +447,7 @@ fn test_blame_incremental_uses_real_commit_summaries() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_porcelain_format() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -469,7 +469,7 @@ fn test_blame_porcelain_format() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_show_email() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -498,7 +498,7 @@ fn test_blame_show_email() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_show_name() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -530,7 +530,7 @@ fn test_blame_show_name() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_show_number() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -552,7 +552,7 @@ fn test_blame_show_number() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_suppress_author() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -584,7 +584,7 @@ fn test_blame_suppress_author() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_long_rev() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -627,7 +627,7 @@ fn test_blame_long_rev() {
     assert!(git_ai_sha_len > 8, "Git-ai should show long revision");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_raw_timestamp() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -659,7 +659,7 @@ fn test_blame_raw_timestamp() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_abbrev() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -684,7 +684,7 @@ fn test_blame_abbrev() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_blank_boundary() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -706,7 +706,7 @@ fn test_blame_blank_boundary() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_show_root() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -738,7 +738,7 @@ fn test_blame_show_root() {
     );
 }
 
-// #[test]
+// #[test] #[print_dur::print_dur]
 // fn test_blame_show_stats() {
 //     let tmp_dir = tempdir().unwrap();
 //     let repo_path = tmp_dir.path().to_path_buf();
@@ -776,7 +776,7 @@ fn test_blame_show_root() {
 //         "Git-ai output should contain statistics"
 //     );
 // }
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_date_format() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -808,7 +808,7 @@ fn test_blame_date_format() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_multiple_flags() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -858,7 +858,7 @@ fn test_blame_multiple_flags() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_incremental_format() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -882,7 +882,7 @@ fn test_blame_incremental_format() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_line_porcelain() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -908,7 +908,7 @@ fn test_blame_line_porcelain() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_with_ai_authorship() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -951,7 +951,7 @@ fn test_blame_with_ai_authorship() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_contents_from_stdin() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -986,7 +986,7 @@ fn test_blame_contents_from_stdin() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_mark_unknown_without_authorship_log() {
     // Test that --mark-unknown shows "Unknown" for commits without authorship logs
     let repo = TestRepo::new();
@@ -1023,7 +1023,7 @@ fn test_blame_mark_unknown_without_authorship_log() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_mark_unknown_mixed_commits() {
     // Test a file with lines from both tracked and untracked commits
     // We'll create two separate files - one from untracked commit, one from tracked
@@ -1074,7 +1074,7 @@ fn test_blame_mark_unknown_mixed_commits() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_mark_unknown_backward_compatible() {
     // Ensure that without --mark-unknown, behavior matches git blame exactly
     let repo = TestRepo::new();
@@ -1104,7 +1104,7 @@ fn test_blame_mark_unknown_backward_compatible() {
 // Tests for .git-blame-ignore-revs auto-detection (Issue #363)
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_auto_detects_git_blame_ignore_revs_file() {
     // Test that git-ai blame automatically uses .git-blame-ignore-revs when present
     let repo = TestRepo::new();
@@ -1149,7 +1149,7 @@ fn test_blame_auto_detects_git_blame_ignore_revs_file() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_no_ignore_revs_file_flag_disables_auto_detection() {
     // Test that --no-ignore-revs-file disables auto-detection
     let repo = TestRepo::new();
@@ -1187,7 +1187,7 @@ fn test_blame_no_ignore_revs_file_flag_disables_auto_detection() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_explicit_ignore_revs_file_takes_precedence() {
     // Test that explicit --ignore-revs-file takes precedence over auto-detection
     let repo = TestRepo::new();
@@ -1242,7 +1242,7 @@ fn test_blame_explicit_ignore_revs_file_takes_precedence() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_respects_git_config_blame_ignore_revs_file() {
     // Test that git-ai respects the blame.ignoreRevsFile git config
     let repo = TestRepo::new();
@@ -1283,7 +1283,7 @@ fn test_blame_respects_git_config_blame_ignore_revs_file() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_without_ignore_revs_file_works_normally() {
     // Test that blame works normally when no .git-blame-ignore-revs exists
     let repo = TestRepo::new();
@@ -1324,7 +1324,7 @@ fn test_blame_without_ignore_revs_file_works_normally() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_ignore_revs_with_multiple_commits() {
     // Test ignoring multiple commits in .git-blame-ignore-revs
     let repo = TestRepo::new();
@@ -1375,7 +1375,7 @@ fn test_blame_ignore_revs_with_multiple_commits() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_ai_human_author() {
     let repo = TestRepo::new();
 

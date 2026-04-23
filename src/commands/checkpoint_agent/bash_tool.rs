@@ -1702,7 +1702,7 @@ mod tests {
     use std::process::Command;
     use std::time::Duration;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_stat_entry_from_metadata() {
         let tmp = tempfile::NamedTempFile::new().unwrap();
         fs::write(tmp.path(), "hello world").unwrap();
@@ -1715,7 +1715,7 @@ mod tests {
         assert_eq!(entry.file_type, StatFileType::Regular);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_stat_entry_equality() {
         let tmp = tempfile::NamedTempFile::new().unwrap();
         fs::write(tmp.path(), "hello").unwrap();
@@ -1725,7 +1725,7 @@ mod tests {
         assert_eq!(entry1, entry2);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_stat_entry_modification_detected() {
         let tmp = tempfile::NamedTempFile::new().unwrap();
         fs::write(tmp.path(), "hello").unwrap();
@@ -1742,7 +1742,7 @@ mod tests {
         assert_ne!(entry1.size, entry2.size);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_normalize_path_consistency() {
         let path = Path::new("src/main.rs");
         let normalized = normalize_path(path);
@@ -1750,7 +1750,7 @@ mod tests {
         assert_eq!(normalized, normalized2);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_diff_empty_snapshots() {
         let pre = StatSnapshot {
             entries: HashMap::new(),
@@ -1775,7 +1775,7 @@ mod tests {
         assert!(result.is_empty());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_diff_detects_creation() {
         let pre = StatSnapshot {
             entries: HashMap::new(),
@@ -1815,7 +1815,7 @@ mod tests {
         assert!(result.modified.is_empty());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_diff_detects_modification() {
         let path = normalize_path(Path::new("modified.txt"));
         let now = SystemTime::now();
@@ -1872,7 +1872,7 @@ mod tests {
         assert_eq!(result.modified.len(), 1);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_tool_classification_claude() {
         assert_eq!(classify_tool(Agent::Claude, "Write"), ToolClass::FileEdit);
         assert_eq!(classify_tool(Agent::Claude, "Edit"), ToolClass::FileEdit);
@@ -1885,7 +1885,7 @@ mod tests {
         assert_eq!(classify_tool(Agent::Claude, "unknown"), ToolClass::Skip);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_tool_classification_all_agents() {
         // Gemini
         assert_eq!(
@@ -1925,14 +1925,14 @@ mod tests {
         assert_eq!(classify_tool(Agent::OpenCode, "shell"), ToolClass::Bash);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_sanitize_key() {
         assert_eq!(sanitize_key("session:tool"), "session_tool");
         assert_eq!(sanitize_key("a/b\\c"), "a_b_c");
         assert_eq!(sanitize_key("normal_key"), "normal_key");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_stat_diff_result_all_changed_paths() {
         let result = StatDiffResult {
             created: vec![PathBuf::from("new.txt")],
@@ -1948,13 +1948,13 @@ mod tests {
     // system_time_to_nanos tests
     // -----------------------------------------------------------------------
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_system_time_to_nanos() {
         let t = SystemTime::UNIX_EPOCH + Duration::from_secs(1);
         assert_eq!(system_time_to_nanos(t), 1_000_000_000);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_system_time_to_nanos_epoch() {
         assert_eq!(system_time_to_nanos(SystemTime::UNIX_EPOCH), 0);
     }
@@ -2003,7 +2003,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_find_stale_files_cold_start_excludes_unwatermarked_files() {
         // On cold start (no per-file and no worktree watermark), files with no
         // watermark are NOT returned by find_stale_files — they are simply skipped.
@@ -2021,7 +2021,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_find_stale_files_uses_worktree_watermark_as_fallback() {
         // File has no per-file watermark, but worktree watermark exists at 90s.
         // File mtime is 100s → 10s beyond grace window → stale.
@@ -2044,7 +2044,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_find_stale_files_worktree_watermark_within_grace() {
         // File mtime=100s, worktree watermark=99s → within 2s grace → NOT stale.
         // Note: this file would have been filtered from the snapshot by
@@ -2069,7 +2069,7 @@ mod tests {
         assert_eq!(stale.len(), 1, "entry that passed coverage filter is stale");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_find_stale_files_per_file_wins_over_worktree() {
         // Per-file watermark (95s) is older than worktree watermark (98s).
         // File mtime=100s → 5s beyond per-file watermark → stale.
@@ -2086,7 +2086,7 @@ mod tests {
         assert_eq!(stale.len(), 1);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_find_stale_files_within_grace_window() {
         // File with mtime=100s, per-file watermark at 99s.
         // Difference is 1s which is within the 2s grace window → NOT stale.
@@ -2105,7 +2105,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_find_stale_files_beyond_grace_window() {
         // File with mtime=100s, per-file watermark at 95s.
         // Difference is 5s which exceeds the 2s grace window → stale.
@@ -2121,7 +2121,7 @@ mod tests {
         assert_eq!(stale.len(), 1, "file beyond grace window should be stale");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_find_stale_files_nonexistent_skipped() {
         // File with exists=false should not appear in stale list regardless of watermarks.
         let mut entries = HashMap::new();
@@ -2136,7 +2136,7 @@ mod tests {
     // capture_file_contents tests
     // -----------------------------------------------------------------------
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_capture_file_contents_reads_text_file() {
         let dir = tempfile::tempdir().unwrap();
         let file_path = dir.path().join("hello.txt");
@@ -2146,7 +2146,7 @@ mod tests {
         assert_eq!(contents.get("hello.txt").unwrap(), "hello world",);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_capture_file_contents_skips_missing() {
         let dir = tempfile::tempdir().unwrap();
         let contents = capture_file_contents(dir.path(), &[PathBuf::from("nonexistent.txt")]);
@@ -2158,7 +2158,7 @@ mod tests {
     ///
     /// Two sequential pre-hooks must produce distinct invocation keys so their
     /// snapshots do not collide.
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_bash_sidecar_generates_unique_ids_per_pre_hook() {
         let dir = tempfile::tempdir().unwrap();
         // Initialise a real git repo so snapshot_cache_dir works.
@@ -2197,7 +2197,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_bash_sidecar_not_triggered_when_real_id_provided() {
         let dir = tempfile::tempdir().unwrap();
         Command::new("git")
@@ -2220,7 +2220,7 @@ mod tests {
 
     /// Verify that attempt_post_hook_capture does not pass deleted files as edited_filepaths.
     /// Deleted files have no post-content to capture; passing them would store empty blobs.
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_post_hook_capture_excludes_deleted_files() {
         let dir = tempfile::tempdir().unwrap();
         let existing = dir.path().join("modified.txt");
@@ -2260,7 +2260,7 @@ mod tests {
 
     /// Default ignore patterns (e.g. node_modules, lock files) are applied even
     /// when no .gitignore exists in the repo.
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_build_gitignore_applies_default_patterns() {
         let dir = tempfile::tempdir().unwrap();
         init_git_repo(dir.path());
@@ -2290,7 +2290,7 @@ mod tests {
 
     /// Patterns in .git-ai-ignore are respected, suppressing untracked files
     /// that aren't covered by .gitignore.
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_build_gitignore_reads_git_ai_ignore() {
         let dir = tempfile::tempdir().unwrap();
         init_git_repo(dir.path());
@@ -2315,7 +2315,7 @@ mod tests {
 
     /// Files marked linguist-generated in .gitattributes are excluded from
     /// the Tier 2 snapshot.
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_build_gitignore_reads_linguist_generated_from_gitattributes() {
         let dir = tempfile::tempdir().unwrap();
         init_git_repo(dir.path());
@@ -2353,7 +2353,7 @@ mod tests {
     }
 
     /// No snapshot files → not in flight.
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_inflight_false_when_no_snapshots() {
         let dir = tempfile::tempdir().unwrap();
         Command::new("git")
@@ -2365,7 +2365,7 @@ mod tests {
     }
 
     /// A fresh snapshot file (just written) → in flight.
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_inflight_true_when_snapshot_present() {
         let dir = tempfile::tempdir().unwrap();
         Command::new("git")
@@ -2379,7 +2379,7 @@ mod tests {
     }
 
     /// Snapshot consumed (deleted) by post-hook → not in flight.
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_inflight_false_after_snapshot_consumed() {
         let dir = tempfile::tempdir().unwrap();
         Command::new("git")
@@ -2395,7 +2395,7 @@ mod tests {
     }
 
     /// Stale snapshot (backdated mtime) is ignored — does not count as in flight.
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_inflight_false_for_stale_snapshot() {
         let dir = tempfile::tempdir().unwrap();
         Command::new("git")
@@ -2421,7 +2421,7 @@ mod tests {
     /// consumed does `has_active_bash_inflight` return false.
     /// This ensures parallel AI bash calls never cause a commit to be
     /// attributed as human.
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_inflight_parallel_calls_regression() {
         let dir = tempfile::tempdir().unwrap();
         Command::new("git")
@@ -2453,7 +2453,7 @@ mod tests {
     }
 
     /// Sidecar .txt files in the same directory do not count as snapshots.
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_inflight_ignores_sidecar_txt_files() {
         let dir = tempfile::tempdir().unwrap();
         Command::new("git")
@@ -2470,7 +2470,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_latest_inflight_bash_agent_context_reads_from_snapshot() {
         let dir = tempfile::tempdir().unwrap();
         Command::new("git")

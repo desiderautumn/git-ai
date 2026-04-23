@@ -1,7 +1,7 @@
 use crate::repos::test_file::ExpectedLineExt;
 use crate::repos::test_repo::TestRepo;
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stash_pop_with_ai_attribution() {
     let repo = TestRepo::new();
 
@@ -48,7 +48,7 @@ fn test_stash_pop_with_ai_attribution() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stash_apply_with_ai_attribution() {
     let repo = TestRepo::new();
 
@@ -88,7 +88,7 @@ fn test_stash_apply_with_ai_attribution() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stash_apply_named_reference() {
     let repo = TestRepo::new();
 
@@ -133,7 +133,7 @@ fn test_stash_apply_named_reference() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stash_pop_with_existing_stack_entries() {
     let repo = TestRepo::new();
 
@@ -183,7 +183,7 @@ fn test_stash_pop_with_existing_stack_entries() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stash_multiple_files() {
     let repo = TestRepo::new();
 
@@ -241,7 +241,7 @@ fn test_stash_multiple_files() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stash_with_existing_initial_attributions() {
     // Test that stash attributions merge correctly with existing INITIAL attributions
     let repo = TestRepo::new();
@@ -292,7 +292,7 @@ fn test_stash_with_existing_initial_attributions() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stash_pop_default_reference() {
     // Test that stash pop defaults to stash@{0}
     let repo = TestRepo::new();
@@ -329,7 +329,7 @@ fn test_stash_pop_default_reference() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stash_pop_empty_repo() {
     // Test that stash operations don't crash on edge cases
     let repo = TestRepo::new();
@@ -345,7 +345,7 @@ fn test_stash_pop_empty_repo() {
     assert!(result.is_err(), "Should fail when no stash exists");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stash_mixed_human_and_ai() {
     let repo = TestRepo::new();
 
@@ -393,7 +393,7 @@ fn test_stash_mixed_human_and_ai() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stash_push_with_pathspec_single_file() {
     // Test git stash push -- file.txt only stashes that file
     let repo = TestRepo::new();
@@ -445,7 +445,7 @@ fn test_stash_push_with_pathspec_single_file() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stash_push_with_pathspec_directory() {
     // Test git stash push -- dir/ only stashes that directory
     let repo = TestRepo::new();
@@ -501,7 +501,7 @@ fn test_stash_push_with_pathspec_directory() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stash_push_multiple_pathspecs() {
     // Test git stash push -- file1.txt file2.txt
     let repo = TestRepo::new();
@@ -554,7 +554,7 @@ fn test_stash_push_multiple_pathspecs() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stash_pop_with_conflict() {
     // Test that attribution is preserved when there's a conflict during stash pop
     let repo = TestRepo::new();
@@ -627,7 +627,7 @@ fn test_stash_pop_with_conflict() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stash_mixed_staged_and_unstaged() {
     // Test stashing with a mix of staged and unstaged changes
     let repo = TestRepo::new();
@@ -689,7 +689,7 @@ fn test_stash_mixed_staged_and_unstaged() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stash_pop_onto_head_with_ai_changes() {
     // Test that popping stash onto a HEAD with AI changes preserves both attributions
     let repo = TestRepo::new();
@@ -767,7 +767,7 @@ fn test_stash_pop_onto_head_with_ai_changes() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stash_pop_across_branches() {
     // Test that AI attributions are preserved when stashing, switching branches, and popping
     let repo = TestRepo::new();
@@ -841,7 +841,7 @@ fn test_stash_pop_across_branches() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stash_pop_across_branches_with_conflict() {
     // Test that AI attributions are preserved when resolving conflicts after stash pop across branches
     let repo = TestRepo::new();
@@ -945,7 +945,7 @@ fn test_stash_pop_across_branches_with_conflict() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stash_apply_reset_apply_again() {
     // Test that AI attributions survive multiple apply/reset cycles
     let repo = TestRepo::new();
@@ -996,7 +996,7 @@ fn test_stash_apply_reset_apply_again() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stash_branch_preserves_ai_attribution() {
     // ISSUE-009: git stash branch loses AI attribution
     // git stash branch creates a new branch at the stash parent, applies the stash, and drops it.
@@ -1062,7 +1062,7 @@ fn test_stash_branch_preserves_ai_attribution() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stash_pop_conflict_preserves_ai_attribution_without_new_checkpoint() {
     // ISSUE-010: git stash pop with conflict loses all AI attribution
     // When git stash pop encounters a conflict, git exits with code 1.

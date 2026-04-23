@@ -156,7 +156,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn stash_apply_maps_to_stash_operation() {
         let analyzer = WorkspaceAnalyzer;
         let mut refs = std::collections::HashMap::new();

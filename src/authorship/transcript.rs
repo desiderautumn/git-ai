@@ -166,7 +166,7 @@ mod tests {
     use super::*;
     use serde_json::json;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_message_user() {
         let msg = Message::user(
             "Hello".to_string(),
@@ -181,7 +181,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_message_assistant() {
         let msg = Message::assistant(
             "Response".to_string(),
@@ -196,7 +196,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_message_thinking() {
         let msg = Message::thinking(
             "Thinking...".to_string(),
@@ -211,7 +211,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_message_plan() {
         let msg = Message::plan(
             "Plan step".to_string(),
@@ -226,7 +226,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_message_tool_use() {
         let input = json!({"param": "value"});
         let msg = Message::tool_use("read_file".to_string(), input.clone());
@@ -244,7 +244,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_message_text() {
         let user_msg = Message::user("User text".to_string(), None);
         assert_eq!(user_msg.text(), Some(&"User text".to_string()));
@@ -262,7 +262,7 @@ mod tests {
         assert_eq!(tool_msg.text(), None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_message_is_tool_use() {
         let user_msg = Message::user("text".to_string(), None);
         assert!(!user_msg.is_tool_use());
@@ -271,7 +271,7 @@ mod tests {
         assert!(tool_msg.is_tool_use());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_message_timestamp() {
         let ts = Some("2024-01-01T00:00:00Z".to_string());
         let msg = Message::user("text".to_string(), ts.clone());
@@ -281,13 +281,13 @@ mod tests {
         assert_eq!(msg_no_ts.timestamp(), None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_ai_transcript_new() {
         let transcript = AiTranscript::new();
         assert!(transcript.messages.is_empty());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_ai_transcript_add_message() {
         let mut transcript = AiTranscript::new();
         transcript.add_message(Message::user("Hello".to_string(), None));
@@ -296,7 +296,7 @@ mod tests {
         assert_eq!(transcript.messages.len(), 2);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_ai_transcript_messages() {
         let mut transcript = AiTranscript::new();
         transcript.add_message(Message::user("msg1".to_string(), None));
@@ -308,7 +308,7 @@ mod tests {
         assert_eq!(messages[1].text(), Some(&"msg2".to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_ai_transcript_without_tool_use() {
         let mut transcript = AiTranscript::new();
         transcript.add_message(Message::user("user msg".to_string(), None));
@@ -320,7 +320,7 @@ mod tests {
         assert!(filtered.messages.iter().all(|msg| !msg.is_tool_use()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_ai_transcript_first_message_timestamp_unix() {
         let mut transcript = AiTranscript::new();
         transcript.add_message(Message::user(
@@ -338,7 +338,7 @@ mod tests {
         assert_eq!(first_ts.unwrap(), 1704110400);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_ai_transcript_last_message_timestamp_unix() {
         let mut transcript = AiTranscript::new();
         transcript.add_message(Message::user(
@@ -356,14 +356,14 @@ mod tests {
         assert_eq!(last_ts.unwrap(), 1704112200);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_ai_transcript_timestamp_unix_no_messages() {
         let transcript = AiTranscript::new();
         assert_eq!(transcript.first_message_timestamp_unix(), None);
         assert_eq!(transcript.last_message_timestamp_unix(), None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_ai_transcript_timestamp_unix_no_timestamps() {
         let mut transcript = AiTranscript::new();
         transcript.add_message(Message::user("text".to_string(), None));
@@ -372,7 +372,7 @@ mod tests {
         assert_eq!(transcript.last_message_timestamp_unix(), None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_ai_transcript_timestamp_unix_invalid_format() {
         let mut transcript = AiTranscript::new();
         transcript.add_message(Message::user(
@@ -384,13 +384,13 @@ mod tests {
         assert_eq!(transcript.last_message_timestamp_unix(), None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_ai_transcript_default() {
         let transcript = AiTranscript::default();
         assert!(transcript.messages.is_empty());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_message_serialization() {
         let msg = Message::user(
             "Hello".to_string(),
@@ -402,7 +402,7 @@ mod tests {
         assert!(json.contains("\"timestamp\":\"2024-01-01T00:00:00Z\""));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_message_deserialization() {
         let json = r#"{"type":"user","text":"Hello","timestamp":"2024-01-01T00:00:00Z"}"#;
         let msg: Message = serde_json::from_str(json).unwrap();
@@ -415,7 +415,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_message_skip_none_timestamp() {
         let msg = Message::user("Hello".to_string(), None);
         let json = serde_json::to_string(&msg).unwrap();
@@ -423,7 +423,7 @@ mod tests {
         assert!(!json.contains("timestamp"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_ai_transcript_serialization() {
         let mut transcript = AiTranscript::new();
         transcript.add_message(Message::user("Hello".to_string(), None));
@@ -435,7 +435,7 @@ mod tests {
         assert!(json.contains("\"type\":\"assistant\""));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_ai_transcript_deserialization() {
         let json =
             r#"{"messages":[{"type":"user","text":"Hello"},{"type":"assistant","text":"Hi"}]}"#;
@@ -443,7 +443,7 @@ mod tests {
         assert_eq!(transcript.messages.len(), 2);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_message_equality() {
         let msg1 = Message::user("text".to_string(), Some("ts".to_string()));
         let msg2 = Message::user("text".to_string(), Some("ts".to_string()));
@@ -453,7 +453,7 @@ mod tests {
         assert_ne!(msg1, msg3);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_ai_transcript_equality() {
         let mut t1 = AiTranscript::new();
         t1.add_message(Message::user("msg".to_string(), None));

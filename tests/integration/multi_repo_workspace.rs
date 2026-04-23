@@ -94,7 +94,7 @@ fn cleanup_tmp_dir(path: &PathBuf) {
     let _ = fs::remove_dir_all(path);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_find_repository_for_file_basic() {
     // Create a workspace directory (not a git repo)
     let workspace = create_unique_tmp_dir("git-ai-multi-repo-test").unwrap();
@@ -128,7 +128,7 @@ fn test_find_repository_for_file_basic() {
     cleanup_tmp_dir(&workspace);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_nonexistent_file_path() {
     // Test behavior when file paths don't exist on disk
     let workspace = create_unique_tmp_dir("git-ai-nonexistent-test").unwrap();
@@ -162,7 +162,7 @@ fn test_nonexistent_file_path() {
     cleanup_tmp_dir(&workspace);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_all_files_orphaned() {
     // Test when all provided files are orphans (no git repos)
     let workspace = create_unique_tmp_dir("git-ai-all-orphans-test").unwrap();
@@ -192,7 +192,7 @@ fn test_all_files_orphaned() {
     cleanup_tmp_dir(&workspace);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_single_repo_in_multi_repo_workspace() {
     // Test when only one repo has edits even though workspace has multiple repos
     let workspace = create_unique_tmp_dir("git-ai-single-edit-test").unwrap();
@@ -243,7 +243,7 @@ fn test_single_repo_in_multi_repo_workspace() {
     cleanup_tmp_dir(&workspace);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_files_with_spaces_in_path() {
     // Test handling of paths with spaces
     let workspace = create_unique_tmp_dir("git-ai-spaces-test").unwrap();
@@ -265,7 +265,7 @@ fn test_files_with_spaces_in_path() {
     cleanup_tmp_dir(&workspace);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_symlinked_repository() {
     // Test that symlinked repositories are handled correctly
     let workspace = create_unique_tmp_dir("git-ai-symlink-test").unwrap();
@@ -300,7 +300,7 @@ fn test_symlinked_repository() {
     cleanup_tmp_dir(&workspace);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bare_repository_handling() {
     // Test that bare repositories are handled correctly (they have no working directory)
     let workspace = create_unique_tmp_dir("git-ai-bare-repo-test").unwrap();
@@ -332,7 +332,7 @@ fn test_bare_repository_handling() {
     cleanup_tmp_dir(&workspace);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_duplicate_files_same_repo() {
     // Test that duplicate file paths are handled correctly
     let workspace = create_unique_tmp_dir("git-ai-duplicate-test").unwrap();
@@ -363,7 +363,7 @@ fn test_duplicate_files_same_repo() {
     cleanup_tmp_dir(&workspace);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_find_repository_for_file_with_multiple_repos() {
     // Create a workspace directory (not a git repo)
     let workspace = create_unique_tmp_dir("git-ai-multi-repo-test").unwrap();
@@ -415,7 +415,7 @@ fn test_find_repository_for_file_with_multiple_repos() {
     cleanup_tmp_dir(&workspace);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_find_repository_for_file_no_repo_found() {
     // Create a directory without a git repository
     let workspace = create_unique_tmp_dir("git-ai-no-repo-test").unwrap();
@@ -438,7 +438,7 @@ fn test_find_repository_for_file_no_repo_found() {
     cleanup_tmp_dir(&workspace);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_find_repository_for_file_respects_workspace_boundary() {
     // Create a parent git repo and a workspace inside it
     let parent_repo = create_unique_tmp_dir("git-ai-parent-repo-test").unwrap();
@@ -475,7 +475,7 @@ fn test_find_repository_for_file_respects_workspace_boundary() {
     cleanup_tmp_dir(&parent_repo);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_group_files_by_repository() {
     // Create a workspace directory (not a git repo)
     let workspace = create_unique_tmp_dir("git-ai-group-files-test").unwrap();
@@ -539,7 +539,7 @@ fn test_group_files_by_repository() {
     cleanup_tmp_dir(&workspace);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_find_repository_for_file_nested_repos() {
     // Create a workspace with nested git repositories
     let workspace = create_unique_tmp_dir("git-ai-nested-repos-test").unwrap();
@@ -590,7 +590,7 @@ fn test_find_repository_for_file_nested_repos() {
     cleanup_tmp_dir(&workspace);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_find_repository_in_path_still_works() {
     // Ensure the original function still works for normal single-repo scenarios
     let repo = create_unique_tmp_dir("git-ai-single-repo-test").unwrap();
@@ -622,7 +622,7 @@ fn test_find_repository_in_path_still_works() {
     cleanup_tmp_dir(&repo);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_find_repository_for_directory() {
     // Test that find_repository_for_file works with directories too
     let workspace = create_unique_tmp_dir("git-ai-dir-test").unwrap();
@@ -647,7 +647,7 @@ fn test_find_repository_for_directory() {
     cleanup_tmp_dir(&workspace);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_empty_file_list_grouping() {
     // Test edge case with empty file list
     let (repo_files, orphan_files) = group_files_by_repository(&[], None);
@@ -662,7 +662,7 @@ fn test_empty_file_list_grouping() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cross_repo_edits_grouping() {
     // Test that files from a single AI session spanning multiple repos are grouped correctly
     let workspace = create_unique_tmp_dir("git-ai-cross-repo-test").unwrap();
@@ -734,7 +734,7 @@ fn test_cross_repo_edits_grouping() {
     cleanup_tmp_dir(&workspace);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_workspace_relative_paths() {
     // Test that relative paths work when converted to absolute
     let workspace = create_unique_tmp_dir("git-ai-relative-path-test").unwrap();
@@ -776,7 +776,7 @@ fn test_workspace_relative_paths() {
     cleanup_tmp_dir(&workspace);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_deeply_nested_file_detection() {
     // Test that deeply nested files still find their repository correctly
     let workspace = create_unique_tmp_dir("git-ai-deep-nest-test").unwrap();
@@ -814,7 +814,7 @@ fn test_deeply_nested_file_detection() {
     cleanup_tmp_dir(&workspace);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_mixed_absolute_and_relative_grouping() {
     // Test grouping with a mix of absolute and relative paths
     let workspace = create_unique_tmp_dir("git-ai-mixed-paths-test").unwrap();
@@ -847,7 +847,7 @@ fn test_mixed_absolute_and_relative_grouping() {
     cleanup_tmp_dir(&workspace);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_repository_isolation() {
     // Verify that files in different repos don't get mixed up
     // and each repo maintains its own attribution tracking
@@ -915,7 +915,7 @@ fn test_repository_isolation() {
     cleanup_tmp_dir(&workspace);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cross_repo_checkpoint_creates_working_log_in_target_repo() {
     let repo1 = TestRepo::new();
     let repo2 = TestRepo::new();
@@ -949,7 +949,7 @@ fn test_cross_repo_checkpoint_creates_working_log_in_target_repo() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cross_repo_checkpoint_ai_attribution_on_commit() {
     let repo1 = TestRepo::new();
     let repo2 = TestRepo::new();
@@ -984,7 +984,7 @@ fn test_cross_repo_checkpoint_ai_attribution_on_commit() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cross_repo_checkpoint_preserves_local_repo_checkpoint() {
     let repo1 = TestRepo::new();
     let repo2 = TestRepo::new();

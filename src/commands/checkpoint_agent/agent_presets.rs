@@ -119,7 +119,7 @@ pub trait AgentCheckpointPreset {
 mod tests {
     use super::*;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_escape_control_chars_in_json_strings_fixes_raw_newlines() {
         let raw =
             "{\n  \"tool_info\": {\"command\": \"echo hi\nbye\tend\"},\n  \"other\": \"ok\"\n}";
@@ -136,7 +136,7 @@ mod tests {
         assert_eq!(v.get("other").and_then(|v| v.as_str()).unwrap(), "ok");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_escape_control_chars_preserves_escaped_quotes_and_utf8() {
         let raw = "{\"msg\": \"line1\nquote:\\\"x\\\" — 你好\"}";
         let sanitized = escape_control_chars_in_json_strings(raw);
@@ -147,7 +147,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_prepare_agent_bash_pre_hook_swallows_snapshot_errors() {
         let temp = tempfile::tempdir().unwrap();
         let missing_repo = temp.path().join("missing-repo");

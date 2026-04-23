@@ -20,7 +20,7 @@ fn opencode_sqlite_empty_fixture_path() -> std::path::PathBuf {
     fixture_path("opencode-sqlite-empty")
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_parse_opencode_storage_transcript() {
     let storage_path = opencode_storage_fixture_path();
     let session_id = "test-session-123";
@@ -65,7 +65,7 @@ fn test_parse_opencode_storage_transcript() {
     assert!(has_tool_use, "Should have tool_use messages");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_parse_opencode_sqlite_transcript() {
     let opencode_root = opencode_sqlite_fixture_path();
     let session_id = "test-session-123";
@@ -96,7 +96,7 @@ fn test_parse_opencode_sqlite_transcript() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_opencode_sqlite_takes_precedence_over_legacy_storage() {
     let temp_dir = tempfile::tempdir().unwrap();
     let opencode_root = temp_dir.path();
@@ -124,7 +124,7 @@ fn test_opencode_sqlite_takes_precedence_over_legacy_storage() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_opencode_sqlite_falls_back_to_legacy_storage_when_sqlite_empty() {
     let temp_dir = tempfile::tempdir().unwrap();
     let opencode_root = temp_dir.path();
@@ -151,7 +151,7 @@ fn test_opencode_sqlite_falls_back_to_legacy_storage_when_sqlite_empty() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_opencode_transcript_message_order() {
     let storage_path = opencode_storage_fixture_path();
     let session_id = "test-session-123";
@@ -176,7 +176,7 @@ fn test_opencode_transcript_message_order() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_opencode_transcript_timestamps_are_rfc3339() {
     let storage_path = opencode_storage_fixture_path();
     let session_id = "test-session-123";
@@ -205,7 +205,7 @@ fn test_opencode_transcript_timestamps_are_rfc3339() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial_test::serial] // Run serially to avoid env var conflicts with other tests
 fn test_opencode_preset_pretooluse_returns_human_checkpoint() {
     let storage_path = opencode_storage_fixture_path();
@@ -261,7 +261,7 @@ fn test_opencode_preset_pretooluse_returns_human_checkpoint() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial_test::serial] // Run serially to avoid env var conflicts with other tests
 fn test_opencode_preset_posttooluse_returns_ai_checkpoint() {
     let storage_path = opencode_storage_fixture_path();
@@ -324,7 +324,7 @@ fn test_opencode_preset_posttooluse_returns_ai_checkpoint() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial_test::serial] // Run serially to avoid env var conflicts with other tests
 fn test_opencode_preset_stores_session_id_in_metadata() {
     let storage_path = opencode_storage_fixture_path();
@@ -367,7 +367,7 @@ fn test_opencode_preset_stores_session_id_in_metadata() {
     assert_eq!(metadata["session_id"], "test-session-123");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial_test::serial] // Run serially to avoid env var conflicts with other tests
 fn test_opencode_preset_sets_repo_working_dir() {
     let storage_path = opencode_storage_fixture_path();
@@ -405,7 +405,7 @@ fn test_opencode_preset_sets_repo_working_dir() {
     assert_eq!(result.repo_working_dir.unwrap(), "/Users/test/my-project");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_opencode_empty_session_returns_empty_transcript() {
     // Create a temp directory with empty session structure
     let temp_dir = tempfile::tempdir().unwrap();
@@ -427,7 +427,7 @@ fn test_opencode_empty_session_returns_empty_transcript() {
     assert!(model.is_none(), "Empty session should have no model");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_opencode_nonexistent_session_returns_empty_transcript() {
     let storage_path = opencode_storage_fixture_path();
     let session_id = "nonexistent-session";
@@ -443,7 +443,7 @@ fn test_opencode_nonexistent_session_returns_empty_transcript() {
     assert!(model.is_none(), "Nonexistent session should have no model");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_opencode_tool_use_only_from_assistant() {
     let storage_path = opencode_storage_fixture_path();
     let session_id = "test-session-123";
@@ -473,7 +473,7 @@ fn test_opencode_tool_use_only_from_assistant() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial_test::serial]
 fn test_opencode_preset_extracts_apply_patch_paths() {
     let storage_path = opencode_storage_fixture_path();
@@ -514,7 +514,7 @@ fn test_opencode_preset_extracts_apply_patch_paths() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial_test::serial] // Run serially to avoid env var conflicts with other tests
 fn test_opencode_e2e_checkpoint_and_commit() {
     use crate::repos::test_repo::TestRepo;

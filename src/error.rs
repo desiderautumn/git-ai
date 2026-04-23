@@ -115,7 +115,7 @@ impl Clone for GitAiError {
 mod tests {
     use super::*;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_error_display_io_error() {
         let io_err = std::io::Error::new(std::io::ErrorKind::NotFound, "file not found");
         let err = GitAiError::from(io_err);
@@ -124,7 +124,7 @@ mod tests {
         assert!(display.contains("file not found"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_error_display_git_cli_error_with_code() {
         let err = GitAiError::GitCliError {
             code: Some(128),
@@ -137,7 +137,7 @@ mod tests {
         assert!(display.contains("git status"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_error_display_git_cli_error_without_code() {
         let err = GitAiError::GitCliError {
             code: None,
@@ -150,7 +150,7 @@ mod tests {
         assert!(display.contains("git push"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_error_display_json_error() {
         let json_str = "{invalid json";
         let json_err = serde_json::from_str::<serde_json::Value>(json_str).unwrap_err();
@@ -159,7 +159,7 @@ mod tests {
         assert!(display.contains("JSON error"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_error_display_utf8_error() {
         let invalid_utf8 = vec![0xFF, 0xFE, 0xFD];
         let utf8_err = std::str::from_utf8(&invalid_utf8).unwrap_err();
@@ -168,7 +168,7 @@ mod tests {
         assert!(display.contains("UTF-8 error"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_error_display_from_utf8_error() {
         let invalid_utf8 = vec![0xFF, 0xFE, 0xFD];
         let from_utf8_err = String::from_utf8(invalid_utf8).unwrap_err();
@@ -177,14 +177,14 @@ mod tests {
         assert!(display.contains("From UTF-8 error"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_error_display_preset_error() {
         let err = GitAiError::PresetError("invalid preset configuration".to_string());
         let display = format!("{}", err);
         assert_eq!(display, "invalid preset configuration");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_error_display_sqlite_error() {
         use rusqlite::Connection;
         let conn = Connection::open_in_memory().unwrap();
@@ -194,7 +194,7 @@ mod tests {
         assert!(display.contains("SQLite error"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_error_display_generic() {
         let err = GitAiError::Generic("custom error message".to_string());
         let display = format!("{}", err);
@@ -202,7 +202,7 @@ mod tests {
         assert!(display.contains("custom error message"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_error_display_gix_error() {
         let err = GitAiError::GixError("gix operation failed".to_string());
         let display = format!("{}", err);
@@ -210,7 +210,7 @@ mod tests {
         assert!(display.contains("gix operation failed"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_error_clone_io_error() {
         let io_err = std::io::Error::new(std::io::ErrorKind::PermissionDenied, "access denied");
         let err = GitAiError::from(io_err);
@@ -220,7 +220,7 @@ mod tests {
         assert!(display.contains("access denied"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_error_clone_git_cli_error() {
         let err = GitAiError::GitCliError {
             code: Some(1),
@@ -238,7 +238,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_error_clone_utf8_error() {
         let invalid_utf8 = vec![0xFF];
         let utf8_err = std::str::from_utf8(&invalid_utf8).unwrap_err();
@@ -247,7 +247,7 @@ mod tests {
         assert!(matches!(cloned, GitAiError::Utf8Error(_)));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_error_clone_from_utf8_error() {
         let invalid_utf8 = vec![0xFF];
         let from_utf8_err = String::from_utf8(invalid_utf8).unwrap_err();
@@ -256,7 +256,7 @@ mod tests {
         assert!(matches!(cloned, GitAiError::FromUtf8Error(_)));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_error_clone_preset_error() {
         let err = GitAiError::PresetError("preset error".to_string());
         let cloned = err.clone();
@@ -266,7 +266,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_error_clone_generic() {
         let err = GitAiError::Generic("generic".to_string());
         let cloned = err.clone();
@@ -276,7 +276,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_error_clone_json_converts_to_generic() {
         let json_err = serde_json::from_str::<serde_json::Value>("{bad}").unwrap_err();
         let err = GitAiError::from(json_err);
@@ -286,7 +286,7 @@ mod tests {
         assert!(display.contains("JSON error"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_error_clone_sqlite_converts_to_generic() {
         use rusqlite::Connection;
         let conn = Connection::open_in_memory().unwrap();
@@ -298,7 +298,7 @@ mod tests {
         assert!(display.contains("SQLite error"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_error_clone_gix_converts_to_generic() {
         let err = GitAiError::GixError("gix error".to_string());
         let cloned = err.clone();
@@ -307,13 +307,13 @@ mod tests {
         assert!(display.contains("Gix error"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_error_is_std_error() {
         let err = GitAiError::Generic("test".to_string());
         let _: &dyn std::error::Error = &err;
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_error_debug_trait() {
         let err = GitAiError::Generic("debug test".to_string());
         let debug_str = format!("{:?}", err);

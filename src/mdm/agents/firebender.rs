@@ -307,7 +307,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_firebender_command_detection() {
         assert!(FirebenderInstaller::is_firebender_checkpoint_command(
             "/usr/local/bin/git-ai checkpoint firebender --hook-input stdin"
@@ -320,7 +320,7 @@ mod tests {
         ));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_install_hooks_creates_expected_entries() {
         with_temp_home(|home| {
@@ -355,7 +355,7 @@ mod tests {
         });
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_install_hooks_updates_existing_firebender_command() {
         with_temp_home(|home| {
@@ -411,7 +411,7 @@ mod tests {
         });
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_uninstall_hooks_removes_only_firebender_entries() {
         with_temp_home(|home| {
@@ -470,7 +470,7 @@ mod tests {
         });
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_check_hooks_not_up_to_date_when_matcher_present() {
         with_temp_home(|home| {
@@ -511,7 +511,7 @@ mod tests {
         });
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_install_hooks_removes_matcher_from_existing_entry() {
         with_temp_home(|home| {

@@ -172,7 +172,7 @@ mod tests {
     use super::*;
     use crate::authorship::transcript::Message;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_checkpoint_serialization() {
         let entry = WorkingLogEntry::new(
             "src/xyz.rs".to_string(),
@@ -208,7 +208,7 @@ mod tests {
         assert!(deserialized.agent_id.is_none());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_log_array_serialization() {
         let entry1 = WorkingLogEntry::new(
             "src/xyz.rs".to_string(),
@@ -251,7 +251,7 @@ mod tests {
         assert_eq!(deserialized[1].author, "user");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_checkpoint_with_transcript() {
         let entry = WorkingLogEntry::new(
             "src/xyz.rs".to_string(),
@@ -325,7 +325,7 @@ mod tests {
         assert_eq!(deserialized_agent.id, "session-abc123");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_checkpoint_kind_known_human_roundtrip() {
         let kind = CheckpointKind::KnownHuman;
         assert_eq!(kind.to_str(), "known_human");
@@ -339,19 +339,19 @@ mod tests {
         assert_eq!(back, CheckpointKind::KnownHuman);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_is_ai_returns_false_for_human_kinds() {
         assert!(!CheckpointKind::Human.is_ai());
         assert!(!CheckpointKind::KnownHuman.is_ai());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_is_ai_returns_true_for_ai_kinds() {
         assert!(CheckpointKind::AiAgent.is_ai());
         assert!(CheckpointKind::AiTab.is_ai());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_checkpoint_with_known_human_metadata_roundtrip() {
         use crate::authorship::working_log::{Checkpoint, KnownHumanMetadata};
         let mut checkpoint = Checkpoint::new(

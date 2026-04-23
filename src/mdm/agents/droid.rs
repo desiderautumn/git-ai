@@ -416,7 +416,7 @@ mod tests {
 
     // ---- Install scenarios ----
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn s1_fresh_install_creates_catch_all_block() {
         let (_td, path) = setup_test_env();
         fs::remove_file(&path).ok();
@@ -442,7 +442,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn s2_idempotent_already_on_catch_all() {
         let (_td, path) = setup_test_env();
         let cmd = expected_cmd();
@@ -463,7 +463,7 @@ mod tests {
         assert!(diff.is_none(), "should be idempotent");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn s3_migration_old_matcher_no_user_hooks() {
         let (_td, path) = setup_test_env();
         let cmd = expected_cmd();
@@ -500,7 +500,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn s4_migration_old_matcher_user_hook_preserved() {
         let (_td, path) = setup_test_env();
         let cmd = expected_cmd();
@@ -559,7 +559,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn s5_fresh_install_user_has_old_matcher_hook() {
         let (_td, path) = setup_test_env();
         fs::write(
@@ -605,7 +605,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn s6_fresh_install_user_has_catch_all_hook() {
         let (_td, path) = setup_test_env();
         fs::write(
@@ -642,7 +642,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn s7_idempotent_user_catch_all_plus_git_ai() {
         let (_td, path) = setup_test_env();
         let cmd = expected_cmd();
@@ -658,7 +658,7 @@ mod tests {
         assert!(diff.is_none());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn s8_deduplication_git_ai_in_both_blocks() {
         let (_td, path) = setup_test_env();
         let cmd = expected_cmd();
@@ -714,7 +714,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn s9_deduplication_two_git_ai_in_catch_all() {
         let (_td, path) = setup_test_env();
         let cmd = expected_cmd();
@@ -740,7 +740,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn s10_stale_command_upgraded() {
         let (_td, path) = setup_test_env();
         fs::write(
@@ -774,7 +774,7 @@ mod tests {
 
     // ---- Uninstall scenarios ----
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn u1_uninstall_from_catch_all() {
         let (_td, path) = setup_test_env();
         let cmd = expected_cmd();
@@ -806,7 +806,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn u2_uninstall_from_old_matcher_preserves_user_hook() {
         let (_td, path) = setup_test_env();
         let cmd = expected_cmd();
@@ -859,7 +859,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn u3_uninstall_from_multiple_blocks() {
         let (_td, path) = setup_test_env();
         let cmd = expected_cmd();
@@ -908,7 +908,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn u4_noop_uninstall_when_no_git_ai() {
         let (_td, path) = setup_test_env();
         fs::write(
@@ -924,14 +924,14 @@ mod tests {
 
     // ---- check_hooks scenarios ----
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn c1_no_hooks_returns_not_installed() {
         let (installed, up_to_date) = DroidInstaller::hook_status(&json!({}));
         assert!(!installed);
         assert!(!up_to_date);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn c2_git_ai_in_catch_all_returns_up_to_date() {
         let cmd = expected_cmd();
         let settings = json!({"hooks": {"PreToolUse": [{"matcher": "*", "hooks": [{"type":"command","command": cmd}]}]}});
@@ -940,7 +940,7 @@ mod tests {
         assert!(up_to_date);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn c3_git_ai_only_in_old_matcher_not_up_to_date() {
         let cmd = expected_cmd();
         let settings = json!({"hooks": {"PreToolUse": [{"matcher": "^(Edit|Write|Create|ApplyPatch)$", "hooks": [{"type":"command","command": cmd}]}]}});

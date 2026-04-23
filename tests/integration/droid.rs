@@ -9,7 +9,7 @@ use std::fs;
 use std::io::Write;
 use tempfile::NamedTempFile;
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_parse_droid_jsonl_transcript() {
     let fixture = fixture_path("droid-session.jsonl");
     let (transcript, model) =
@@ -66,7 +66,7 @@ fn test_parse_droid_jsonl_transcript() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_parse_droid_settings_model() {
     let fixture = fixture_path("droid-session.settings.json");
     let model = DroidPreset::model_from_droid_settings_json(fixture.to_str().unwrap())
@@ -80,7 +80,7 @@ fn test_parse_droid_settings_model() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_droid_preset_extracts_edited_filepath() {
     // Create a temporary JSONL file for the transcript
     let fixture = fixture_path("droid-session.jsonl");
@@ -123,7 +123,7 @@ fn test_droid_preset_extracts_edited_filepath() {
     assert_eq!(edited[0], "/Users/testuser/projects/testing-git/index.ts");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_droid_preset_extracts_applypatch_filepath() {
     let temp_dir = tempfile::tempdir().unwrap();
     let jsonl_path = temp_dir.path().join("session.jsonl");
@@ -159,7 +159,7 @@ fn test_droid_preset_extracts_applypatch_filepath() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_droid_preset_stores_metadata_paths() {
     let temp_dir = tempfile::tempdir().unwrap();
     let jsonl_path = temp_dir.path().join("session.jsonl");
@@ -199,7 +199,7 @@ fn test_droid_preset_stores_metadata_paths() {
     assert_eq!(metadata["transcript_path"], jsonl_path.to_str().unwrap());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_droid_preset_uses_raw_session_id() {
     let temp_dir = tempfile::tempdir().unwrap();
     let jsonl_path = temp_dir.path().join("session.jsonl");
@@ -233,7 +233,7 @@ fn test_droid_preset_uses_raw_session_id() {
     assert_eq!(result.agent_id.tool, "droid");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_droid_jsonl_skips_non_message_entries() {
     let jsonl_content = r#"{"type":"session_start","id":"abc","title":"Test","cwd":"/tmp"}
 {"type":"message","id":"msg1","timestamp":"2026-01-28T16:57:01.391Z","message":{"role":"user","content":[{"type":"text","text":"Hello"}]}}
@@ -267,7 +267,7 @@ fn test_droid_jsonl_skips_non_message_entries() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_droid_tool_results_are_not_parsed_as_user_messages() {
     // User message containing only tool_result items should produce no user messages
     let jsonl_content = r#"{"type":"message","id":"msg1","timestamp":"2026-01-28T16:57:16.179Z","message":{"role":"user","content":[{"type":"tool_result","tool_use_id":"call_123","content":"File read successfully"}]}}
@@ -298,7 +298,7 @@ fn test_droid_tool_results_are_not_parsed_as_user_messages() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_droid_e2e_prefers_latest_checkpoint_for_prompts() {
     use crate::repos::test_repo::TestRepo;
 
@@ -377,7 +377,7 @@ fn test_droid_e2e_prefers_latest_checkpoint_for_prompts() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_droid_preset_pretooluse_returns_human_checkpoint() {
     let temp_dir = tempfile::tempdir().unwrap();
     let jsonl_path = temp_dir.path().join("session.jsonl");
@@ -428,7 +428,7 @@ fn test_droid_preset_pretooluse_returns_human_checkpoint() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_droid_session_paths_derivation() {
     let (jsonl, settings) =
         DroidPreset::droid_session_paths("abc-123", "/Users/testuser/projects/my-app");
@@ -444,7 +444,7 @@ fn test_droid_session_paths_derivation() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_droid_settings_missing_model_field() {
     let mut temp = NamedTempFile::new().unwrap();
     temp.write_all(b"{}").unwrap();
@@ -453,7 +453,7 @@ fn test_droid_settings_missing_model_field() {
     assert!(result.is_none(), "Missing model field should return None");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_droid_jsonl_parses_thinking_blocks() {
     let jsonl = r#"{"type":"message","id":"m1","timestamp":"2026-01-28T17:00:00.000Z","message":{"role":"assistant","content":[{"type":"thinking","thinking":"Let me think about this..."},{"type":"text","text":"Here is my answer."}]}}
 "#;

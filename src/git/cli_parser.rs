@@ -734,7 +734,7 @@ fn derive_directory_from_url(url: &str) -> Option<String> {
 mod tests {
     use super::*;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_pos_command_basic() {
         // Test: git merge abc --squash
         let args = vec![
@@ -747,7 +747,7 @@ mod tests {
         assert_eq!(parsed.pos_command(1), None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_pos_command_flags_before() {
         // Test: git merge --squash --no-verify abc
         let args = vec![
@@ -761,7 +761,7 @@ mod tests {
         assert_eq!(parsed.pos_command(1), None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_pos_command_multiple_positional() {
         // Test: git merge abc def --squash
         let args = vec![
@@ -776,7 +776,7 @@ mod tests {
         assert_eq!(parsed.pos_command(2), None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_pos_command_with_flag_value() {
         // Test: git commit -m "message" file.txt
         let args = vec![
@@ -790,7 +790,7 @@ mod tests {
         assert_eq!(parsed.pos_command(1), None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_pos_command_inline_flag_value() {
         // Test: git merge --strategy=recursive abc
         let args = vec![
@@ -802,7 +802,7 @@ mod tests {
         assert_eq!(parsed.pos_command(0), Some("abc".to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_derive_directory_from_url() {
         assert_eq!(
             derive_directory_from_url("https://github.com/user/repo.git"),
@@ -844,7 +844,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_extract_clone_target_directory() {
         // Explicit directory specified
         let args = vec![
@@ -898,7 +898,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_explicit_rebase_branch_arg_standard_mode() {
         let args = vec![
             "--rebase-merges".to_string(),
@@ -911,7 +911,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_explicit_rebase_branch_arg_root_mode() {
         let args = vec![
             "--root".to_string(),
@@ -925,14 +925,14 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_explicit_rebase_branch_arg_control_mode_returns_none() {
         let args = vec!["--continue".to_string()];
         assert_eq!(explicit_rebase_branch_arg(&args), None);
         assert!(rebase_has_control_mode(&args));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_rebase_summary_treats_show_current_patch_as_control_mode() {
         let args = vec!["--show-current-patch".to_string()];
         let summary = summarize_rebase_args(&args);
@@ -940,7 +940,7 @@ mod tests {
         assert!(summary.positionals.is_empty());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_explicit_rebase_branch_arg_skips_exec_and_empty_values() {
         let args = vec![
             "--exec".to_string(),
@@ -956,7 +956,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_rebase_summary_tracks_onto_with_c_path() {
         let args = vec![
             "-C".to_string(),

@@ -32,7 +32,7 @@ fn run_simple_additions_with_diff_settings(settings: &[(&str, &str)]) {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_simple_additions_empty_repo() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -43,7 +43,7 @@ fn test_simple_additions_empty_repo() {
     file.assert_lines_and_blame(crate::lines!["Line1".human(), "Line 2".ai(), "Line 3".ai(),]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_simple_additions_with_base_commit() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -68,7 +68,7 @@ fn test_simple_additions_with_base_commit() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_simple_additions_with_base_commit_and_custom_diff_config() {
     run_simple_additions_with_diff_settings(&[
         ("diff.wordregex", r"\w+|[^[:space:]]+"),
@@ -78,27 +78,27 @@ fn test_simple_additions_with_base_commit_and_custom_diff_config() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_simple_additions_with_diff_noprefix_enabled() {
     run_simple_additions_with_diff_settings(&[("diff.noprefix", "true")]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_simple_additions_with_diff_mnemonicprefix_enabled() {
     run_simple_additions_with_diff_settings(&[("diff.mnemonicprefix", "true")]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_simple_additions_with_diff_renames_copies() {
     run_simple_additions_with_diff_settings(&[("diff.renames", "copies")]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_simple_additions_with_diff_relative_enabled() {
     run_simple_additions_with_diff_settings(&[("diff.relative", "true")]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_simple_additions_with_custom_diff_prefixes() {
     run_simple_additions_with_diff_settings(&[
         ("diff.srcPrefix", "SRC/"),
@@ -106,27 +106,27 @@ fn test_simple_additions_with_custom_diff_prefixes() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_simple_additions_with_diff_algorithm_histogram() {
     run_simple_additions_with_diff_settings(&[("diff.algorithm", "histogram")]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_simple_additions_with_diff_indent_heuristic_disabled() {
     run_simple_additions_with_diff_settings(&[("diff.indentHeuristic", "false")]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_simple_additions_with_diff_inter_hunk_context() {
     run_simple_additions_with_diff_settings(&[("diff.interHunkContext", "8")]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_simple_additions_with_color_diff_always() {
     run_simple_additions_with_diff_settings(&[("color.diff", "always"), ("color.ui", "always")]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_simple_additions_on_top_of_ai_contributions() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -152,7 +152,7 @@ fn test_simple_additions_on_top_of_ai_contributions() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_simple_additions_new_file_not_git_added() {
     let repo = TestRepo::new();
     let mut file = repo.filename("new_file.txt");
@@ -180,7 +180,7 @@ fn test_simple_additions_new_file_not_git_added() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ai_human_interleaved_line_attribution() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -204,7 +204,7 @@ fn test_ai_human_interleaved_line_attribution() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_simple_ai_then_human_deletion() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -235,7 +235,7 @@ fn test_simple_ai_then_human_deletion() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_multiple_ai_checkpoints_with_human_deletions() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -268,7 +268,7 @@ fn test_multiple_ai_checkpoints_with_human_deletions() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_complex_mixed_additions_and_deletions() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -312,7 +312,7 @@ fn test_complex_mixed_additions_and_deletions() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ai_adds_lines_multiple_commits() {
     // Test AI adding lines across multiple commits
     let repo = TestRepo::new();
@@ -343,7 +343,7 @@ fn test_ai_adds_lines_multiple_commits() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_partial_staging_filters_unstaged_lines() {
     // Test where AI makes changes but only some are staged
     let repo = TestRepo::new();
@@ -378,7 +378,7 @@ fn test_partial_staging_filters_unstaged_lines() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_human_stages_some_ai_lines() {
     // Test where AI adds multiple lines but human only stages some of them
     let repo = TestRepo::new();
@@ -421,7 +421,7 @@ fn test_human_stages_some_ai_lines() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_multiple_ai_sessions_with_partial_staging() {
     // Multiple AI sessions, but only one has staged changes
     let repo = TestRepo::new();
@@ -459,7 +459,7 @@ fn test_multiple_ai_sessions_with_partial_staging() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ai_adds_then_commits_in_batches() {
     // AI adds lines in multiple batches, committing separately
     let repo = TestRepo::new();
@@ -500,7 +500,7 @@ fn test_ai_adds_then_commits_in_batches() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ai_edits_with_partial_staging() {
     // AI makes modifications, some staged and some not
     let repo = TestRepo::new();
@@ -538,7 +538,7 @@ fn test_ai_edits_with_partial_staging() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_unstaged_changes_not_committed() {
     // Test that unstaged changes don't appear in the commit
     let repo = TestRepo::new();
@@ -573,7 +573,7 @@ fn test_unstaged_changes_not_committed() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_unstaged_ai_lines_saved_to_working_log() {
     // Test that unstaged AI-authored lines are saved to the working log for the next commit
     let repo = TestRepo::new();
@@ -617,7 +617,7 @@ fn test_unstaged_ai_lines_saved_to_working_log() {
 
 /// Test: New file with partial staging across two commits
 /// AI creates a new file with many lines, stage only some, then commit the rest
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_new_file_partial_staging_two_commits() {
     let repo = TestRepo::new();
 
@@ -658,7 +658,7 @@ fn test_new_file_partial_staging_two_commits() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_checkpoint_then_stage_then_checkpoint_across_two_commits_preserves_ai_lines() {
     // Exact reproduction from bug report.
     let repo = TestRepo::new();
@@ -693,7 +693,7 @@ fn test_checkpoint_then_stage_then_checkpoint_across_two_commits_preserves_ai_li
     file.assert_lines_and_blame(lines!["test".ai(), "test1".ai()]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_checkpoint_stage_checkpoint_with_non_adjacent_hunks_preserves_second_hunk_ai() {
     let repo = TestRepo::new();
     let file_path = repo.path().join("example.md");
@@ -817,7 +817,7 @@ omega 3
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_using_test_repo_with_custom_checkpoints() {
     let repo = TestRepo::new();
     let file_path = repo.path().join("example.md");
@@ -902,7 +902,7 @@ Another AI line
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ai_heading_checkpoint_then_human_top_commit_then_rest_preserves_attribution() {
     let repo = TestRepo::new();
     let file_path = repo.path().join("aidanwashere.md");
@@ -1023,7 +1023,7 @@ diff --git a/aidanwashere.md b/aidanwashere.md
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_mock_ai_with_pathspecs() {
     let repo = TestRepo::new();
     let mut file1 = repo.filename("file1.txt");
@@ -1060,7 +1060,7 @@ fn test_mock_ai_with_pathspecs() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_with_duplicate_lines() {
     // This test verifies that squash merge correctly preserves AI authorship for duplicate lines
     let repo = TestRepo::new();
@@ -1106,7 +1106,7 @@ fn test_with_duplicate_lines() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ai_deletion_with_human_checkpoint_in_same_commit() {
     // Regression test for issue #193
     // When both human and AI checkpoints happen in the same commit,
@@ -1201,7 +1201,7 @@ fn test_ai_deletion_with_human_checkpoint_in_same_commit() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_large_ai_readme_rewrite_with_no_data_bug() {
     // Regression test for bug where AI-authored lines show [no-data]
     // This replicates the exact scenario from commit a630f58cb9b1943cba895a38d00c4c4ed727e37c
@@ -1491,7 +1491,7 @@ This project is open source and available for use.
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_deletion_within_a_single_line_attribution() {
     // Regression test for bug where removing a constructor parameter
     // doesn't get attributed to AI when using mock_ai checkpoint
@@ -1547,7 +1547,7 @@ fn test_deletion_within_a_single_line_attribution() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_deletion_of_multiple_lines_by_ai() {
     // Regression test for bug where removing a constructor parameter
     // doesn't get attributed to AI when using mock_ai checkpoint
@@ -1607,7 +1607,7 @@ fn test_deletion_of_multiple_lines_by_ai() {
 /// When AI edits multiple files in the same session, but they are committed
 /// in separate batches, the second batch loses AI attribution.
 /// See: https://github.com/git-ai-project/git-ai/issues/356
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_multi_file_batch_commits_preserve_attribution() {
     // This test reproduces the exact scenario from issue #356:
     // 1. AI edits two files (file_a.txt and file_b.txt)
@@ -1666,7 +1666,7 @@ fn test_multi_file_batch_commits_preserve_attribution() {
 }
 
 /// Additional test for issue #356 with modifications instead of new files
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_multi_file_batch_commits_modifications() {
     // Similar to above, but with modifications to existing files
     use std::fs;
@@ -1713,7 +1713,7 @@ fn test_multi_file_batch_commits_modifications() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ai_edits_file_with_spaces_in_filename() {
     // Test that AI authorship tracking works correctly for files with spaces in the filename
     // This is a potential edge case that could fail if paths aren't properly quoted
@@ -1758,7 +1758,7 @@ fn test_ai_edits_file_with_spaces_in_filename() {
 /// `from_just_working_log` strips human lines (by design) producing an empty vec.
 /// The empty result causes the code to `continue` without clearing the stale AI
 /// attributions from the earlier checkpoint, so the commit is incorrectly tagged as AI.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ai_generated_file_then_human_full_rewrite() {
     use sha2::{Digest, Sha256};
 

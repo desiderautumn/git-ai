@@ -21,7 +21,7 @@ fn amp_simple_thread_fixture_path() -> PathBuf {
     amp_threads_fixture_path().join(format!("{}.json", AMP_SIMPLE_THREAD_ID))
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_parse_amp_thread_transcript() {
     let thread_path = amp_simple_thread_fixture_path();
 
@@ -51,7 +51,7 @@ fn test_parse_amp_thread_transcript() {
     assert!(has_tool_use, "Expected at least one tool use message");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_parse_amp_thread_with_thinking_blocks() {
     let thread_path = amp_threads_fixture_path().join(format!("{}.json", AMP_THINKING_THREAD_ID));
 
@@ -77,7 +77,7 @@ fn test_parse_amp_thread_with_thinking_blocks() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial_test::serial]
 fn test_amp_preset_pretooluse_returns_human_checkpoint() {
     unsafe {
@@ -120,7 +120,7 @@ fn test_amp_preset_pretooluse_returns_human_checkpoint() {
     assert_eq!(will_edit, vec!["/Users/test/project/jokes.csv"]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial_test::serial]
 fn test_amp_preset_posttooluse_returns_ai_checkpoint() {
     unsafe {
@@ -166,7 +166,7 @@ fn test_amp_preset_posttooluse_returns_ai_checkpoint() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial_test::serial]
 fn test_amp_e2e_checkpoint_and_commit() {
     use crate::repos::test_repo::TestRepo;
@@ -244,7 +244,7 @@ fn test_amp_e2e_checkpoint_and_commit() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[serial_test::serial]
 fn test_amp_post_commit_resyncs_latest_thread_transcript() {
     use crate::repos::test_repo::TestRepo;

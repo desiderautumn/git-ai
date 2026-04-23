@@ -284,7 +284,7 @@ pub fn print_gitlab_ci_yaml() {
 mod tests {
     use super::*;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_gitlab_merge_request_deserialization() {
         let json = r#"{
             "iid": 42,
@@ -307,7 +307,7 @@ mod tests {
         assert_eq!(mr.squash, Some(false));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_gitlab_merge_request_deserialization_with_squash() {
         let json = r#"{
             "iid": 99,
@@ -325,7 +325,7 @@ mod tests {
         assert_eq!(mr.squash, Some(true));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_gitlab_merge_request_deserialization_minimal() {
         let json = r#"{
             "iid": 1,
@@ -341,7 +341,7 @@ mod tests {
         assert!(mr.squash.is_none());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_gitlab_ci_template_yaml_not_empty() {
         assert!(
             !GITLAB_CI_TEMPLATE_YAML.is_empty(),

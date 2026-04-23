@@ -225,7 +225,7 @@ fn setup_pull_rebase_skip_test() -> (TestRepo, TestRepo, String) {
 // Fast-forward pull tests
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_fast_forward_pull_preserves_ai_attribution() {
     let setup = setup_pull_test();
     let local = setup.local;
@@ -256,7 +256,7 @@ fn test_fast_forward_pull_preserves_ai_attribution() {
     ai_file.assert_lines_and_blame(vec!["AI generated line 1".ai(), "AI generated line 2".ai()]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_fast_forward_pull_without_local_changes() {
     let setup = setup_pull_test();
     let local = setup.local;
@@ -288,7 +288,7 @@ fn test_fast_forward_pull_without_local_changes() {
 // Pull --rebase with committed changes (the core bug fix)
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_pull_rebase_preserves_committed_ai_authorship() {
     let setup = setup_divergent_pull_test();
     let local = setup.local;
@@ -324,7 +324,7 @@ fn test_pull_rebase_preserves_committed_ai_authorship() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_pull_rebase_via_git_config_preserves_committed_ai_authorship() {
     let setup = setup_divergent_pull_test();
     let local = setup.local;
@@ -366,7 +366,7 @@ fn test_pull_rebase_via_git_config_preserves_committed_ai_authorship() {
 // Pull --rebase --autostash with uncommitted changes
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_pull_rebase_autostash_preserves_uncommitted_ai_attribution() {
     let setup = setup_divergent_pull_test();
     let local = setup.local;
@@ -400,7 +400,7 @@ fn test_pull_rebase_autostash_preserves_uncommitted_ai_attribution() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_pull_rebase_autostash_with_mixed_attribution() {
     let setup = setup_divergent_pull_test();
     let local = setup.local;
@@ -436,7 +436,7 @@ fn test_pull_rebase_autostash_with_mixed_attribution() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_pull_rebase_autostash_via_git_config() {
     let setup = setup_pull_test();
     let local = setup.local;
@@ -472,7 +472,7 @@ fn test_pull_rebase_autostash_via_git_config() {
 // Pull --rebase with both committed AND uncommitted changes
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_pull_rebase_committed_and_autostash_preserves_all_authorship() {
     let setup = setup_divergent_pull_test();
     let local = setup.local;
@@ -505,7 +505,7 @@ fn test_pull_rebase_committed_and_autostash_preserves_all_authorship() {
     uncommitted_ai.assert_lines_and_blame(vec!["Uncommitted AI line".ai()]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_pull_rebase_skip_commit_does_not_map_entire_upstream_history() {
     let (local, _upstream, local_ai_sha) = setup_pull_rebase_skip_test();
 
@@ -647,7 +647,7 @@ fn setup_conflict_pull_test() -> ConflictPullTestSetup {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_pull_rebase_with_conflict_preserves_ai_notes() {
     let setup = setup_conflict_pull_test();
     let local = setup.local;
@@ -725,7 +725,7 @@ fn test_pull_rebase_with_conflict_preserves_ai_notes() {
 // Pull --rebase abort preserves original notes
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_pull_rebase_with_conflict_abort_preserves_original_notes() {
     let setup = setup_conflict_pull_test();
     let local = setup.local;
@@ -839,7 +839,7 @@ fn setup_regular_rebase_conflict() -> RegularRebaseConflictSetup {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_regular_rebase_with_conflict_preserves_ai_notes() {
     let setup = setup_regular_rebase_conflict();
     let repo = setup.repo;
@@ -900,7 +900,7 @@ fn test_regular_rebase_with_conflict_preserves_ai_notes() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_regular_rebase_with_conflict_abort_preserves_original_notes() {
     let setup = setup_regular_rebase_conflict();
     let repo = setup.repo;

@@ -1128,7 +1128,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_exclusion_takes_precedence_over_allow() {
         let config = create_test_config(
             vec!["https://github.com/allowed/repo".to_string()],
@@ -1139,7 +1139,7 @@ mod tests {
         assert!(!config.is_allowed_repository(&None));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_empty_allowlist_allows_everything() {
         let config = create_test_config(vec![], vec![]);
 
@@ -1147,7 +1147,7 @@ mod tests {
         assert!(config.is_allowed_repository(&None));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_exclude_without_allow() {
         let config =
             create_test_config(vec![], vec!["https://github.com/excluded/repo".to_string()]);
@@ -1156,7 +1156,7 @@ mod tests {
         assert!(config.is_allowed_repository(&None));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_allow_without_exclude() {
         let config =
             create_test_config(vec!["https://github.com/allowed/repo".to_string()], vec![]);
@@ -1165,7 +1165,7 @@ mod tests {
         assert!(!config.is_allowed_repository(&None));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_glob_pattern_wildcard_in_allow() {
         let config = create_test_config(vec!["https://github.com/myorg/*".to_string()], vec![]);
 
@@ -1177,7 +1177,7 @@ mod tests {
         assert!(!config.allow_repositories[0].matches("https://github.com/other/repo"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_glob_pattern_wildcard_in_exclude() {
         let config = create_test_config(vec![], vec!["https://github.com/private/*".to_string()]);
 
@@ -1188,7 +1188,7 @@ mod tests {
         assert!(!config.exclude_repositories[0].matches("https://github.com/public/repo"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_exact_match_still_works() {
         let config = create_test_config(vec!["https://github.com/exact/match".to_string()], vec![]);
 
@@ -1198,7 +1198,7 @@ mod tests {
         assert!(!config.allow_repositories[0].matches("https://github.com/exact/other"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_complex_glob_patterns() {
         let config = create_test_config(vec!["*@github.com:company/*".to_string()], vec![]);
 
@@ -1237,7 +1237,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_exclude_prompts_empty_patterns_returns_false() {
         let config = create_test_config_with_exclude_prompts(vec![]);
 
@@ -1245,7 +1245,7 @@ mod tests {
         assert!(!config.should_exclude_prompts(&None));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_exclude_prompts_no_repository_returns_false() {
         let config =
             create_test_config_with_exclude_prompts(vec!["https://github.com/*".to_string()]);
@@ -1254,7 +1254,7 @@ mod tests {
         assert!(!config.should_exclude_prompts(&None));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_exclude_prompts_pattern_matching() {
         let config =
             create_test_config_with_exclude_prompts(vec!["https://github.com/myorg/*".to_string()]);
@@ -1272,7 +1272,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_exclude_prompts_wildcard_all() {
         let config = create_test_config_with_exclude_prompts(vec!["*".to_string()]);
 
@@ -1285,7 +1285,7 @@ mod tests {
         assert!(config.should_exclude_prompts(&None));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_exclude_prompts_local_repo_not_excluded_without_wildcard() {
         // Test 1: Local repo with no patterns configured - never excluded
         let config_no_patterns = create_test_config_with_exclude_prompts(vec![]);
@@ -1303,7 +1303,7 @@ mod tests {
         assert!(!config_with_patterns.should_exclude_prompts(&None));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_should_exclude_prompts_respects_patterns_when_remotes_exist() {
         let config = create_test_config_with_exclude_prompts(vec![
             "https://github.com/private/*".to_string(),
@@ -1355,7 +1355,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_effective_prompt_storage_no_include_list_uses_global() {
         // No include list = legacy behavior, use global prompt_storage
         let config = create_test_config_with_include_prompts(vec![], vec![], "notes", None);
@@ -1377,7 +1377,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_effective_prompt_storage_exclude_always_wins() {
         // Exclusion with wildcard should always return Local, regardless of include list
         let config = create_test_config_with_include_prompts(
@@ -1392,7 +1392,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_effective_prompt_storage_wildcard_include_matches_no_repo() {
         // Wildcard include should match repos without remotes (None case)
         let config = create_test_config_with_include_prompts(
@@ -1408,7 +1408,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_effective_prompt_storage_non_wildcard_include_no_match_uses_fallback() {
         // Non-wildcard include with None repo = no match, use fallback
         let config = create_test_config_with_include_prompts(
@@ -1424,7 +1424,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_effective_prompt_storage_no_fallback_defaults_to_local() {
         // Non-wildcard include with None repo and no fallback = Local
         let config = create_test_config_with_include_prompts(
@@ -1440,7 +1440,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_effective_prompt_storage_include_pattern_matching() {
         let config = create_test_config_with_include_prompts(
             vec!["https://github.com/positron-ai/*".to_string()],
@@ -1464,7 +1464,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_prompt_storage_mode_from_str() {
         assert_eq!(
             "default".parse::<PromptStorageMode>().ok(),
@@ -1494,62 +1494,62 @@ mod tests {
         assert_eq!("".parse::<PromptStorageMode>().ok(), None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_prompt_storage_mode_as_str() {
         assert_eq!(PromptStorageMode::Default.as_str(), "default");
         assert_eq!(PromptStorageMode::Notes.as_str(), "notes");
         assert_eq!(PromptStorageMode::Local.as_str(), "local");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_channel_default_is_latest() {
         let channel = UpdateChannel::default();
         assert_eq!(channel, UpdateChannel::Latest);
         assert_eq!(channel.as_str(), "latest");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_channel_enterprise_latest_maps_to_enterprise_latest() {
         let channel = UpdateChannel::from_str("enterprise-latest").unwrap();
         assert_eq!(channel, UpdateChannel::EnterpriseLatest);
         assert_eq!(channel.as_str(), "enterprise-latest");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_channel_enterprise_next_maps_to_enterprise_next() {
         let channel = UpdateChannel::from_str("enterprise-next").unwrap();
         assert_eq!(channel, UpdateChannel::EnterpriseNext);
         assert_eq!(channel.as_str(), "enterprise-next");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_channel_enterprise_latest_parses() {
         let channel = UpdateChannel::from_str("enterprise-latest").unwrap();
         assert_eq!(channel, UpdateChannel::EnterpriseLatest);
         assert_eq!(channel.as_str(), "enterprise-latest");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_update_channel_enterprise_next_parses() {
         let channel = UpdateChannel::from_str("enterprise-next").unwrap();
         assert_eq!(channel, UpdateChannel::EnterpriseNext);
         assert_eq!(channel.as_str(), "enterprise-next");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_quiet_default_is_false() {
         let config = create_test_config(vec![], vec![]);
         assert!(!config.is_quiet());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_quiet_can_be_enabled() {
         let mut config = create_test_config(vec![], vec![]);
         config.quiet = true;
         assert!(config.is_quiet());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_excluded_repo_with_remotes() {
         let config = create_test_config(vec![], vec!["https://github.com/excluded/*".to_string()]);
         let remotes = vec![(
@@ -1559,7 +1559,7 @@ mod tests {
         assert!(!config.is_allowed_repository_with_remotes(Some(&remotes)));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_allowed_repo_not_excluded_with_remotes() {
         let config = create_test_config(vec![], vec!["https://github.com/excluded/*".to_string()]);
         let remotes = vec![(
@@ -1569,7 +1569,7 @@ mod tests {
         assert!(config.is_allowed_repository_with_remotes(Some(&remotes)));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_allowlist_with_remotes() {
         let config = create_test_config(vec!["https://github.com/myorg/*".to_string()], vec![]);
         let remotes = vec![(
@@ -1579,7 +1579,7 @@ mod tests {
         assert!(config.is_allowed_repository_with_remotes(Some(&remotes)));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_allowlist_denies_unmatched_remotes() {
         let config = create_test_config(vec!["https://github.com/myorg/*".to_string()], vec![]);
         let remotes = vec![(
@@ -1589,7 +1589,7 @@ mod tests {
         assert!(!config.is_allowed_repository_with_remotes(Some(&remotes)));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_exclusion_takes_precedence_with_remotes() {
         let config = create_test_config(
             vec!["https://github.com/myorg/*".to_string()],
@@ -1602,26 +1602,26 @@ mod tests {
         assert!(!config.is_allowed_repository_with_remotes(Some(&remotes)));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_no_remotes_allowed_when_only_excludes() {
         let config = create_test_config(vec![], vec!["https://github.com/excluded/*".to_string()]);
         assert!(config.is_allowed_repository_with_remotes(None));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_no_remotes_denied_when_allowlist_active() {
         let config = create_test_config(vec!["https://github.com/myorg/*".to_string()], vec![]);
         assert!(!config.is_allowed_repository_with_remotes(None));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_empty_remotes_treated_as_no_match_for_exclusion() {
         let config = create_test_config(vec![], vec!["https://github.com/excluded/*".to_string()]);
         let remotes: Vec<(String, String)> = vec![];
         assert!(config.is_allowed_repository_with_remotes(Some(&remotes)));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_multiple_remotes_one_excluded() {
         let config = create_test_config(vec![], vec!["https://github.com/excluded/*".to_string()]);
         let remotes = vec![
@@ -1637,7 +1637,7 @@ mod tests {
         assert!(!config.is_allowed_repository_with_remotes(Some(&remotes)));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_file_config_bytes_accepts_utf8_bom() {
         let mut data = vec![0xEF, 0xBB, 0xBF];
         data.extend_from_slice(br#"{"git_path":"C:\\Program Files\\Git\\cmd\\git.exe"}"#);
@@ -1649,7 +1649,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_file_config_bytes_without_bom_still_parses() {
         let data = br#"{"git_path":"/usr/bin/git"}"#;
 
@@ -1657,7 +1657,7 @@ mod tests {
         assert_eq!(parsed.git_path.as_deref(), Some("/usr/bin/git"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_path_is_git_ai_binary_symlink_to_git_ai() {
         // A symlink `git → git-ai` should be detected as git-ai.
         let dir = tempfile::tempdir().unwrap();
@@ -1669,7 +1669,7 @@ mod tests {
         assert!(path_is_git_ai_binary(&dir.path().join("git")));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_path_is_git_ai_binary_real_git_with_sibling_symlink() {
         // A real `git` binary should NOT be flagged just because a `git-ai`
         // symlink exists in the same directory (Docker/server environment).
@@ -1685,7 +1685,7 @@ mod tests {
         assert!(!path_is_git_ai_binary(&real_git));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_path_is_git_ai_binary_hardlink() {
         // A hard-linked shim (same inode) should be detected as git-ai.
         let dir = tempfile::tempdir().unwrap();

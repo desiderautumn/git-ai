@@ -49,7 +49,7 @@ fn repo_root(repo: &TestRepo) -> std::path::PathBuf {
 // Section 5.1 — File Mutations
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_tool_detect_file_creation() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -74,7 +74,7 @@ fn test_bash_tool_detect_file_creation() {
     assert!(result.modified.is_empty(), "no files should be modified");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_tool_detect_modification() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -104,7 +104,7 @@ fn test_bash_tool_detect_modification() {
 }
 
 #[cfg(unix)]
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_tool_detect_permission_change() {
     use std::os::unix::fs::PermissionsExt;
 
@@ -136,7 +136,7 @@ fn test_bash_tool_detect_permission_change() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_tool_detect_rename() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -165,7 +165,7 @@ fn test_bash_tool_detect_rename() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_tool_detect_copy() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -207,7 +207,7 @@ fn test_bash_tool_detect_copy() {
 // Section 5.2 — Read-Only Operations
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_tool_no_changes_detected() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -227,7 +227,7 @@ fn test_bash_tool_no_changes_detected() {
     assert!(result.modified.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_tool_empty_repo_no_changes() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -243,7 +243,7 @@ fn test_bash_tool_empty_repo_no_changes() {
 // Section 5.3 — Edge Cases
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_tool_files_outside_repo_ignored() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -268,7 +268,7 @@ fn test_bash_tool_files_outside_repo_ignored() {
     let _ = fs::remove_file(&outside);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_tool_empty_stat_diff() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -284,7 +284,7 @@ fn test_bash_tool_empty_stat_diff() {
     assert!(result.all_changed_paths().is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_tool_multiple_mutations_combined() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -326,7 +326,7 @@ fn test_bash_tool_multiple_mutations_combined() {
 // Section 5.4 — Pre/Post Hook Semantics
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_tool_pre_hook_returns_take_pre_snapshot() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -340,7 +340,7 @@ fn test_bash_tool_pre_hook_returns_take_pre_snapshot() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_tool_post_hook_no_changes() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -370,7 +370,7 @@ fn test_bash_tool_post_hook_no_changes() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_tool_post_hook_detects_changes() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -412,7 +412,7 @@ fn test_bash_tool_post_hook_detects_changes() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_tool_post_hook_without_pre_uses_fallback() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -450,7 +450,7 @@ fn test_bash_tool_post_hook_without_pre_uses_fallback() {
 // Full handle_bash_tool orchestration — Pre followed by Post with creation
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_tool_orchestration_create_file() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -484,7 +484,7 @@ fn test_bash_tool_orchestration_create_file() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_tool_orchestration_delete_file() {
     // Deletions are not tracked; a bash call that only deletes files
     // produces NoChanges.
@@ -508,7 +508,7 @@ fn test_bash_tool_orchestration_delete_file() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_tool_orchestration_multiple_tool_uses() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -543,7 +543,7 @@ fn test_bash_tool_orchestration_multiple_tool_uses() {
 // Tool Classification — All 6 Agents
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_classify_tool_claude() {
     assert_eq!(classify_tool(Agent::Claude, "Write"), ToolClass::FileEdit);
     assert_eq!(classify_tool(Agent::Claude, "Edit"), ToolClass::FileEdit);
@@ -560,7 +560,7 @@ fn test_classify_tool_claude() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_classify_tool_gemini() {
     assert_eq!(
         classify_tool(Agent::Gemini, "write_file"),
@@ -572,7 +572,7 @@ fn test_classify_tool_gemini() {
     assert_eq!(classify_tool(Agent::Gemini, "unknown"), ToolClass::Skip);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_classify_tool_continue_cli() {
     assert_eq!(
         classify_tool(Agent::ContinueCli, "edit"),
@@ -593,7 +593,7 @@ fn test_classify_tool_continue_cli() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_classify_tool_droid() {
     assert_eq!(
         classify_tool(Agent::Droid, "ApplyPatch"),
@@ -607,7 +607,7 @@ fn test_classify_tool_droid() {
     assert_eq!(classify_tool(Agent::Droid, "unknown"), ToolClass::Skip);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_classify_tool_amp() {
     assert_eq!(classify_tool(Agent::Amp, "Write"), ToolClass::FileEdit);
     assert_eq!(classify_tool(Agent::Amp, "Edit"), ToolClass::FileEdit);
@@ -616,7 +616,7 @@ fn test_classify_tool_amp() {
     assert_eq!(classify_tool(Agent::Amp, "unknown"), ToolClass::Skip);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_classify_tool_opencode() {
     assert_eq!(classify_tool(Agent::OpenCode, "edit"), ToolClass::FileEdit);
     assert_eq!(classify_tool(Agent::OpenCode, "write"), ToolClass::FileEdit);
@@ -626,7 +626,7 @@ fn test_classify_tool_opencode() {
     assert_eq!(classify_tool(Agent::OpenCode, "unknown"), ToolClass::Skip);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_classify_tool_codex() {
     assert_eq!(classify_tool(Agent::Codex, "Bash"), ToolClass::Bash);
     // `apply_patch` is a real Codex edit tool, but today Codex file edits are
@@ -639,7 +639,7 @@ fn test_classify_tool_codex() {
 // Gitignore Filtering
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_tool_gitignore_excludes_new_untracked_files() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -674,7 +674,7 @@ fn test_bash_tool_gitignore_excludes_new_untracked_files() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_tool_gitignore_excludes_directory_patterns() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -728,7 +728,7 @@ fn test_bash_tool_gitignore_excludes_directory_patterns() {
 // build_gitignore
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_build_gitignore_parses_rules() {
     // build_gitignore covers git-ai-specific patterns only (defaults,
     // .git-ai-ignore, linguist-generated).  Standard .gitignore rules are
@@ -767,7 +767,7 @@ fn test_build_gitignore_parses_rules() {
 // git_status_fallback
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_git_status_fallback_detects_changes() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -784,7 +784,7 @@ fn test_git_status_fallback_detects_changes() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_git_status_fallback_detects_untracked() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -802,7 +802,7 @@ fn test_git_status_fallback_detects_untracked() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_git_status_fallback_clean_repo() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -821,7 +821,7 @@ fn test_git_status_fallback_clean_repo() {
 // cleanup_stale_snapshots
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cleanup_stale_snapshots_does_not_error_on_empty() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -837,7 +837,7 @@ fn test_cleanup_stale_snapshots_does_not_error_on_empty() {
 // normalize_path consistency
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_normalize_path_idempotent() {
     let path = Path::new("src/lib.rs");
     let once = normalize_path(path);
@@ -845,7 +845,7 @@ fn test_normalize_path_idempotent() {
     assert_eq!(once, twice, "normalize_path should be idempotent");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_normalize_path_handles_nested() {
     let path = Path::new("deeply/nested/dir/file.rs");
     let normalized = normalize_path(path);
@@ -857,7 +857,7 @@ fn test_normalize_path_handles_nested() {
 // Snapshot invocation key
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_snapshot_invocation_key_format() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -873,7 +873,7 @@ fn test_snapshot_invocation_key_format() {
 // DiffResult helpers
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_result_all_changed_paths_combines_categories() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -902,7 +902,7 @@ fn test_diff_result_all_changed_paths_combines_categories() {
     assert!(all.iter().any(|p| p.contains("create.txt")));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_result_is_empty_true_when_no_changes() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -919,7 +919,7 @@ fn test_diff_result_is_empty_true_when_no_changes() {
 // Subdirectory file operations
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_tool_detect_file_in_subdirectory() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -953,7 +953,7 @@ fn test_bash_tool_detect_file_in_subdirectory() {
 // normalize_path — case folding
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_normalize_path_case_folding() {
     let mixed = Path::new("Src/Main.RS");
     let normalized = normalize_path(mixed);
@@ -988,7 +988,7 @@ fn test_normalize_path_case_folding() {
 // provided by test_snapshot_nested_gitignore_excludes_matching_new_files and
 // test_snapshot_walker_prunes_ignored_directories.
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_snapshot_walker_prunes_ignored_directories() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -1026,7 +1026,7 @@ fn test_snapshot_walker_prunes_ignored_directories() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_snapshot_nested_gitignore_excludes_matching_new_files() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -1064,7 +1064,7 @@ fn test_snapshot_nested_gitignore_excludes_matching_new_files() {
 // Snapshot save/load round-trip and snapshot consumption
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_snapshot_save_load_round_trip() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -1092,7 +1092,7 @@ fn test_snapshot_save_load_round_trip() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gitignore_filtering_through_save_load_round_trip() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -1135,7 +1135,7 @@ fn test_gitignore_filtering_through_save_load_round_trip() {
 // Stale snapshot cleanup — actually removes old snapshots
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cleanup_stale_snapshots_removes_old_files() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -1199,7 +1199,7 @@ fn test_cleanup_stale_snapshots_removes_old_files() {
 // diff with gitignore=None passes all new files through
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_no_gitignore_includes_all_new_files() {
     let now = SystemTime::now();
     let pre = StatSnapshot {
@@ -1262,7 +1262,7 @@ fn test_diff_no_gitignore_includes_all_new_files() {
 // git_status_fallback — unmerged/conflict files (u prefix)
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_git_status_fallback_merge_conflict() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -1308,7 +1308,7 @@ fn test_git_status_fallback_merge_conflict() {
 // git_status_fallback — staged deletion
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_git_status_fallback_staged_deletion() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -1329,7 +1329,7 @@ fn test_git_status_fallback_staged_deletion() {
 // git_status_fallback — rename with spaces in both paths
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_git_status_fallback_rename_with_spaces() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -1359,7 +1359,7 @@ fn test_git_status_fallback_rename_with_spaces() {
 // StatDiffResult::is_empty with single non-empty category
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stat_diff_result_is_empty_single_category() {
     let created_only = StatDiffResult {
         created: vec![PathBuf::from("new.txt")],
@@ -1381,7 +1381,7 @@ fn test_stat_diff_result_is_empty_single_category() {
 // ===========================================================================
 
 #[cfg(unix)]
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stat_entry_symlink_type() {
     let tmp = tempfile::tempdir().expect("tmpdir");
     let target = tmp.path().join("target.txt");
@@ -1399,7 +1399,7 @@ fn test_stat_entry_symlink_type() {
 // StatEntry — ctime is populated
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stat_entry_has_ctime() {
     let tmp = tempfile::NamedTempFile::new().unwrap();
     fs::write(tmp.path(), "hello").unwrap();
@@ -1415,7 +1415,7 @@ fn test_stat_entry_has_ctime() {
 // Snapshot — hidden files (dotfiles) are included
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_snapshot_includes_hidden_files() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -1437,7 +1437,7 @@ fn test_snapshot_includes_hidden_files() {
 // ===========================================================================
 
 #[cfg(unix)]
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_snapshot_handles_permission_denied_directory() {
     use std::os::unix::fs::PermissionsExt;
 
@@ -1477,7 +1477,7 @@ fn test_snapshot_handles_permission_denied_directory() {
 // handle_bash_tool — PostToolUse without PreToolUse, clean repo → NoChanges
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_post_hook_without_pre_clean_repo_returns_no_changes() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -1505,7 +1505,7 @@ fn test_post_hook_without_pre_clean_repo_returns_no_changes() {
 // handle_bash_tool full orchestration — rename detection through pre/post
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_handle_bash_tool_detects_rename() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);

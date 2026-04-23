@@ -32,7 +32,7 @@ use git_ai::git::repository as GitAiRepository;
 // Happy Path Tests - Successful blame operations with AI authorship
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_success_basic_file() {
     // Happy path: Basic blame on a file with mixed human/AI authorship
     let repo = TestRepo::new();
@@ -59,7 +59,7 @@ fn test_blame_success_basic_file() {
     assert!(output.contains("mock_ai"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_success_only_human_lines() {
     // Happy path: File with only human-authored lines
     let repo = TestRepo::new();
@@ -80,7 +80,7 @@ fn test_blame_success_only_human_lines() {
     assert!(!output.contains("mock_ai"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_success_only_ai_lines() {
     // Happy path: File with only AI-authored lines
     let repo = TestRepo::new();
@@ -97,7 +97,7 @@ fn test_blame_success_only_ai_lines() {
     assert!(output.contains("mock_ai"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_success_with_line_range() {
     // Happy path: Blame with -L flag to specify line range
     let repo = TestRepo::new();
@@ -118,7 +118,7 @@ fn test_blame_success_with_line_range() {
     assert!(!output.contains("Line 5"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_success_with_newest_commit() {
     // Happy path: Blame at a specific commit using the API directly
     let repo = TestRepo::new();
@@ -146,7 +146,7 @@ fn test_blame_success_with_newest_commit() {
     assert!(!line_authors.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_success_json_format() {
     // Happy path: JSON output format with AI authorship
     let repo = TestRepo::new();
@@ -174,7 +174,7 @@ fn test_blame_success_json_format() {
 // Error Handling Tests - Invalid inputs, missing files, git errors
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_error_missing_file() {
     // Error case: Blame on non-existent file
     let repo = TestRepo::new();
@@ -196,7 +196,7 @@ fn test_blame_error_missing_file() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_error_invalid_line_range_start_zero() {
     // Error case: Line range starting at 0 (lines are 1-indexed)
     let repo = TestRepo::new();
@@ -212,7 +212,7 @@ fn test_blame_error_invalid_line_range_start_zero() {
     assert!(err.contains("Invalid line range"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_error_invalid_line_range_end_zero() {
     // Error case: Line range ending at 0
     let repo = TestRepo::new();
@@ -228,7 +228,7 @@ fn test_blame_error_invalid_line_range_end_zero() {
     assert!(err.contains("Invalid line range"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_error_invalid_line_range_start_greater_than_end() {
     // Error case: Start line > end line
     let repo = TestRepo::new();
@@ -244,7 +244,7 @@ fn test_blame_error_invalid_line_range_start_greater_than_end() {
     assert!(err.contains("Invalid line range"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_error_invalid_line_range_beyond_file() {
     // Error case: Line range exceeds file length
     let repo = TestRepo::new();
@@ -260,7 +260,7 @@ fn test_blame_error_invalid_line_range_beyond_file() {
     assert!(err.contains("Invalid line range") && err.contains("File has 2 lines"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_error_invalid_commit_ref() {
     // Error case: Invalid commit SHA
     let repo = TestRepo::new();
@@ -274,7 +274,7 @@ fn test_blame_error_invalid_commit_ref() {
     assert!(result.is_err());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_error_file_outside_repo() {
     // Error case: Attempt to blame a file outside the repository
     let repo = TestRepo::new();
@@ -307,7 +307,7 @@ fn test_blame_error_file_outside_repo() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_error_directory_instead_of_file() {
     // Error case: Attempt to blame a directory
     let repo = TestRepo::new();
@@ -324,7 +324,7 @@ fn test_blame_error_directory_instead_of_file() {
 // Edge Cases - Empty files, boundary commits, renamed files
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_edge_empty_file() {
     // Edge case: Blame on an empty file
     let repo = TestRepo::new();
@@ -342,7 +342,7 @@ fn test_blame_edge_empty_file() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_edge_single_line_file() {
     // Edge case: File with only one line
     let repo = TestRepo::new();
@@ -357,7 +357,7 @@ fn test_blame_edge_single_line_file() {
     assert_eq!(output.lines().count(), 1);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_edge_large_file() {
     // Edge case: Large file with many lines
     let repo = TestRepo::new();
@@ -380,7 +380,7 @@ fn test_blame_edge_large_file() {
     assert_eq!(output.lines().count(), 1000);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_edge_file_with_unicode() {
     // Edge case: File with unicode content
     let repo = TestRepo::new();
@@ -401,7 +401,7 @@ fn test_blame_edge_file_with_unicode() {
     assert!(output.contains("αβγδ"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_edge_file_with_very_long_lines() {
     // Edge case: File with very long lines
     let repo = TestRepo::new();
@@ -418,7 +418,7 @@ fn test_blame_edge_file_with_very_long_lines() {
     assert!(output.len() > 5000);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_edge_boundary_commit_flag() {
     // Edge case: Boundary commit with -b flag
     let repo = TestRepo::new();
@@ -436,7 +436,7 @@ fn test_blame_edge_boundary_commit_flag() {
     assert!(output.contains("        ") || output.contains("^"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_edge_renamed_file() {
     // Edge case: Blame on a renamed file
     let repo = TestRepo::new();
@@ -458,7 +458,7 @@ fn test_blame_edge_renamed_file() {
     assert!(output.contains("Original content"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_edge_whitespace_only_lines() {
     // Edge case: Lines containing only whitespace
     let repo = TestRepo::new();
@@ -478,7 +478,7 @@ fn test_blame_edge_whitespace_only_lines() {
 // Output Format Tests - Porcelain, incremental, JSON formats
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_format_porcelain_basic() {
     // Output format: Basic porcelain format
     let repo = TestRepo::new();
@@ -500,7 +500,7 @@ fn test_blame_format_porcelain_basic() {
     assert!(output.contains("\tLine 2"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_format_line_porcelain() {
     // Output format: Line porcelain format (metadata for every line)
     let repo = TestRepo::new();
@@ -518,7 +518,7 @@ fn test_blame_format_line_porcelain() {
     assert!(author_count >= 2, "Should have author for each line");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_format_incremental() {
     // Output format: Incremental format
     let repo = TestRepo::new();
@@ -537,7 +537,7 @@ fn test_blame_format_incremental() {
     assert!(!output.contains("\tLine 1")); // No content lines in incremental
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_format_json_structure() {
     // Output format: JSON format structure validation
     let repo = TestRepo::new();
@@ -564,7 +564,7 @@ fn test_blame_format_json_structure() {
     assert!(!prompts.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_format_json_line_ranges() {
     // Output format: JSON format with line ranges
     let repo = TestRepo::new();
@@ -594,7 +594,7 @@ fn test_blame_format_json_line_ranges() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_format_default_with_flags() {
     // Output format: Default format with various flags
     let repo = TestRepo::new();
@@ -625,7 +625,7 @@ fn test_blame_format_default_with_flags() {
 // AI Authorship Tests - Hunk splitting, human author attribution
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_ai_authorship_hunk_splitting() {
     // AI authorship: Hunks should split when different humans author lines
     let repo = TestRepo::new();
@@ -712,7 +712,7 @@ fn test_blame_ai_authorship_hunk_splitting() {
     assert!(ai_authors.contains(&Some("Bob <bob@example.com>".to_string())));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_ai_authorship_no_splitting() {
     // AI authorship: When split_hunks_by_ai_author is false, don't split
     let repo = TestRepo::new();
@@ -768,7 +768,7 @@ fn test_blame_ai_authorship_no_splitting() {
     assert_eq!(hunks[0].range, (1, 2));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_ai_authorship_return_human_as_human() {
     // AI authorship: return_human_authors_as_human flag
     let repo = TestRepo::new();
@@ -801,7 +801,7 @@ fn test_blame_ai_authorship_return_human_as_human() {
 // Commit Range Tests - newest_commit, oldest_commit, oldest_date
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_commit_range_oldest_and_newest() {
     // Commit range: Both oldest_commit and newest_commit specified
     let repo = TestRepo::new();
@@ -832,7 +832,7 @@ fn test_blame_commit_range_oldest_and_newest() {
     assert!(!line_authors.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_commit_range_with_oldest_date() {
     // Commit range: Using oldest_date to limit history
     let repo = TestRepo::new();
@@ -879,7 +879,7 @@ fn test_blame_commit_range_with_oldest_date() {
 // Path Normalization Tests - Absolute vs relative paths
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_path_normalization_absolute() {
     // Path normalization: Absolute path should be converted to relative
     let repo = TestRepo::new();
@@ -894,7 +894,7 @@ fn test_blame_path_normalization_absolute() {
     assert!(output.contains("Content"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_path_normalization_relative() {
     // Path normalization: Relative path should work
     let repo = TestRepo::new();
@@ -908,7 +908,7 @@ fn test_blame_path_normalization_relative() {
     assert!(output.contains("Content"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_path_normalization_subdirectory() {
     // Path normalization: File in subdirectory
     let repo = TestRepo::new();
@@ -929,7 +929,7 @@ fn test_blame_path_normalization_subdirectory() {
 // Contents Flag Tests - Blaming modified buffer contents
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_contents_modified_buffer() {
     // Contents flag: Blame modified buffer contents (uncommitted changes)
     let repo = TestRepo::new();
@@ -956,7 +956,7 @@ fn test_blame_contents_modified_buffer() {
 // Multiple Line Ranges Tests
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_multiple_line_ranges() {
     // Multiple line ranges: Blame with multiple -L flags
     let repo = TestRepo::new();
@@ -986,7 +986,7 @@ fn test_blame_multiple_line_ranges() {
     assert!(!line_authors.contains_key(&3));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_analysis_matches_blame_no_output_multi_ranges() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -1016,7 +1016,7 @@ fn test_blame_analysis_matches_blame_no_output_multi_ranges() {
     assert_eq!(prompt_records, analysis.prompt_records);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_analysis_returns_requested_ranges_only() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -1053,7 +1053,7 @@ fn test_blame_analysis_returns_requested_ranges_only() {
 // Ignore Whitespace Tests
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_ignore_whitespace() {
     // Ignore whitespace: -w flag should ignore whitespace changes
     let repo = TestRepo::new();
@@ -1083,7 +1083,7 @@ fn test_blame_ignore_whitespace() {
 // Abbrev Tests - Hash abbreviation
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_abbrev_custom_length() {
     // Abbrev: Custom hash abbreviation length
     let repo = TestRepo::new();
@@ -1106,7 +1106,7 @@ fn test_blame_abbrev_custom_length() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_long_rev() {
     // Long rev: -l flag shows full 40-character hash
     let repo = TestRepo::new();
@@ -1127,7 +1127,7 @@ fn test_blame_long_rev() {
 // Date Format Tests
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_date_format_short() {
     // Date format: --date short shows YYYY-MM-DD
     let repo = TestRepo::new();
@@ -1153,7 +1153,7 @@ fn test_blame_date_format_short() {
 // Stress Tests - Performance and robustness
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_stress_many_small_hunks() {
     // Stress: Many small hunks with alternating authorship
     let repo = TestRepo::new();
@@ -1177,7 +1177,7 @@ fn test_blame_stress_many_small_hunks() {
     assert!(output.contains("AI 99") || output.contains("Human 98"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_blame_stress_deeply_nested_path() {
     // Stress: File in deeply nested directory structure
     let repo = TestRepo::new();

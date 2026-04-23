@@ -2322,7 +2322,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_explicit_capture_target_paths_accepts_non_empty_edited_filepaths() {
         let agent_run_result = test_agent_run_result(
             CheckpointKind::AiAgent,
@@ -2337,7 +2337,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_explicit_capture_target_paths_accepts_non_empty_will_edit_filepaths() {
         let agent_run_result =
             test_agent_run_result(CheckpointKind::Human, None, Some(vec!["src/lib.rs"]), None);
@@ -2348,7 +2348,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_explicit_capture_target_paths_rejects_dirty_files_without_explicit_paths() {
         let agent_run_result = test_agent_run_result(
             CheckpointKind::AiAgent,
@@ -2363,7 +2363,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_explicit_capture_target_paths_known_human_uses_edited_filepaths() {
         // KnownHuman post-save: edit already happened, uses edited_filepaths.
         let agent_run_result = test_agent_run_result(
@@ -2379,7 +2379,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_explicit_capture_target_paths_known_human_uses_will_edit_filepaths() {
         // KnownHuman pre-save: edit hasn't happened yet, uses will_edit_filepaths.
         // Regression: KnownHuman fell into the else branch which only reads edited_filepaths,
@@ -2397,7 +2397,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_explicit_capture_target_paths_rejects_empty_explicit_lists() {
         let human_result =
             test_agent_run_result(CheckpointKind::Human, None, Some(vec!["", "   "]), None);
@@ -2414,7 +2414,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_cleanup_failed_captured_checkpoint_prepare_removes_partial_capture_dir() {
         let temp = tempfile::tempdir().expect("temp dir should be creatable");
         let capture_dir = temp.path().join("capture-fixture");
@@ -2435,7 +2435,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_checkpoint_with_staged_changes() {
         // Create a repo with an initial commit
         let (tmp_repo, mut file, _) = TmpRepo::new_with_base_commit().unwrap();
@@ -2458,7 +2458,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_checkpoint_with_staged_changes_after_previous_checkpoint() {
         // Create a repo with an initial commit
         let (tmp_repo, mut file, _) = TmpRepo::new_with_base_commit().unwrap();
@@ -2494,7 +2494,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_checkpoint_with_only_staged_no_unstaged_changes() {
         use std::fs;
 
@@ -2528,7 +2528,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_checkpoint_with_only_unstaged_changes_for_ai_without_pathspec() {
         use std::fs;
 
@@ -2556,7 +2556,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_checkpoint_base_override_controls_head_context_for_entry_generation() {
         use crate::authorship::transcript::AiTranscript;
         use crate::authorship::working_log::AgentId;
@@ -2618,7 +2618,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_checkpoint_base_override_strict_rejects_missing_dirty_snapshot() {
         use crate::authorship::transcript::AiTranscript;
         use crate::authorship::working_log::AgentId;
@@ -2675,7 +2675,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_checkpoint_base_override_allow_fallback_scans_when_snapshot_missing() {
         use crate::authorship::transcript::AiTranscript;
         use crate::authorship::working_log::AgentId;
@@ -2732,7 +2732,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_checkpoint_skips_conflicted_files() {
         // Create a repo with an initial commit
         let (tmp_repo, mut file, _) = TmpRepo::new_with_base_commit().unwrap();
@@ -2774,7 +2774,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_checkpoint_with_paths_outside_repo() {
         use crate::authorship::transcript::AiTranscript;
         use crate::authorship::working_log::AgentId;
@@ -2824,7 +2824,7 @@ mod tests {
         assert_eq!(entries_len, 1, "Should create 1 entry");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_checkpoint_filters_external_paths_from_stored_checkpoints() {
         use crate::authorship::working_log::{Checkpoint, WorkingLogEntry};
 
@@ -2889,7 +2889,7 @@ mod tests {
         assert_eq!(entries_len, 1, "Should create 1 entry for the in-repo file");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_checkpoint_works_after_conflict_resolution_maintains_authorship() {
         // Create a repo with an initial commit
         let (tmp_repo, mut file, _) = TmpRepo::new_with_base_commit().unwrap();
@@ -2975,7 +2975,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_known_human_checkpoint_without_ai_history_records_h_hash_attributions() {
         let repo = TmpRepo::new().unwrap();
         let mut file = repo.write_file("simple.txt", "one\n", true).unwrap();
@@ -3025,7 +3025,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_human_checkpoint_keeps_attributions_for_ai_touched_file() {
         let (repo, mut lines_file, mut alphabet_file) = TmpRepo::new_with_base_commit().unwrap();
 
@@ -3083,7 +3083,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_checkpoint_skips_default_ignored_files() {
         let repo = TmpRepo::new().unwrap();
         repo.write_file("README.md", "# repo\n", true).unwrap();
@@ -3122,7 +3122,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_checkpoint_skips_linguist_generated_files_from_root_gitattributes() {
         let repo = TmpRepo::new().unwrap();
         repo.write_file("README.md", "# repo\n", true).unwrap();
@@ -3170,7 +3170,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_compute_line_stats_ignores_whitespace_only_lines() {
         let (tmp_repo, _lines_file, _alphabet_file) = TmpRepo::new_with_base_commit().unwrap();
 
@@ -3267,7 +3267,7 @@ mod tests {
     // CRLF / LF normalization tests for compute_file_line_stats
     // ====================================================================
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_compute_file_line_stats_crlf_to_lf_no_changes() {
         // Same content, only line endings differ (CRLF → LF).
         // Stats should show 0 additions and 0 deletions.
@@ -3286,7 +3286,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_compute_file_line_stats_lf_to_crlf_no_changes() {
         let old = "line1\nline2\nline3\n";
         let new = "line1\r\nline2\r\nline3\r\n";
@@ -3303,7 +3303,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_compute_file_line_stats_crlf_to_lf_with_additions() {
         // Reproduces the user-reported bug: file with CRLF, AI adds lines with LF.
         // Old: 3 CRLF lines. New: same 3 lines (LF) + 2 new lines.
@@ -3323,7 +3323,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_compute_file_line_stats_crlf_large_file_user_reported_bug() {
         // Exact scenario from user report:
         // 100-line CRLF file, AI adds 5 lines (with LF).
@@ -3361,7 +3361,7 @@ mod tests {
     // converts on checkout) and an AI tool writes LF.
     // ====================================================================
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_checkpoint_crlf_blob_vs_lf_working_tree_stats_not_inflated() {
         // Step 1: Create a repo and commit a file with CRLF line endings.
         // On Linux without autocrlf, the blob stores CRLF verbatim.
@@ -3411,7 +3411,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_checkpoint_crlf_blob_vs_lf_working_tree_no_changes_skipped() {
         // When the only difference is CRLF→LF (no actual content change),
         // the checkpoint should skip the file entirely — content_eq_normalized
@@ -3454,7 +3454,7 @@ mod tests {
         // If no checkpoints at all, that's also correct — nothing changed.
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_checkpoint_stale_crlf_blob_causes_ai_reattribution() {
         // Regression test for Devin review finding: when a CRLF-only change is
         // skipped (preserving a stale CRLF blob), the NEXT AI checkpoint compares

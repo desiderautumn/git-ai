@@ -80,7 +80,7 @@ fn create_external_diff_helper_script(repo: &TestRepo, marker: &str) -> std::pat
 // Context Block Tests (Subtask 12.1)
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_by_commit_outputs_context() {
     let repo = TestRepo::new();
     let (commit_sha, _) =
@@ -110,7 +110,7 @@ fn test_continue_by_commit_outputs_context() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_by_file_outputs_context() {
     let repo = TestRepo::new();
     let (_, file_path) =
@@ -136,7 +136,7 @@ fn test_continue_by_file_outputs_context() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_by_prompt_id() {
     let repo = TestRepo::new();
     let (commit_sha, _) =
@@ -172,7 +172,7 @@ fn test_continue_by_prompt_id() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_context_preamble() {
     let repo = TestRepo::new();
     let (commit_sha, _) =
@@ -195,7 +195,7 @@ fn test_continue_context_preamble() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_context_ends_with_invitation() {
     let repo = TestRepo::new();
     let (commit_sha, _) =
@@ -212,7 +212,7 @@ fn test_continue_context_ends_with_invitation() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_context_includes_source_info() {
     let repo = TestRepo::new();
     let (commit_sha, _) =
@@ -242,7 +242,7 @@ fn test_continue_context_includes_source_info() {
 // Message Filtering Tests (Subtask 12.2)
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_excludes_tool_use_messages() {
     let repo = TestRepo::new();
     let (commit_sha, _) =
@@ -266,7 +266,7 @@ fn test_continue_excludes_tool_use_messages() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_includes_user_and_assistant() {
     let repo = TestRepo::new();
     let (commit_sha, _) =
@@ -289,7 +289,7 @@ fn test_continue_includes_user_and_assistant() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_ignores_git_external_diff_env_for_internal_show() {
     let repo = TestRepo::new();
     let (commit_sha, _) =
@@ -370,7 +370,7 @@ fn create_large_transcript_fixture(num_messages: usize) -> tempfile::NamedTempFi
     temp_file
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_max_messages_truncation() {
     let repo = TestRepo::new();
 
@@ -427,7 +427,7 @@ fn test_continue_max_messages_truncation() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_truncation_notice() {
     let repo = TestRepo::new();
 
@@ -483,7 +483,7 @@ fn test_continue_truncation_notice() {
 // Output Mode Tests (Subtask 12.5)
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_json_output() {
     let repo = TestRepo::new();
     let (commit_sha, _) =
@@ -510,7 +510,7 @@ fn test_continue_json_output() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_json_schema() {
     let repo = TestRepo::new();
     let (commit_sha, _) =
@@ -565,7 +565,7 @@ fn test_continue_json_schema() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_no_results() {
     let repo = TestRepo::new();
 
@@ -593,7 +593,7 @@ fn test_continue_no_results() {
 // Secret Redaction Tests (Subtask 12.3)
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_redacts_secrets() {
     let repo = TestRepo::new();
 
@@ -683,7 +683,7 @@ fn test_continue_redacts_secrets() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_redacts_before_format() {
     let repo = TestRepo::new();
 
@@ -776,7 +776,7 @@ fn test_continue_redacts_before_format() {
 // Edge Case Tests (Subtask 12.5 continued)
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_unicode_content() {
     let repo = TestRepo::new();
 
@@ -853,7 +853,7 @@ fn test_continue_unicode_content() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_continue_empty_transcript() {
     let repo = TestRepo::new();
 

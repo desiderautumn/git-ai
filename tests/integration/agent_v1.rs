@@ -5,7 +5,7 @@ use git_ai::commands::checkpoint_agent::agent_presets::{
 use git_ai::commands::checkpoint_agent::agent_v1_preset::AgentV1Preset;
 use serde_json::json;
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_agent_v1_human_checkpoint_with_dirty_files() {
     let hook_input = json!({
         "type": "human",
@@ -51,7 +51,7 @@ fn test_agent_v1_human_checkpoint_with_dirty_files() {
     assert_eq!(run_result.agent_id.model, "human");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_agent_v1_ai_agent_checkpoint_with_dirty_files() {
     let hook_input = json!({
         "type": "ai_agent",
@@ -104,7 +104,7 @@ fn test_agent_v1_ai_agent_checkpoint_with_dirty_files() {
     assert!(run_result.transcript.is_some());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_agent_v1_human_checkpoint_without_dirty_files() {
     let hook_input = json!({
         "type": "human",
@@ -136,7 +136,7 @@ fn test_agent_v1_human_checkpoint_without_dirty_files() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_agent_v1_ai_agent_checkpoint_without_dirty_files() {
     let hook_input = json!({
         "type": "ai_agent",
@@ -177,7 +177,7 @@ fn test_agent_v1_ai_agent_checkpoint_without_dirty_files() {
     assert_eq!(run_result.agent_id.model, "test-model");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_agent_v1_dirty_files_multiple_files() {
     let hook_input = json!({
         "type": "ai_agent",

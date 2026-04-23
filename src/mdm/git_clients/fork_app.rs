@@ -424,7 +424,7 @@ mod tests {
     use super::*;
     use std::path::PathBuf;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_fork_custom_git_instance_path_uses_forward_slashes() {
         let path = PathBuf::from(r"C:\Users\Administrator\.git-ai\bin\git.exe");
         let result = fork_custom_git_instance_path(&path);

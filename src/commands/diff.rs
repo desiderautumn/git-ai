@@ -1995,7 +1995,7 @@ mod tests {
     use crate::authorship::working_log::AgentId;
     use std::collections::{BTreeMap, HashMap, HashSet};
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_diff_args_single_commit() {
         let args = vec!["abc123".to_string()];
         let parsed = parse_diff_args(&args).unwrap();
@@ -2017,7 +2017,7 @@ mod tests {
         assert!(!parsed.options.all_prompts);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_diff_args_commit_range() {
         let args = vec!["abc123..def456".to_string()];
         let parsed = parse_diff_args(&args).unwrap();
@@ -2031,7 +2031,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_diff_args_two_positional_commits() {
         let args = vec!["abc123".to_string(), "def456".to_string()];
         let parsed = parse_diff_args(&args).unwrap();
@@ -2045,7 +2045,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_diff_args_two_positional_commits_with_json() {
         let args = vec![
             "abc123".to_string(),
@@ -2065,14 +2065,14 @@ mod tests {
         assert!(matches!(parsed.options.format, DiffFormat::Json));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_diff_args_include_stats_requires_json() {
         let args = vec!["abc123".to_string(), "--include-stats".to_string()];
         let result = parse_diff_args(&args);
         assert!(result.is_err());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_diff_args_include_stats_single_commit_json() {
         let args = vec![
             "abc123".to_string(),
@@ -2085,7 +2085,7 @@ mod tests {
         assert!(parsed.options.include_stats);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_diff_args_include_stats_rejects_ranges() {
         let args = vec![
             "abc123..def456".to_string(),
@@ -2096,14 +2096,14 @@ mod tests {
         assert!(result.is_err());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_diff_args_all_prompts_requires_json() {
         let args = vec!["abc123".to_string(), "--all-prompts".to_string()];
         let result = parse_diff_args(&args);
         assert!(result.is_err());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_diff_args_all_prompts_single_commit_json() {
         let args = vec![
             "abc123".to_string(),
@@ -2116,7 +2116,7 @@ mod tests {
         assert!(parsed.options.all_prompts);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_diff_args_all_prompts_rejects_ranges() {
         let args = vec![
             "abc123..def456".to_string(),
@@ -2127,7 +2127,7 @@ mod tests {
         assert!(result.is_err());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_diff_args_blame_deletions_flags() {
         let args = vec![
             "abc123".to_string(),
@@ -2143,7 +2143,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_diff_args_blame_deletions_since_requires_blame_deletions() {
         let args = vec![
             "abc123".to_string(),
@@ -2154,7 +2154,7 @@ mod tests {
         assert!(result.is_err());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_diff_args_too_many_positional_args() {
         let args = vec![
             "abc123".to_string(),
@@ -2165,14 +2165,14 @@ mod tests {
         assert!(result.is_err());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_diff_args_only_json_flag() {
         let args = vec!["--json".to_string()];
         let result = parse_diff_args(&args);
         assert!(result.is_err());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_diff_args_invalid_range() {
         let args = vec!["..".to_string()];
         let result = parse_diff_args(&args);
@@ -2187,7 +2187,7 @@ mod tests {
         assert!(result.is_err());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_hunk_line_basic() {
         let line = "@@ -10,3 +15,5 @@ fn main() {";
         let result = parse_hunk_line(line, "test.rs", None).unwrap().unwrap();
@@ -2202,7 +2202,7 @@ mod tests {
         assert_eq!(result.added_lines, vec![15, 16, 17, 18, 19]);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_hunk_line_single_line_deletion() {
         let line = "@@ -10 +10,2 @@ fn main() {";
         let result = parse_hunk_line(line, "test.rs", None).unwrap().unwrap();
@@ -2215,7 +2215,7 @@ mod tests {
         assert_eq!(result.added_lines, vec![10, 11]);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_hunk_line_single_line_addition() {
         let line = "@@ -10,2 +10 @@ fn main() {";
         let result = parse_hunk_line(line, "test.rs", None).unwrap().unwrap();
@@ -2228,7 +2228,7 @@ mod tests {
         assert_eq!(result.added_lines, vec![10]);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_hunk_line_pure_addition() {
         let line = "@@ -0,0 +1,3 @@ fn main() {";
         let result = parse_hunk_line(line, "test.rs", None).unwrap().unwrap();
@@ -2241,7 +2241,7 @@ mod tests {
         assert_eq!(result.added_lines, vec![1, 2, 3]);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_hunk_line_pure_deletion() {
         let line = "@@ -5,3 +0,0 @@ fn main() {";
         let result = parse_hunk_line(line, "test.rs", None).unwrap().unwrap();
@@ -2254,14 +2254,14 @@ mod tests {
         assert_eq!(result.added_lines.len(), 0);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_hunk_header_for_line_nums() {
         let line = "@@ -10,5 +20,3 @@ context";
         let result = parse_hunk_header_for_line_nums(line).unwrap();
         assert_eq!(result, (10, 20));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_hunk_header_for_line_nums_single_line() {
         let line = "@@ -10 +20,3 @@ context";
         let result = parse_hunk_header_for_line_nums(line).unwrap();
@@ -2272,7 +2272,7 @@ mod tests {
         assert_eq!(result, (10, 20));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_hunk_header_for_line_nums_invalid() {
         let line = "not a hunk header";
         let result = parse_hunk_header_for_line_nums(line);
@@ -2283,7 +2283,7 @@ mod tests {
         assert!(result.is_none());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_format_attribution_ai() {
         let humans = BTreeMap::new();
         let attr = Attribution::Ai("cursor".to_string());
@@ -2293,7 +2293,7 @@ mod tests {
         assert_eq!(format_attribution(&attr, &humans), "🤖claude");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_format_attribution_human() {
         let mut humans = BTreeMap::new();
         humans.insert(
@@ -2320,14 +2320,14 @@ mod tests {
         assert_eq!(format_attribution(&attr, &humans), "👤h_unknown");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_format_attribution_no_data() {
         let humans = BTreeMap::new();
         let attr = Attribution::NoData;
         assert_eq!(format_attribution(&attr, &humans), "[no-data]");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_format_git_ident_prefers_full_ident() {
         assert_eq!(
             format_git_ident("Test User", "test@example.com"),
@@ -2335,7 +2335,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_format_git_ident_handles_missing_parts() {
         assert_eq!(format_git_ident("Test User", ""), "Test User");
         assert_eq!(
@@ -2345,7 +2345,7 @@ mod tests {
         assert_eq!(format_git_ident("", ""), "");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_diff_line_key_equality() {
         let key1 = DiffLineKey {
             file: "test.rs".to_string(),
@@ -2369,7 +2369,7 @@ mod tests {
         assert_ne!(key1, key3);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_diff_hunks_multiple_files() {
         let diff_text = r#"diff --git a/file1.rs b/file1.rs
 index abc123..def456 100644
@@ -2389,14 +2389,14 @@ index 111222..333444 100644
         assert_eq!(result[1].file_path, "file2.rs");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_diff_hunks_empty() {
         let diff_text = "";
         let result = parse_diff_hunks(diff_text).unwrap();
         assert_eq!(result.len(), 0);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_diff_hunks_no_prefix_paths() {
         let diff_text = r#"diff --git file1.rs file1.rs
 index abc123..def456 100644
@@ -2411,7 +2411,7 @@ index abc123..def456 100644
         assert_eq!(result[0].file_path, "file1.rs");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_diff_hunks_custom_prefix_paths() {
         let diff_text = r#"diff --git SRC/file1.rs DST/file1.rs
 index abc123..def456 100644
@@ -2427,7 +2427,7 @@ index abc123..def456 100644
         assert_eq!(result[0].old_file_path, Some("SRC/file1.rs".to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_diff_hunks_rename_tracks_old_file_path() {
         let diff_text = r#"diff --git a/old_name.txt b/new_name.txt
 similarity index 62%
@@ -2448,7 +2448,7 @@ index 7f4f5e8..1c84817 100644
         assert_eq!(result[0].old_file_path, Some("old_name.txt".to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_diff_hunks_preserves_header_like_content_inside_hunk() {
         let diff_text = r#"diff --git a/query.sql b/query.sql
 index abc123..def456 100644
@@ -2485,7 +2485,7 @@ index abc123..def456 100644
         assert_eq!(result[1].added_lines, vec![30]);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_diff_hunks_preserves_plus_plus_plus_content_inside_hunk() {
         let diff_text = r#"diff --git a/script.lua b/script.lua
 index abc123..def456 100644
@@ -2506,7 +2506,7 @@ index abc123..def456 100644
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_is_diff_header_line_respects_hunk_state() {
         assert!(is_diff_header_line("diff --git a/f b/f", false));
         assert!(is_diff_header_line("index abc..def 100644", false));
@@ -2516,7 +2516,7 @@ index abc123..def456 100644
         assert!(!is_diff_header_line("+++ content line", true));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_diff_git_header_paths_standard_and_quoted() {
         let parsed = parse_diff_git_header_paths("diff --git a/src/lib.rs b/src/lib.rs")
             .expect("standard diff header should parse");
@@ -2527,7 +2527,7 @@ index abc123..def456 100644
         assert_eq!(parsed, ("my file.rs".to_string(), "my file.rs".to_string()));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_calculate_diff_commit_stats_tracks_unknown_added_lines() {
         fn prompt_record(tool: &str, model: &str, additions: u32, deletions: u32) -> PromptRecord {
             PromptRecord {
@@ -2628,13 +2628,13 @@ index abc123..def456 100644
         assert_eq!(breakdown.ai_deletions_generated, 2);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_is_binary_diff_section_detects_binary() {
         let section = "diff --git a/image.png b/image.png\nnew file mode 100644\nindex 0000000..abc1234\nBinary files /dev/null and b/image.png differ\n";
         assert!(is_binary_diff_section(section));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_is_binary_diff_section_allows_text() {
         let section = "diff --git a/src/main.rs b/src/main.rs\nindex abc1234..def5678 100644\n--- a/src/main.rs\n+++ b/src/main.rs\n@@ -1,1 +1,2 @@\n fn main() {}\n+fn added() {}\n";
         assert!(!is_binary_diff_section(section));

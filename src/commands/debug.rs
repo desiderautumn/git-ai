@@ -699,7 +699,7 @@ fn redact_env_value(key: &str, value: &str) -> String {
 mod tests {
     use super::*;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_redact_git_config_line_redacts_sensitive_key() {
         let line =
             "global\tfile:/Users/me/.gitconfig\thttp.https://example.com/.extraheader=AUTH token";
@@ -710,14 +710,14 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_redact_git_config_line_keeps_non_sensitive_key() {
         let line = "global\tfile:/Users/me/.gitconfig\tcore.editor=vim";
         let redacted = redact_git_config_line(line);
         assert_eq!(redacted, line);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_redact_git_config_line_two_field_format_redacts_sensitive() {
         // `git config --list --show-origin` (without --show-scope) produces 2-tab fields
         let line =
@@ -729,14 +729,14 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_redact_git_config_line_two_field_format_keeps_non_sensitive() {
         let line = "file:/Users/me/.gitconfig\tcore.editor=vim";
         let redacted = redact_git_config_line(line);
         assert_eq!(redacted, line);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_format_bytes() {
         assert_eq!(format_bytes(1024), "1.00 KB (1024 bytes)");
     }

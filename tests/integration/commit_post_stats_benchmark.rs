@@ -246,7 +246,7 @@ fn benchmark_commit_with_git_ai(repo_path: &Path, message: &str) -> CommitPerfBr
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore] // Run manually; this is intentionally expensive.
 fn benchmark_stats_hunk_density_hotspot() {
     let contiguous_repo = setup_repo_and_commit("many_files_contiguous");
@@ -292,7 +292,7 @@ fn benchmark_stats_hunk_density_hotspot() {
     assert!(scattered.total_stats.as_secs_f64() * 1000.0 < 500.0);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore] // Run manually; this is intentionally expensive.
 fn benchmark_commit_post_command_hunk_density_hotspot() {
     // Setup and stage contiguous case (without committing workload yet)
@@ -356,7 +356,7 @@ fn benchmark_commit_post_command_hunk_density_hotspot() {
     assert!(scattered_perf.total_ms > 0);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore] // Run manually; this is intentionally expensive.
 fn benchmark_stats_thousands_changed_files_fast_path() {
     const DEFAULT_FILE_COUNT: usize = 3_000;
@@ -472,7 +472,7 @@ fn setup_repo_with_mass_deletion(file_count: usize, lines_per_file: usize) -> Te
 /// classified as cheap.  The hook then ran `get_diff_with_line_numbers` which
 /// had to parse and allocate storage for all 75 000 deleted-content lines,
 /// causing a multi-second hang that users perceived as git-ai freezing.
-#[test]
+#[test] #[print_dur::print_dur]
 fn estimate_stats_cost_skips_mass_deletion_commit() {
     // 100 files × 750 lines ≈ 75 000 deleted lines, zero additions.
     // Matches the scale of the real-world hang (537f4cac in ~/projects/monorepo).
@@ -499,7 +499,7 @@ fn estimate_stats_cost_skips_mass_deletion_commit() {
 
 /// Performance guard: post-commit stats for a mass-deletion commit must
 /// complete within 2 seconds now that the fast path is taken.
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore] // Run manually: cargo test benchmark_stats_mass_deletion_fast_path -- --ignored --nocapture
 fn benchmark_stats_mass_deletion_fast_path() {
     const FILE_COUNT: usize = 100;

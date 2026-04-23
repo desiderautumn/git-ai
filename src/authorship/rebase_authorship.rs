@@ -4695,7 +4695,7 @@ mod tests {
         notes_add(repo.gitai_repo(), commit_sha, &note).expect("write authorship note");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn walk_commits_to_base_linear_history_is_bounded_and_ordered() {
         let repo = TmpRepo::new().expect("tmp repo");
         repo.write_file("f.txt", "a\n", true).expect("write base");
@@ -4718,7 +4718,7 @@ mod tests {
         assert_eq!(commits, vec![head, mid]);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn walk_commits_to_base_merge_history_includes_both_sides_without_full_dag_walk() {
         let repo = TmpRepo::new().expect("tmp repo");
         repo.write_file("base.txt", "base\n", true)
@@ -4756,7 +4756,7 @@ mod tests {
         assert!(!commits.contains(&base));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn walk_commits_to_base_rejects_non_ancestor_base() {
         let repo = TmpRepo::new().expect("tmp repo");
         repo.write_file("f.txt", "a\n", true).expect("write base");
@@ -4781,7 +4781,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn rewrite_authorship_after_cherry_pick_errors_on_mismatched_commit_counts() {
         let repo = TmpRepo::new().expect("tmp repo");
         let err = rewrite_authorship_after_cherry_pick(
@@ -4801,7 +4801,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn get_pathspecs_from_commits_keeps_hex_filenames() {
         let repo = TmpRepo::new().expect("tmp repo");
         repo.write_file("base.txt", "base\n", true)
@@ -4826,7 +4826,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn collect_changed_file_contents_from_diff_handles_add_modify_delete_and_filtering() {
         let repo = TmpRepo::new().expect("tmp repo");
         repo.write_file("a.txt", "a1\n", true)
@@ -4876,7 +4876,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn parse_cat_file_batch_output_with_oids_parses_empty_and_multiline_blobs() {
         let data = b"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa blob 6\nx\ny\nz\nbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb blob 0\n\n";
         let parsed =
@@ -4896,7 +4896,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn parse_cat_file_batch_output_with_oids_errors_on_truncated_payload() {
         let truncated = b"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa blob 5\nabc";
         let err = parse_cat_file_batch_output_with_oids(truncated).expect_err("should fail");
@@ -4907,7 +4907,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn fast_path_rebase_note_remap_copies_logs_when_tracked_blobs_match() {
         let repo = TmpRepo::new().expect("tmp repo");
         repo.write_file("ai.txt", "base\n", true)
@@ -4956,7 +4956,7 @@ mod tests {
         assert_eq!(remapped.attestations[0].file_path, "ai.txt");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn fast_path_rebase_note_remap_copies_multiple_commits_in_one_pass() {
         let repo = TmpRepo::new().expect("tmp repo");
         repo.write_file("ai.txt", "base\n", true)
@@ -5016,7 +5016,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn fast_path_rebase_note_remap_declines_when_tracked_blobs_differ() {
         let repo = TmpRepo::new().expect("tmp repo");
         repo.write_file("ai.txt", "base\n", true)
@@ -5054,7 +5054,7 @@ mod tests {
         assert!(!did_remap, "expected fast-path remap to decline");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn transform_attributions_to_final_state_preserves_unchanged_files() {
         let repo = TmpRepo::new().expect("tmp repo");
         repo.write_file("a.txt", "aaa\n", true).expect("write a");
@@ -5113,7 +5113,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn rebase_complete_migrates_initial_to_new_head() {
         let repo = TmpRepo::new().expect("create tmp repo");
 
@@ -5237,7 +5237,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn rebase_complete_no_initial_is_noop() {
         let repo = TmpRepo::new().expect("create tmp repo");
         repo.write_file("base.txt", "base\n", true)
@@ -5292,7 +5292,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn rebase_complete_migrates_multi_file_initial() {
         let repo = TmpRepo::new().expect("create tmp repo");
         repo.write_file("base.txt", "base\n", true)
@@ -5443,7 +5443,7 @@ mod tests {
         assert!(migrated.prompts.contains_key("ai-copilot"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn rebase_complete_merges_initial_when_both_working_logs_exist() {
         let repo = TmpRepo::new().expect("create tmp repo");
         repo.write_file("base.txt", "base\n", true)
@@ -5574,7 +5574,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn regression_initial_preserved_through_checkpoint_commit_rebase() {
         let repo = TmpRepo::new().expect("create tmp repo");
 
@@ -5712,7 +5712,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn regression_initial_survives_amend_then_rebase() {
         let repo = TmpRepo::new().expect("create tmp repo");
 
@@ -5855,7 +5855,7 @@ mod tests {
         assert!(final_initial.prompts.contains_key("ai-cursor"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn regression_multi_tool_initial_with_disjoint_files_survives_rebase() {
         let repo = TmpRepo::new().expect("create tmp repo");
 
@@ -6053,7 +6053,7 @@ mod tests {
     /// The diff-based approach uses diff_based_line_attribution_transfer (line-level diff only).
     ///
     /// Run with: cargo test --lib diff_based_transfer_benchmark -- --ignored --nocapture
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[ignore]
     fn diff_based_transfer_benchmark() {
         use crate::authorship::attribution_tracker::AttributionTracker;
@@ -6297,7 +6297,7 @@ mod tests {
     /// changes as file size increases from 50 to 5000 lines.
     ///
     /// Run with: cargo test --lib --release diff_based_transfer_scaling -- --ignored --nocapture
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[ignore]
     fn diff_based_transfer_scaling() {
         use crate::authorship::attribution_tracker::AttributionTracker;
@@ -6424,7 +6424,7 @@ mod tests {
         println!("===================================================\n");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn diff_based_transfer_equal_content() {
         let old = "line1\nline2\nline3\n";
         let new = "line1\nline2\nline3\n";
@@ -6455,7 +6455,7 @@ mod tests {
         assert_eq!(result[2].author_id, "ai-a");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn diff_based_transfer_insertion_shifts_lines() {
         let old = "line1\nline2\nline3\n";
         let new = "line1\nnew_line\nline2\nline3\n";
@@ -6490,7 +6490,7 @@ mod tests {
         assert_eq!(result[2].author_id, "ai-a");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn diff_based_transfer_deletion_removes_line() {
         let old = "line1\nline2\nline3\n";
         let new = "line1\nline3\n";
@@ -6523,7 +6523,7 @@ mod tests {
         assert_eq!(result[1].author_id, "ai-a");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn diff_based_transfer_replacement_drops_attribution() {
         let old = "line1\nline2\nline3\n";
         let new = "line1\nmodified\nline3\n";
@@ -6556,7 +6556,7 @@ mod tests {
         assert_eq!(result[1].author_id, "ai-a");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn diff_based_transfer_handles_duplicate_lines_correctly() {
         // This tests the case that the old content-matching approach got wrong:
         // identical lines from different authors should be tracked by position, not content
@@ -6618,7 +6618,7 @@ mod tests {
     /// Expected after rewriting A'=cherry-pick(A) and B'=cherry-pick(B):
     ///   A' note: total_additions=5  AND feature.txt lines 4-8 (shifted +1 by header)
     ///   B' note: total_additions=10 AND other.txt lines 1-10 (unchanged)
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn flatten_prompts_picks_per_commit_record_for_same_session_multi_commit() {
         use crate::authorship::authorship_log_serialization::generate_short_hash;
 

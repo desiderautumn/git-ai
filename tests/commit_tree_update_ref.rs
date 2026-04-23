@@ -134,7 +134,7 @@ fn should_skip_for_hooks_mode() -> bool {
     false
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_commit_tree_update_ref_preserves_authorship_notes_on_reparent() {
     if should_skip_for_hooks_mode() {
         return;
@@ -187,7 +187,7 @@ fn test_commit_tree_update_ref_preserves_authorship_notes_on_reparent() {
     rewritten_file.assert_lines_and_blame(lines!["human line".human(), "ai line".ai()]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_commit_tree_update_ref_moves_working_log_to_rewritten_head() {
     if should_skip_for_hooks_mode() {
         return;
@@ -259,7 +259,7 @@ fn test_commit_tree_update_ref_moves_working_log_to_rewritten_head() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_reset_keep_rewrite_preserves_authorship_notes_on_current_branch() {
     if should_skip_for_hooks_mode() {
         return;
@@ -312,7 +312,7 @@ fn test_reset_keep_rewrite_preserves_authorship_notes_on_current_branch() {
     rewritten_file.assert_lines_and_blame(lines!["human line".human(), "ai line".ai()]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_update_ref_restack_after_parent_amend_preserves_child_attribution() {
     if should_skip_for_hooks_mode() {
         return;
@@ -385,7 +385,7 @@ fn test_update_ref_restack_after_parent_amend_preserves_child_attribution() {
 /// This matches actual `gt sync` behavior where Graphite replays all commits
 /// using plumbing commands and issues a single atomic update-ref at the end.
 /// git-ai must detect the N-commit rewrite and remap all N authorship notes.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_graphite_style_multi_commit_single_update_ref() {
     if should_skip_for_hooks_mode() {
         return;

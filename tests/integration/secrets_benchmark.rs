@@ -244,7 +244,7 @@ fn benchmark_redact_secrets_in_text(text: &str, iterations: usize) -> Vec<Durati
     durations
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore] // Run with --ignored flag since this is a benchmark
 fn test_secrets_benchmark() {
     const TEXT_SIZE_KB: usize = 329; // Realistic size from actual transcript
@@ -366,7 +366,7 @@ fn test_secrets_benchmark() {
 }
 
 /// Micro-benchmark for factorial and p_binomial to isolate the bottleneck
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn test_secrets_micro_benchmark() {
     println!("\n========================================");
@@ -425,7 +425,7 @@ fn test_secrets_micro_benchmark() {
 ///
 /// The test uses the same 329KB data size as the full benchmark to ensure
 /// realistic performance measurement.
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore = "environment-dependent; run locally or on consistent hardware"]
 fn test_secrets_performance_regression() {
     const TEXT_SIZE_KB: usize = 329; // Same as full benchmark
@@ -464,7 +464,7 @@ fn test_secrets_performance_regression() {
 /// Test that secret detection scales linearly with input size.
 /// Compares 329KB vs 5x (1645KB) and verifies time ratio is ~5x.
 /// This ensures the implementation is O(n) and not O(n²) or worse.
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore = "environment-dependent; run locally or on consistent hardware"]
 fn test_secrets_linear_scaling() {
     const BASE_SIZE_KB: usize = 329;

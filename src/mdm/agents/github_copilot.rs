@@ -440,19 +440,19 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_github_copilot_installer_name() {
         let installer = GitHubCopilotInstaller;
         assert_eq!(installer.name(), "GitHub Copilot");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_github_copilot_installer_id() {
         let installer = GitHubCopilotInstaller;
         assert_eq!(installer.id(), "github-copilot");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_install_hooks_creates_expected_file() {
         with_temp_home(|home| {
@@ -490,7 +490,7 @@ mod tests {
         });
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_install_hooks_idempotent() {
         with_temp_home(|_| {
@@ -507,7 +507,7 @@ mod tests {
         });
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_install_hooks_deletes_legacy_hooks_file() {
         with_temp_home(|home| {
@@ -529,7 +529,7 @@ mod tests {
         });
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_install_hooks_dry_run_does_not_create_files() {
         with_temp_home(|home| {
@@ -550,7 +550,7 @@ mod tests {
         });
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_install_hooks_repairs_non_object_hooks_field() {
         with_temp_home(|home| {
@@ -586,7 +586,7 @@ mod tests {
         });
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_install_hooks_repairs_non_object_root() {
         with_temp_home(|home| {
@@ -611,7 +611,7 @@ mod tests {
         });
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_check_hooks_partial_pre_tool_use_counts_as_installed() {
         with_temp_home(|home| {
@@ -645,7 +645,7 @@ mod tests {
         });
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_check_hooks_partial_post_tool_use_counts_as_installed() {
         with_temp_home(|home| {
@@ -679,7 +679,7 @@ mod tests {
         });
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_uninstall_hooks_removes_only_git_ai_entries() {
         with_temp_home(|home| {
@@ -740,7 +740,7 @@ mod tests {
         });
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_uninstall_hooks_deletes_legacy_hooks_file() {
         with_temp_home(|home| {
@@ -758,7 +758,7 @@ mod tests {
         });
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_check_hooks_detects_legacy_path_as_installed() {
         with_temp_home(|home| {

@@ -525,7 +525,7 @@ fn create_external_diff_helper_script(repo: &TestRepo, marker: &str) -> std::pat
     helper_path
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_single_commit() {
     let repo = TestRepo::new();
 
@@ -612,7 +612,7 @@ fn test_diff_single_commit() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_commit_range() {
     let repo = TestRepo::new();
 
@@ -652,7 +652,7 @@ fn test_diff_commit_range() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_two_positional_revisions_uses_git_range_semantics() {
     let repo = TestRepo::new();
 
@@ -701,7 +701,7 @@ fn test_diff_two_positional_revisions_uses_git_range_semantics() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_shows_ai_attribution() {
     let repo = TestRepo::new();
 
@@ -733,7 +733,7 @@ fn test_diff_shows_ai_attribution() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_shows_human_attribution() {
     let repo = TestRepo::new();
 
@@ -778,7 +778,7 @@ fn test_diff_shows_human_attribution() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_multiple_files() {
     let repo = TestRepo::new();
 
@@ -811,7 +811,7 @@ fn test_diff_multiple_files() {
     assert_eq!(diff_count, 2, "Should have 2 diff sections");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_initial_commit() {
     let repo = TestRepo::new();
 
@@ -837,7 +837,7 @@ fn test_diff_initial_commit() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_pure_additions() {
     let repo = TestRepo::new();
 
@@ -876,7 +876,7 @@ fn test_diff_pure_additions() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_pure_deletions() {
     let repo = TestRepo::new();
 
@@ -920,7 +920,7 @@ fn test_diff_pure_deletions() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_mixed_ai_and_human() {
     let repo = TestRepo::new();
 
@@ -951,7 +951,7 @@ fn test_diff_mixed_ai_and_human() {
     assert!(has_ai, "Should show AI attribution, output:\n{}", output);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_with_head_ref() {
     let repo = TestRepo::new();
 
@@ -974,7 +974,7 @@ fn test_diff_with_head_ref() {
     assert!(output.contains("head_test.txt"), "Should mention the file");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_output_format() {
     let repo = TestRepo::new();
 
@@ -1009,7 +1009,7 @@ fn test_diff_output_format() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_error_on_no_args() {
     let repo = TestRepo::new();
 
@@ -1020,7 +1020,7 @@ fn test_diff_error_on_no_args() {
     assert!(result.is_err(), "git-ai diff without arguments should fail");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_output_with_escaped_newlines() {
     let repo = TestRepo::new();
 
@@ -1072,7 +1072,7 @@ fn test_diff_json_output_with_escaped_newlines() {
     println!("JSON output:\n{}", serde_json::to_string(&json).unwrap());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_omits_commit_stats_without_include_stats_flag() {
     let repo = TestRepo::new();
 
@@ -1094,7 +1094,7 @@ fn test_diff_json_omits_commit_stats_without_include_stats_flag() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_all_prompts_includes_non_landing_prompts() {
     let repo = TestRepo::new();
 
@@ -1207,7 +1207,7 @@ fn test_diff_json_all_prompts_includes_non_landing_prompts() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_include_stats_exact_single_model_counts() {
     let repo = TestRepo::new();
 
@@ -1259,7 +1259,7 @@ fn test_diff_json_include_stats_exact_single_model_counts() {
     assert_stats_exact(commit_stats, &expected_top_level, &expected_breakdown);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_include_stats_exact_multi_model_with_non_landing_prompt() {
     let repo = TestRepo::new();
 
@@ -1405,7 +1405,7 @@ fn test_diff_json_include_stats_exact_multi_model_with_non_landing_prompt() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_include_stats_exact_human_landed_with_ai_generated() {
     let repo = TestRepo::new();
 
@@ -1458,7 +1458,7 @@ fn test_diff_json_include_stats_exact_human_landed_with_ai_generated() {
     assert_stats_exact(commit_stats, &expected_top_level, &expected_breakdown);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_include_stats_blame_deletions_devin_added_prompts_only() {
     let repo = TestRepo::new();
 
@@ -1553,7 +1553,7 @@ fn test_diff_json_include_stats_blame_deletions_devin_added_prompts_only() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_rename_only_has_no_hunks_and_zero_stats() {
     let repo = TestRepo::new();
 
@@ -1606,7 +1606,7 @@ fn test_diff_json_rename_only_has_no_hunks_and_zero_stats() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_rename_with_ai_edit_exact_stats() {
     let repo = TestRepo::new();
 
@@ -1668,7 +1668,7 @@ fn test_diff_json_rename_with_ai_edit_exact_stats() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_blame_deletions_rename_with_edit_uses_old_path() {
     let repo = TestRepo::new();
 
@@ -1723,7 +1723,7 @@ fn test_diff_json_blame_deletions_rename_with_edit_uses_old_path() {
     assert_eq!(commit_keys(&json), expected_commit_keys);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_include_stats_rejects_commit_ranges() {
     let repo = TestRepo::new();
 
@@ -1742,7 +1742,7 @@ fn test_diff_json_include_stats_rejects_commit_ranges() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_preserves_context_lines() {
     let repo = TestRepo::new();
 
@@ -1787,7 +1787,7 @@ fn test_diff_preserves_context_lines() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_exact_sequence_verification() {
     let repo = TestRepo::new();
 
@@ -1827,7 +1827,7 @@ fn test_diff_exact_sequence_verification() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_range_multiple_commits() {
     let repo = TestRepo::new();
 
@@ -1875,7 +1875,7 @@ fn test_diff_range_multiple_commits() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_ignores_repo_external_diff_helper_but_proxy_uses_it() {
     let repo = TestRepo::new();
 
@@ -1917,7 +1917,7 @@ fn test_diff_ignores_repo_external_diff_helper_but_proxy_uses_it() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_parsing_is_stable_under_hostile_diff_config() {
     let repo = TestRepo::new();
 
@@ -1943,7 +1943,7 @@ fn test_diff_parsing_is_stable_under_hostile_diff_config() {
     assert!(git_ai_diff.contains("+line three"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_checkpoint_and_commit_ignore_repo_external_diff_helper() {
     let repo = TestRepo::new();
 
@@ -1968,7 +1968,7 @@ fn test_checkpoint_and_commit_ignore_repo_external_diff_helper() {
     file.assert_lines_and_blame(crate::lines!["base".human(), "added by ai".ai()]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_ignores_git_external_diff_env_but_proxy_uses_it() {
     let repo = TestRepo::new();
 
@@ -2018,7 +2018,7 @@ fn test_diff_ignores_git_external_diff_env_but_proxy_uses_it() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_ignores_git_diff_opts_env_for_internal_diff() {
     let repo = TestRepo::new();
 
@@ -2081,7 +2081,7 @@ fn test_diff_ignores_git_diff_opts_env_for_internal_diff() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_respects_effective_ignore_patterns() {
     let repo = TestRepo::new();
     let ignore_file_path = repo.path().join(".git-ai-ignore");
@@ -2128,7 +2128,7 @@ fn test_diff_respects_effective_ignore_patterns() {
     }));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_blame_deletions_terminal_annotations() {
     let repo = TestRepo::new();
 
@@ -2179,7 +2179,7 @@ fn test_diff_blame_deletions_terminal_annotations() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_blame_deletions_since_accepts_git_date_specs() {
     let repo = TestRepo::new();
 
@@ -2237,7 +2237,7 @@ fn test_diff_blame_deletions_since_accepts_git_date_specs() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_deleted_hunks_line_level_exact_mapping() {
     let repo = TestRepo::new();
 
@@ -2327,7 +2327,7 @@ fn test_diff_json_deleted_hunks_line_level_exact_mapping() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_deleted_hunks_exact_replacement_from_known_origin_commit() {
     let repo = TestRepo::new();
     let mut file = repo.filename("replacement_exact.txt");
@@ -2395,7 +2395,7 @@ fn test_diff_json_deleted_hunks_exact_replacement_from_known_origin_commit() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_deleted_hunks_strict_mixed_origins_and_contiguous_segments() {
     let repo = TestRepo::new();
     let mut file = repo.filename("mixed_origin_exact.txt");
@@ -2523,7 +2523,7 @@ fn test_diff_json_deleted_hunks_strict_mixed_origins_and_contiguous_segments() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_deleted_hunks_same_content_but_different_origins() {
     let repo = TestRepo::new();
     let mut file = repo.filename("duplicate_content_exact.txt");
@@ -2589,7 +2589,7 @@ fn test_diff_json_deleted_hunks_same_content_but_different_origins() {
     assert_eq!(commit_keys(&json), expected_commit_keys);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_commit_author_is_full_ident() {
     let repo = TestRepo::new();
     let mut file = repo.filename("author_ident.txt");
@@ -2620,7 +2620,7 @@ fn test_diff_json_commit_author_is_full_ident() {
 /// Myers diff A→B shows func_one at its new position as `+` lines.
 /// Because B's checkpoint attributed the full before→after diff to AI,
 /// the authorship note covers those lines and git ai diff shows them as AI.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_moved_ai_lines_attributed_correctly() {
     let repo = TestRepo::new();
 
@@ -2767,7 +2767,7 @@ fn func_one() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_visual_output_shows_human_author_name_not_id() {
     let repo = TestRepo::new();
 
@@ -2831,7 +2831,7 @@ fn test_diff_visual_output_shows_human_author_name_not_id() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_output_includes_human_id_in_hunks() {
     let repo = TestRepo::new();
 
@@ -2915,7 +2915,7 @@ fn test_diff_json_output_includes_human_id_in_hunks() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_json_humans_map_complete_across_multiple_commits() {
     let repo = TestRepo::new();
 
@@ -3000,7 +3000,7 @@ fn test_diff_json_humans_map_complete_across_multiple_commits() {
 /// removes header/meter sections and re-indents the grid. Empty lines between
 /// motion.div blocks are byte-for-byte identical in old and new, causing imara_diff
 /// to treat them as Equal — preserving "human" attribution that then gets stripped.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_ai_reindented_lines_attributed_to_ai() {
     let repo = TestRepo::new();
 
@@ -3528,7 +3528,7 @@ export default function ExtraLanguageCard({
 /// The blank line is byte-identical to existing blank lines, so imara-diff matches it as
 /// Equal. Git diff treats it as inserted. Without gap-filling, it shows as [no-data].
 /// Reproduces exact scenario from user bug report with calcb.py.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_diff_ai_inserted_blank_line_with_comments_attributed_to_ai() {
     let repo = TestRepo::new();
 

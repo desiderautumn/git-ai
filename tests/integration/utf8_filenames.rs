@@ -17,7 +17,7 @@ fn extract_json_object(output: &str) -> String {
     output[start..=end].to_string()
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_chinese_filename_ai_attribution() {
     let repo = TestRepo::new();
 
@@ -68,7 +68,7 @@ fn test_chinese_filename_ai_attribution() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_emoji_filename_ai_attribution() {
     let repo = TestRepo::new();
 
@@ -124,7 +124,7 @@ fn test_emoji_filename_ai_attribution() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_mixed_ascii_and_utf8_filenames() {
     let repo = TestRepo::new();
 
@@ -197,7 +197,7 @@ fn test_mixed_ascii_and_utf8_filenames() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_utf8_content_in_file() {
     let repo = TestRepo::new();
 
@@ -241,7 +241,7 @@ fn test_utf8_content_in_file() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_utf8_filename_blame() {
     let repo = TestRepo::new();
 
@@ -269,7 +269,7 @@ fn test_utf8_filename_blame() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_nested_directory_with_utf8_filename() {
     let repo = TestRepo::new();
 
@@ -310,7 +310,7 @@ fn test_nested_directory_with_utf8_filename() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_utf8_filename_with_human_and_ai_lines() {
     let repo = TestRepo::new();
 
@@ -360,7 +360,7 @@ fn test_utf8_filename_with_human_and_ai_lines() {
 // Phase 1: CJK Extended Coverage (Japanese, Korean, Traditional Chinese)
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_japanese_hiragana_katakana_filename() {
     let repo = TestRepo::new();
 
@@ -408,7 +408,7 @@ fn test_japanese_hiragana_katakana_filename() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_japanese_kanji_filename() {
     let repo = TestRepo::new();
 
@@ -453,7 +453,7 @@ fn test_japanese_kanji_filename() {
 // Phase 9: Edge Cases and Stress Tests
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_filename_with_all_unicode_categories() {
     let repo = TestRepo::new();
 
@@ -495,7 +495,7 @@ fn test_filename_with_all_unicode_categories() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_deeply_nested_utf8_directories() {
     let repo = TestRepo::new();
 
@@ -533,7 +533,7 @@ fn test_deeply_nested_utf8_directories() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_many_utf8_files_in_single_commit() {
     let repo = TestRepo::new();
 
@@ -584,7 +584,7 @@ fn test_many_utf8_files_in_single_commit() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_filename_starting_with_emoji() {
     let repo = TestRepo::new();
 
@@ -616,7 +616,7 @@ fn test_filename_starting_with_emoji() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_filename_ending_with_emoji() {
     let repo = TestRepo::new();
 
@@ -648,7 +648,7 @@ fn test_filename_ending_with_emoji() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_filename_only_non_ascii() {
     let repo = TestRepo::new();
 
@@ -686,7 +686,7 @@ fn test_filename_only_non_ascii() {
 // Phase 8: Unicode Normalization (NFC vs NFD)
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_precomposed_nfc_filename() {
     let repo = TestRepo::new();
 
@@ -728,7 +728,7 @@ fn test_precomposed_nfc_filename() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_decomposed_nfd_filename() {
     let repo = TestRepo::new();
 
@@ -768,7 +768,7 @@ fn test_decomposed_nfd_filename() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_combining_diacritical_marks() {
     let repo = TestRepo::new();
 
@@ -810,7 +810,7 @@ fn test_combining_diacritical_marks() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_swedish_angstrom() {
     let repo = TestRepo::new();
 
@@ -851,7 +851,7 @@ fn test_swedish_angstrom() {
 // Phase 7: Special Unicode Characters (zero-width, math, currency)
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_mathematical_symbols_filename() {
     let repo = TestRepo::new();
 
@@ -890,7 +890,7 @@ fn test_mathematical_symbols_filename() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_currency_symbols_filename() {
     let repo = TestRepo::new();
 
@@ -933,7 +933,7 @@ fn test_currency_symbols_filename() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_box_drawing_characters_filename() {
     let repo = TestRepo::new();
 
@@ -972,7 +972,7 @@ fn test_box_drawing_characters_filename() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_dingbats_and_symbols_filename() {
     let repo = TestRepo::new();
 
@@ -1016,7 +1016,7 @@ fn test_dingbats_and_symbols_filename() {
 // Phase 6: Extended Emoji (ZWJ, skin tones, flags, keycaps)
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_emoji_with_skin_tone_modifiers() {
     let repo = TestRepo::new();
 
@@ -1057,7 +1057,7 @@ fn test_emoji_with_skin_tone_modifiers() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_emoji_zwj_sequences() {
     let repo = TestRepo::new();
 
@@ -1096,7 +1096,7 @@ fn test_emoji_zwj_sequences() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_emoji_flag_sequences() {
     let repo = TestRepo::new();
 
@@ -1135,7 +1135,7 @@ fn test_emoji_flag_sequences() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_multiple_complex_emoji_filename() {
     let repo = TestRepo::new();
 
@@ -1174,7 +1174,7 @@ fn test_multiple_complex_emoji_filename() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_emoji_in_directory_names() {
     let repo = TestRepo::new();
 
@@ -1218,7 +1218,7 @@ fn test_emoji_in_directory_names() {
 // Phase 5: Cyrillic and Greek Scripts
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_russian_cyrillic_filename() {
     let repo = TestRepo::new();
 
@@ -1257,7 +1257,7 @@ fn test_russian_cyrillic_filename() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_ukrainian_cyrillic_filename() {
     let repo = TestRepo::new();
 
@@ -1293,7 +1293,7 @@ fn test_ukrainian_cyrillic_filename() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_greek_filename() {
     let repo = TestRepo::new();
 
@@ -1332,7 +1332,7 @@ fn test_greek_filename() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_greek_polytonic_filename() {
     let repo = TestRepo::new();
 
@@ -1373,7 +1373,7 @@ fn test_greek_polytonic_filename() {
 // Phase 4: Southeast Asian Scripts (Thai, Vietnamese, Khmer, Lao)
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_thai_filename() {
     let repo = TestRepo::new();
 
@@ -1408,7 +1408,7 @@ fn test_thai_filename() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_vietnamese_filename() {
     let repo = TestRepo::new();
 
@@ -1447,7 +1447,7 @@ fn test_vietnamese_filename() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_khmer_filename() {
     let repo = TestRepo::new();
 
@@ -1482,7 +1482,7 @@ fn test_khmer_filename() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_lao_filename() {
     let repo = TestRepo::new();
 
@@ -1521,7 +1521,7 @@ fn test_lao_filename() {
 // Phase 3: Indic Scripts (Hindi, Tamil, Bengali, Telugu, Gujarati)
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_hindi_devanagari_filename() {
     let repo = TestRepo::new();
 
@@ -1556,7 +1556,7 @@ fn test_hindi_devanagari_filename() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_tamil_filename() {
     let repo = TestRepo::new();
 
@@ -1591,7 +1591,7 @@ fn test_tamil_filename() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bengali_filename() {
     let repo = TestRepo::new();
 
@@ -1626,7 +1626,7 @@ fn test_bengali_filename() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_telugu_filename() {
     let repo = TestRepo::new();
 
@@ -1661,7 +1661,7 @@ fn test_telugu_filename() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gujarati_filename() {
     let repo = TestRepo::new();
 
@@ -1696,7 +1696,7 @@ fn test_gujarati_filename() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_devanagari_combining_chars() {
     let repo = TestRepo::new();
 
@@ -1734,7 +1734,7 @@ fn test_devanagari_combining_chars() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_korean_hangul_filename() {
     let repo = TestRepo::new();
 
@@ -1769,7 +1769,7 @@ fn test_korean_hangul_filename() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_chinese_traditional_filename() {
     let repo = TestRepo::new();
 
@@ -1806,7 +1806,7 @@ fn test_chinese_traditional_filename() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_mixed_cjk_filename() {
     let repo = TestRepo::new();
 
@@ -1850,7 +1850,7 @@ fn test_mixed_cjk_filename() {
 // Phase 2: RTL Scripts (Arabic, Hebrew, Persian, Urdu)
 // =============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_arabic_filename() {
     let repo = TestRepo::new();
 
@@ -1894,7 +1894,7 @@ fn test_arabic_filename() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_hebrew_filename() {
     let repo = TestRepo::new();
 
@@ -1929,7 +1929,7 @@ fn test_hebrew_filename() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_persian_filename() {
     let repo = TestRepo::new();
 
@@ -1964,7 +1964,7 @@ fn test_persian_filename() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_urdu_filename() {
     let repo = TestRepo::new();
 
@@ -1999,7 +1999,7 @@ fn test_urdu_filename() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rtl_with_ltr_mixed_filename() {
     let repo = TestRepo::new();
 
@@ -2037,7 +2037,7 @@ fn test_rtl_with_ltr_mixed_filename() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_rtl_directory_path() {
     let repo = TestRepo::new();
 

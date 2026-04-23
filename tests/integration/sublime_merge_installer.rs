@@ -9,19 +9,19 @@ fn create_test_params(git_shim_path: PathBuf) -> GitClientInstallerParams {
     GitClientInstallerParams { git_shim_path }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_sublime_merge_installer_name() {
     let installer = SublimeMergeInstaller;
     assert_eq!(installer.name(), "Sublime Merge");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_sublime_merge_installer_id() {
     let installer = SublimeMergeInstaller;
     assert_eq!(installer.id(), "sublime-merge");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_sublime_merge_platform_supported() {
     let installer = SublimeMergeInstaller;
     assert!(
@@ -30,7 +30,7 @@ fn test_sublime_merge_platform_supported() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_check_client_not_installed() {
     let installer = SublimeMergeInstaller;
     let params = create_test_params(PathBuf::from("/tmp/git-ai-shim"));
@@ -47,7 +47,7 @@ fn test_check_client_not_installed() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_prefs_creates_directory_structure() {
     let temp_dir = TempDir::new().unwrap();
     let prefs_file = temp_dir
@@ -65,7 +65,7 @@ fn test_install_prefs_creates_directory_structure() {
     assert_eq!(content, "{}");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_prefs_dry_run_no_changes() {
     let installer = SublimeMergeInstaller;
     let params = create_test_params(PathBuf::from("/usr/local/bin/git-ai-shim"));
@@ -75,7 +75,7 @@ fn test_install_prefs_dry_run_no_changes() {
     assert!(result.is_ok(), "Dry run should not error");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_uninstall_prefs_dry_run() {
     let installer = SublimeMergeInstaller;
     let params = create_test_params(PathBuf::from("/usr/local/bin/git-ai-shim"));
@@ -84,7 +84,7 @@ fn test_uninstall_prefs_dry_run() {
     assert!(result.is_ok(), "Dry run uninstall should not error");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prefs_file_path_not_empty() {
     // We can't directly call prefs_path() as it's private, but we can test the installer behavior
     let installer = SublimeMergeInstaller;
@@ -95,7 +95,7 @@ fn test_prefs_file_path_not_empty() {
     assert!(result.is_ok());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_git_binary_path_uses_forward_slashes() {
     // Test that Windows paths are converted to forward slashes for JSON
     let installer = SublimeMergeInstaller;
@@ -113,7 +113,7 @@ fn test_git_binary_path_uses_forward_slashes() {
     let _ = installer.install_prefs(&params, true);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_jsonc_parsing_with_comments() {
     use jsonc_parser::parse_to_value;
 
@@ -131,7 +131,7 @@ fn test_jsonc_parsing_with_comments() {
     assert!(result.unwrap().is_some(), "Should have parsed value");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_jsonc_parsing_with_trailing_commas() {
     use jsonc_parser::parse_to_value;
 
@@ -146,7 +146,7 @@ fn test_jsonc_parsing_with_trailing_commas() {
     assert!(result.unwrap().is_some(), "Should have parsed value");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_empty_prefs_handling() {
     use jsonc_parser::parse_to_value;
 
@@ -162,7 +162,7 @@ fn test_empty_prefs_handling() {
     assert!(result.is_ok(), "Should handle empty content as {{}}"); // Escape braces for format string
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_multiple_operations_idempotent() {
     let installer = SublimeMergeInstaller;
     let params = create_test_params(PathBuf::from("/usr/local/bin/git-ai"));
@@ -174,7 +174,7 @@ fn test_multiple_operations_idempotent() {
 }
 
 #[cfg(target_os = "macos")]
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_macos_paths() {
     // Verify macOS-specific path logic
     let home = std::env::var("HOME").unwrap_or_else(|_| "/Users/test".to_string());
@@ -189,7 +189,7 @@ fn test_macos_paths() {
 }
 
 #[cfg(windows)]
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_windows_paths() {
     // Verify Windows-specific path logic
     let appdata = std::env::var("APPDATA").ok();
@@ -200,7 +200,7 @@ fn test_windows_paths() {
 }
 
 #[cfg(all(unix, not(target_os = "macos")))]
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_linux_paths() {
     // Verify Linux-specific path logic
     let home = std::env::var("HOME").unwrap_or_else(|_| "/home/test".to_string());
@@ -210,7 +210,7 @@ fn test_linux_paths() {
     assert!(expected.to_string_lossy().contains("sublime-merge"));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_result_structure() {
     let installer = SublimeMergeInstaller;
     let params = create_test_params(PathBuf::from("/test/git"));
@@ -224,7 +224,7 @@ fn test_install_result_structure() {
     assert!(diff.is_none() || diff.is_some());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_uninstall_result_structure() {
     let installer = SublimeMergeInstaller;
     let params = create_test_params(PathBuf::from("/test/git"));
@@ -236,7 +236,7 @@ fn test_uninstall_result_structure() {
     assert!(diff.is_none() || diff.is_some());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_check_result_consistency() {
     let installer = SublimeMergeInstaller;
     let params = create_test_params(PathBuf::from("/test/git"));
@@ -263,7 +263,7 @@ fn test_check_result_consistency() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_git_path_with_spaces() {
     let installer = SublimeMergeInstaller;
     let params = create_test_params(PathBuf::from("/usr/local/bin/git ai wrapper"));
@@ -273,7 +273,7 @@ fn test_git_path_with_spaces() {
     assert!(result.is_ok());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_git_path_with_unicode() {
     let installer = SublimeMergeInstaller;
     let params = create_test_params(PathBuf::from("/usr/local/bin/git-ai-包装器"));
@@ -282,7 +282,7 @@ fn test_git_path_with_unicode() {
     assert!(result.is_ok());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_very_long_git_path() {
     let installer = SublimeMergeInstaller;
     let long_path = format!("/usr/local/bin/{}", "very_long_directory_name_".repeat(10));
@@ -292,7 +292,7 @@ fn test_very_long_git_path() {
     assert!(result.is_ok());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_backslash_conversion_for_windows_compatibility() {
     #[cfg(windows)]
     {
@@ -317,7 +317,7 @@ fn test_backslash_conversion_for_windows_compatibility() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_jsonc_property_setting() {
     use jsonc_parser::{ParseOptions, cst::CstRootNode};
 
@@ -337,7 +337,7 @@ fn test_jsonc_property_setting() {
     assert!(result.contains("git_binary"), "Should contain the property");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_jsonc_property_update() {
     use jsonc_parser::{ParseOptions, cst::CstRootNode};
 
@@ -355,7 +355,7 @@ fn test_jsonc_property_update() {
     assert!(result.contains("/new/path"), "Should update to new path");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_jsonc_property_removal() {
     use jsonc_parser::{ParseOptions, cst::CstRootNode};
 

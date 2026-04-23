@@ -1,7 +1,7 @@
 use super::github_test_harness::{GitHubTestRepo, MergeStrategy};
 use crate::repos::test_file::ExpectedLineExt;
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore] // Ignored by default - run with `cargo test --test github_integration -- --ignored`
 fn test_basic_pr_with_mixed_authorship() {
     let test_repo = match GitHubTestRepo::new("test_basic_pr_with_mixed_authorship") {

@@ -166,7 +166,7 @@ mod tests {
     // ============= Mock Backend Tests =============
     // These test the CredentialStore logic using MockBackend
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_store_load_clear_with_mock() {
         let store = CredentialStore::with_backend(Box::new(MockBackend::new()));
         let creds = make_test_credentials();
@@ -198,7 +198,7 @@ mod tests {
         assert!(store.load().unwrap().is_none());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_overwrite_credentials_with_mock() {
         let store = CredentialStore::with_backend(Box::new(MockBackend::new()));
 
@@ -213,7 +213,7 @@ mod tests {
         assert_eq!(loaded.access_token, "new_access_token");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_load_nonexistent_with_mock() {
         let store = CredentialStore::with_backend(Box::new(MockBackend::new()));
 
@@ -222,7 +222,7 @@ mod tests {
         assert!(result.is_none());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_has_credentials_with_mock() {
         let store = CredentialStore::with_backend(Box::new(MockBackend::new()));
 
@@ -237,7 +237,7 @@ mod tests {
 
     // ============= Error Handling Tests with Mock =============
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_store_error_handling() {
         let mock = MockBackend::new().fail_store("Keyring locked by another process");
         let store = CredentialStore::with_backend(Box::new(mock));
@@ -247,7 +247,7 @@ mod tests {
         assert!(result.unwrap_err().contains("Keyring locked"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_load_error_handling() {
         let mock = MockBackend::new().fail_load("Access denied");
         let store = CredentialStore::with_backend(Box::new(mock));
@@ -257,7 +257,7 @@ mod tests {
         assert!(result.unwrap_err().contains("Access denied"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_clear_error_handling() {
         let mock = MockBackend::new().fail_clear("Permission denied");
         let store = CredentialStore::with_backend(Box::new(mock));
@@ -267,7 +267,7 @@ mod tests {
         assert!(result.unwrap_err().contains("Permission denied"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_has_credentials_returns_false_on_load_error() {
         let mock = MockBackend::new().fail_load("Backend unavailable");
         let store = CredentialStore::with_backend(Box::new(mock));
@@ -278,7 +278,7 @@ mod tests {
 
     // ============= Serialization Tests =============
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_roundtrip_store_load_credentials() {
         let creds = make_test_credentials();
 
@@ -301,7 +301,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_empty_credentials_file_fails_parse() {
         let result: Result<StoredCredentials, _> = serde_json::from_str("");
         assert!(result.is_err());
@@ -325,7 +325,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_file_backend_store_load_clear() {
         let _cleanup = TestCredentialCleanup;
         let store = CredentialStore::new(); // Uses FileBackend in test mode
@@ -346,7 +346,7 @@ mod tests {
         assert!(store.load().unwrap().is_none());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_file_backend_creates_directory() {
         let temp_dir = env::temp_dir().join("git-ai-test-dir-create");
         let test_path = temp_dir.join("credentials");
@@ -371,7 +371,7 @@ mod tests {
     }
 
     #[cfg(unix)]
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_file_backend_sets_unix_permissions() {
         use std::os::unix::fs::PermissionsExt;
 
@@ -399,7 +399,7 @@ mod tests {
 
     // ============= Corrupted Data Tests =============
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_corrupted_credentials_truncated_json() {
         let mock = MockBackend::new();
         // Manually store invalid JSON
@@ -412,7 +412,7 @@ mod tests {
         assert!(result.unwrap_err().contains("parse"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_corrupted_credentials_wrong_schema() {
         let mock = MockBackend::new();
         mock.store(r#"{"username": "test", "password": "secret"}"#)
@@ -425,7 +425,7 @@ mod tests {
         assert!(result.unwrap_err().contains("parse"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_corrupted_credentials_empty_json_object() {
         let mock = MockBackend::new();
         mock.store("{}").unwrap();
@@ -436,7 +436,7 @@ mod tests {
         assert!(result.is_err());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_corrupted_credentials_null_json() {
         let mock = MockBackend::new();
         mock.store("null").unwrap();
@@ -447,7 +447,7 @@ mod tests {
         assert!(result.is_err());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_corrupted_credentials_json_array() {
         let mock = MockBackend::new();
         mock.store(r#"["access_token", "refresh_token"]"#).unwrap();
@@ -460,21 +460,21 @@ mod tests {
 
     // ============= Path Tests =============
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_fallback_path_is_deterministic() {
         let path1 = test_fallback_path();
         let path2 = test_fallback_path();
         assert_eq!(path1, path2);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_fallback_path_contains_credentials() {
         let path = test_fallback_path();
         let file_name = path.file_name().unwrap().to_string_lossy();
         assert!(file_name.starts_with("credentials"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_fallback_path_contains_git_ai_test_dir() {
         let path = test_fallback_path();
         let path_str = path.to_string_lossy();
@@ -483,7 +483,7 @@ mod tests {
 
     // ============= Backend Name Test =============
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_backend_name() {
         let mock_store = CredentialStore::with_backend(Box::new(MockBackend::new()));
         assert_eq!(mock_store.backend_name(), "mock");

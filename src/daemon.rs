@@ -8533,7 +8533,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn checkpoint_requests_use_long_timeout_in_ci_or_test_env() {
         assert_eq!(
             checkpoint_control_response_timeout(&queued_checkpoint_request(), true),
@@ -8545,7 +8545,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn queued_checkpoint_requests_use_short_timeout_in_product_env() {
         assert_eq!(
             checkpoint_control_response_timeout(&queued_checkpoint_request(), false),
@@ -8553,7 +8553,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn waited_checkpoint_requests_use_long_timeout_in_product_env() {
         assert_eq!(
             checkpoint_control_response_timeout(&waited_checkpoint_request(), false),
@@ -8561,7 +8561,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn checkpoint_control_timeout_uses_ci_env_var() {
         let _unset_test = EnvVarGuard::unset("GIT_AI_TEST_DB_PATH");
@@ -8571,7 +8571,7 @@ mod tests {
         assert!(checkpoint_control_timeout_uses_ci_or_test_budget());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn checkpoint_control_timeout_uses_test_db_env_var() {
         let _unset_ci = EnvVarGuard::unset("CI");
@@ -8581,7 +8581,7 @@ mod tests {
         assert!(checkpoint_control_timeout_uses_ci_or_test_budget());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn checkpoint_control_timeout_false_when_no_ci_or_test_vars() {
         let _unset_ci = EnvVarGuard::unset("CI");
@@ -8591,7 +8591,7 @@ mod tests {
         assert!(!checkpoint_control_timeout_uses_ci_or_test_budget());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn normalize_commit_carryover_snapshot_reuses_committed_blob_for_crlf_only_diff() {
         let carryover = HashMap::from([(
             "example.txt".to_string(),
@@ -8606,7 +8606,7 @@ mod tests {
         assert_eq!(normalized.get("example.txt"), committed.get("example.txt"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn compute_watermarks_uses_symlink_metadata_not_target_mtime() {
         // Verify that compute_watermarks_from_stat uses lstat (symlink's own mtime)
         // not stat (target file's mtime), consistent with snapshot's symlink_metadata.
@@ -8655,7 +8655,7 @@ mod tests {
         let _ = target_mtime; // used only as documentation; may equal symlink_mtime on some FS
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn normalize_commit_carryover_snapshot_preserves_real_post_commit_edits() {
         let carryover = HashMap::from([(
             "example.txt".to_string(),
@@ -8670,7 +8670,7 @@ mod tests {
         assert_eq!(normalized.get("example.txt"), carryover.get("example.txt"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn recent_working_log_snapshot_preserves_humans_on_restore() {
         use crate::authorship::attribution_tracker::LineAttribution;
         use crate::authorship::authorship_log::HumanRecord;

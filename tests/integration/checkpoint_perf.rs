@@ -117,7 +117,7 @@ fn benchmark_checkpoint_wrapper_daemon(iterations: usize) -> DurationStats {
     DurationStats::from_durations(&mut durations)
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn bench_checkpoint_single_file_wrapper() {
     println!("\n=== Checkpoint Single-File Benchmark (Wrapper Mode) ===");
@@ -130,7 +130,7 @@ fn bench_checkpoint_single_file_wrapper() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn bench_checkpoint_single_file_daemon() {
     println!("\n=== Checkpoint Single-File Benchmark (Daemon Mode) ===");
@@ -143,7 +143,7 @@ fn bench_checkpoint_single_file_daemon() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn bench_checkpoint_single_file_wrapper_daemon() {
     println!("\n=== Checkpoint Single-File Benchmark (WrapperDaemon Mode) ===");
@@ -156,7 +156,7 @@ fn bench_checkpoint_single_file_wrapper_daemon() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn bench_checkpoint_multi_file_wrapper() {
     println!("\n=== Checkpoint Multi-File Benchmark (Wrapper Mode) ===");
@@ -190,7 +190,7 @@ fn bench_checkpoint_multi_file_wrapper() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn bench_checkpoint_multi_file_daemon() {
     println!("\n=== Checkpoint Multi-File Benchmark (Daemon Mode) ===");
@@ -226,7 +226,7 @@ fn bench_checkpoint_multi_file_daemon() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn bench_checkpoint_correctness_after_optimization() {
     println!("\n=== Checkpoint Correctness Verification ===");
@@ -276,7 +276,7 @@ fn bench_checkpoint_correctness_after_optimization() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn bench_checkpoint_all_modes_summary() {
     println!("\n============================================");

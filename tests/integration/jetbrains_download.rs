@@ -58,7 +58,7 @@ fn create_test_plugin_zip_with_executable() -> Vec<u8> {
     buffer
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_plugin_creates_plugins_directory() {
     let temp_dir = TempDir::new().unwrap();
     let plugin_dir = temp_dir.path().join("plugins");
@@ -70,7 +70,7 @@ fn test_install_plugin_creates_plugins_directory() {
     assert!(plugin_dir.exists(), "Plugins directory should be created");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_plugin_extracts_files() {
     let temp_dir = TempDir::new().unwrap();
     let plugin_dir = temp_dir.path().join("plugins");
@@ -86,7 +86,7 @@ fn test_install_plugin_extracts_files() {
     assert!(jar_file.exists(), "JAR file should be extracted");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_plugin_extracts_correct_content() {
     let temp_dir = TempDir::new().unwrap();
     let plugin_dir = temp_dir.path().join("plugins");
@@ -110,7 +110,7 @@ fn test_install_plugin_extracts_correct_content() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_plugin_creates_nested_directories() {
     let temp_dir = TempDir::new().unwrap();
     let plugin_dir = temp_dir.path().join("plugins");
@@ -124,7 +124,7 @@ fn test_install_plugin_creates_nested_directories() {
     assert!(lib_dir.is_dir(), "lib should be a directory");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_plugin_to_existing_directory() {
     let temp_dir = TempDir::new().unwrap();
     let plugin_dir = temp_dir.path().join("plugins");
@@ -138,7 +138,7 @@ fn test_install_plugin_to_existing_directory() {
     assert!(result.is_ok(), "Should work with existing directory");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_plugin_invalid_zip_data() {
     let temp_dir = TempDir::new().unwrap();
     let plugin_dir = temp_dir.path().join("plugins");
@@ -154,7 +154,7 @@ fn test_install_plugin_invalid_zip_data() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_plugin_empty_zip() {
     let temp_dir = TempDir::new().unwrap();
     let plugin_dir = temp_dir.path().join("plugins");
@@ -171,7 +171,7 @@ fn test_install_plugin_empty_zip() {
 }
 
 #[cfg(unix)]
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_plugin_preserves_executable_permissions() {
     use std::os::unix::fs::PermissionsExt;
 
@@ -192,7 +192,7 @@ fn test_install_plugin_preserves_executable_permissions() {
     assert!(mode & 0o100 != 0, "Script should be executable");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_plugin_handles_directory_entries() {
     let temp_dir = TempDir::new().unwrap();
     let plugin_dir = temp_dir.path().join("plugins");
@@ -227,7 +227,7 @@ fn test_install_plugin_handles_directory_entries() {
     assert!(config_file.exists(), "File in directory should exist");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_plugin_via_cli_with_invalid_binary() {
     let non_existent_binary = PathBuf::from("/tmp/non_existent_ide_binary_12345");
     let result = install_plugin_via_cli(&non_existent_binary, "com.test.plugin");
@@ -240,7 +240,7 @@ fn test_install_plugin_via_cli_with_invalid_binary() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_plugin_via_cli_paths_and_args() {
     // This test verifies the function signature and behavior without needing actual IDE
     let fake_binary = PathBuf::from("/usr/bin/echo");
@@ -255,7 +255,7 @@ fn test_install_plugin_via_cli_paths_and_args() {
 
 // Download tests - these test error handling without making real network calls
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_download_plugin_url_format() {
     // We can't test actual download without network, but we can verify the function exists
     // and has the right signature. Real download testing would require mocking or network.
@@ -271,7 +271,7 @@ fn test_download_plugin_url_format() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_plugin_with_special_characters_in_filename() {
     let temp_dir = TempDir::new().unwrap();
     let plugin_dir = temp_dir.path().join("plugins");
@@ -306,7 +306,7 @@ fn test_install_plugin_with_special_characters_in_filename() {
     assert!(zh_file.exists(), "Chinese strings file should exist");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_plugin_with_deep_nesting() {
     let temp_dir = TempDir::new().unwrap();
     let plugin_dir = temp_dir.path().join("plugins");
@@ -333,7 +333,7 @@ fn test_install_plugin_with_deep_nesting() {
     assert!(deep_file.exists(), "Deeply nested file should be created");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_plugin_overwrites_existing_files() {
     let temp_dir = TempDir::new().unwrap();
     let plugin_dir = temp_dir.path().join("plugins");
@@ -359,7 +359,7 @@ fn test_install_plugin_overwrites_existing_files() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_install_plugin_with_large_files() {
     let temp_dir = TempDir::new().unwrap();
     let plugin_dir = temp_dir.path().join("plugins");

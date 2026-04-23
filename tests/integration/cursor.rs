@@ -4,7 +4,7 @@ use crate::test_utils::fixture_path;
 
 const TEST_CONVERSATION_ID: &str = "de751938-f32b-4441-8239-a31d60aa4cf0";
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cursor_jsonl_basic_parsing() {
     use git_ai::commands::checkpoint_agent::agent_presets::CursorPreset;
 
@@ -45,7 +45,7 @@ fn test_cursor_jsonl_basic_parsing() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cursor_jsonl_user_query_tag_stripping() {
     use git_ai::commands::checkpoint_agent::agent_presets::CursorPreset;
 
@@ -77,7 +77,7 @@ fn test_cursor_jsonl_user_query_tag_stripping() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cursor_jsonl_tool_normalization() {
     use git_ai::commands::checkpoint_agent::agent_presets::CursorPreset;
 
@@ -130,7 +130,7 @@ fn test_cursor_jsonl_tool_normalization() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cursor_jsonl_read_tool_full_args() {
     use git_ai::commands::checkpoint_agent::agent_presets::CursorPreset;
 
@@ -159,7 +159,7 @@ fn test_cursor_jsonl_read_tool_full_args() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cursor_jsonl_preserves_text_content() {
     use git_ai::commands::checkpoint_agent::agent_presets::CursorPreset;
 
@@ -182,7 +182,7 @@ fn test_cursor_jsonl_preserves_text_content() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cursor_jsonl_empty_file() {
     use git_ai::commands::checkpoint_agent::agent_presets::CursorPreset;
     use tempfile::NamedTempFile;
@@ -202,7 +202,7 @@ fn test_cursor_jsonl_empty_file() {
     assert_eq!(model, None);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cursor_jsonl_malformed_lines_skipped() {
     use git_ai::commands::checkpoint_agent::agent_presets::CursorPreset;
     use std::io::Write;
@@ -233,7 +233,7 @@ fn test_cursor_jsonl_malformed_lines_skipped() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cursor_preset_multi_root_workspace_detection() {
     use git_ai::authorship::working_log::CheckpointKind;
     use git_ai::commands::checkpoint_agent::agent_presets::{
@@ -353,7 +353,7 @@ fn test_cursor_preset_multi_root_workspace_detection() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cursor_preset_human_checkpoint_no_filepath() {
     use git_ai::authorship::working_log::CheckpointKind;
     use git_ai::commands::checkpoint_agent::agent_presets::{
@@ -387,7 +387,7 @@ fn test_cursor_preset_human_checkpoint_no_filepath() {
     assert!(result.edited_filepaths.is_none());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cursor_checkpoint_stdin_with_utf8_bom() {
     let repo = TestRepo::new();
     let hook_input = format!(
@@ -414,7 +414,7 @@ fn test_cursor_checkpoint_stdin_with_utf8_bom() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cursor_e2e_with_attribution() {
     use std::fs;
 
@@ -509,7 +509,7 @@ fn test_cursor_e2e_with_attribution() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cursor_e2e_with_resync() {
     use std::fs;
     use std::io::Write;
@@ -620,7 +620,7 @@ fn test_cursor_e2e_with_resync() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_cursor_checkpoint_routes_nested_worktree_file_to_worktree_repo() {
     use git_ai::git::repository::find_repository_in_path;
     use std::fs;

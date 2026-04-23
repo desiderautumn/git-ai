@@ -81,7 +81,7 @@ fn configure_hostile_diff_settings(repo: &TestRepo) {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_authorship_log_stats() {
     let repo = TestRepo::new();
 
@@ -204,7 +204,7 @@ fn test_authorship_log_stats() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stats_cli_range() {
     let repo = TestRepo::new();
 
@@ -242,7 +242,7 @@ fn test_stats_cli_range() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stats_cli_range_ignores_repo_external_diff_helper() {
     let repo = TestRepo::new();
 
@@ -284,7 +284,7 @@ fn test_stats_cli_range_ignores_repo_external_diff_helper() {
     assert!(stats.range_stats.ai_additions >= 1);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stats_cli_range_with_hostile_diff_config() {
     let repo = TestRepo::new();
 
@@ -310,7 +310,7 @@ fn test_stats_cli_range_with_hostile_diff_config() {
     assert!(stats.range_stats.ai_additions >= 1);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stats_cli_empty_tree_range() {
     let repo = TestRepo::new();
 
@@ -352,7 +352,7 @@ fn test_stats_cli_empty_tree_range() {
     assert_eq!(stats.range_stats.unknown_additions, 1);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_markdown_stats_deletion_only() {
     use git_ai::authorship::stats::write_stats_to_markdown;
     use std::collections::BTreeMap;
@@ -376,7 +376,7 @@ fn test_markdown_stats_deletion_only() {
     assert_debug_snapshot!(markdown);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_markdown_stats_all_human() {
     use git_ai::authorship::stats::write_stats_to_markdown;
     use std::collections::BTreeMap;
@@ -400,7 +400,7 @@ fn test_markdown_stats_all_human() {
     assert_debug_snapshot!(markdown);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_markdown_stats_all_ai() {
     use git_ai::authorship::stats::write_stats_to_markdown;
     use std::collections::BTreeMap;
@@ -424,7 +424,7 @@ fn test_markdown_stats_all_ai() {
     assert_debug_snapshot!(markdown);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_markdown_stats_mixed() {
     use git_ai::authorship::stats::write_stats_to_markdown;
     use std::collections::BTreeMap;
@@ -448,7 +448,7 @@ fn test_markdown_stats_mixed() {
     assert_debug_snapshot!(markdown);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_markdown_stats_no_mixed() {
     use git_ai::authorship::stats::write_stats_to_markdown;
     use std::collections::BTreeMap;
@@ -472,7 +472,7 @@ fn test_markdown_stats_no_mixed() {
     assert_debug_snapshot!(markdown);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_markdown_stats_minimal_human() {
     use git_ai::authorship::stats::write_stats_to_markdown;
     use std::collections::BTreeMap;
@@ -497,7 +497,7 @@ fn test_markdown_stats_minimal_human() {
     assert_debug_snapshot!(markdown);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_markdown_stats_formatting() {
     use git_ai::authorship::stats::{ToolModelHeadlineStats, write_stats_to_markdown};
     use std::collections::BTreeMap;
@@ -534,7 +534,7 @@ fn test_markdown_stats_formatting() {
     assert_debug_snapshot!(markdown);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stats_default_ignores_snapshot_files() {
     let repo = TestRepo::new();
     repo.filename("README.md")
@@ -557,7 +557,7 @@ fn test_stats_default_ignores_snapshot_files() {
     assert_eq!(stats.ai_additions, 1);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stats_default_ignores_lockfiles_and_generated_files() {
     let repo = TestRepo::new();
     repo.filename("README.md")
@@ -578,7 +578,7 @@ fn test_stats_default_ignores_lockfiles_and_generated_files() {
     assert_eq!(stats.ai_additions, 1);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stats_ignores_linguist_generated_patterns() {
     let repo = TestRepo::new();
     repo.filename(".gitattributes")
@@ -600,7 +600,7 @@ fn test_stats_ignores_linguist_generated_patterns() {
     assert_eq!(stats.ai_additions, 1);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stats_keeps_negative_linguist_patterns_counted() {
     let repo = TestRepo::new();
     repo.filename(".gitattributes").set_contents(crate::lines![
@@ -624,7 +624,7 @@ fn test_stats_keeps_negative_linguist_patterns_counted() {
     assert_eq!(stats.ai_additions, 1);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stats_in_bare_clone_uses_root_gitattributes_linguist_generated() {
     let repo = TestRepo::new();
     repo.filename(".gitattributes")
@@ -684,7 +684,7 @@ fn test_stats_in_bare_clone_uses_root_gitattributes_linguist_generated() {
     assert_eq!(stats.git_diff_added_lines, 1);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stats_ignore_flag_is_additive_to_defaults() {
     let repo = TestRepo::new();
     repo.filename("README.md")
@@ -707,7 +707,7 @@ fn test_stats_ignore_flag_is_additive_to_defaults() {
     assert_eq!(ignored.git_diff_added_lines, 1);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stats_range_uses_default_ignores() {
     let repo = TestRepo::new();
     repo.filename("README.md")
@@ -734,7 +734,7 @@ fn test_stats_range_uses_default_ignores() {
     assert_eq!(range_stats.range_stats.ai_additions, 1);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_post_commit_large_ignored_files_do_not_trigger_skip_warning() {
     let repo = TestRepo::new();
     repo.filename("README.md")
@@ -761,7 +761,7 @@ fn test_post_commit_large_ignored_files_do_not_trigger_skip_warning() {
     assert_eq!(stats.human_additions, 0);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_stats_ignores_renamed_files() {
     // Test that stats correctly ignores pure renames (no content changes)
     // Reproduces issue #923

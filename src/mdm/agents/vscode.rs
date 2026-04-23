@@ -279,19 +279,19 @@ impl HookInstaller for VSCodeInstaller {
 mod tests {
     use super::*;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_vscode_installer_name() {
         let installer = VSCodeInstaller;
         assert_eq!(installer.name(), "VS Code");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_vscode_installer_id() {
         let installer = VSCodeInstaller;
         assert_eq!(installer.id(), "vscode");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_vscode_settings_targets() {
         let targets = VSCodeInstaller::settings_targets();
         // Should return paths for Code and Code - Insiders
@@ -304,7 +304,7 @@ mod tests {
         assert!(has_code_path, "Should include VSCode-related paths");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_vscode_uninstall_extras_returns_manual_message() {
         let installer = VSCodeInstaller;
         let params = HookInstallerParams {
@@ -317,7 +317,7 @@ mod tests {
         assert!(results[0].message.contains("manually"));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_vscode_install_hooks_returns_none() {
         let installer = VSCodeInstaller;
         let params = HookInstallerParams {
@@ -329,7 +329,7 @@ mod tests {
         assert_eq!(result, None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_vscode_uninstall_hooks_returns_none() {
         let installer = VSCodeInstaller;
         let params = HookInstallerParams {
@@ -340,7 +340,7 @@ mod tests {
         assert_eq!(result, None);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_vscode_settings_targets_returns_candidates() {
         let targets = VSCodeInstaller::settings_targets();
         assert!(!targets.is_empty());

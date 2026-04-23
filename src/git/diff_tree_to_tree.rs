@@ -308,7 +308,7 @@ fn parse_diff_raw(data: &[u8]) -> Result<Vec<DiffDelta>, GitAiError> {
 mod tests {
     use super::*;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_parse_diff_raw() {
         // Sample output from git diff --raw -z (NUL-separated)
         let mut raw = Vec::new();

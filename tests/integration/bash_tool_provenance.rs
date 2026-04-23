@@ -141,7 +141,7 @@ fn checkpoint_paths(result: &BashToolResult) -> &[String] {
 // Category 1: File creation commands
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_echo_redirect_creates_file() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -161,7 +161,7 @@ fn test_bash_provenance_echo_redirect_creates_file() {
     assert_checkpoint_contains(&post_action, "created.txt");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_printf_redirect_creates_file() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -181,7 +181,7 @@ fn test_bash_provenance_printf_redirect_creates_file() {
     assert_checkpoint_contains(&post_action, "printf_out.txt");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_heredoc_creates_file() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -204,7 +204,7 @@ fn test_bash_provenance_heredoc_creates_file() {
     assert_checkpoint_contains(&post_action, "heredoc.txt");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_touch_creates_empty_file() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -220,7 +220,7 @@ fn test_bash_provenance_touch_creates_empty_file() {
     assert_checkpoint_contains(&post_action, "newfile.txt");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_cp_creates_copy() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -237,7 +237,7 @@ fn test_bash_provenance_cp_creates_copy() {
     assert_checkpoint_excludes(&post_action, "existing.txt");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_tee_creates_file() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -257,7 +257,7 @@ fn test_bash_provenance_tee_creates_file() {
     assert_checkpoint_contains(&post_action, "output.txt");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_nested_directory_creation() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -284,7 +284,7 @@ fn test_bash_provenance_nested_directory_creation() {
 // Category 2: File modification commands
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_sed_in_place_edit() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -308,7 +308,7 @@ fn test_bash_provenance_sed_in_place_edit() {
     assert_checkpoint_contains(&post_action, "target.txt");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_append_with_redirect() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -325,7 +325,7 @@ fn test_bash_provenance_append_with_redirect() {
     assert_checkpoint_contains(&post_action, "log.txt");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_truncate_to_zero() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -348,7 +348,7 @@ fn test_bash_provenance_truncate_to_zero() {
 }
 
 #[cfg(unix)]
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_chmod_permission_change() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -364,7 +364,7 @@ fn test_bash_provenance_chmod_permission_change() {
     assert_checkpoint_contains(&post_action, "script.sh");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_mv_rename() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -395,7 +395,7 @@ fn test_bash_provenance_mv_rename() {
 // Category 4: Build/compile tool simulations
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_simulated_cargo_init() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -427,7 +427,7 @@ fn test_bash_provenance_simulated_cargo_init() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_simulated_npm_init() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -454,7 +454,7 @@ fn test_bash_provenance_simulated_npm_init() {
 // Category 5: Git commands (that modify working tree)
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_git_checkout_restore() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -487,7 +487,7 @@ fn test_bash_provenance_git_checkout_restore() {
     assert_checkpoint_contains(&post_action, "restorable.txt");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_git_stash_pop() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -513,7 +513,7 @@ fn test_bash_provenance_git_stash_pop() {
     assert_checkpoint_contains(&post_action, "stashed.txt");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_git_apply_patch() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -552,7 +552,7 @@ fn test_bash_provenance_git_apply_patch() {
 // Category 6: Multi-command pipelines
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_loop_creating_multiple_files() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -577,7 +577,7 @@ fn test_bash_provenance_loop_creating_multiple_files() {
     assert_checkpoint_contains(&post_action, "c.txt");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_grep_sed_pipeline() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -614,7 +614,7 @@ fn test_bash_provenance_grep_sed_pipeline() {
 // Category 7: Read-only commands (should produce NoChanges)
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_cat_is_readonly() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -630,7 +630,7 @@ fn test_bash_provenance_cat_is_readonly() {
     assert_no_changes(&post_action);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_ls_is_readonly() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -646,7 +646,7 @@ fn test_bash_provenance_ls_is_readonly() {
     assert_no_changes(&post_action);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[cfg(not(target_os = "windows"))] // Windows `find` is not POSIX find
 fn test_bash_provenance_find_is_readonly() {
     let repo = TestRepo::new();
@@ -663,7 +663,7 @@ fn test_bash_provenance_find_is_readonly() {
     assert_no_changes(&post_action);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_grep_is_readonly() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -689,7 +689,7 @@ fn test_bash_provenance_grep_is_readonly() {
     assert_no_changes(&post_action);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_wc_is_readonly() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -705,7 +705,7 @@ fn test_bash_provenance_wc_is_readonly() {
     assert_no_changes(&post_action);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_head_is_readonly() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -726,7 +726,7 @@ fn test_bash_provenance_head_is_readonly() {
     assert_no_changes(&post_action);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_diff_is_readonly() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -744,7 +744,7 @@ fn test_bash_provenance_diff_is_readonly() {
     assert_no_changes(&post_action);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_git_log_is_readonly() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -761,7 +761,7 @@ fn test_bash_provenance_git_log_is_readonly() {
     assert_no_changes(&post_action);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_git_diff_is_readonly() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -777,7 +777,7 @@ fn test_bash_provenance_git_diff_is_readonly() {
     assert_no_changes(&post_action);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_git_status_is_readonly() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -803,7 +803,7 @@ fn test_bash_provenance_git_status_is_readonly() {
     assert_no_changes(&post_action);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_compound_readonly() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -829,7 +829,7 @@ fn test_bash_provenance_compound_readonly() {
 // ===========================================================================
 
 #[cfg(unix)]
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_symlink_creation() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -846,7 +846,7 @@ fn test_bash_provenance_symlink_creation() {
 }
 
 #[cfg(unix)]
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_symlink_target_change() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -880,7 +880,7 @@ fn test_bash_provenance_symlink_target_change() {
 // Category 9: Large/batch operations
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_create_50_files() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -913,7 +913,7 @@ fn test_bash_provenance_create_50_files() {
     assert_checkpoint_contains(&post_action, "batch_50.txt");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_modify_20_of_50_tracked() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -969,7 +969,7 @@ fn test_bash_provenance_modify_20_of_50_tracked() {
 // Category 10: Edge cases
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_failed_command_with_partial_output() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -991,7 +991,7 @@ fn test_bash_provenance_failed_command_with_partial_output() {
     assert_checkpoint_contains(&post_action, "partial.txt");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_file_with_spaces_in_name() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -1007,7 +1007,7 @@ fn test_bash_provenance_file_with_spaces_in_name() {
     assert_checkpoint_contains(&post_action, "file with spaces.txt");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_file_with_special_characters() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -1027,7 +1027,7 @@ fn test_bash_provenance_file_with_special_characters() {
     assert_checkpoint_contains(&post_action, "file-with-dashes_and_underscores.txt");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_hidden_file_creation() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -1047,7 +1047,7 @@ fn test_bash_provenance_hidden_file_creation() {
     assert_checkpoint_contains(&post_action, ".hidden_config");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_touch_then_write_shows_created() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -1080,7 +1080,7 @@ fn test_bash_provenance_touch_then_write_shows_created() {
     assert_checkpoint_contains(&post_action, "empty.txt");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_overwrite_identical_content_detects_mtime_change() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -1112,7 +1112,7 @@ fn test_bash_provenance_overwrite_identical_content_detects_mtime_change() {
     assert_checkpoint_contains(&post_action, "same.txt");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_sequential_tool_uses_same_session() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -1155,7 +1155,7 @@ fn test_bash_provenance_sequential_tool_uses_same_session() {
 // Category 11: Tar/archive operations
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_create_tarball() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -1182,7 +1182,7 @@ fn test_bash_provenance_create_tarball() {
     assert_checkpoint_contains(&post_action, "archive.tar.gz");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_extract_tarball() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -1228,7 +1228,7 @@ fn test_bash_provenance_extract_tarball() {
 // Category 12: Compiler/tool output simulation
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_simulated_compile() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -1254,7 +1254,7 @@ fn test_bash_provenance_simulated_compile() {
 // Additional: Direct snapshot/diff API tests with real commands
 // ===========================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_snapshot_diff_echo_redirect() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -1284,7 +1284,7 @@ fn test_bash_provenance_snapshot_diff_echo_redirect() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_snapshot_diff_sed_modification() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -1321,7 +1321,7 @@ fn test_bash_provenance_snapshot_diff_sed_modification() {
 // 13. git_status_fallback parsing correctness
 // ───────────────────────────────────────────────────────────────────
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_git_status_fallback_files_with_spaces() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -1340,7 +1340,7 @@ fn test_git_status_fallback_files_with_spaces() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_git_status_fallback_new_untracked_with_spaces() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -1356,7 +1356,7 @@ fn test_git_status_fallback_new_untracked_with_spaces() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_git_status_fallback_rename_reports_both_paths() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -1379,7 +1379,7 @@ fn test_git_status_fallback_rename_reports_both_paths() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_mv_directory_rename() {
     let repo = TestRepo::new();
     let root = repo_root(&repo);
@@ -1453,7 +1453,7 @@ fn run_git_with_hooks(repo: &TestRepo, args: &[&str]) -> std::process::Output {
 }
 
 #[cfg(unix)]
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_precommit_hook_formatter_modifies_staged_file() {
     // Scenario: AI agent creates a file, commits it, and the pre-commit hook
     // reformats the file (modifies it without re-staging). The stat-diff should
@@ -1510,7 +1510,7 @@ exit 0
 }
 
 #[cfg(unix)]
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_precommit_hook_formatter_restages_file() {
     // Scenario: pre-commit hook formats AND re-stages the file (common pattern
     // with tools like prettier --write + git add). The commit contains the
@@ -1567,7 +1567,7 @@ exit 0
 }
 
 #[cfg(unix)]
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_precommit_hook_creates_new_file() {
     // Scenario: pre-commit hook creates a new file (e.g., a lint report or
     // generated manifest). The stat-diff should detect the new file.
@@ -1616,7 +1616,7 @@ exit 0
 }
 
 #[cfg(unix)]
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_precommit_hook_modifies_untouched_file() {
     // Scenario: pre-commit hook modifies a file that the AI agent did NOT touch.
     // For example, a hook that updates a version timestamp in a config file
@@ -1683,7 +1683,7 @@ exit 0
 }
 
 #[cfg(unix)]
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_precommit_hook_with_agent_context_attribution() {
     // Scenario: Same as the formatter test, but uses handle_bash_pre_tool_use_with_context
     // to set up proper AI agent context. Verifies that checkpoint_context_from_active_bash
@@ -1762,7 +1762,7 @@ exit 0
 }
 
 #[cfg(unix)]
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_precommit_hook_modifies_multiple_files() {
     // Scenario: pre-commit hook runs a formatter on multiple staged files.
     // All modified files should be detected by the stat-diff.
@@ -1840,7 +1840,7 @@ exit 0
 }
 
 #[cfg(unix)]
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_bash_provenance_precommit_hook_fails_and_modifies_files() {
     // Scenario: pre-commit hook modifies files but then exits with non-zero
     // (e.g., a linter that fixes formatting but reports errors). The commit

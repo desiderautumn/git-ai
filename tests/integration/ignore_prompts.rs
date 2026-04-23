@@ -77,7 +77,7 @@ fn checkpoint_with_empty_transcript(repo: &TestRepo, edited_files: Vec<String>) 
         .expect("checkpoint should succeed");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_checkpoint_with_prompt_sharing_enabled() {
     let mut repo = TestRepo::new();
 
@@ -128,7 +128,7 @@ fn test_checkpoint_with_prompt_sharing_enabled() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_checkpoint_with_prompt_sharing_disabled_strips_messages() {
     let mut repo = TestRepo::new();
 
@@ -190,7 +190,7 @@ fn test_checkpoint_with_prompt_sharing_disabled_strips_messages() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_multiple_checkpoints_with_messages() {
     let mut repo = TestRepo::new();
 
@@ -275,7 +275,7 @@ fn test_multiple_checkpoints_with_messages() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_prompt_sharing_disabled_with_empty_transcript() {
     let mut repo = TestRepo::new();
 

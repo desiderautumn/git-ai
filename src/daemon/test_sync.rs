@@ -259,7 +259,7 @@ mod tests {
         assert!(status.success(), "git config should succeed");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn tracked_invocation_resolves_commit_alias_without_git_exec() {
         let repo = init_repo();
         git_config(repo.path(), "alias.ci", "commit -v");
@@ -275,7 +275,7 @@ mod tests {
         assert!(tracks_parsed_git_invocation_for_test_sync(&parsed));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn tracked_invocation_keeps_branch_show_current_alias_untracked() {
         let repo = init_repo();
         git_config(repo.path(), "alias.sc", "branch --show-current");
@@ -288,7 +288,7 @@ mod tests {
         assert!(!tracks_parsed_git_invocation_for_test_sync(&parsed));
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn tracked_invocation_does_not_create_ai_dir_for_untracked_commands() {
         let repo = init_repo();
         let ai_dir = repo.path().join(".git").join("ai");

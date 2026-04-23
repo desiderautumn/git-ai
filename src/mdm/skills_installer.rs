@@ -299,7 +299,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_embedded_skills_are_loaded() {
         for skill in EMBEDDED_SKILLS {
             assert!(!skill.name.is_empty(), "Skill name should not be empty");
@@ -316,7 +316,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_skills_dir_path_is_under_git_ai() {
         if let Some(path) = skills_dir_path() {
             assert!(path.ends_with("skills"));
@@ -325,7 +325,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_link_skill_dir_creates_link_and_content_is_accessible() {
         let tmp = tempfile::tempdir().unwrap();
         let source = tmp.path().join("source-skill");
@@ -343,7 +343,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_link_skill_dir_replaces_existing_directory() {
         let tmp = tempfile::tempdir().unwrap();
         let source = tmp.path().join("source-skill");
@@ -362,7 +362,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_link_skill_dir_replaces_existing_file() {
         let tmp = tempfile::tempdir().unwrap();
         let source = tmp.path().join("source-skill");
@@ -378,7 +378,7 @@ mod tests {
         assert!(link.join("SKILL.md").exists());
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_link_skill_dir_creates_parent_directories() {
         let tmp = tempfile::tempdir().unwrap();
         let source = tmp.path().join("source-skill");
@@ -393,7 +393,7 @@ mod tests {
     }
 
     #[cfg(unix)]
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_link_skill_dir_creates_symlink_on_unix() {
         let tmp = tempfile::tempdir().unwrap();
         let source = tmp.path().join("source-skill");
@@ -407,7 +407,7 @@ mod tests {
         assert_eq!(fs::read_link(&link).unwrap(), source);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_remove_skill_link_removes_directory() {
         let tmp = tempfile::tempdir().unwrap();
         let dir = tmp.path().join("skill-dir");
@@ -419,7 +419,7 @@ mod tests {
     }
 
     #[cfg(unix)]
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_remove_skill_link_removes_symlink() {
         let tmp = tempfile::tempdir().unwrap();
         let target = tmp.path().join("target");
@@ -433,14 +433,14 @@ mod tests {
         assert!(target.exists(), "original target should not be removed");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_remove_skill_link_noop_on_nonexistent_path() {
         let tmp = tempfile::tempdir().unwrap();
         let nonexistent = tmp.path().join("does-not-exist");
         remove_skill_link(&nonexistent).unwrap();
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     #[serial]
     fn test_install_and_uninstall_skills_lifecycle() {
         // Use an isolated temp HOME so we don't pollute the real home directory

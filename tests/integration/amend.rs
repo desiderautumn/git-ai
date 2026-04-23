@@ -4,7 +4,7 @@ use git_ai::authorship::authorship_log_serialization::AuthorshipLog;
 use std::collections::HashMap;
 
 /// Test amending a commit by adding AI-authored lines at the top of the file.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_amend_add_lines_at_top() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -43,7 +43,7 @@ fn test_amend_add_lines_at_top() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_amend_add_lines_in_middle() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -77,7 +77,7 @@ fn test_amend_add_lines_in_middle() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_amend_add_lines_at_bottom() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -111,7 +111,7 @@ fn test_amend_add_lines_at_bottom() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_amend_multiple_changes() {
     let repo = TestRepo::new();
     let mut file = repo.filename("code.js");
@@ -151,7 +151,7 @@ fn test_amend_multiple_changes() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_amend_with_unstaged_ai_code_in_other_file() {
     let repo = TestRepo::new();
 
@@ -189,7 +189,7 @@ fn test_amend_with_unstaged_ai_code_in_other_file() {
 
 /// Test that unstaged AI code in the tree is attributed after amending HEAD with a different file
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_amend_preserves_unstaged_ai_attribution() {
     let repo = TestRepo::new();
 
@@ -242,7 +242,7 @@ fn test_amend_preserves_unstaged_ai_attribution() {
 
 /// Test amending with multiple files where some have unstaged AI changes
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_amend_with_multiple_files_mixed_staging() {
     let repo = TestRepo::new();
 
@@ -292,7 +292,7 @@ fn test_amend_with_multiple_files_mixed_staging() {
 
 /// Test amending with a partially staged AI file
 /// Stage the first half, leave the second half unstaged
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_amend_with_partially_staged_ai_file() {
     let repo = TestRepo::new();
 
@@ -358,7 +358,7 @@ fn test_amend_with_partially_staged_ai_file() {
 }
 
 /// Test amending with partially staged mixed AI/human file
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_amend_with_partially_staged_mixed_content() {
     let repo = TestRepo::new();
 
@@ -404,7 +404,7 @@ fn test_amend_with_partially_staged_mixed_content() {
 }
 
 /// Test amending where middle section of AI file is unstaged
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_amend_with_unstaged_middle_section() {
     let repo = TestRepo::new();
 
@@ -464,7 +464,7 @@ fn test_amend_with_unstaged_middle_section() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_amend_repeated_round_trips_preserve_exact_line_authorship() {
     let repo = TestRepo::new();
     let mut file = repo.filename("code.js");
@@ -514,7 +514,7 @@ fn test_amend_repeated_round_trips_preserve_exact_line_authorship() {
 
 /// Test that custom attributes set via config are preserved through an amend
 /// when the real post-commit pipeline injects them.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_amend_preserves_custom_attributes_from_config() {
     let mut repo = TestRepo::new_dedicated_daemon();
 
@@ -589,7 +589,7 @@ fn test_amend_preserves_custom_attributes_from_config() {
 /// VirtualAttributions upfront without pruning them to only those referenced by
 /// actual attestations.  When an AI line was deleted in the amend the attestation
 /// was correctly absent, but the orphaned PromptRecord remained in the metadata.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_amend_delete_ai_line_removes_prompt_from_note() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -643,7 +643,7 @@ fn test_amend_delete_ai_line_removes_prompt_from_note() {
 /// those foreign PromptRecords must NOT appear in the amended commit's note.
 /// Before the fix the note for the amended commit contained the earlier commit's
 /// PromptRecord even though it had no corresponding attestation.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_amend_delete_prior_commit_ai_line_no_foreign_prompt_in_note() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");
@@ -722,7 +722,7 @@ fn test_amend_delete_prior_commit_ai_line_no_foreign_prompt_in_note() {
 /// Deleting the attributed line removes the *attribution* (line coordinates), but
 /// the HumanRecord itself must remain — matching how PromptRecords are preserved
 /// via `checkpoint_prompt_ids` even when all attributed AI lines are deleted.
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_amend_delete_known_human_line_preserves_human_record_in_note() {
     let repo = TestRepo::new();
     let mut file = repo.filename("test.txt");

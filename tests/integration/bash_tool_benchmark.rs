@@ -383,7 +383,7 @@ fn run_benchmark(repo_root: &Path, label: &str) -> (DurationStats, DurationStats
 // Tests
 // ---------------------------------------------------------------------------
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn test_bash_tool_snapshot_benchmark_small() {
     const FILE_COUNT: usize = 1_000;
@@ -446,7 +446,7 @@ fn test_bash_tool_snapshot_benchmark_small() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn test_bash_tool_snapshot_benchmark_medium() {
     const FILE_COUNT: usize = 10_000;
@@ -506,7 +506,7 @@ fn test_bash_tool_snapshot_benchmark_medium() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn test_bash_tool_snapshot_benchmark_large() {
     const FILE_COUNT: usize = 100_000;
@@ -563,7 +563,7 @@ fn test_bash_tool_snapshot_benchmark_large() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn test_bash_tool_snapshot_benchmark_xlarge() {
     // This test creates 500K files and is too slow for CI.  It validates
@@ -718,7 +718,7 @@ fn test_bash_tool_snapshot_benchmark_xlarge() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn test_bash_tool_diff_performance() {
     // Benchmarks the diff() function in isolation by building two large
@@ -831,7 +831,7 @@ fn test_bash_tool_diff_performance() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn test_bash_tool_git_status_fallback_benchmark() {
     // Benchmarks git_status_fallback() which shells out to `git status`.
@@ -891,7 +891,7 @@ fn test_bash_tool_git_status_fallback_benchmark() {
     stats.print("git_status_fallback (10K files)");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 #[ignore]
 fn test_bash_tool_snapshot_entry_count_accuracy() {
     // Verify that the snapshot captures exactly the files modified after the

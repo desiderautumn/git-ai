@@ -180,7 +180,7 @@ mod tests {
     use super::parse_simple_update_ref;
     use crate::git::cli_parser::parse_git_cli_args;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn parses_simple_update_ref() {
         let parsed = parse_git_cli_args(&[
             "update-ref".to_string(),
@@ -191,7 +191,7 @@ mod tests {
         assert_eq!(command.ref_name, "refs/heads/topic");
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn rejects_update_ref_stdin_mode() {
         let parsed = parse_git_cli_args(&["update-ref".to_string(), "--stdin".to_string()]);
         assert!(parse_simple_update_ref(&parsed).is_none());

@@ -9,7 +9,7 @@ use serde_json::json;
 use std::fs;
 use std::io::Write;
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_parse_example_gemini_json_with_model() {
     let fixture = fixture_path("gemini-session-simple.json");
     let (transcript, model) =
@@ -42,7 +42,7 @@ fn test_parse_example_gemini_json_with_model() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_parses_user_messages() {
     let fixture = fixture_path("gemini-session-simple.json");
     let (transcript, _model) =
@@ -69,7 +69,7 @@ fn test_gemini_parses_user_messages() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_parses_assistant_messages() {
     let fixture = fixture_path("gemini-session-simple.json");
     let (transcript, _model) =
@@ -94,7 +94,7 @@ fn test_gemini_parses_assistant_messages() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_parses_tool_calls() {
     let fixture = fixture_path("gemini-session-simple.json");
     let (transcript, _model) =
@@ -138,7 +138,7 @@ fn test_gemini_parses_tool_calls() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_parses_tool_call_args() {
     let fixture = fixture_path("gemini-session-simple.json");
     let (transcript, _model) =
@@ -170,7 +170,7 @@ fn test_gemini_parses_tool_call_args() {
     }
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_handles_empty_content() {
     // Test that empty content strings are skipped
     let sample = r##"{
@@ -226,7 +226,7 @@ fn test_gemini_handles_empty_content() {
     assert_eq!(model, Some("gemini-2.5-flash".to_string()));
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_skips_unknown_message_types() {
     let sample = r##"{
         "sessionId": "test-session",
@@ -273,7 +273,7 @@ fn test_gemini_skips_unknown_message_types() {
     assert_eq!(transcript.messages().len(), 2);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_preset_extracts_edited_filepath() {
     let hook_input = json!({
         "cwd": "/Users/svarlamov/projects/testing-git",
@@ -302,7 +302,7 @@ fn test_gemini_preset_extracts_edited_filepath() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_preset_no_filepath_when_tool_input_missing() {
     let hook_input = json!({
         "cwd": "/Users/svarlamov/projects/testing-git",
@@ -322,7 +322,7 @@ fn test_gemini_preset_no_filepath_when_tool_input_missing() {
     assert!(result.edited_filepaths.is_none());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_preset_human_checkpoint() {
     use git_ai::authorship::working_log::CheckpointKind;
 
@@ -366,7 +366,7 @@ fn test_gemini_preset_human_checkpoint() {
     assert!(result.transcript.is_none());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_preset_ai_checkpoint() {
     use git_ai::authorship::working_log::CheckpointKind;
 
@@ -404,7 +404,7 @@ fn test_gemini_preset_ai_checkpoint() {
     assert!(result.will_edit_filepaths.is_none());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_preset_extracts_model() {
     let hook_input = json!({
         "cwd": "/Users/svarlamov/projects/testing-git",
@@ -426,7 +426,7 @@ fn test_gemini_preset_extracts_model() {
     assert_eq!(result.agent_id.id, "18f475c0-690f-4bc9-b84e-88a0a1e9518f");
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_preset_stores_transcript_path_in_metadata() {
     let hook_input = json!({
         "cwd": "/Users/svarlamov/projects/testing-git",
@@ -451,7 +451,7 @@ fn test_gemini_preset_stores_transcript_path_in_metadata() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_preset_handles_missing_transcript_path() {
     let hook_input = json!({
         "cwd": "/Users/svarlamov/projects/testing-git",
@@ -476,7 +476,7 @@ fn test_gemini_preset_handles_missing_transcript_path() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_preset_handles_invalid_json() {
     let hook_input = "{ invalid json }";
 
@@ -491,7 +491,7 @@ fn test_gemini_preset_handles_invalid_json() {
     assert!(result.is_err());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_preset_handles_missing_session_id() {
     let hook_input = json!({
         "cwd": "/Users/svarlamov/projects/testing-git",
@@ -516,7 +516,7 @@ fn test_gemini_preset_handles_missing_session_id() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_preset_handles_missing_file() {
     let hook_input = json!({
         "cwd": "/Users/svarlamov/projects/testing-git",
@@ -543,7 +543,7 @@ fn test_gemini_preset_handles_missing_file() {
 // End-to-end tests using TestRepo
 // ============================================================================
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_e2e_with_attribution() {
     let repo = TestRepo::new();
     let fixture_path_str = fixture_path("gemini-session-simple.json")
@@ -630,7 +630,7 @@ fn test_gemini_e2e_with_attribution() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_e2e_human_checkpoint() {
     let repo = TestRepo::new();
     let fixture_path_str = fixture_path("gemini-session-simple.json")
@@ -688,7 +688,7 @@ fn test_gemini_e2e_human_checkpoint() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_e2e_multiple_tool_calls() {
     let repo = TestRepo::new();
     let fixture_path_str = fixture_path("gemini-session-simple.json")
@@ -735,7 +735,7 @@ fn test_gemini_e2e_multiple_tool_calls() {
     assert!(!commit.authorship_log.attestations.is_empty());
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_e2e_with_resync() {
     use std::fs;
     use tempfile::TempDir;
@@ -842,7 +842,7 @@ fn test_gemini_e2e_with_resync() {
     );
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_e2e_partial_staging() {
     let repo = TestRepo::new();
     let fixture_path_str = fixture_path("gemini-session-simple.json")
@@ -896,7 +896,7 @@ fn test_gemini_e2e_partial_staging() {
     ]);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_gemini_preset_bash_tool_aftertool_detects_changes() {
     // Exercises the AfterTool bash-tool path introduced in the bash-support PR:
     // GeminiPreset with tool_name="shell" should run the stat-diff snapshot
