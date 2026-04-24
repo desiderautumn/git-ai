@@ -1,4 +1,7 @@
 import re
+import sys
+
+platform = sys.argv[1]
 
 file_pattern = re.compile(r"^     Running (.+) \(")
 func_pattern = re.compile(r"^test ([\w:/ -]+) (\(.*\) )?\.\.\.")
@@ -162,8 +165,13 @@ while len(proportions_copy) > 0:
 print("max win to linux proportion:", ordered_proportions[0], win_proportions[ordered_proportions[0]], linux_proportions[ordered_proportions[0]], relative_win_to_linux_proportions[ordered_proportions[0]])
 print("min win to linux proportion:", ordered_proportions[-1], win_proportions[ordered_proportions[-1]], linux_proportions[ordered_proportions[-1]], relative_win_to_linux_proportions[ordered_proportions[-1]])
 
-for test in ordered_proportions[:20]:
+for test in ordered_proportions[:10]:
     win_dur = win_durs[test]
     wsl_dur = wsl_durs[test]
     linux_dur = linux_durs[test]
-    print(f"test: {test}, win: {win_dur}, wsl: {wsl_dur}, linux: {linux_dur}")
+    #print(f"test: {test}, win: {win_dur}, wsl: {wsl_dur}, linux: {linux_dur}")
+
+    test_src_path = test[0].removeprefix("unittests ")
+    test_identifier = test[1]
+
+    print(f"python3 measure.py {platform} {test_src_path} {test_identifier}")
