@@ -65,6 +65,9 @@ serial_test = "3.4"
 rstest = "0.26"
 paste = "1.0"
 
+[profile.release]
+debug = true
+
 [profile.dev]
 debug = 1                          # Line tables only -- smaller binaries, faster linking
 split-debuginfo = "unpacked"       # macOS: dramatically faster linking
