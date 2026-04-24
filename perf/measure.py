@@ -41,7 +41,7 @@ def main():
 
     profile_path = pathlib.Path("measurements") / test_identifier.replace("::", ".")
     profile_path.mkdir(exist_ok=True)
-    profile_file = profile_path / f"profile.{platform}.jzon.gz"
+    profile_file = profile_path / f"profile.{platform}.json.gz"
 
     cmd = f'samply record -o "{profile_file}" -s "{cargo_test_filename}" --exact {test_identifier}'
     print(f"Running `{cmd}`")
