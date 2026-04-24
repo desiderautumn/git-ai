@@ -2,6 +2,7 @@ import re
 import sys
 
 platform = sys.argv[1]
+count = int(sys.argv[2])
 
 file_pattern = re.compile(r"^     Running (.+) \(")
 func_pattern = re.compile(r"^test ([\w:/ -]+) (\(.*\) )?\.\.\.")
@@ -165,7 +166,7 @@ while len(proportions_copy) > 0:
 #print("max win to linux proportion:", ordered_proportions[0], win_proportions[ordered_proportions[0]], linux_proportions[ordered_proportions[0]], relative_win_to_linux_proportions[ordered_proportions[0]])
 #print("min win to linux proportion:", ordered_proportions[-1], win_proportions[ordered_proportions[-1]], linux_proportions[ordered_proportions[-1]], relative_win_to_linux_proportions[ordered_proportions[-1]])
 
-for test in ordered_proportions[:10]:
+for test in ordered_proportions[:count]:
     win_dur = win_durs[test]
     wsl_dur = wsl_durs[test]
     linux_dur = linux_durs[test]
