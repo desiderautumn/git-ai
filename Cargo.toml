@@ -83,3 +83,7 @@ opt-level = 2                      # Optimize proc macros and build scripts
 name = "integration"
 path = "tests/integration/main.rs"
 harness = true
+
+[profile.samply]
+inherits = "release"
+debug = true
