@@ -8,7 +8,7 @@ func_pattern = re.compile(r"^test ([\w:/ -]+) (\(.*\) )?\.\.\.")
 dur_pattern = re.compile(r"\[dur: (\d+) ms \(([a-zA-Z0-9_]+)\)\]")
 
 def read_durs(record_filename):
-    print("reading:", record_filename)
+    #print("reading:", record_filename)
     durs = dict()
     tested_funcs = set()
     unmatching_func_count = 0
@@ -40,11 +40,11 @@ def read_durs(record_filename):
                     if not func_path.endswith("worktree"):
                         unexpected_unmatching_func_count += 1
 
-    print("  unmatching funcs:", unmatching_func_count)
-    print("  unexpected unmatching funcs:", unexpected_unmatching_func_count)
+    #print("  unmatching funcs:", unmatching_func_count)
+    #print("  unexpected unmatching funcs:", unexpected_unmatching_func_count)
     funcs_with_durs = {func_path for (file_name, func_path) in durs.keys()}
-    print("  tested funcs without durs:", len(tested_funcs - funcs_with_durs))
-    print("  funcs with durs:", len(durs))
+    #print("  tested funcs without durs:", len(tested_funcs - funcs_with_durs))
+    #print("  funcs with durs:", len(durs))
 
     return durs
 
@@ -69,20 +69,20 @@ def dur_magnitudes(durs):
         else:
             mag6 += 1
         
-    print("0-10 ms:", mag1)
-    print("10-100 ms:", mag2)
-    print("100-1000 ms:", mag3)
-    print("1000-10000 ms:", mag4)
-    print("10000-100000 ms:", mag5)
-    print(">100000 ms:", mag6)
+    #print("0-10 ms:", mag1)
+    #print("10-100 ms:", mag2)
+    #print("100-1000 ms:", mag3)
+    #print("1000-10000 ms:", mag4)
+    #print("10000-100000 ms:", mag5)
+    #print(">100000 ms:", mag6)
 
 win_durs = read_durs("ct.win.serial.stdall")
 wsl_durs = read_durs("ct.wsl.serial.stdall")
 linux_durs = read_durs("ct.linux.serial.stdall")
 
-print("win total dur:", sum(win_durs.values()) / 60000, "minutes")
-print("wsl total dur:", sum(wsl_durs.values()) / 60000, "minutes")
-print("linux total dur:", sum(linux_durs.values()) / 60000, "minutes")
+#print("win total dur:", sum(win_durs.values()) / 60000, "minutes")
+#print("wsl total dur:", sum(wsl_durs.values()) / 60000, "minutes")
+#print("linux total dur:", sum(linux_durs.values()) / 60000, "minutes")
 
 dur_magnitudes(win_durs)
 
@@ -106,10 +106,10 @@ linux_tests = set(linux_durs.keys())
 
 common_tests = win_tests.intersection(wsl_tests).intersection(linux_tests)
 
-print("win tests not in common:", len(win_tests - common_tests))
-print("wsl tests not in common:", len(wsl_tests - common_tests))
-print("linux tests not in common:", len(linux_tests - common_tests))
-print("common tests:", len(common_tests))
+#print("win tests not in common:", len(win_tests - common_tests))
+#print("wsl tests not in common:", len(wsl_tests - common_tests))
+#print("linux tests not in common:", len(linux_tests - common_tests))
+#print("common tests:", len(common_tests))
 
 win_tests = win_tests.intersection(common_tests)
 wsl_tests = wsl_tests.intersection(common_tests)
@@ -162,8 +162,8 @@ while len(proportions_copy) > 0:
     ordered_proportions.append(max(proportions_copy))
     del(proportions_copy[ordered_proportions[-1]])
 
-print("max win to linux proportion:", ordered_proportions[0], win_proportions[ordered_proportions[0]], linux_proportions[ordered_proportions[0]], relative_win_to_linux_proportions[ordered_proportions[0]])
-print("min win to linux proportion:", ordered_proportions[-1], win_proportions[ordered_proportions[-1]], linux_proportions[ordered_proportions[-1]], relative_win_to_linux_proportions[ordered_proportions[-1]])
+#print("max win to linux proportion:", ordered_proportions[0], win_proportions[ordered_proportions[0]], linux_proportions[ordered_proportions[0]], relative_win_to_linux_proportions[ordered_proportions[0]])
+#print("min win to linux proportion:", ordered_proportions[-1], win_proportions[ordered_proportions[-1]], linux_proportions[ordered_proportions[-1]], relative_win_to_linux_proportions[ordered_proportions[-1]])
 
 for test in ordered_proportions[:10]:
     win_dur = win_durs[test]
