@@ -172,7 +172,11 @@ for test in ordered_proportions[:count]:
     linux_dur = linux_durs[test]
     #print(f"test: {test}, win: {win_dur}, wsl: {wsl_dur}, linux: {linux_dur}")
 
-    test_src_path = test[0].removeprefix("unittests ")
+    test_type = "integration"
+    test_src_path = test[0]
+    if test_src_path.startswith("unittests "):
+        test_type = "unit"
+        test_src_path = test_src_path.removeprefix("unittests ")
     test_identifier = test[1]
 
-    print(f"python3 measure.py {platform} {test_src_path} {test_identifier}")
+    print(f"python3 measure.py {platform} {test_type} {test_src_path} {test_identifier}")
