@@ -276,7 +276,7 @@ fn test_initial_and_blame_merge() {
     assert_debug_snapshot!(normalized);
 }
 
-#[test]
+#[test] #[print_dur::print_dur]
 fn test_partial_file_coverage() {
     // Test that INITIAL has data for fileA but not fileB
     let repo = TestRepo::new();

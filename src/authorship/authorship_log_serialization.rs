@@ -694,7 +694,7 @@ mod tests {
         assert_debug_snapshot!(ranges);
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_serialize_deserialize_roundtrip() {
         let mut log = AuthorshipLog::new();
         log.metadata.base_commit_sha = "abc123".to_string();
@@ -789,7 +789,7 @@ mod tests {
         // Should be sorted as: 1, 5, 10-15, 25-30, 50, 100-200
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_file_names_with_spaces() {
         // Test file names with spaces and special characters
         let mut log = AuthorshipLog::new();
@@ -910,7 +910,7 @@ mod tests {
         }
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_serialize_deserialize_no_attestations() {
         // Test that serialization and deserialization work correctly when there are no attestations
         let mut log = AuthorshipLog::new();

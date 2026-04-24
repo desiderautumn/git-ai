@@ -758,7 +758,7 @@ mod tests {
     use super::*;
     use crate::git::test_utils::TmpRepo;
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_terminal_stats_display() {
         // Test with mixed human/AI stats
         let stats = CommitStats {
@@ -934,7 +934,7 @@ mod tests {
         );
     }
 
-    #[test]
+    #[test] #[print_dur::print_dur]
     fn test_markdown_stats_display() {
         // Test with mixed human/AI stats
         let stats = CommitStats {
