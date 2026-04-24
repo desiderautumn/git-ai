@@ -187,7 +187,7 @@ mod tests {
         }
     }
 
-    #[tokio::test]
+    #[tokio::test] #[print_dur::print_dur]
     async fn actor_applies_commands() {
         let actor = spawn_family_actor(FamilyKey::new("family-1"));
         let ack1 = actor
@@ -203,7 +203,7 @@ mod tests {
         actor.shutdown().await.unwrap();
     }
 
-    #[tokio::test]
+    #[tokio::test] #[print_dur::print_dur]
     async fn actor_status_reports_applied_seq() {
         let actor = spawn_family_actor(FamilyKey::new("family-2"));
         actor
@@ -215,7 +215,7 @@ mod tests {
         actor.shutdown().await.unwrap();
     }
 
-    #[tokio::test]
+    #[tokio::test] #[print_dur::print_dur]
     async fn test_watermarks_initially_empty() {
         let handle = spawn_family_actor(FamilyKey::new("test-family"));
         let watermarks = handle.watermarks().await.unwrap();
@@ -224,7 +224,7 @@ mod tests {
         handle.shutdown().await.unwrap();
     }
 
-    #[tokio::test]
+    #[tokio::test] #[print_dur::print_dur]
     async fn test_watermarks_update_and_retrieve() {
         let handle = spawn_family_actor(FamilyKey::new("test-family"));
 
@@ -261,7 +261,7 @@ mod tests {
         handle.shutdown().await.unwrap();
     }
 
-    #[tokio::test]
+    #[tokio::test] #[print_dur::print_dur]
     async fn test_worktree_watermark_update_and_retrieve() {
         let handle = spawn_family_actor(FamilyKey::new("test-family"));
 
@@ -295,7 +295,7 @@ mod tests {
         handle.shutdown().await.unwrap();
     }
 
-    #[tokio::test]
+    #[tokio::test] #[print_dur::print_dur]
     async fn test_worktree_watermark_prunes_stale_per_file_entries() {
         let handle = spawn_family_actor(FamilyKey::new("test-family"));
 

@@ -8757,7 +8757,7 @@ mod tests {
         })
     }
 
-    #[tokio::test]
+    #[tokio::test] #[print_dur::print_dur]
     async fn readonly_start_event_is_not_enqueued() {
         let coord = ActorDaemonCoordinator::new();
         let mut payload = make_start_payload(&["git", "status", "--short"]);
@@ -8778,7 +8778,7 @@ mod tests {
         );
     }
 
-    #[tokio::test]
+    #[tokio::test] #[print_dur::print_dur]
     async fn stash_list_start_event_is_not_enqueued() {
         let coord = ActorDaemonCoordinator::new();
         let mut payload = make_start_payload(&[
@@ -8801,7 +8801,7 @@ mod tests {
         );
     }
 
-    #[tokio::test]
+    #[tokio::test] #[print_dur::print_dur]
     async fn worktree_list_start_event_is_not_enqueued() {
         let coord = ActorDaemonCoordinator::new();
         let mut payload = make_start_payload(&[
@@ -8823,7 +8823,7 @@ mod tests {
         );
     }
 
-    #[tokio::test]
+    #[tokio::test] #[print_dur::print_dur]
     async fn diff_numstat_start_event_is_not_enqueued() {
         let coord = ActorDaemonCoordinator::new();
         let mut payload = make_start_payload(&[
@@ -8843,7 +8843,7 @@ mod tests {
         );
     }
 
-    #[tokio::test]
+    #[tokio::test] #[print_dur::print_dur]
     async fn for_each_ref_start_event_is_not_enqueued() {
         let coord = ActorDaemonCoordinator::new();
         let mut payload = make_start_payload(&[
@@ -8862,7 +8862,7 @@ mod tests {
         );
     }
 
-    #[tokio::test]
+    #[tokio::test] #[print_dur::print_dur]
     async fn cat_file_start_event_is_not_enqueued() {
         let coord = ActorDaemonCoordinator::new();
         let mut payload = make_start_payload(&[
@@ -8878,7 +8878,7 @@ mod tests {
         );
     }
 
-    #[tokio::test]
+    #[tokio::test] #[print_dur::print_dur]
     async fn show_commit_start_event_is_not_enqueued() {
         let coord = ActorDaemonCoordinator::new();
         let mut payload = make_start_payload(&[
@@ -8893,7 +8893,7 @@ mod tests {
         assert!(!should_enqueue, "show start event should not be enqueued");
     }
 
-    #[tokio::test]
+    #[tokio::test] #[print_dur::print_dur]
     async fn mutating_commit_start_event_is_enqueued() {
         let coord = ActorDaemonCoordinator::new();
         let mut payload = make_start_payload(&["git", "commit", "-m", "test commit"]);
@@ -8908,7 +8908,7 @@ mod tests {
         );
     }
 
-    #[tokio::test]
+    #[tokio::test] #[print_dur::print_dur]
     async fn mutating_stash_pop_start_event_is_enqueued() {
         let coord = ActorDaemonCoordinator::new();
         let mut payload = make_start_payload(&["git", "stash", "pop"]);
@@ -8919,7 +8919,7 @@ mod tests {
         );
     }
 
-    #[tokio::test]
+    #[tokio::test] #[print_dur::print_dur]
     async fn mutating_worktree_add_start_event_is_enqueued() {
         let coord = ActorDaemonCoordinator::new();
         let mut payload = make_start_payload(&["git", "worktree", "add", "/tmp/branch", "branch"]);
@@ -8930,7 +8930,7 @@ mod tests {
         );
     }
 
-    #[tokio::test]
+    #[tokio::test] #[print_dur::print_dur]
     async fn readonly_atexit_event_is_not_enqueued_after_readonly_start() {
         let coord = ActorDaemonCoordinator::new();
         let sid = "20260411T120000.000000-Psid1";
@@ -8953,7 +8953,7 @@ mod tests {
     /// Performance invariant: 10,000 readonly start events must be processed
     /// (and discarded) in under 200ms.  This guards against regressions that
     /// re-introduce the >1-minute backlog seen with Zed's ~40 invocations/sec.
-    #[tokio::test]
+    #[tokio::test] #[print_dur::print_dur]
     async fn readonly_flood_1000_events_processed_in_under_200ms() {
         let coord = ActorDaemonCoordinator::new();
         let start = std::time::Instant::now();
@@ -8984,7 +8984,7 @@ mod tests {
 
     /// Ensure a stash-list flood (3208 real-world invocations from Zed)
     /// leaves the ingest queue empty.
-    #[tokio::test]
+    #[tokio::test] #[print_dur::print_dur]
     async fn stash_list_flood_leaves_queue_empty() {
         let coord = ActorDaemonCoordinator::new();
         for i in 0..1000u64 {
@@ -9005,7 +9005,7 @@ mod tests {
     }
 
     /// Ensure a worktree-list flood leaves the ingest queue empty.
-    #[tokio::test]
+    #[tokio::test] #[print_dur::print_dur]
     async fn worktree_list_flood_leaves_queue_empty() {
         let coord = ActorDaemonCoordinator::new();
         for i in 0..1000u64 {
@@ -9032,7 +9032,7 @@ mod tests {
     /// `enqueue_trace_payload` must return an error when the ingest worker has
     /// not been started yet.  This is the "no-sender" fast-fail path and is
     /// unchanged by the OnceLock refactor.
-    #[tokio::test]
+    #[tokio::test] #[print_dur::print_dur]
     async fn enqueue_before_worker_start_returns_error() {
         let coord = ActorDaemonCoordinator::new();
         // Worker never started → OnceLock is empty → enqueue must fail
@@ -9052,7 +9052,7 @@ mod tests {
     /// coordinator stays in a consistent state.  The ingest worker (started
     /// via `start_trace_ingest_worker`) must exit cleanly even when the sender
     /// is no longer dropped by `request_shutdown` (OnceLock never drops it).
-    #[tokio::test]
+    #[tokio::test] #[print_dur::print_dur]
     async fn request_shutdown_is_idempotent_and_consistent() {
         let coord = Arc::new(ActorDaemonCoordinator::new());
         coord.start_trace_ingest_worker().unwrap();
@@ -9068,7 +9068,7 @@ mod tests {
 
     /// Concurrent enqueues from multiple threads must never deadlock or
     /// corrupt the accounting counter.
-    #[tokio::test]
+    #[tokio::test] #[print_dur::print_dur]
     async fn concurrent_mutating_enqueues_do_not_deadlock() {
         use std::sync::Arc;
         let coord = Arc::new(ActorDaemonCoordinator::new());

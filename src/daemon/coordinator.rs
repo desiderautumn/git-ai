@@ -222,7 +222,7 @@ mod tests {
         }
     }
 
-    #[tokio::test]
+    #[tokio::test] #[print_dur::print_dur]
     async fn routes_global_and_family_commands() {
         let backend = Arc::new(MockBackend::default().with_family("/repo", "family:/repo"));
         let coordinator = Coordinator::new(backend);

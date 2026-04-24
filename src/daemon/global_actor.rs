@@ -90,7 +90,7 @@ mod tests {
         }
     }
 
-    #[tokio::test]
+    #[tokio::test] #[print_dur::print_dur]
     async fn global_actor_applies_commands() {
         let actor = spawn_global_actor();
         let ack = actor.apply(global_cmd(1)).await.unwrap();
