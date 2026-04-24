@@ -44,7 +44,13 @@ def main():
     profile_path.mkdir(exist_ok=True)
     profile_file = profile_path / f"profile.{platform}.json.gz"
 
-    cmd = f'samply record -o "{profile_file}" -s "{cargo_test_filename}" --exact {test_identifier}'
+    if test_type == "unit":
+        cmd = f'samply record -o "{profile_file}" -s "{cargo_test_filename}" --exact {test_identifier}'
+    elif test_type == "integration":
+        cmd = f'cargo samply --samply-args="-o \'{profile_file}\' -s" --test {crate_name} {test_identifier}'
+    else:
+        print("Error: unknown test type")
+
     print(f"Running `{cmd}`")
     subprocess.run(shlex.split(cmd), check=True)
 
