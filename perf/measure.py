@@ -8,11 +8,9 @@ def main():
     crate_name = "git_ai"
 
     platform = sys.argv[1]
-    test_src_file = sys.argv[2]
-    test_identifier = sys.argv[3]
-    #platform = "win"
-    #test_src_file = "src/lib.rs"
-    #test_identifier = "git::repository::tests::test_list_commit_files_with_utf8_filename"
+    test_type = sys.argv[2]
+    test_src_file = sys.argv[3]
+    test_identifier = sys.argv[4]
 
     cmd = f"cargo test --no-run --quiet --message-format json {test_identifier}"
     print(f"Running `{cmd}`")
@@ -21,12 +19,15 @@ def main():
     cargo_test_json_records = cargo_test_stdout.split("\n")
 
     test_src_path = pathlib.Path(test_src_file)
+    if test_type == "integration":
+        crate_name = test_src_path.name.removesuffix(".rs")
     cargo_test_filename = None
     record_found = False
     for json_record in cargo_test_json_records:
         try:
             record = json.loads(json_record)
-            if record["profile"]["test"] == True and record["target"]["name"] == crate_name:
+            if record["profile"]["test"] == True:
+                if record["target"]["name"] == crate_name:
                     record_src_path = pathlib.Path(record["target"]["src_path"])
                     if test_src_path.parts == record_src_path.parts[-len(test_src_path.parts):]:
                         cargo_test_filename = record["filenames"][0]
