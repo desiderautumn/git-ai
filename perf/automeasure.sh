@@ -1,13 +1,3 @@
-python3 measure.py win unit src/lib.rs git::repository::tests::test_list_commit_files_with_utf8_filename
-python3 measure.py win unit src/lib.rs git::refs::tests::test_notes_add_blob_batch_reuses_existing_note_blob
-python3 measure.py win unit src/lib.rs git::refs::tests::test_notes_add_batch_writes_multiple_notes
-python3 measure.py win unit src/lib.rs git::refs::tests::test_merge_notes_from_ref
-python3 measure.py win unit src/lib.rs git::refs::tests::test_grep_ai_notes_multiple_matches
-python3 measure.py win unit src/lib.rs git::refs::tests::test_get_commits_with_notes_from_list
-python3 measure.py win unit src/lib.rs git::refs::tests::test_copy_ref
-python3 measure.py win unit src/lib.rs git::refs::tests::test_commits_with_authorship_notes
-python3 measure.py win unit src/lib.rs commands::hooks::rebase_hooks::tests::test_build_rebase_commit_mappings_multi_commit_with_onto_equals_merge_base
-python3 measure.py win unit src/lib.rs commands::hooks::rebase_hooks::tests::test_build_rebase_commit_mappings_excludes_merge_commits_when_onto_equals_merge_base
 python3 measure.py win unit src/lib.rs commands::hooks::rebase_hooks::tests::test_build_rebase_commit_mappings_excludes_merge_commits_from_new_commits
 python3 measure.py win unit src/lib.rs commands::checkpoint::tests::test_known_human_checkpoint_without_ai_history_records_h_hash_attributions
 python3 measure.py win unit src/lib.rs commands::checkpoint::tests::test_human_checkpoint_keeps_attributions_for_ai_touched_file
