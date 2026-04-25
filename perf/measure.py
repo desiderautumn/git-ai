@@ -26,7 +26,7 @@ def main():
     for json_record in cargo_test_json_records:
         try:
             record = json.loads(json_record)
-            if record["profile"]["test"] == True:
+            if record["target"]["test"] == True:
                 if record["target"]["name"] == crate_name:
                     record_src_path = pathlib.Path(record["target"]["src_path"])
                     if test_src_path.parts == record_src_path.parts[-len(test_src_path.parts):]:
