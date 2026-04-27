@@ -1,4 +1,4 @@
-with open("millis.out") as f:
+with open("millis_win.out") as f:
     sum = 0
     for thing in f:
         thing = thing.removeprefix("xxx MILLIS ")
