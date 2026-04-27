@@ -82,7 +82,8 @@ def main():
     cmd = f'samply load "{profile_file}"'
     print(f"Running `{cmd}`")
     try:
-        subprocess.run(shlex.split(cmd))
+        pass
+        #subprocess.run(shlex.split(cmd))
     except KeyboardInterrupt:
         pass
 
