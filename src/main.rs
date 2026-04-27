@@ -12,6 +12,7 @@ struct Cli {
 }
 
 fn main() {
+    let start = std::time::Instant::now();
     // Get the binary name that was called
     let binary_name = std::env::args_os()
         .next()
@@ -50,4 +51,5 @@ fn main() {
     }
 
     commands::git_handlers::handle_git(&cli.args);
+    eprintln!("aaa MILLIS {} aaa", start.elapsed().as_millis());
 }

@@ -3153,6 +3153,7 @@ pub fn exec_git_allow_nonzero_with_profile(
     args: &[String],
     profile: InternalGitProfile,
 ) -> Result<Output, GitAiError> {
+    let start = std::time::Instant::now();
     let effective_args =
         args_with_internal_git_profile(&args_with_disabled_hooks_if_needed(args), profile);
     let mut cmd = Command::new(config::Config::get().git_cmd());
@@ -3167,7 +3168,9 @@ pub fn exec_git_allow_nonzero_with_profile(
         }
     }
 
-    cmd.output().map_err(GitAiError::IoError)
+    let out = cmd.output().map_err(GitAiError::IoError);
+    eprintln!("xxx MILLIS {} xxx", start.elapsed().as_millis());
+    return out;
 }
 
 /// Helper to execute a git command with an explicit internal profile.
