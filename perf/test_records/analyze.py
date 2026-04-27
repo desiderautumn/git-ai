@@ -166,6 +166,7 @@ while len(proportions_copy) > 0:
 #print("max win to linux proportion:", ordered_proportions[0], win_proportions[ordered_proportions[0]], linux_proportions[ordered_proportions[0]], relative_win_to_linux_proportions[ordered_proportions[0]])
 #print("min win to linux proportion:", ordered_proportions[-1], win_proportions[ordered_proportions[-1]], linux_proportions[ordered_proportions[-1]], relative_win_to_linux_proportions[ordered_proportions[-1]])
 
+print('[')
 for test in ordered_proportions[:count]:
     win_dur = win_durs[test]
     wsl_dur = wsl_durs[test]
@@ -179,4 +180,5 @@ for test in ordered_proportions[:count]:
         test_src_path = test_src_path.removeprefix("unittests ")
     test_identifier = test[1]
 
-    print(f"python3 measure.py {platform} {test_type} {test_src_path} {test_identifier}")
+    print(f'"python3 measure.py {platform} {test_type} {test_src_path} {test_identifier}",')
+print(']')
