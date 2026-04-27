@@ -4,3 +4,5 @@
 #
 # For local Linux development, install mold and set:
 #   RUSTFLAGS="-C link-arg=-fuse-ld=mold"
+[build]
+rustflags = ["-C", "symbol-mangling-version=v0"]
