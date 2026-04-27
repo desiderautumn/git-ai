@@ -3,20 +3,24 @@ import subprocess
 import sys
 
 platform = sys.argv[1]
-count = int(sys.argv[2])
+command_range = eval(f"range({sys.argv[2]})")
 
 with open(f"commands_{platform}.py") as command_file:
     commands = eval(command_file.read())
 
-for i in range(0, count):
+for i in command_range:
     command = commands[i]
+    print(f"Running `{command}`")
+    print(shlex.split(command))
     try:
         subprocess.run(shlex.split(command))
-    except:
+    except KeyboardInterrupt:
         pass
 
     try:
         input("\n[Enter to continue]")
-    except KeyboardInterrupt:
-        print("\nAborting")
+    except KeyboardInterrupt, EOFError:
+        print("\n[Aborting]")
         break
+
+print("[Finished]")
