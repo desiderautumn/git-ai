@@ -99,4 +99,5 @@
 "python3 measure.py linux integration tests/notes_sync_regression.rs test_notes_sync_clone_relative_target_from_external_cwd_fetches_authorship_notes_in_worktree_wrapper_daemon_mode",
 "python3 measure.py linux integration tests/notes_sync_regression.rs test_notes_sync_clone_relative_target_from_external_cwd_fetches_authorship_notes_in_worktree_daemon_mode",
 "python3 measure.py linux integration tests/notes_sync_regression.rs test_notes_sync_clone_implicit_target_from_non_repo_cwd_fetches_authorship_notes_in_worktree_wrapper_mode",
+"python3 measure.py linux run git-ai 'diff @..f296d'",
 ]
