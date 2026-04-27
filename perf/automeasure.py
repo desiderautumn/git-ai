@@ -18,8 +18,7 @@ for i in command_range:
         pass
 
     try:
-        pass
-        #input("\n[Enter to continue]")
+        input("\n[Enter to continue]")
     except (KeyboardInterrupt, EOFError):
         print("\n[Aborting]")
         break
