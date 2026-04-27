@@ -40,14 +40,18 @@ def main():
         print("Error: could not locate binary")
         return
 
-    profile_path = pathlib.Path("measurements") / test_identifier.replace("::", ".")
+    profile_path = pathlib.Path("measurements") / test_identifier.replace("::", ".") / platform
     profile_path.mkdir(exist_ok=True)
-    profile_file = profile_path / f"profile.{platform}.json.gz"
+    profile_file = profile_path / f"profile.json.gz"
+
+    presymbolicate_flag = ""
+    if platform == "linux":
+        presymbolicate_flag = "--unstable-presymbolicate"
 
     if test_type == "unit":
-        cmd = f'samply record -o "{profile_file}" -s "{cargo_test_filename}" --exact {test_identifier}'
+        cmd = f'samply record {presymbolicate_flag} -o "{profile_file}" -s "{cargo_test_filename}" --exact {test_identifier}'
     elif test_type == "integration":
-        cmd = f'cargo samply --samply-args="-o \'{profile_file}\' -s" --test {crate_name} {test_identifier}'
+        cmd = f'cargo samply --samply-args="{presymbolicate_flag} -o \'{profile_file}\' -s" --test {crate_name} {test_identifier}'
     else:
         print("Error: unknown test type")
 
@@ -55,6 +59,12 @@ def main():
     subprocess.run(shlex.split(cmd), check=True)
 
     print(f"Output written to {profile_file}")
+
+    cmd = f"samply load {profile_file}"
+    try:
+        subprocess.run(shlex.split(cmd))
+    except KeyboardInterrupt:
+        pass
 
 if __name__ == "__main__":
     main()
