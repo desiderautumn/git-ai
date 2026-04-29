@@ -25,7 +25,7 @@ def run_analysis():
 
     print(f"\nTotal program time: {elapsed_ms} ms")
 
-    print(f"\nTotal program time not spent inside commands: {elapsed_ms - cmd_time_sum} ms ({(cmd_time_sum / elapsed_ms) * 100:.2f}%)")
+    print(f"\nTotal program time not spent inside commands: {elapsed_ms - cmd_time_sum} ms ({((elapsed_ms - cmd_time_sum) / elapsed_ms) * 100:.2f}%)")
 
 if __name__ == "__main__":
     run_analysis()
