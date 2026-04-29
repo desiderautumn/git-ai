@@ -8,6 +8,7 @@ use crate::mdm::hook_installer::HookInstallerParams;
 use crate::mdm::skills_installer;
 use crate::mdm::spinner::{Spinner, print_diff};
 use crate::mdm::utils::{get_current_binary_path, git_shim_path};
+use crate::perf::MeasuredCommand;
 use std::collections::{HashMap, HashSet};
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -129,7 +130,7 @@ fn find_running_pids(process_names: &[&str]) -> Vec<(u32, String)> {
                 .args(["axo", "pid,comm"])
                 .stdout(Stdio::piped())
                 .stderr(Stdio::null())
-                .output()
+                .measured_output()
         }
         #[cfg(windows)]
         {
@@ -137,7 +138,7 @@ fn find_running_pids(process_names: &[&str]) -> Vec<(u32, String)> {
                 .args(["/FO", "CSV", "/NH"])
                 .stdout(Stdio::piped())
                 .stderr(Stdio::null())
-                .output()
+                .measured_output()
         }
     };
 
