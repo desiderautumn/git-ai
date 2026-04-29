@@ -2,6 +2,7 @@
 # To generate a logfile, set the GITAI_MEASURE_COMMAND_PERF env var.
 
 import json
+import re
 import sys
 
 def analyze(log_text):
@@ -31,7 +32,7 @@ def analyze(log_text):
             cmd_args = record['cmd_args']
             cmd_subcommand = ""
             for arg in cmd_args:
-                if arg[0].isalpha():
+                if re.search(r"^[a-zA-Z][a-zA-Z-]*$", arg):
                     cmd_subcommand = arg
                     break
 
