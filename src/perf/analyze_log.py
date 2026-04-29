@@ -27,7 +27,7 @@ def analyze(log_text):
 
         total_elapsed_ms += elapsed_ms
 
-        if cmd_program.endswith('git'):
+        if cmd_program.endswith('git') or cmd_program.endswith('git.exe'):
             cmd_args = record['cmd_args']
             cmd_subcommand = ""
             for arg in cmd_args:
